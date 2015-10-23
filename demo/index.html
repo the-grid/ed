@@ -1,0 +1,30 @@
+<!doctype html>
+
+<meta charset="utf-8"/>
+<title>the-grid/ed demo page</title>
+<style>
+  body {
+    margin: 0;
+    padding: 1em;
+  }
+  textarea {
+    width: 90%;
+    border: 1px solid silver;
+    min-height: 40em;
+    padding: 4px 8px;
+  }
+  #wysiwym {
+    max-width: 50em;
+  }
+</style>
+
+<h1>The Grid / ProseMirror demo page</h1>
+
+<div id="wysiwym"></div>
+
+<!-- <button id="button-from-ed">↓ editor to Grid API</button> -->
+<button id="button-to-ed">↑ Grid API to editor</button>
+
+<textarea id="api" spellcheck="false"></textarea>
+
+<script src="../webpack-memory/demo.js"></script>
