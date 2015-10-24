@@ -13,7 +13,7 @@ import fixture from './fixture'
 import GridToDOM from '../src/GridToDOM'
 
 let pm = window.pm = new ProseMirror({
-  place: document.querySelector('#wysiwym'),
+  place: document.querySelector('#mirror'),
   autoInput: true,
   inlineMenu: true,
   // menuBar: {float: true},

@@ -5,26 +5,43 @@
 <style>
   body {
     margin: 0;
+    height: 100%;
     padding: 1em;
   }
-  textarea {
-    width: 90%;
-    border: 1px solid silver;
-    min-height: 40em;
-    padding: 4px 8px;
+  .flex { display: flex; }
+  .flex1 { flex: 1; }
+  .mr1 { margin-right: 1em; }
+  #container {
+    height: 80vh;
   }
-  #wysiwym {
-    max-width: 50em;
+  #api {
+    width: 100%;
+    height: 100%;
+    border: 1px solid silver;
+    padding: 0;
+  }
+  #mirror {
+    overflow: auto;
+  }
+  .ProseMirror-content {
+    height: 100%;
   }
 </style>
 
 <h1>The Grid / ProseMirror demo page</h1>
 
-<div id="wysiwym"></div>
+<div class="flex">
+  <div class="flex1 mr1" style="text-align:right;">
+    <button id="button-from-ed" disabled>editor to Grid API →</button>
+  </div>
+  <div class="flex1">
+    <button id="button-to-ed">← Grid API to editor</button>
+  </div>
+</div>
 
-<!-- <button id="button-from-ed">↓ editor to Grid API</button> -->
-<button id="button-to-ed">↑ Grid API to editor</button>
-
-<textarea id="api" spellcheck="false"></textarea>
+<div id="container" class="flex">
+  <div id="mirror" class="flex1 mr1"></div>
+  <textarea id="api" class="flex1" spellcheck="false"></textarea>
+</div>
 
 <script src="../webpack-memory/demo.js"></script>
