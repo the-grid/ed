@@ -308,7 +308,7 @@ let code = {
     "id": "6e9b0db7-723d-434e-840c-f38b6ecfe7d5",
     "item": "619ed41f-fdd6-4aba-9c06-682ef16a1b7c",
     "type": "code",
-    "html": "<pre><code>Hello world:-&gt;<br>  &amp;this is code()</code></pre>",
+    "html": "<pre><code>Hello world:-&gt;\n  &amp;this is code()</code></pre>",
     "score": 8,
     "created_at": "2015-03-11T17:00:11.219Z",
     "updated_at": null,
@@ -569,16 +569,16 @@ let post = {
   published: false,
   content: [
     {
-      "id": "abc-00000000-h1",
-      "type": "h1",
-      "html": "<h1>Hello h1: A metaphorical approach to brand and design</h1>",
-      "metadata": {"starred": true}
-    },
-    {
       "id": "abc-00000000-p",
       "type": "text",
       "html": "<p>Hello text</p>",
       "metadata": {}
+    },
+    {
+      "id": "abc-00000000-h1",
+      "type": "h1",
+      "html": "<h1>Hello h1: A metaphorical approach to brand and design</h1>",
+      "metadata": {"starred": true}
     },
     imageRaphael,
     sharing,

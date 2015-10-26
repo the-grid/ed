@@ -1,9 +1,9 @@
 const MEDIA_TYPES = [
   'image', 'video', 'audio', 'article', 
-  'location', 'code', 'share', 'interactive'
+  'location', 'share', 'interactive'
 ];
 const HTML_TYPES = [
-  'text', 'p',
+  'text', 'p', 'code',
   'quote', 'blockquote',
   'list', 'ol', 'ul',
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
@@ -30,7 +30,7 @@ function itemToDOM (item) {
     el = dummy.firstChild;
   } else if ( isMediaType(type) ) {
     el = document.createElement('div');
-    el.innerHTML = `${type} block placeholder`;
+    el.innerHTML = `[[${type} block placeholder]]`;
     el.contenteditable = 'false';
     el.spellcheck = 'false';
   }
