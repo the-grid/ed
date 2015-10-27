@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git"
+    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "webpack": "^1.12.2",

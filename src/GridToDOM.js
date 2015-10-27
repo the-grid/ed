@@ -29,12 +29,12 @@ function itemToDOM (item) {
     dummy.innerHTML = item.html;
     el = dummy.firstChild;
   } else if ( isMediaType(type) ) {
-    el = document.createElement('div');
+    el = document.createElement('p');
     el.innerHTML = `[[${type} block placeholder]]`;
     el.contenteditable = 'false';
     el.spellcheck = 'false';
   }
-  el.dataset.gridId = id;
+  el.setAttribute("data-grid-id", id)
   return el;
 }
 

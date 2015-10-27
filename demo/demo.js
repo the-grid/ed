@@ -1,7 +1,8 @@
 import {ProseMirror} from "prosemirror/src/edit/main"
 import {Pos, Node} from "prosemirror/src/model"
 import {fromDOM} from "prosemirror/src/parse/dom"
-import {defaultSchema as schema} from "prosemirror/src/model"
+// import {defaultSchema as schema} from "prosemirror/src/model"
+import schema from "../src/GridSchema"
 
 import "prosemirror/src/inputrules/autoinput"
 import "prosemirror/src/menu/inlinemenu"
@@ -14,40 +15,42 @@ import GridToDOM from '../src/GridToDOM'
 
 
 // ProseMirror setup
-
 let pm = window.pm = new ProseMirror({
   place: document.querySelector('#mirror'),
   autoInput: true,
   inlineMenu: true,
   // menuBar: {float: true},
-  buttonMenu: {followCursor: true}
+  buttonMenu: {followCursor: true},
+  schema: schema
 })
 
 pm.on('change', function () {
   console.log( 'change', pm.getContent() )
 })
 
+console.log(pm)
+
 
 // Debug buttons
 
-function toEd () {
+function APIToEditor () {
   let json
   try {
     json = JSON.parse(apiJSON.value)
   } catch (e) {
-    console.warn('bad json')
+    return console.warn('bad json')
   }
   let dom = GridToDOM(json.content)
   let doc = fromDOM(schema, dom)
-  pm.setContent(doc);
+  pm.setContent(doc)
 }
-document.querySelector("#button-to-ed").onclick = toEd
+document.querySelector("#hydrate").onclick = APIToEditor
 
 // Simulate changes from API
-let timeout;
+let timeout
 const letters = 'pskzfgtaaiioo   '.split('')
 let randomLetter = function () {
-  return letters[ Math.floor(Math.random()*letters.length) ];
+  return letters[ Math.floor(Math.random()*letters.length) ]
 }
 let toggleUpdates = function () {
   if (timeout) {
@@ -74,4 +77,5 @@ document.querySelector("#sim").onclick = toggleUpdates
 
 let apiJSON = document.querySelector("#api")
 apiJSON.value = JSON.stringify(fixture, null, 2)
-toEd()
+APIToEditor()
+
