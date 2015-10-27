@@ -12,6 +12,8 @@ import "prosemirror/src/collab"
 
 import fixture from './fixture'
 import GridToDOM from '../src/GridToDOM'
+import DocToGrid from '../src/DocToGrid'
+let lastAPI = fixture
 
 
 // ProseMirror setup
@@ -33,6 +35,8 @@ console.log(pm)
 
 // Debug buttons
 
+// Hydrate
+let apiJSON = document.querySelector("#api")
 function APIToEditor () {
   let json
   try {
@@ -43,8 +47,18 @@ function APIToEditor () {
   let dom = GridToDOM(json.content)
   let doc = fromDOM(schema, dom)
   pm.setContent(doc)
+  lastAPI = json
 }
 document.querySelector("#hydrate").onclick = APIToEditor
+
+// Dehydrate
+function EditorToAPI () {
+  let doc = pm.getContent()
+  let changed = DocToGrid(doc, lastAPI)
+  apiJSON.value = JSON.stringify(changed, null, 2)
+  lastAPI = changed
+}
+document.querySelector("#dehydrate").onclick = EditorToAPI
 
 // Simulate changes from API
 let timeout
@@ -74,8 +88,6 @@ document.querySelector("#sim").onclick = toggleUpdates
 
 
 // Initial doc
-
-let apiJSON = document.querySelector("#api")
-apiJSON.value = JSON.stringify(fixture, null, 2)
+apiJSON.value = JSON.stringify(lastAPI, null, 2)
 APIToEditor()
 

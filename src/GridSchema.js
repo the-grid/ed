@@ -1,7 +1,4 @@
 import {defaultSchema, Attribute, Schema} from "prosemirror/src/model"
-import {Transform} from "prosemirror/src/transform"
-import {toDOM} from "prosemirror/src/serialize/dom"
-import {fromDOM} from "prosemirror/src/parse/dom"
 
 import uuid from 'uuid'
 
@@ -16,7 +13,9 @@ const idAttribute = new Attribute({
 idAttribute.parseDOM = (dom, options) => options.source != "paste" && dom.getAttribute("data-grid-id") || makeId()
 idAttribute.serializeDOM = (dom, id) => dom.setAttribute("data-grid-id", id)
 
-let attrPred = (_, data) => data.type.prototype.isTextblock
+let attrPred = (_, data) => data.type.prototype.isTextblock || data.type.prototype.isBlock
 const GridSchema = new Schema(defaultSchema.spec.addAttribute(attrPred, "id", idAttribute))
+
+console.log(GridSchema)
 
 export default GridSchema

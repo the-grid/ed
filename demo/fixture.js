@@ -1,5 +1,5 @@
 let tweet = {
-  "id": "e8bd2b56-5d2e-4fc0-b051-2f2121ebbd74",
+  "id": "uuid-tweet",
   "item": "926db660-ed6c-43f6-b838-56ac6a527034",
   "type": "quote",
   "html": "<blockquote>https://thegrid.io - \"AI\" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.</blockquote>",
@@ -585,7 +585,7 @@ let post = {
     //   "id": "uuid-broken-00",
     //   "type": undefined
     // },
-    // tweet,
+    tweet,
     imageCole,
     {
       "id": "abc-00000000-h2",
@@ -637,19 +637,19 @@ As a designer good communication is key to successful collaboration and progress
     },
     code,
     videoTurtle,
-    article//,
-    // {
-    //   "id": "abc-00000000-ol",
-    //   "type": "list",
-    //   "html": "<ol><li>one</li><li>two</li></ol>",
-    //   "metadata": {"starred": false}
-    // },
-    // {
-    //   "id": "abc-00000000-ul",
-    //   "type": "list",
-    //   "html": "<ul><li>ay</li><li>bee</li></ul>",
-    //   "metadata": {"starred": false}
-    // }
+    article,
+    {
+      "id": "abc-00000000-ol",
+      "type": "list",
+      "html": "<ol><li>one</li><li>two</li></ol>",
+      "metadata": {"starred": false}
+    },
+    {
+      "id": "abc-00000000-ul",
+      "type": "list",
+      "html": "<ul><li>ay</li><li>bee</li></ul>",
+      "metadata": {"starred": false}
+    }
   ]
 }
 
