@@ -586,7 +586,7 @@ let post = {
     //   "id": "uuid-broken-00",
     //   "type": undefined
     // },
-    tweet,
+    // tweet,
     imageCole,
     {
       "id": "abc-00000000-h2",
@@ -638,21 +638,21 @@ As a designer good communication is key to successful collaboration and progress
     },
     code,
     videoTurtle,
-    article,
-    {
-      "id": "abc-00000000-ol",
-      "type": "list",
-      "html": "<ol><li>one</li><li>two</li></ol>",
-      "metadata": {"starred": false}
-    },
-    {
-      "id": "abc-00000000-ul",
-      "type": "list",
-      "html": "<ul><li>ay</li><li>bee</li></ul>",
-      "metadata": {"starred": false}
-    }
+    article//,
+    // {
+    //   "id": "abc-00000000-ol",
+    //   "type": "list",
+    //   "html": "<ol><li>one</li><li>two</li></ol>",
+    //   "metadata": {"starred": false}
+    // },
+    // {
+    //   "id": "abc-00000000-ul",
+    //   "type": "list",
+    //   "html": "<ul><li>ay</li><li>bee</li></ul>",
+    //   "metadata": {"starred": false}
+    // }
   ]
-};
+}
 
 
 export default post;
