@@ -3,15 +3,17 @@ import {Transform} from "prosemirror/src/transform"
 import {toDOM} from "prosemirror/src/serialize/dom"
 import {fromDOM} from "prosemirror/src/parse/dom"
 
-import UUID from 'uuid'
+import uuid from 'uuid'
+
+let makeId = () => uuid.v4()
 
 const idAttribute = new Attribute({
-  compute: UUID.v4,
+  compute: makeId,
   mustRecompute: true,
   inheritable: true
 })
 
-idAttribute.parseDOM = (dom, options) => options.source != "paste" && dom.getAttribute("data-grid-id") || UUID.v4()
+idAttribute.parseDOM = (dom, options) => options.source != "paste" && dom.getAttribute("data-grid-id") || makeId()
 idAttribute.serializeDOM = (dom, id) => dom.setAttribute("data-grid-id", id)
 
 let attrPred = (_, data) => data.type.prototype.isTextblock

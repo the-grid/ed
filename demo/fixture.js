@@ -305,8 +305,7 @@ let imageCole = {
 };
 
 let code = {
-    "id": "6e9b0db7-723d-434e-840c-f38b6ecfe7d5",
-    "item": "619ed41f-fdd6-4aba-9c06-682ef16a1b7c",
+    "id": "uuid-code",
     "type": "code",
     "html": "<pre><code>Hello world:-&gt;\n  &amp;this is code()</code></pre>",
     "score": 8,
