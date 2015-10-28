@@ -27,6 +27,7 @@ export default function (doc, lastAPI) {
     if (!apiBlock) {
       apiBlock = { id: id }
     }
+    child.removeAttribute('data-grid-id')
     apiBlock.html = child.outerHTML
     currentContent[i] = apiBlock
   }
