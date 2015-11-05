@@ -1,5 +1,5 @@
-import {Transform} from "prosemirror/src/transform"
-import {toDOM} from "prosemirror/src/serialize/dom"
+import {Transform} from 'prosemirror/src/transform'
+import {toDOM} from 'prosemirror/src/serialize/dom'
 
 // Dumb clone, don't mutate old
 function clone (obj) {

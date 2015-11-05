@@ -34,7 +34,7 @@ function itemToDOM (item) {
     el.contenteditable = 'false';
     el.spellcheck = 'false';
   }
-  el.setAttribute("data-grid-id", id)
+  el.setAttribute('data-grid-id', id)
   return el;
 }
 

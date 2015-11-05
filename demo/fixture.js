@@ -1,3 +1,5 @@
+/*eslint quotes: [0]*/
+
 let tweet = {
   "id": "uuid-tweet",
   "item": "926db660-ed6c-43f6-b838-56ac6a527034",

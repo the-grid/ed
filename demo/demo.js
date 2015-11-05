@@ -1,14 +1,14 @@
-import {ProseMirror} from "prosemirror/src/edit/main"
-import {Pos, Node} from "prosemirror/src/model"
-import {fromDOM} from "prosemirror/src/parse/dom"
-// import {defaultSchema as schema} from "prosemirror/src/model"
-import schema from "../src/GridSchema"
+import {ProseMirror} from 'prosemirror/src/edit/main'
+import {Pos, Node} from 'prosemirror/src/model'
+import {fromDOM} from 'prosemirror/src/parse/dom'
+// import {defaultSchema as schema} from 'prosemirror/src/model'
+import schema from '../src/GridSchema'
 
-import "prosemirror/src/inputrules/autoinput"
-import "prosemirror/src/menu/inlinemenu"
-import "prosemirror/src/menu/menubar"
-import "prosemirror/src/menu/buttonmenu"
-import "prosemirror/src/collab"
+import 'prosemirror/src/inputrules/autoinput'
+import 'prosemirror/src/menu/inlinemenu'
+import 'prosemirror/src/menu/menubar'
+import 'prosemirror/src/menu/buttonmenu'
+import 'prosemirror/src/collab'
 
 import fixture from './fixture'
 import GridToDOM from '../src/GridToDOM'
@@ -36,7 +36,7 @@ console.log(pm)
 // Debug buttons
 
 // Hydrate
-let apiJSON = document.querySelector("#api")
+let apiJSON = document.querySelector('#api')
 function APIToEditor () {
   let json
   try {
@@ -49,7 +49,7 @@ function APIToEditor () {
   pm.setContent(doc)
   lastAPI = json
 }
-document.querySelector("#hydrate").onclick = APIToEditor
+document.querySelector('#hydrate').onclick = APIToEditor
 
 // Dehydrate
 function EditorToAPI () {
@@ -58,7 +58,7 @@ function EditorToAPI () {
   apiJSON.value = JSON.stringify(changed, null, 2)
   lastAPI = changed
 }
-document.querySelector("#dehydrate").onclick = EditorToAPI
+document.querySelector('#dehydrate').onclick = EditorToAPI
 
 // Simulate changes from API
 let timeout
@@ -84,7 +84,7 @@ let simulateUpdates = function () {
   transform.insertText(position, randomLetter())
   pm.apply(transform)
 }
-document.querySelector("#sim").onclick = toggleUpdates
+document.querySelector('#sim').onclick = toggleUpdates
 
 
 // Initial doc
