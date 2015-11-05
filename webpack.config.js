@@ -26,10 +26,15 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /-dev-server/ },
+      { 
+        test: /\.js$/,
+        loader: "eslint-loader", 
+        exclude: /node_modules/
+      },
       { test: /\.json$/, loader: 'json-loader' },
     ]
   },
   resolve: {
-    extensions: ['', '.babel.js', '.js', '.json']
+    extensions: ['', '.js', '.json']
   }
 };
