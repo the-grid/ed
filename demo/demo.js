@@ -15,7 +15,6 @@ import GridToDOM from '../src/GridToDOM'
 import DocToGrid from '../src/DocToGrid'
 let lastAPI = fixture
 
-
 // ProseMirror setup
 let pm = window.pm = new ProseMirror({
   place: document.querySelector('#mirror'),

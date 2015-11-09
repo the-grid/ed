@@ -25,11 +25,15 @@ module.exports = {
   devtool: (__DEV ? 'cheap-module-eval-source-map' : null),
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /-dev-server/ },
+      { 
+        test: /\.js$/, 
+        loader: 'babel-loader', 
+        include: [/demo/, /src/, /node_modules\/prosemirror/]
+      },
       { 
         test: /\.js$/,
-        loader: "eslint-loader", 
-        exclude: /node_modules/
+        loader: 'eslint-loader', 
+        include: [/demo/, /src/]
       },
       { test: /\.json$/, loader: 'json-loader' },
     ]
