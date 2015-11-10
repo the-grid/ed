@@ -1,15 +1,15 @@
-webpack = require('webpack');
-path = require('path');
-var __DEV = (process.env.DEV === 'true');
+webpack = require('webpack')
+path = require('path')
+var __DEV = (process.env.DEV === 'true')
 
-var entry = {};
-var plugins = [];
+var entry = {}
+var plugins = []
 
 if (__DEV) {
-  entry.demo = './demo/demo.js';
+  entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/main.js'
-  plugins.push( new webpack.optimize.UglifyJsPlugin() );
+  plugins.push( new webpack.optimize.UglifyJsPlugin() )
 }
 
 module.exports = {
@@ -19,8 +19,7 @@ module.exports = {
     path: './build/',
     publicPath: '/webpack-memory/',
     filename: '[name].js',
-    library: 'TheGridEd',
-    libraryTarget: 'commonjs'
+    library: 'TheGridEd'
   },
   debug: __DEV,
   devtool: (__DEV ? 'cheap-module-eval-source-map' : null),
@@ -50,4 +49,4 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.json']
   }
-};
+}

@@ -9,7 +9,8 @@
     "build": "npm run clean; webpack",
     "clean": "rm -rf build",
     "test": "mocha",
-    "postinstall": "npm run build"
+    "preversion": "npm test && npm run build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
