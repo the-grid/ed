@@ -42,7 +42,7 @@ let tweet = {
     "isBasedOnUrl": "https://twitter.com/jasonfried/status/522492212144525312",
     "source": "926db660-ed6c-43f6-b838-56ac6a527034"
   }
-};
+}
 
 let imageRaphael = {
     "id": "50ba0e9b-442d-48bc-a138-d0c25c6c2a3e",
@@ -197,7 +197,7 @@ let videoTurtle = {
       "colors": [[47,47,48],[213,215,206],[123,119,115],[149,162,164],[136,144,159]]
   },
   "title": "Mozfest 2014 - Turtle Power: Mirobot and Flowhub penplotting"
-};
+}
 
 let article = {
   "id": "272572a7-14f8-444c-864e-3284ddb7c025",
@@ -259,7 +259,7 @@ let article = {
   },
   "title": "Turtle power to the people",
   "caption": "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot."
-};
+}
 
 let imageCole = {
   "id": "820d4bb0-6834-410c-8bca-5d9ee0ed0be4",
@@ -304,7 +304,7 @@ let imageCole = {
           "bounding_rect": [[267, 251],[1233, 659]]
       }
   }
-};
+}
 
 let code = {
     "id": "uuid-code",
