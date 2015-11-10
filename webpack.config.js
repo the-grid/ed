@@ -1,4 +1,5 @@
 webpack = require('webpack');
+path = require('path');
 var __DEV = (process.env.DEV === 'true');
 
 var entry = {};
@@ -25,16 +26,24 @@ module.exports = {
   devtool: (__DEV ? 'cheap-module-eval-source-map' : null),
   module: {
     loaders: [
-      { 
+      {
         test: /\.js$/, 
         loader: 'babel-loader', 
-        include: [/demo/, /src/, /node_modules\/prosemirror/]
+        include: [
+          path.resolve(__dirname, 'demo'),
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules', 'prosemirror')
+        ],
+        // Need this here for prosemirror til it has own .babelrc
+        query: {
+          presets: ['es2015']
+        }
       },
-      { 
-        test: /\.js$/,
-        loader: 'eslint-loader', 
-        include: [/demo/, /src/]
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'eslint-loader', 
+      //   include: [/demo/, /src/]
+      // },
       { test: /\.json$/, loader: 'json-loader' },
     ]
   },
