@@ -583,10 +583,10 @@ let post = {
     },
     imageRaphael,
     sharing,
-    // {
-    //   "id": "uuid-broken-00",
-    //   "type": undefined
-    // },
+    {
+      "id": "uuid-broken-00",
+      "type": undefined
+    },
     tweet,
     imageCole,
     {

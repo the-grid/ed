@@ -14,6 +14,9 @@ idAttribute.parseDOM = (dom, options) => options.source != 'paste' && dom.getAtt
 idAttribute.serializeDOM = (dom, id) => dom.setAttribute('data-grid-id', id)
 
 let attrPred = (_, data) => data.type.prototype.isTextblock || data.type.prototype.isBlock
-const GridSchema = new Schema(defaultSchema.spec.addAttribute(attrPred, 'id', idAttribute))
+let spec = defaultSchema.spec.addAttribute(attrPred, 'id', idAttribute)
+const GridSchema = new Schema(spec)
+
+console.log(GridSchema)
 
 export default GridSchema

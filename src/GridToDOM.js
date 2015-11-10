@@ -33,6 +33,8 @@ function itemToDOM (item) {
     el.innerHTML = `[[${type} block placeholder]]`;
     el.contenteditable = 'false';
     el.spellcheck = 'false';
+  } else {
+    return null
   }
   el.setAttribute('data-grid-id', id)
   return el;
@@ -46,7 +48,7 @@ export default function (items) {
   let elements = itemsToEls(items);
   var container = document.createElement('div');
   elements.forEach((el) => {
-    container.appendChild(el);
   });
   return container;
+    if (el) container.appendChild(el)
 }
