@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.0.3",
   "description": "the grid api with prosemirror",
-  "main": "index.js",
+  "main": "build/ed.js",
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline",
     "build": "npm run clean; webpack",
     "clean": "rm -rf build",
-    "test": "mocha"
+    "test": "mocha",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

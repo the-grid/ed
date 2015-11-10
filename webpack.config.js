@@ -8,7 +8,7 @@ var plugins = [];
 if (__DEV) {
   entry.demo = './demo/demo.js';
 } else {
-  entry.ed = './index.js'
+  entry.ed = './src/main.js'
   plugins.push( new webpack.optimize.UglifyJsPlugin() );
 }
 
@@ -20,7 +20,7 @@ module.exports = {
     publicPath: '/webpack-memory/',
     filename: '[name].js',
     library: 'TheGridEd',
-    libraryTarget: 'var'
+    libraryTarget: 'commonjs'
   },
   debug: __DEV,
   devtool: (__DEV ? 'cheap-module-eval-source-map' : null),
