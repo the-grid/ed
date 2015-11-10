@@ -4,7 +4,7 @@ let tweet = {
   "id": "uuid-tweet",
   "item": "926db660-ed6c-43f6-b838-56ac6a527034",
   "type": "quote",
-  "html": "<blockquote>https://thegrid.io - \"AI\" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.</blockquote>",
+  "html": "<blockquote>Vestibulum malesuada tortor a nisl vehicula, nec ornare nisl pharetra. Aliquam dignissim vehicula purus a pulvinar.</blockquote>",
   "score": 0,
   "created_at": "2015-02-23T21:10:10.383Z",
   "updated_at": null,
@@ -554,7 +554,7 @@ let sharing = {
   id: 'uuid-share-00',
   type: 'share',
   status: 'https://thegrid.io/#8 sharing...'
-};
+}
 
 let post = {
   id: 'post-uuid-01234',
@@ -578,7 +578,7 @@ let post = {
     {
       "id": "abc-00000000-h1",
       "type": "h1",
-      "html": "<h1>Hello h1: A metaphorical approach to brand and design</h1>",
+      "html": "<h1>In eget faucibus felis.</h1>",
       "metadata": {"starred": true}
     },
     imageRaphael,
@@ -592,49 +592,25 @@ let post = {
     {
       "id": "abc-00000000-h2",
       "type": "h2",
-      "html": "<h2>Hello h2: A metaphorical approach to brand and design</h2>"
+      "html": "<h2>Curabitur iaculis libero ac lectus</h2>"
     },
     {
       "id": "abc-00000000-h3",
       "type": "h3",
-      "html": "<h3>Hello h3: A metaphorical approach to brand and design</h3>",
+      "html": "<h3>Etiam congue blandit tellus</h3>",
       "metadata": {"starred": false}
     },
     imageBeingD4,
     {
       "id": "abc-00000000-02",
       "type": "text",
-      "html": "<p>Hello text.<br>\
-financial flan <em>financial flan</em> <strong>financial flan</strong> <strong><em>financial flan</em></strong><br />\
-<b>As a designer good <i>communication</i> is key.</b> (b, i)<br>\
-<strong>As a designer good <em>communication</em> is key.</strong> (strong, em)<br>\
-<em>As a designer good <b>communication</b> is key.</em> (em, b)<br>\
-<i>As a designer good <strong>communication</strong> is key.</i> (i, strong)<br>\
-As a designer good communication is key to successful collaboration and progress on any project. Usually, the way we communicate our design is through a number of metaphors methodologies and analogies that encapsulate the complexities of our discipline. It makes it more approachable, relatable and in turn understandable for our everyone involved.</p>",
+      "html": "<p>Vivamus <strong>sollicitudin</strong> dignissim <em>risus vitae</em> ultrices. Nulla facilisi. Nam porttitor massa at elit lacinia rutrum. Etiam congue vel felis ac finibus. Aliquam dolor sem, pretium nec malesuada quis, pretium vitae nisi. Fusce orci ex, dignissim nec sollicitudin congue, tempor quis sapien. Integer massa leo, bibendum vel sodales nec, volutpat ac nulla.</p>",
       "metadata": {"starred": false}
     },
     {
       "id": "abc-00000000-03",
       "type": "quote",
-      "html": "<blockquote><p>Hello quote. Metaphors allow you to make the complex simple and the controversial palatable. Conversely, metaphors allow you to create extraordinary meaning out of the seemingly mundane. &mdash;Brain Clark</p></blockquote>",
-      "metadata": {"starred": false}
-    },
-    {
-      "id": "abc-00000000-04",
-      "type": "text",
-      "html": "<p>It is a working version, feel free to question it, plus it or discuss it along the way.</p>",
-      "metadata": {"starred": false}
-    },
-    {
-      "id": "abc-00000000-05",
-      "type": "h2",
-      "html": "<h2>    Mystery  →  Heuristic  →  Algorithm</h2>",
-      "metadata": {"starred": false}
-    },
-    {
-      "id": "abc-00000000-06",
-      "type": "text",
-      "html": "<p>I’m a big fan of Roger Martins knowledge funnel: Mystery - Heuristic - Algorithm. It helps articulate the process we go through, as designers, to bring order to chaos through thoughtful design. To make it usable and scalable, relevant and purposeful, in and after our time collaborating with partners on project, products and platforms.</p>",
+      "html": "<blockquote><p>Phasellus viverra purus vel tincidunt molestie. In pretium diam sit amet turpis sodales, dignissim lacinia ligula consequat.</p></blockquote>",
       "metadata": {"starred": false}
     },
     code,
