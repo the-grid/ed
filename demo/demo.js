@@ -32,34 +32,28 @@ function EditorToAPI () {
 }
 document.querySelector('#dehydrate').onclick = EditorToAPI
 
-// // Simulate changes from API
-// let timeout
-// const letters = 'pskzfgtaaiioo   '.split('')
-// let randomLetter = function () {
-//   return letters[ Math.floor(Math.random()*letters.length) ]
-// }
-// let toggleUpdates = function () {
-//   if (timeout) {
-//     clearTimeout(timeout)
-//     timeout = null
-//   } else {
-//     timeout = setTimeout(simulateUpdates, 500)
-//   }
-// }
-// let simulateUpdates = function () {
-//   // Loop
-//   timeout = setTimeout(simulateUpdates, 500)
-//   // Mutate
-//   let transform = pm.tr
-//   let last = transform.before.content[0].content[0].text.length
-//   let position = new Pos([0], last)
-//   transform.insertText(position, randomLetter())
-//   pm.apply(transform)
-// }
-// document.querySelector('#sim').onclick = toggleUpdates
-
-
-// // Initial doc
-// apiJSON.value = JSON.stringify(lastAPI, null, 2)
-// APIToEditor()
-
+// Simulate changes from API
+let timeout
+const letters = 'pskzfgtaaiioo   '.split('')
+let randomLetter = function () {
+  return letters[ Math.floor(Math.random()*letters.length) ]
+}
+let toggleUpdates = function () {
+  if (timeout) {
+    clearTimeout(timeout)
+    timeout = null
+  } else {
+    timeout = setTimeout(simulateUpdates, 500)
+  }
+}
+let simulateUpdates = function () {
+  // Loop
+  timeout = setTimeout(simulateUpdates, 500)
+  // Mutate
+  let post = ed.post
+  let html = post.content[0].html
+  html = html.slice(0, -4) + randomLetter() + '</p>'
+  post.content[0].html = html
+  ed.post = post
+}
+document.querySelector('#sim').onclick = toggleUpdates

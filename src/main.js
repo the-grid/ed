@@ -43,7 +43,7 @@ export default class Ed {
     this._post = post
     let dom = GridToDOM(post.content)
     let doc = fromDOM(GridSchema, dom)
-    this.pm.setContent(doc)
+    this.pm.setDoc(doc, this.pm.selection)
   }
   get post () {
     let doc = this.pm.getContent()
