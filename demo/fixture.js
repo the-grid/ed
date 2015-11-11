@@ -1,10 +1,12 @@
 /*eslint quotes: [0]*/
 
+import {getSentence, getParagraph} from './bob-ross-lipsum'
+
 let tweet = {
   "id": "uuid-tweet",
   "item": "926db660-ed6c-43f6-b838-56ac6a527034",
   "type": "quote",
-  "html": "<blockquote>Vestibulum malesuada tortor a nisl vehicula, nec ornare nisl pharetra. Aliquam dignissim vehicula purus a pulvinar.</blockquote>",
+  "html": `<blockquote>${getSentence()}</blockquote>`,
   "score": 0,
   "created_at": "2015-02-23T21:10:10.383Z",
   "updated_at": null,
@@ -559,8 +561,8 @@ let sharing = {
 let post = {
   id: 'post-uuid-01234',
   metadata: {
-    title: 'The Science of Design',
-    description: 'A Test Fixture for ed',
+    title: getSentence(),
+    description: getSentence(),
     inFeed: true,
     starred: false,
     hasPage: true,
@@ -572,13 +574,13 @@ let post = {
     {
       "id": "abc-00000000-p",
       "type": "text",
-      "html": "<p>Hello text</p>",
+      "html": `<p>${getSentence()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       "metadata": {}
     },
     {
       "id": "abc-00000000-h1",
       "type": "h1",
-      "html": "<h1>In eget faucibus felis.</h1>",
+      "html": `<h1>${getSentence()}</h1>`,
       "metadata": {"starred": true}
     },
     imageRaphael,
@@ -592,25 +594,25 @@ let post = {
     {
       "id": "abc-00000000-h2",
       "type": "h2",
-      "html": "<h2>Curabitur iaculis libero ac lectus</h2>"
+      "html": `<h2>${getSentence()}</h2>`
     },
     {
       "id": "abc-00000000-h3",
       "type": "h3",
-      "html": "<h3>Etiam congue blandit tellus</h3>",
+      "html": `<h3>${getSentence()}</h3>`,
       "metadata": {"starred": false}
     },
     imageBeingD4,
     {
       "id": "abc-00000000-02",
       "type": "text",
-      "html": "<p>Vivamus <strong>sollicitudin</strong> dignissim <em>risus vitae</em> ultrices. Nulla facilisi. Nam porttitor massa at elit lacinia rutrum. Etiam congue vel felis ac finibus. Aliquam dolor sem, pretium nec malesuada quis, pretium vitae nisi. Fusce orci ex, dignissim nec sollicitudin congue, tempor quis sapien. Integer massa leo, bibendum vel sodales nec, volutpat ac nulla.</p>",
+      "html": `<p>${getParagraph()}</p>`,
       "metadata": {"starred": false}
     },
     {
       "id": "abc-00000000-03",
       "type": "quote",
-      "html": "<blockquote><p>Phasellus viverra purus vel tincidunt molestie. In pretium diam sit amet turpis sodales, dignissim lacinia ligula consequat.</p></blockquote>",
+      "html": `<blockquote><p>${getParagraph(3)}</p></blockquote>`,
       "metadata": {"starred": false}
     },
     code,
@@ -619,13 +621,13 @@ let post = {
     {
       "id": "abc-00000000-ol",
       "type": "list",
-      "html": "<ol><li>one</li><li>two</li></ol>",
+      "html": `<ol><li>${getSentence()}</li><li>${getSentence()}</li></ol>`,
       "metadata": {"starred": false}
     },
     {
       "id": "abc-00000000-ul",
       "type": "list",
-      "html": "<ul><li>ay</li><li>bee</li></ul>",
+      "html": `<ul><li>${getSentence()}</li><li>${getSentence()}</li></ul>`,
       "metadata": {"starred": false}
     }
   ]
