@@ -1,8 +1,13 @@
-import {defaultSchema, Attribute, Schema} from 'prosemirror/src/model'
-
+import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 import uuid from 'uuid'
 
+import {Figure} from './schema/figure'
+
 let makeId = () => uuid.v4()
+let spec = defaultSchema.spec
+spec = spec.updateNodes({
+  figure: Figure
+})
 
 const idAttribute = new Attribute({
   compute: makeId,
@@ -14,7 +19,7 @@ idAttribute.parseDOM = (dom, options) => options.source != 'paste' && dom.getAtt
 idAttribute.serializeDOM = (dom, id) => dom.setAttribute('data-grid-id', id)
 
 let attrPred = (_, data) => data.type.prototype.isTextblock || data.type.prototype.isBlock
-let spec = defaultSchema.spec.addAttribute(attrPred, 'id', idAttribute)
+spec = spec.addAttribute(attrPred, 'id', idAttribute)
 const GridSchema = new Schema(spec)
 
 console.log(GridSchema)

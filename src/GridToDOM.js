@@ -1,3 +1,5 @@
+import {makeFigureDom} from './schema/figure'
+
 const MEDIA_TYPES = [
   'image', 'video', 'audio', 'article', 
   'location', 'share', 'interactive'
@@ -22,17 +24,26 @@ function isHTMLType (type) {
 }
 
 function itemToDOM (item) {
-  let {id, type, html} = item
+  let {id, type, html, cover, metadata} = item
   let el
   if ( isHTMLType(type) ) {
     let dummy = document.createElement('div')
     dummy.innerHTML = item.html
     el = dummy.firstChild
   } else if ( isMediaType(type) ) {
-    el = document.createElement('p')
-    el.innerHTML = `[[${type} block placeholder]]`
-    el.contenteditable = 'false'
-    el.spellcheck = 'false'
+    if (cover && cover.src) {
+      el = makeFigureDom({
+        src: cover.src,
+        title: metadata.title,
+        description: metadata.description
+      })
+    }
+    if (!el) {
+      el = document.createElement('div')
+      el.innerHTML = `[[${type} block placeholder]]`
+      el.contenteditable = 'false'
+      el.spellcheck = 'false'
+    }
   } else {
     return null
   }
