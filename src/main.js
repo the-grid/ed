@@ -40,6 +40,8 @@ export default class Ed {
     this.container.innerHTML = ''
   }
   set post (post) {
+    // Cache the post object that we originally get from the API.
+    // We'll need the post and block metadata later, in `get post`.
     this._post = post
     let dom = GridToDOM(post.content)
     let doc = fromDOM(GridSchema, dom)
