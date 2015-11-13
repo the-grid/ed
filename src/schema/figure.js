@@ -4,7 +4,7 @@ import {elt} from 'prosemirror/src/dom'
 export function makeFigureDom (attrs) {
   let {src, title, description} = attrs
   if (!src) return
-  let element = elt('figure', {},
+  let element = elt('figure', {contenteditable: false, spellcheck: false},
     elt('img', {src}),
     elt('figcaption', {},
       elt('h1', {}, (title || '')),
@@ -33,3 +33,6 @@ Figure.register('parseDOM', {
   }
 })
 Figure.prototype.serializeDOM = node => makeFigureDom(node.attrs)
+
+export class FigCaption extends Block {}
+FigCaption.register('parseDOM', {tag: 'figcaption', rank: 1})

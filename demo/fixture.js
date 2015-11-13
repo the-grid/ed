@@ -272,7 +272,7 @@ let imageCole = {
   "created_at": "2015-02-24T16:09:10.501Z",
   "updated_at": null,
   "metadata": {
-      "description": "",
+      "description": "silk photo",
       "@context": "http://schema.org",
       "@type": "Article",
       "isBasedOnUrl": "http://the-grid-user-content.s3-us-west-2.amazonaws.com/b1dd2ebd-7461-4960-a3be-05f22c649a63.jpg",
@@ -583,7 +583,6 @@ let post = {
       "html": `<h1>${getSentence()}</h1>`,
       "metadata": {"starred": true}
     },
-    imageRaphael,
     sharing,
     {
       "id": "uuid-broken-00",
@@ -596,6 +595,7 @@ let post = {
       "type": "h2",
       "html": `<h2>${getSentence()}</h2>`
     },
+    imageRaphael,
     {
       "id": "abc-00000000-h3",
       "type": "h3",
