@@ -1,3 +1,6 @@
+import {fromDOM} from 'prosemirror/src/parse/dom'
+
+import GridSchema from '../schema/'
 import {makeFigureDom} from '../schema/figure'
 
 const MEDIA_TYPES = [
@@ -61,5 +64,5 @@ export default function (items) {
   elements.forEach((el) => {
     if (el) container.appendChild(el)
   })
-  return container
+  return fromDOM(GridSchema, container)
 }

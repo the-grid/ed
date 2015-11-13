@@ -1,6 +1,5 @@
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import {Pos, Node} from 'prosemirror/src/model'
-import {fromDOM} from 'prosemirror/src/parse/dom'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/inlinemenu'
@@ -9,7 +8,7 @@ import 'prosemirror/src/menu/buttonmenu'
 import 'prosemirror/src/collab'
 
 import GridSchema from './schema'
-import GridToDOM from './convert/grid-to-dom'
+import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 
@@ -27,13 +26,12 @@ export default class Ed {
     })
 
     if (options.onChange) {
-      this.pm.on('change', function () {
-        // FIXME this.post?
-        options.onChange( 'change' )
-      })
+      this.pm.on('change', options.onChange)
     }
 
-    if (options.post) this.post = options.post
+    if (options.post) {
+      this.post = options.post
+    }
   }
   teardown () {
     this.pm.off('change')
@@ -43,9 +41,11 @@ export default class Ed {
     // Cache the post object that we originally get from the API.
     // We'll need the post and block metadata later, in `get post`.
     this._post = post
-    let dom = GridToDOM(post.content)
-    let doc = fromDOM(GridSchema, dom)
-    this.pm.setDoc(doc, this.pm.selection)
+    let doc = GridToDoc(post.content)
+    // Cache selection to restore after DOM update
+    let selection = this.pm.selection
+    // Populate ProseMirror
+    this.pm.setDoc(doc, selection)
   }
   get post () {
     let doc = this.pm.getContent()

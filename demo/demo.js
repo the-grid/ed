@@ -4,10 +4,14 @@ import fixture from './fixture'
 // ProseMirror setup
 let ed = new Ed({
   container: document.querySelector('#mirror'),
-  onChange: (post) => console.log(post),
+  onChange: onPostChange,
   post: fixture
 })
 console.log(ed)
+
+function onPostChange () {
+  console.log('change', ed.post)
+}
 
 
 // Debug buttons

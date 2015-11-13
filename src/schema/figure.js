@@ -1,4 +1,4 @@
-import {Block, Attribute} from 'prosemirror/src/model'
+import {Block, Textblock, Attribute} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 
 export function makeFigureDom (attrs) {
@@ -34,5 +34,5 @@ Figure.register('parseDOM', {
 })
 Figure.prototype.serializeDOM = node => makeFigureDom(node.attrs)
 
-export class FigCaption extends Block {}
+export class FigCaption extends Textblock {}
 FigCaption.register('parseDOM', {tag: 'figcaption', rank: 1})
