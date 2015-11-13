@@ -9,7 +9,7 @@ if (__DEV) {
   entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/index.js'
-  plugins.push( new webpack.optimize.UglifyJsPlugin() )
+  // plugins.push( new webpack.optimize.UglifyJsPlugin() )
 }
 
 module.exports = {
