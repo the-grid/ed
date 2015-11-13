@@ -1,4 +1,4 @@
-import Ed from '../src/main'
+import Ed from '../src/'
 import fixture from './fixture'
 
 // ProseMirror setup

@@ -8,7 +8,7 @@ var plugins = []
 if (__DEV) {
   entry.demo = './demo/demo.js'
 } else {
-  entry.ed = './src/main.js'
+  entry.ed = './src/index.js'
   plugins.push( new webpack.optimize.UglifyJsPlugin() )
 }
 

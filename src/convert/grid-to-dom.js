@@ -1,4 +1,4 @@
-import {makeFigureDom} from './schema/figure'
+import {makeFigureDom} from '../schema/figure'
 
 const MEDIA_TYPES = [
   'image', 'video', 'audio', 'article', 

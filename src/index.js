@@ -8,9 +8,9 @@ import 'prosemirror/src/menu/menubar'
 import 'prosemirror/src/menu/buttonmenu'
 import 'prosemirror/src/collab'
 
-import GridSchema from './GridSchema'
-import GridToDOM from './GridToDOM'
-import DocToGrid from './DocToGrid'
+import GridSchema from './schema'
+import GridToDOM from './convert/grid-to-dom'
+import DocToGrid from './convert/doc-to-grid'
 
 
 export default class Ed {

@@ -1,7 +1,7 @@
 import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 import uuid from 'uuid'
 
-import {Figure} from './schema/figure'
+import {Figure} from './figure'
 
 let makeId = () => uuid.v4()
 let spec = defaultSchema.spec
