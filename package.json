@@ -23,18 +23,18 @@
   },
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#ed9bc872e4396c597a89f155bb54e368468a6856",
+    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#65cd05178baff3c0edae3f2afdb9af1722e15a4f",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
-    "babel-core": "^6.1.2",
-    "babel-eslint": "^4.1.4",
-    "babel-loader": "^6.1.0",
-    "babel-preset-es2015": "^6.1.2",
-    "eslint": "^1.9.0",
+    "babel-core": "^6.2.1",
+    "babel-eslint": "^5.0.0-beta4",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "eslint": "^1.10.3",
     "eslint-loader": "^1.1.1",
-    "json-loader": "^0.5.3",
-    "webpack": "^1.12.3",
-    "webpack-dev-server": "^1.12.1"
+    "json-loader": "^0.5.4",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   }
 }
