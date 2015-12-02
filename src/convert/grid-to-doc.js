@@ -2,29 +2,7 @@ import {fromDOM} from 'prosemirror/src/parse/dom'
 
 import GridSchema from '../schema/'
 import {makeFigureDom} from '../schema/figure'
-
-const MEDIA_TYPES = [
-  'image', 'video', 'audio', 'article', 
-  'location', 'share', 'interactive'
-]
-const HTML_TYPES = [
-  'text', 'p', 'code',
-  'quote', 'blockquote',
-  'list', 'ol', 'ul',
-  'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
-]
-
-function contains (array, string) {
-  return (array.indexOf(string) !== -1)
-}
-
-function isMediaType (type) {
-  return contains( MEDIA_TYPES, type )
-}
-
-function isHTMLType (type) {
-  return contains( HTML_TYPES, type )
-}
+import {isMediaType, isHTMLType} from './types'
 
 function itemToDOM (item) {
   let {id, type, html, cover, metadata} = item
