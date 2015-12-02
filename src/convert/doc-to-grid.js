@@ -10,7 +10,7 @@ function clone (obj) {
 // Singleton so cut / paste keeps meta
 let apiContentMap = {}
 
-// !!! Deduplicate ids
+// Deduplicate ids
 function domMutationDedupeIds (children, doc) {
   let ids = []
   let len = children.length
@@ -19,6 +19,7 @@ function domMutationDedupeIds (children, doc) {
     let id = child.getAttribute('data-grid-id')
     if (!id || ids.indexOf(id) !== -1) {
       id = uuid.v4()
+      // Need to set it in both dom and doc for future consistency
       child.setAttribute('data-grid-id', id)
       doc.content[i].attrs.id = id
     }
@@ -26,8 +27,8 @@ function domMutationDedupeIds (children, doc) {
   }
 }
 
-export default function (children, doc, lastAPI) {
-  domMutationDedupeIds(children, doc)
+export default function (domChildren, doc, lastAPI) {
+  domMutationDedupeIds(domChildren, doc)
 
   let cloneLast = clone(lastAPI)
   cloneLast.content.forEach(block => {
@@ -40,8 +41,8 @@ export default function (children, doc, lastAPI) {
   for (let i=0; i<len; i++) {
     let child = dom.children[i]
     let id = child.getAttribute('data-grid-id')
-    let apiBlock = apiContentMap[id]
     let type = child.tagName.toLowerCase()
+    let apiBlock = apiContentMap[id]
     if (!apiBlock) {
       apiBlock = { id, type }
     }
