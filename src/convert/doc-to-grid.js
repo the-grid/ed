@@ -1,5 +1,6 @@
-import {Transform} from 'prosemirror/src/transform'
 import {toDOM} from 'prosemirror/src/serialize/dom'
+import {isMediaType, isHTMLType} from './types'
+import uuid from 'uuid'
 
 // Dumb clone, don't mutate old
 function clone (obj) {
@@ -9,11 +10,27 @@ function clone (obj) {
 // Singleton so cut / paste keeps meta
 let apiContentMap = {}
 
-// Translate ProseMirror node.type to tag name
+// !!! Deduplicate ids
+function domMutationDedupeIds (children, doc) {
+  let ids = []
+  let len = children.length
+  for (let i=0; i<len; i++) {
+    let child = children[i]
+    let id = child.getAttribute('data-grid-id')
+    if (!id || ids.indexOf(id) !== -1) {
+      id = uuid.v4()
+      child.setAttribute('data-grid-id', id)
+      doc.content[i].attrs.id = id
+    }
+    ids.push(id)
+  }
+}
 
-export default function (doc, lastAPI) {
+export default function (children, doc, lastAPI) {
+  domMutationDedupeIds(children, doc)
+
   let cloneLast = clone(lastAPI)
-  cloneLast.content.forEach( (block) => {
+  cloneLast.content.forEach(block => {
     apiContentMap[block.id] = block
   })
 
@@ -22,13 +39,16 @@ export default function (doc, lastAPI) {
   let len = dom.children.length
   for (let i=0; i<len; i++) {
     let child = dom.children[i]
-    let id = child.getAttribute('data-grid-id') || uuid.v4()
+    let id = child.getAttribute('data-grid-id')
     let apiBlock = apiContentMap[id]
+    let type = child.tagName.toLowerCase()
     if (!apiBlock) {
-      apiBlock = { id: id }
+      apiBlock = { id, type }
     }
     child.removeAttribute('data-grid-id')
-    apiBlock.html = child.outerHTML
+    if (isHTMLType(type)) {
+      apiBlock.html = child.outerHTML
+    }
     currentContent[i] = apiBlock
   }
 

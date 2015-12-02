@@ -2,9 +2,7 @@ import {ProseMirror} from 'prosemirror/src/edit/main'
 import {Pos, Node} from 'prosemirror/src/model'
 
 import 'prosemirror/src/inputrules/autoinput'
-import 'prosemirror/src/menu/inlinemenu'
-import 'prosemirror/src/menu/menubar'
-import 'prosemirror/src/menu/buttonmenu'
+import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/collab'
 
 import GridSchema from './schema'
@@ -20,8 +18,8 @@ export default class Ed {
     this.pm = new ProseMirror({
       place: this.container,
       autoInput: true,
-      inlineMenu: true,
-      buttonMenu: {followCursor: true},
+      tooltipMenu: {emptyBlockMenu: true},
+      menuBar: {float: true},
       schema: GridSchema
     })
 
@@ -48,8 +46,8 @@ export default class Ed {
     this.pm.setDoc(doc, selection)
   }
   get post () {
+    let dom = this.pm.content.children
     let doc = this.pm.getContent()
-    let changed = DocToGrid(doc, this._post)
-    return changed
+    return DocToGrid(dom, doc, this._post)
   }
 }
