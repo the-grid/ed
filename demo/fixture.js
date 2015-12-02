@@ -1,12 +1,12 @@
 /*eslint quotes: [0]*/
 
-import {getSentence, getParagraph} from './bob-ross-lipsum'
+import getHappyLittlePhrase from 'bob-ross-lipsum'
 
 let tweet = {
   "id": "uuid-tweet",
   "item": "926db660-ed6c-43f6-b838-56ac6a527034",
   "type": "quote",
-  "html": `<blockquote>${getSentence()}</blockquote>`,
+  "html": `<blockquote>${getHappyLittlePhrase()}</blockquote>`,
   "score": 0,
   "created_at": "2015-02-23T21:10:10.383Z",
   "updated_at": null,
@@ -561,8 +561,8 @@ let sharing = {
 let post = {
   id: 'post-uuid-01234',
   metadata: {
-    title: getSentence(),
-    description: getSentence(),
+    title: getHappyLittlePhrase(),
+    description: getHappyLittlePhrase(),
     inFeed: true,
     starred: false,
     hasPage: true,
@@ -574,13 +574,13 @@ let post = {
     {
       "id": "abc-00000000-p",
       "type": "text",
-      "html": `<p>${getSentence()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
+      "html": `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       "metadata": {}
     },
     {
       "id": "abc-00000000-h1",
       "type": "h1",
-      "html": `<h1>${getSentence()}</h1>`,
+      "html": `<h1>${getHappyLittlePhrase()}</h1>`,
       "metadata": {"starred": true}
     },
     sharing,
@@ -593,26 +593,26 @@ let post = {
     {
       "id": "abc-00000000-h2",
       "type": "h2",
-      "html": `<h2>${getSentence()}</h2>`
+      "html": `<h2>${getHappyLittlePhrase()}</h2>`
     },
     imageRaphael,
     {
       "id": "abc-00000000-h3",
       "type": "h3",
-      "html": `<h3>${getSentence()}</h3>`,
+      "html": `<h3>${getHappyLittlePhrase()}</h3>`,
       "metadata": {"starred": false}
     },
     imageBeingD4,
     {
       "id": "abc-00000000-02",
       "type": "text",
-      "html": `<p>${getParagraph()}</p>`,
+      "html": `<p>${getHappyLittlePhrase(2)}</p>`,
       "metadata": {"starred": false}
     },
     {
       "id": "abc-00000000-03",
       "type": "quote",
-      "html": `<blockquote><p>${getParagraph(3)}</p></blockquote>`,
+      "html": `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`,
       "metadata": {"starred": false}
     },
     code,
@@ -621,13 +621,13 @@ let post = {
     {
       "id": "abc-00000000-ol",
       "type": "list",
-      "html": `<ol><li>${getSentence()}</li><li>${getSentence()}</li></ol>`,
+      "html": `<ol><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ol>`,
       "metadata": {"starred": false}
     },
     {
       "id": "abc-00000000-ul",
       "type": "list",
-      "html": `<ul><li>${getSentence()}</li><li>${getSentence()}</li></ul>`,
+      "html": `<ul><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ul>`,
       "metadata": {"starred": false}
     }
   ]
