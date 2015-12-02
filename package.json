@@ -1,7 +1,7 @@
 {
   "name": "@the-grid/ed",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "the grid api with prosemirror",
   "main": "build/ed.js",
   "scripts": {
