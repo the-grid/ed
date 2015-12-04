@@ -11,11 +11,11 @@ function clone (obj) {
 let apiContentMap = {}
 
 // Deduplicate ids
-function domMutationDedupeIds (children, doc) {
+function domMutationDedupeIds (domChildren, doc) {
   let ids = []
-  let len = children.length
+  let len = domChildren.length
   for (let i=0; i<len; i++) {
-    let child = children[i]
+    let child = domChildren[i]
     let id = child.getAttribute('data-grid-id')
     if (!id || ids.indexOf(id) !== -1) {
       id = uuid.v4()
