@@ -2,6 +2,7 @@ import {fromDOM} from 'prosemirror/src/parse/dom'
 
 import GridSchema from '../schema/'
 import {makeFigureDom} from '../schema/figure'
+import {makeMediaDom} from '../schema/media'
 import {isMediaType, isHTMLType} from './types'
 
 function itemToDOM (item) {
@@ -12,18 +13,19 @@ function itemToDOM (item) {
     dummy.innerHTML = item.html
     el = dummy.firstChild
   } else if ( isMediaType(type) ) {
+    let title = metadata ? metadata.title : ''
+    let description = metadata ? metadata.description : ''
     if (cover && cover.src) {
       el = makeFigureDom({
         src: cover.src,
-        title: metadata.title,
-        description: metadata.description
+        title: title || '',
+        description: description || 'caption'
       })
     }
     if (!el) {
-      el = document.createElement('div')
-      el.innerHTML = `[[${type} block placeholder]]`
-      el.contenteditable = 'false'
-      el.spellcheck = 'false'
+      title = title || `${type} block placeholder`
+      description = description || ''
+      el = makeMediaDom({title, description})
     }
   } else {
     return null

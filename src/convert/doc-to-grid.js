@@ -46,10 +46,10 @@ export default function (domChildren, doc, lastAPI) {
     if (!apiBlock) {
       apiBlock = { id, type }
     }
+    // TODO children have extra ids 
     child.removeAttribute('data-grid-id')
-    if (isHTMLType(type)) {
-      apiBlock.html = child.outerHTML
-    }
+    // TODO massage media types that need it
+    apiBlock.html = child.outerHTML
     currentContent[i] = apiBlock
   }
 
