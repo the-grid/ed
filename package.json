@@ -10,7 +10,7 @@
     "builddemo": "export DEV=true; webpack",
     "clean": "rm -rf build",
     "test": "echo 'todo'",
-    "preversion": "npm test && npm run build",
+    "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
   "repository": {
