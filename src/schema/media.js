@@ -1,5 +1,6 @@
 import {Block, Textblock, Attribute} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
+import {parseWrap, wrapIn} from './utils'
 
 export function makeMediaDom (attrs) {
   let {title, description} = attrs
@@ -11,20 +12,5 @@ export function makeMediaDom (attrs) {
 }
 
 export class Media extends Block {}
-Media.attributes = {
-  title: new Attribute('title'),
-  description: new Attribute('description')
-}
-
-Media.register('parseDOM', {
-  tag: 'div',
-  rank: 1,
-  parse: (dom, context, nodeType) => {
-    let title = dom.querySelector('h1')
-    title = title ? title.innerHTML : ''
-    let description = dom.querySelector('p')
-    description = description ? description.innerHTML : ''
-    context.insert(nodeType.create({title, description}))
-  }
-})
-Media.prototype.serializeDOM = node => makeMediaDom(node.attrs)
+Media.register('parseDOM', {tag: 'div', parse: parseWrap})
+Media.prototype.serializeDOM = wrapIn('div')
