@@ -8,43 +8,42 @@
     height: 100%;
     padding: 1em;
   }
-  .flex { display: flex; }
-  .flex1 { flex: 1; }
-  .mr1 { margin-right: 1em; }
-  #container {
-    height: calc( 100vh - 5em );
-  }
   #api {
     width: 100%;
-    height: 100%;
+    height: 80vh;
     border: 1px solid silver;
     padding: 0;
   }
-  #mirror {
-    overflow: auto;
+  #controls {
+    padding: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 15em;
   }
-  .ProseMirror-content {
-    height: 100%;
+  #mirror {
+    margin-left: 16em;
   }
   img {
     max-width: 100%;
   }
+
+  .w100 {
+    width: 100%;
+  }
+  .mb1 {
+    margin-bottom: 0.5em;
+  }
 </style>
 
-<button id="sim">Simulate changes from API</button>
+<div id="mirror"></div>
 
-<div class="flex">
-  <div class="flex1 mr1" style="text-align:right;">
-    <button id="dehydrate">editor to Grid API →</button>
-  </div>
-  <div class="flex1">
-    <button id="hydrate">← Grid API to editor</button>
-  </div>
-</div>
-
-<div id="container" class="flex">
-  <div id="mirror" class="flex1 mr1"></div>
-  <textarea id="api" class="flex1" spellcheck="false"></textarea>
+<div id="controls">
+  <button id="sim" class="w100 mb1">Simulate changes from API</button>
+  <button id="dehydrate" class="w100 mb1">Editor to Grid API ↓</button>
+  <button id="hydrate" class="w100 mb1">Grid API to Editor →</button>
+  <textarea id="api" spellcheck="false"></textarea>
+  <p><a href="https://github.com/the-grid/ed">source</a></p>
 </div>
 
 <!-- Ususally loaded from memory (npm start), but (npm run builddemo) copies for gh-pages -->

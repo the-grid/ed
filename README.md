@@ -22,7 +22,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 `npm start` and open [http://localhost:8080/](http://localhost:8080/)
 
-In development mode, webpack builds and serves the targets in memory from /webpack-memory
+In development mode, webpack builds and serves the targets in memory from /webpack/
 
 Changes will trigger a browser refresh.
 
@@ -34,4 +34,4 @@ Changes will trigger a browser refresh.
 
 `npm build`
 
-Outputs minified ed.js to /build
+Outputs minified ed.js to /lib
