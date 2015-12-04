@@ -30,7 +30,7 @@ git config user.email "f.bot@forresto.com"
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
 git add .
-git commit -m "Deploy to GitHub Pages"
+git commit -m "Deploying $TRAVIS_TAG to gh-pages"
 
 # Force push from the current repo's master branch to the remote
 # repo's gh-pages branch. (All previous history on the gh-pages branch
