@@ -3,10 +3,11 @@
   "private": true,
   "version": "0.0.6",
   "description": "the grid api with prosemirror",
-  "main": "build/ed.js",
+  "main": "lib/ed.js",
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline",
     "build": "npm run clean; webpack",
+    "builddemo": "export DEV=true; webpack",
     "clean": "rm -rf build",
     "test": "echo 'todo'",
     "preversion": "npm test && npm run build",

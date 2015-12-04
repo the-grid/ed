@@ -16,8 +16,8 @@ module.exports = {
   entry: entry,
   plugins: plugins,
   output: {
-    path: './build/',
-    publicPath: '/webpack-memory/',
+    path: './lib/',
+    publicPath: '/webpack/',
     filename: '[name].js',
     library: 'TheGridEd'
   },
