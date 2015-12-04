@@ -49,8 +49,10 @@ let toggleUpdates = function () {
   if (timeout) {
     clearTimeout(timeout)
     timeout = null
+    document.querySelector('#sim').textContent = 'Simulate changes from API ▶'
   } else {
     timeout = setTimeout(simulateUpdates, 500)
+    document.querySelector('#sim').textContent = 'Simulate changes from API ◼︎'
   }
 }
 let simulateUpdates = function () {
