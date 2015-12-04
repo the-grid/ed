@@ -1,16 +1,19 @@
 import Ed from '../src/'
 import fixture from './fixture'
 
+let content = fixture.content
+console.log(content)
+
 // ProseMirror setup
 let ed = new Ed({
   container: document.querySelector('#mirror'),
   onChange: onPostChange,
-  post: fixture
+  content: content
 })
 console.log(ed)
 
 function onPostChange () {
-  console.log('change', ed.post)
+  console.log('change', ed.content)
 }
 
 
@@ -18,7 +21,7 @@ function onPostChange () {
 
 // Hydrate
 let apiJSON = document.querySelector('#api')
-apiJSON.value = JSON.stringify(fixture, null, 2)
+apiJSON.value = JSON.stringify(content, null, 2)
 function APIToEditor () {
   let json
   try {
@@ -26,13 +29,13 @@ function APIToEditor () {
   } catch (e) {
     return console.warn('bad json')
   }
-  ed.post = json
+  ed.content = json
 }
 document.querySelector('#hydrate').onclick = APIToEditor
 
 // Dehydrate
 function EditorToAPI () {
-  apiJSON.value = JSON.stringify(ed.post, null, 2)
+  apiJSON.value = JSON.stringify(ed.content, null, 2)
 }
 document.querySelector('#dehydrate').onclick = EditorToAPI
 
@@ -54,10 +57,10 @@ let simulateUpdates = function () {
   // Loop
   timeout = setTimeout(simulateUpdates, 500)
   // Mutate
-  let post = ed.post
-  let html = post.content[0].html
+  let content = ed.content
+  let html = content[0].html
   html = html.slice(0, -4) + randomLetter() + '</p>'
-  post.content[0].html = html
-  ed.post = post
+  content[0].html = html
+  ed.content = content
 }
 document.querySelector('#sim').onclick = toggleUpdates

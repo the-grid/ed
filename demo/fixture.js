@@ -634,4 +634,4 @@ let post = {
 }
 
 
-export default post;
+export default post

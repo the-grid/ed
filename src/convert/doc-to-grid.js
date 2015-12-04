@@ -31,7 +31,7 @@ export default function (domChildren, doc, lastAPI) {
   domMutationDedupeIds(domChildren, doc)
 
   let cloneLast = clone(lastAPI)
-  cloneLast.content.forEach(block => {
+  cloneLast.forEach(block => {
     apiContentMap[block.id] = block
   })
 
@@ -53,7 +53,5 @@ export default function (domChildren, doc, lastAPI) {
     currentContent[i] = apiBlock
   }
 
-  cloneLast.content = currentContent
-
-  return cloneLast
+  return currentContent
 }
