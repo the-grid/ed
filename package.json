@@ -1,6 +1,5 @@
 {
   "name": "@the-grid/ed",
-  "private": true,
   "version": "0.0.11",
   "description": "the grid api with prosemirror",
   "main": "lib/ed.js",
