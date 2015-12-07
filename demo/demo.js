@@ -13,7 +13,7 @@ let ed = new Ed({
 console.log(ed)
 
 function onPostChange () {
-  console.log('change', ed.content)
+  // console.log('change', ed.content)
 }
 
 
