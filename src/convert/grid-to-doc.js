@@ -23,8 +23,7 @@ function itemToDOM (item) {
       })
     }
     if (!el) {
-      title = title || `${type} block placeholder`
-      description = description || ''
+      description = description || `${type} block placeholder`
       el = makeMediaDom({title, description})
     }
   } else {

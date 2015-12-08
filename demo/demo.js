@@ -2,7 +2,6 @@ import Ed from '../src/'
 import fixture from './fixture'
 
 let content = fixture.content
-console.log(content)
 
 // ProseMirror setup
 let ed = new Ed({

@@ -5,7 +5,6 @@ import {parseWrap, wrapIn} from './utils'
 export function makeMediaDom (attrs) {
   let {title, description} = attrs
   let element = elt('div', {},
-    elt('h1', {}, (title || '')),
     elt('p', {}, (description || ''))
   )
   return element
