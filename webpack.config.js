@@ -1,11 +1,12 @@
 webpack = require('webpack')
 path = require('path')
 var __DEV = (process.env.DEV === 'true')
+var __DEMO = (process.env.DEMO === 'true')
 
 var entry = {}
 var plugins = []
 
-if (__DEV) {
+if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/index.js'

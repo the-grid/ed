@@ -6,7 +6,7 @@
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline",
     "build": "npm run clean; webpack",
-    "builddemo": "export DEV=true; webpack",
+    "builddemo": "export DEMO=true; webpack",
     "clean": "rm -rf build",
     "test": "echo 'todo'",
     "preversion": "npm test",
