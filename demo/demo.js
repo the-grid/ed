@@ -2,21 +2,44 @@ import Ed from '../src/'
 import fixture from './fixture'
 
 let content = fixture.content
+let ed
+let menu = 'tip'
 
 // ProseMirror setup
-let ed = new Ed({
-  container: document.querySelector('#mirror'),
-  onChange: onPostChange,
-  content: content
-})
-console.log(ed)
-
-function onPostChange () {
-  // console.log('change', ed.content)
+function setup (options={menu:'tip'}) {
+  if (ed) {
+    ed.teardown()
+    ed = null
+  }
+  ed = new Ed({
+    container: document.querySelector('#mirror'),
+    onChange: onPostChange,
+    content: content,
+    menutip: (options.menu === 'tip' ? true : false),
+    menubar: (options.menu === 'tip' ? false : true)
+  })
+  console.log(ed)
 }
-
+function onPostChange () {
+  // noop
+}
+setup()
 
 // Debug buttons
+
+// Switch menu
+let toggleMenu = document.querySelector('#menu')
+toggleMenu.onclick = function (event) {
+  if (menu === 'tip') {
+    menu = 'bar'
+    setup({menu})
+    toggleMenu.textContent = 'Switch to menu tooltip'
+  } else {
+    menu = 'tip'
+    setup({menu})
+    toggleMenu.textContent = 'Switch to menu bar'
+  }
+}
 
 // Hydrate
 let apiJSON = document.querySelector('#api')

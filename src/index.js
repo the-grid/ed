@@ -3,6 +3,7 @@ import {Pos, Node} from 'prosemirror/src/model'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
+import 'prosemirror/src/menu/menubar'
 import 'prosemirror/src/collab'
 
 import GridSchema from './schema'
@@ -14,14 +15,22 @@ export default class Ed {
   constructor (options) {
     if (!options.container) options.container = document.body
     this.container = options.container
-
-    this.pm = new ProseMirror({
+    
+    let pmOptions = {
       place: this.container,
       autoInput: true,
-      tooltipMenu: {emptyBlockMenu: true},
-      menuBar: {float: true},
       schema: GridSchema
-    })
+    }
+    
+    if (options.menutip) {
+      pmOptions.tooltipMenu = {emptyBlockMenu: true}
+    }
+
+    if (options.menubar) {
+      pmOptions.menuBar = {float: true}
+    }
+
+    this.pm = new ProseMirror(pmOptions)
 
     if (options.onChange) {
       this.pm.on('change', options.onChange)
