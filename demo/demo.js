@@ -32,13 +32,12 @@ let toggleMenu = document.querySelector('#menu')
 toggleMenu.onclick = function (event) {
   if (menu === 'tip') {
     menu = 'bar'
-    setup({menu})
     toggleMenu.textContent = 'Switch to menu tooltip'
   } else {
     menu = 'tip'
-    setup({menu})
     toggleMenu.textContent = 'Switch to menu bar'
   }
+  setup({menu})
 }
 
 // Hydrate
