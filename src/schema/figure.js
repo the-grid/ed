@@ -21,6 +21,13 @@ export function makeFigureDom (attrs) {
 export class Figure extends Block {}
 Figure.register('parseDOM', {tag: 'figure', parse: parseWrap})
 Figure.prototype.serializeDOM = wrapIn('figure')
+Figure.prototype.isNotEditable = true
+
+// Figure.prototype.clicked = (_, path, dom, coords) => {
+//   console.log(arguments)
+//   let childBox = dom.firstChild.getBoundingClientRect()
+//   if (coords.left < childBox.left - 2) return Pos.from(path)
+// }
 
 export class FigCaption extends Block {}
 FigCaption.register('parseDOM', {tag: 'figcaption', parse: parseWrap})

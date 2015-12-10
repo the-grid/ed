@@ -13,3 +13,4 @@ export function makeMediaDom (attrs) {
 export class Media extends Block {}
 Media.register('parseDOM', {tag: 'div', parse: parseWrap})
 Media.prototype.serializeDOM = wrapIn('div')
+Media.prototype.isNotEditable = true
