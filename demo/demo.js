@@ -66,16 +66,6 @@ const letters = 'pskzfgtaaiioo   '.split('')
 let randomLetter = function () {
   return letters[ Math.floor(Math.random()*letters.length) ]
 }
-let toggleUpdates = function () {
-  if (timeout) {
-    clearTimeout(timeout)
-    timeout = null
-    document.querySelector('#sim').textContent = 'Simulate changes from API ▶'
-  } else {
-    timeout = setTimeout(simulateUpdates, 500)
-    document.querySelector('#sim').textContent = 'Simulate changes from API ◼︎'
-  }
-}
 let simulateUpdates = function () {
   // Loop
   timeout = setTimeout(simulateUpdates, 500)
@@ -85,5 +75,15 @@ let simulateUpdates = function () {
   html = html.slice(0, -4) + randomLetter() + '</p>'
   content[0].html = html
   ed.content = content
+}
+let toggleUpdates = function () {
+  if (timeout) {
+    clearTimeout(timeout)
+    timeout = null
+    document.querySelector('#sim').textContent = 'Simulate changes from API ▶'
+  } else {
+    timeout = setTimeout(simulateUpdates, 500)
+    document.querySelector('#sim').textContent = 'Simulate changes from API ◼︎'
+  }
 }
 document.querySelector('#sim').onclick = toggleUpdates
