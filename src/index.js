@@ -31,7 +31,7 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
-
+    
     if (options.onChange) {
       this.pm.on('change', options.onChange)
     }
