@@ -1,4 +1,4 @@
-import {Block, Textblock, Attribute} from 'prosemirror/src/model'
+import {Block, Textblock, Attribute, Pos} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 import {parseWrap, wrapIn} from './utils'
 
@@ -22,13 +22,11 @@ export class Figure extends Block {}
 Figure.register('parseDOM', {tag: 'figure', parse: parseWrap})
 Figure.prototype.serializeDOM = wrapIn('figure')
 Figure.prototype.isNotEditable = true
-
-// Figure.prototype.clicked = (_, path, dom, coords) => {
-//   console.log(arguments)
-//   let childBox = dom.firstChild.getBoundingClientRect()
-//   if (coords.left < childBox.left - 2) return Pos.from(path)
-// }
+// Select on click
+Figure.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
 
 export class FigCaption extends Block {}
 FigCaption.register('parseDOM', {tag: 'figcaption', parse: parseWrap})
 FigCaption.prototype.serializeDOM = wrapIn('figcaption')
+// Select on click
+FigCaption.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
