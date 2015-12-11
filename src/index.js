@@ -10,6 +10,8 @@ import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
+import pluginMedia from './plugins/media.js'
+
 
 export default class Ed {
   constructor (options) {
@@ -39,8 +41,14 @@ export default class Ed {
     if (options.content) {
       this.content = options.content
     }
+    
+    this.plugins = [pluginMedia]
+    this.plugins.forEach(plugin => plugin.initialize(this))
   }
   teardown () {
+    if (this.plugins) {
+      this.plugins.forEach(plugin => plugin.teardown())
+    }
     this.pm.off('change')
     this.container.innerHTML = ''
   }
