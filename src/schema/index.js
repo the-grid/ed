@@ -27,7 +27,7 @@ const editableAttribute = new Attribute({
   default: 'false'
 })
 editableAttribute.parseDOM = (dom, options) => dom.getAttribute('contenteditable') || 'false'
-editableAttribute.serializeDOM = (dom, _) => dom ? dom.setAttribute('contenteditable', 'false') : 'false'
+editableAttribute.serializeDOM = (dom, editable) => dom ? dom.setAttribute('contenteditable', editable) : null
 
 let editablePred = (_, data) => data.type.prototype.isNotEditable
 spec = spec.addAttribute(editablePred, 'contenteditable', editableAttribute)
