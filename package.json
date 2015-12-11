@@ -24,7 +24,7 @@
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
     "bob-ross-lipsum": "1.0.0",
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#d60fdb75328a8ea0759a3a48bafcc2276dc5c7b8",
+    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#4180d93f938ee5e1c09abe102b0f06e50aa2bb15",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
