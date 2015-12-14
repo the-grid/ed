@@ -37,6 +37,9 @@ export default class Ed {
     if (options.onChange) {
       this.pm.on('change', options.onChange)
     }
+    if (options.onPluginEvent) {
+      this.onPluginEvent = options.onPluginEvent
+    }
 
     if (options.content) {
       this.content = options.content

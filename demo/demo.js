@@ -13,15 +13,19 @@ function setup (options={menu:'tip'}) {
   }
   ed = new Ed({
     container: document.querySelector('#mirror'),
-    onChange: onPostChange,
     content: content,
     menutip: (options.menu === 'tip' ? true : false),
-    menubar: (options.menu === 'tip' ? false : true)
+    menubar: (options.menu === 'bar' ? true : false),
+    onChange: onPostChange,
+    onPluginEvent: onPluginEvent
   })
   console.log(ed)
 }
 function onPostChange () {
-  // noop
+  console.log('change')
+}
+function onPluginEvent (name, payload) {
+  console.log(name, payload)
 }
 setup()
 

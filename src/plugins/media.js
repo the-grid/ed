@@ -1,18 +1,24 @@
-// Make media blocks unselectable, and emit click events with id
+// Make media blocks (figure, div) unselectable
+// Emit click events with id
 
-import Listen from 'bean'
+import Bean from 'bean'
 
 export default class PluginMedia {
   constructor (ed) {
     this.ed = ed
-    Listen.on(this.ed.pm.content, 'click', 'figure, div', this.handleClick)
+    this.handleClick = this.handleClick.bind(this)
+    Bean.on(this.ed.pm.content, 'click', 'figure, div', this.handleClick)
   }
   teardown () {
-    Listen.off(this.ed.pm.content, 'click', 'figure, div', this.handleClick)
+    Bean.off(this.ed.pm.content, 'click', 'figure, div', this.handleClick)
   }
   handleClick (event) {
-    console.log(event.currentTarget.dataset.gridId)
-    event.stopPropagation()
     event.preventDefault()
+    event.stopPropagation()
+    
+    let block = event.currentTarget.dataset.gridId
+    if (block) {
+      this.ed.onPluginEvent('plugin.media.click', {block})
+    }
   }
 }
