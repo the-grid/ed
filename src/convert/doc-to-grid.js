@@ -21,7 +21,7 @@ function domMutationDedupeIds (domChildren, doc) {
       id = uuid.v4()
       // Need to set it in both dom and doc for future consistency
       child.setAttribute('data-grid-id', id)
-      doc.content[i].attrs.id = id
+      doc.child(i).attrs.id = id
     }
     ids.push(id)
   }
