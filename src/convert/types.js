@@ -1,6 +1,6 @@
 const MEDIA_TYPES = [
   'image', 'video', 'audio', 'article', 
-  'location', 'share', 'interactive'
+  'location', 'share', 'interactive', 'placeholder'
 ]
 const HTML_TYPES = [
   'text', 'p', 'code',
