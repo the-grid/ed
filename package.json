@@ -24,7 +24,7 @@
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
     "bean": "^1.0.15",
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#b5ebebd698fbc919d04f493fb5fde566f9cfd84b",
+    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#21c720222f5469e1b5e88a6a2c23ef4540695161",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
