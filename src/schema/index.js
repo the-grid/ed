@@ -8,7 +8,7 @@ import {Media} from './media'
 // Extend default schema with custom types
 
 let spec = defaultSchema.spec
-spec = spec.updateNodes({
+spec = spec.update({
   figure: Figure,
   figcaption: FigCaption,
   media: Media
