@@ -1,8 +1,10 @@
 import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 import uuid from 'uuid'
 
-import {Figure, FigCaption} from './figure'
+import {Figure, FigCaption, iFrame} from './figure'
 import {Media} from './media'
+
+//import {Embed} from './embed'
 
 
 // Extend default schema with custom types
@@ -11,7 +13,9 @@ let spec = defaultSchema.spec
 spec = spec.update({
   figure: Figure,
   figcaption: FigCaption,
-  media: Media
+  media: Media,
+  iframe: iFrame
+  //embed:Embed
 })
 
 // Block id
@@ -20,14 +24,20 @@ spec = spec.update({
 let makeId = () => uuid.v4()
 
 const idAttribute = new Attribute({
-  compute: makeId
+  
+  default: ''
+    
+  //compute: makeId // WARNING: this causes selection of blockquotes to break??
+  
 })
 
 idAttribute.parseDOM = (dom, options) => dom.getAttribute('data-grid-id') || makeId()
-idAttribute.serializeDOM = (dom, id) => dom ? dom.setAttribute('data-grid-id', id) : ''
+idAttribute.serializeDOM = (dom, id) => {
+  dom ? dom.setAttribute('data-grid-id', id) : ''
+} 
 
 let idPred = (_, data) => data.type.prototype.isTextblock || data.type.prototype.isBlock
-spec = spec.addAttribute(idPred, 'id', idAttribute)
+spec = spec.addAttribute(idPred, 'data-grid-id', idAttribute)
 
 // Non-editable blocks
 

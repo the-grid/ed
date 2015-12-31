@@ -3,7 +3,13 @@
 <meta charset="utf-8"/>
 <title>the-grid/ed demo page</title>
 <style>
+  * {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+  }
   body {
+    font-family: Georgia;
     margin: 0;
     height: 100%;
     padding: 1em;
@@ -20,7 +26,12 @@
     top: 0;
     left: 0;
     width: 15em;
+    -webkit-filter: blur(4px);
   }
+  #controls:hover {
+    -webkit-filter: blur(0px);
+  }
+  
   #mirror {
     margin-left: 16em;
   }
@@ -35,6 +46,28 @@
     margin-bottom: 0.5em;
   }
   
+  [contenteditable]:focus { outline: 0px solid transparent; }
+  
+  .ProseMirror {
+    border:none;
+  }
+  
+  .ProseMirror-content {
+    border:none;
+    padding: 0px;
+    white-space: pre-wrap;
+    margin: auto;
+    margin-top: 3em;
+    margin-bottom: 4em;
+    max-width: 800px;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  .ProseMirror-content > * {
+    margin: 1em 0px;
+    line-height: 1.4em;
+  }
+  
   .ProseMirror-content div {
     border-left: 3px solid green;
     padding: 0 0 0 1em;
@@ -45,6 +78,146 @@
     padding: 0 0 0 1em;
     margin: 1em 0;
   }
+  
+  .ProseMirror-content blockquote {
+    font-size: 2rem;
+    font-style: italic;
+    color: hsl(0,0%,30%);
+  }
+  
+  
+  
+  .ProseMirror-tooltip, .ProseMirror-tooltip input, textarea, keygen, select, button {
+    font-family: Lucida Grande, Verdana;
+    font-size: 16px;
+  }
+  .ProseMirror-tooltip {
+    white-space: nowrap;
+  }  
+  .ProseMirror-tooltip {
+    position: absolute;
+    display: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border- box;
+    overflow: hidden;
+    -webkit-transition: width 0.4s ease-out, height 0.4s ease-out, left 0.4s ease-out, top 0.4s ease-out, opacity 0.2s;
+    -moz-transition: width 0.4s ease-out, height 0.4s ease-out, left 0.4s ease-out, top 0.4s ease-out, opacity 0.2s;
+    transition: width 0.4s ease-out, height 0.4s ease-out, left 0.4s ease-out, top 0.4s ease-out, opacity 0.2s;
+    opacity: 0;
+    border-radius: 5px;
+    padding: 0px; 
+    margin: 0;
+    background: hsl(0, 0%, 27%);
+    border-color: hsl(0, 0%, 47%);
+    color: hsl(0, 100%, 100%);
+    z-index: 11;
+  }
+  
+  
+  /* fix!!! */
+  .ProseMirror-menu {
+    margin: 0 0px;
+    line-height: 1;
+    white-space: pre;
+  }
+  .ProseMirror-tooltip > * {
+    margin:8px;
+  }
+  
+  .ProseMirror-tooltip .ProseMirror-menuicon {
+    font-size: 20px;
+  }
+  .ProseMirror-tooltip input[type="text"] {
+    font-size: 16px;
+    margin: 8px;
+    padding: 6px 6px;
+    background-color: hsl(0, 0%, 30%);
+    box-shadow: inset 0 2px 2px hsla(0,0%,0%,0.2), 0 1px 1px hsla(0,0%,100%,0.2);
+  }
+  .ProseMirror-tooltip-back {
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    color: hsl(55, 100%, 70%);
+    cursor: pointer;
+  }
+  .ProseMirror-tooltip-back:after {
+    content: "⤹";
+    font-size: 23px;
+  }
+  .ProseMirror-tooltip > * {
+    margin: 12px;
+  }
+  .ProseMirror-tooltip-back-wrapper {
+    padding: 0px;
+  }
+  .ProseMirror-tooltip form div {
+    /* float: left; */
+    display: inline;
+  }
+  
+  
+  
+  .ProseMirror-select {
+    padding: 8px 21px 8px 8px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+    margin: 0 8px;
+  }
+  .ProseMirror-select, .ProseMirror-select-menu {
+    border: 1px solid hsl(0, 0%, 43%);
+    /* box-shadow: 0 1px 1px hsl(0, 0%, 0%); */
+    border-radius: 3px;
+    font-size: 90%;
+  }
+  
+  
+  
+  
+  .logo-loader {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .logo-loader-path{
+    -webkit-transition-property: stroke-dashoffset;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: stroke-dashoffset;
+    -moz-transition-duration: 1s;
+    transition-property: stroke-dashoffset;
+    transition-duration: 1s;
+    
+      -webkit-animation-name: spin; 
+      -webkit-animation-duration: 20s; 
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-name: spin; 
+      -moz-animation-duration: 20s; 
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-timing-function: linear;
+      animation-name: spin; 
+      animation-duration: 20s; 
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+  }
+  @-webkit-keyframes spin {
+      from {stroke-dashoffset: -4435.2px;}
+      to {stroke-dashoffset: 0px;}
+  }
+
+  @-moz-keyframes spin {
+      from {stroke-dashoffset: -4435.2px;}
+      to {stroke-dashoffset: 0px;}
+  }
+
+  @keyframes spin {
+      from {stroke-dashoffset: -4435.2px;}
+      to {stroke-dashoffset: 0px;}
+  }
+  
 </style>
 
 <div id="mirror"></div>
@@ -57,6 +230,8 @@
   <textarea id="api" spellcheck="false"></textarea>
   <p><a href="https://github.com/the-grid/ed">source</a></p>
 </div>
+
+
 
 <!-- Ususally loaded from memory (npm start), but (npm run builddemo) copies for gh-pages -->
 <script src="./webpack/demo.js"></script>

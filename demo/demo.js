@@ -1,8 +1,8 @@
 import Ed from '../src/'
 import fixture from './fixture'
 
-let content = fixture.content
 let ed
+let content = fixture.content
 let menu = 'tip'
 
 // ProseMirror setup
@@ -20,6 +20,8 @@ function setup (options={menu:'tip'}) {
     onPluginEvent: onPluginEvent
   })
   console.log(ed)
+  console.log('ed.pm.options.registries',ed.pm.options.registries)
+  window.ed = ed
 }
 function onPostChange () {
   console.log('change')

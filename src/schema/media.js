@@ -11,9 +11,15 @@ export function makeMediaDom (attrs) {
 }
 
 export class Media extends Block {}
+
 Media.register('parseDOM', {tag: 'div', parse: 'block'})
+
 Media.prototype.serializeDOM = wrapIn('div')
+
 Media.prototype.isNotEditable = true
 
 // Select on click
-Media.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
+Media.prototype.clicked = (_, path, dom, coords) => {
+  console.log("Media Clicked")
+  Pos.from(path)
+}

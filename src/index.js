@@ -11,7 +11,9 @@ import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import PluginMedia from './plugins/media.js'
+import UrlEmbedderPlugin from './plugins/url-embedder.js'
 
+import {commandGroups} from "prosemirror/src/menu/menu"
 
 export default class Ed {
   constructor (options) {
@@ -21,11 +23,8 @@ export default class Ed {
     let pmOptions = {
       place: this.container,
       autoInput: true,
+      docFormat: "html",
       schema: GridSchema
-    }
-    
-    if (options.menutip) {
-      pmOptions.tooltipMenu = {emptyBlockMenu: true}
     }
 
     if (options.menubar) {
@@ -33,6 +32,15 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
+    
+    if (options.menutip) {
+      this.pm.setOption( 'tooltipMenu', {
+        emptyBlockMenu: false,
+        selectedBlockMenu: true,
+        inlineItems: commandGroups(this.pm, "inline", "block"), //, "history"),
+        blockItems: commandGroups(this.pm, "inline", "block") //, "history")
+      })
+    }
     
     if (options.onChange) {
       this.pm.on('change', options.onChange)
@@ -45,7 +53,7 @@ export default class Ed {
       this.content = options.content
     }
     
-    let plugins = [PluginMedia]
+    let plugins = [PluginMedia, UrlEmbedderPlugin]
     this.plugins = plugins.map(plugin => new plugin(this))
   }
   teardown () {
