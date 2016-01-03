@@ -3,7 +3,8 @@ import fixture from './fixture'
 
 let content = fixture.content
 let ed
-let menu = 'tip'
+let isTouchDevice = ('ontouchstart' in window)
+let menu = isTouchDevice ? 'bar' : 'tip'
 
 // ProseMirror setup
 function setup (options={menu:'tip'}) {
