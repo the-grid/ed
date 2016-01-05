@@ -28,35 +28,41 @@ const menuItems = [
 
 import Bean from 'bean'
 
+
 export default class UrlEmbedderPlugin {
   
   constructor (ed) {
     this.ed = ed
     this.setup(ed.pm)
+    this.activeLineNumber = -1
+    this.activeLineOffset = -1
+    this.onFlushed = () => {
+      this.checkCurrentSelection()
+    }
   }
   
   setup (pm) {
-    let tooltip = new Tooltip(pm, "below"), open
-    pm.content.addEventListener("keydown", () => { tooltip.close(); open = null })
-    pm.content.addEventListener("mousedown", () => { tooltip.close(); open = null })
-    pm.on("change", text => {
-      
-      if (!/[\[\w]/.test(text)) return
-      let pos = pm.selection.head, line = ""
-      for (let i = pm.doc.path(pos.path).iter(0, pos.offset), child; child = i.next().value;) {
-        if (child.isText) line += child.text
-        else line = ""
-      }
-      let urlPos = line.lastIndexOf("http", pos.offset)      
-      if (urlPos !== 0) return
-      let url = line.substr(urlPos).trim().split(' ')[0]
-      if (url.length !== line.length) return
-      let completions = menuItems
-      // let completions = menuItems.filter(name => name.indexOf(word) == 0)
-      if (completions.length) showCompletions(completions, pos.move(-(url.length)), pos, urlPos, url)
+    this.tooltip = new Tooltip(pm, "left")
+    pm.content.addEventListener("mousedown", () => { 
+      this.hide()
     })
-
-    function showCompletions(menuItems, from, to, urlPos, url) {
+    //pm.content.addEventListener("keydown", () => {       
+    //  //console.log("KEYDOWN")
+    //  //this.hide()       
+    //  this.update()
+    //})
+    
+    pm.on("change", text2 => {
+      //console.log("CHANGE")
+      this.update()
+    })            
+  }
+  
+  update () {
+    let pm = this.ed.pm
+    let tooltip = this.tooltip
+    let text = pm.selection
+    let showCompletions = (menuItems, from, to, urlPos, url) => {
       function applyCompletion(name) {
         pm.tr.delete(from, to).insertInline(from, dinoSchema.node("dino", {type: name})).apply()
         tooltip.close()
@@ -71,13 +77,62 @@ export default class UrlEmbedderPlugin {
         return item
       })
       let coords = pm.coordsAtPos(from)
-      tooltip.open(elt("div", null, items), {left: coords.left, top: coords.bottom})
-      open = () => applyCompletion(menuItems[0])
+      this.show(elt("div", null, items), {left: coords.left, top: coords.bottom})
+    }
+        
+    if (!/[\[\w]/.test(text)) {
+      return this.hide()      
+    }
+    let pos = pm.selection.head, line = ""
+    for (let i = pm.doc.path(pos.path).iter(0, pos.offset), child; child = i.next().value;) {
+      if (child.isText) line += child.text
+      else line = ""
+    }
+    
+    let urlPos = line.lastIndexOf("http", pos.offset)      
+    if (urlPos !== 0) {
+      return this.hide()
+    }
+    let url = line.substr(urlPos).trim().split(' ')[0]
+    if (url.length !== line.length) {
+      return this.hide()
+    }
+    let completions = menuItems
+    // let completions = menuItems.filter(name => name.indexOf(word) == 0)
+    if (completions.length) {
+      showCompletions(completions, pos.move(-(url.length)), pos, urlPos, url)
+    } else {
+      return this.hide()
+    }        
+    
+  }
+  
+  checkCurrentSelection () {
+    if (this.activeLineNumber !== this.ed.pm.selection.head.path[0]) {
+      this.hide()
     }
   }
   
+  show (el, pos) {
+    this.activeLineNumber = this.ed.pm.selection.head.path[0]
+    this.activeLineOffset = this.ed.pm.selection.head.offset
+    console.log(this.activeLineNumber)
+    console.log(this.activeLineOffset)
+    this.tooltip.open(el, pos)
+    this.ed.pm.on("flushed", this.onFlushed)
+  }    
+  
+  
+  hide () {
+    this.ed.pm.off("flushed", this.onFlushed)
+    this.activeLineNumber = -1
+    this.activeLineOffset = -1
+    this.tooltip.close()
+    
+  }
+  
   teardown () {
-    Bean.off(this.ed.pm.content, 'click', 'figure, div', this.handleClick)
+    // TODO
   }
   
   handleClick (event) {
