@@ -11,7 +11,7 @@ import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import PluginMedia from './plugins/media.js'
-import UrlEmbedderPlugin from './plugins/url-embedder.js'
+import UrlEmbedder from './plugins/url-embedder.js'
 
 import {commandGroups} from "prosemirror/src/menu/menu"
 
@@ -53,7 +53,7 @@ export default class Ed {
       this.content = options.content
     }
     
-    let plugins = [PluginMedia, UrlEmbedderPlugin]
+    let plugins = [PluginMedia, UrlEmbedder]
     this.plugins = plugins.map(plugin => new plugin(this))
   }
   teardown () {

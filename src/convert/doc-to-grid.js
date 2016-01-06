@@ -1,4 +1,4 @@
-import {toDOM} from 'prosemirror/src/serialize/dom'
+import {toDOM} from 'prosemirror/src/format'
 import {isMediaType, isHTMLType} from './types'
 import uuid from 'uuid'
 

@@ -1,4 +1,4 @@
-import {fromDOM} from 'prosemirror/src/parse/dom'
+import {fromDOM} from 'prosemirror/src/format'
 
 import GridSchema from '../schema/'
 import {makeFigureDom} from '../schema/figure'

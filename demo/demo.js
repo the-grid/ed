@@ -5,6 +5,7 @@ let ed
 let content = fixture.content
 let menu = 'tip'
 
+console.log('Hwllo>}asdfasdfs?')
 // ProseMirror setup
 function setup (options={menu:'tip'}) {
   if (ed) {
@@ -22,6 +23,7 @@ function setup (options={menu:'tip'}) {
   console.log(ed)
   console.log('ed.pm.options.registries',ed.pm.options.registries)
   window.ed = ed
+  console.log('Hwllo>}?')
 }
 function onPostChange () {
   console.log('change')

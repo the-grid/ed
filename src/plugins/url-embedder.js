@@ -1,7 +1,7 @@
 import {Block, Textblock, Attribute, Pos} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 import {InputRule} from "prosemirror/src/inputrules"
-import {Tooltip} from "prosemirror/src/menu/tooltip"
+import {Tooltip} from "prosemirror/src/ui/tooltip"
 
 const menuItems = [
   {
@@ -29,7 +29,7 @@ const menuItems = [
 import Bean from 'bean'
 
 
-export default class UrlEmbedderPlugin {
+export default class UrlEmbedder {
   
   constructor (ed) {
     this.ed = ed
@@ -42,7 +42,7 @@ export default class UrlEmbedderPlugin {
   }
   
   setup (pm) {
-    this.tooltip = new Tooltip(pm, "left")
+    this.tooltip = new Tooltip(pm.wrapper, "left")
     pm.content.addEventListener("mousedown", () => { 
       this.hide()
     })

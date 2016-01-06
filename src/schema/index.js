@@ -21,6 +21,8 @@ spec = spec.update({
 // Block id
 // TODO: make these for top-level blocks only
 
+
+
 let makeId = () => uuid.v4()
 
 const idAttribute = new Attribute({
@@ -37,7 +39,9 @@ idAttribute.serializeDOM = (dom, id) => {
 } 
 
 let idPred = (_, data) => data.type.prototype.isTextblock || data.type.prototype.isBlock
-spec = spec.addAttribute(idPred, 'data-grid-id', idAttribute)
+
+// TODO: FUCK, API CHANGE
+// spec = spec.addAttribute(idPred, 'data-grid-id', idAttribute)
 
 // Non-editable blocks
 
@@ -48,7 +52,9 @@ editableAttribute.parseDOM = (dom, options) => dom.getAttribute('contenteditable
 editableAttribute.serializeDOM = (dom, editable) => dom ? dom.setAttribute('contenteditable', editable) : null
 
 let editablePred = (_, data) => data.type.prototype.isNotEditable
-spec = spec.addAttribute(editablePred, 'contenteditable', editableAttribute)
+
+// TODO: FUCK, API CHANGE
+//spec = spec.addAttribute(editablePred, 'contenteditable', editableAttribute)
 
 //
 
