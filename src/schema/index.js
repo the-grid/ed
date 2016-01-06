@@ -2,8 +2,8 @@ import uuid from 'uuid'
 
 import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 export {defaultSchema, Attribute, Schema, Block}
-import {Figure, FigCaption, iFrame} from './figure'
-export {Figure, FigCaption, iFrame}
+import {Figure, FigCaption, iFrame, CodeMirror} from './figure'
+export {Figure, FigCaption, iFrame, CodeMirror}
 import {Media} from './media'
 export {Media}
 import {Embed} from './embed'
@@ -17,8 +17,9 @@ spec = spec.update({
   figure: Figure,
   figcaption: FigCaption,
   media: Media,
-  iframe: iFrame
+  iframe: iFrame,
   //embed:Embed
+  CodeMirror: CodeMirror
 })
 
 // Block id

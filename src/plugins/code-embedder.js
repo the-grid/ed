@@ -3,7 +3,7 @@ import {CodeBlock, Block, Textblock, Attribute, Pos} from 'prosemirror/src/model
 import {elt} from 'prosemirror/src/dom'
 import {Tooltip} from "prosemirror/src/ui/tooltip"
 
-import {Embed} from "../schema"
+import {iFrame,Embed, CodeMirror} from "../schema"
 
 
 //
@@ -15,13 +15,12 @@ import {Embed} from "../schema"
 //   pm.tr.delete(start, pos).insertInline(start, this.create({type: match[1]})).apply()
 // }))
 
-CodeBlock.register("autoInput", new InputRule("startCodeBlock", /^__$/, "_", function(pm, _, pos) {
-  setAs(pm, pos, this, {params: ""})
+CodeMirror.register("autoInput", new InputRule("startCodeBlock", /^__$/, "_", function(pm, _, pos) {
+  pm.tr.setBlockType(pos, pos, this, {'data-embed-type':'ced', params: "", src:"../../node_modules/@the-grid/ced/editor/index.html"})
+       .delete(new Pos(pos.path, 0), pos)
+       .apply()
 }))
 
 
-function setAs(pm, pos, type, attrs) {
-  pm.tr.setBlockType(pos, pos, type, attrs)
-       .delete(new Pos(pos.path, 0), pos)
-       .apply()
-}
+
+export default class CodeEmbedder {}

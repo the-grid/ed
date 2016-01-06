@@ -1,4 +1,4 @@
-import {Block, Inline, Textblock, Attribute, Pos} from 'prosemirror/src/model'
+import {CodeBlock, Block, Inline, Textblock, Attribute, Pos} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 import {wrapIn} from './utils'
 
@@ -14,7 +14,9 @@ export function makeFigureDom (attrs) {
   //let element = wrapper.firstChild
   
   let element = elt("iframe", {
-    src: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com",
+    //src: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com",
+    'data-embed-type':'ced',
+    src: "../../node_modules/@the-grid/ced/editor/index.html",
     type: "text/html",
     width: 650,
     height: 390
@@ -55,23 +57,31 @@ FigCaption.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
 
 
 
+// iFrame
 export class iFrame extends Block {
   
+  get contains() { return "inline" }
+  get canBeEmpty() { return true }
+  
   get attrs() {
-    return {      
+    return {
+      'data-embed-type': new Attribute({default: "default"}),
       src: new Attribute({default: ""}),
-      type: new Attribute({default: "text/html"}),
+      type: new Attribute({default: "text/html"}),      
       width: new Attribute({default: 800}),
       height: new Attribute({default: 390 * 800/640})
     }
   }
   
   serializeDOM(node, s) {
+    let embedType = node.attrs['data-embed-type']
     return s.elt("iframe", {
+      class:['embed-type-'+  embedType],
       src: node.attrs.src,
       type: node.attrs.type,
       width: node.attrs.width,
-      height: node.attrs.height
+      height: node.attrs.height,
+      'data-embed-type': embedType
     })
   }
 }
@@ -81,10 +91,16 @@ iFrame.register( 'parseDOM',
     parse:function(dom, state) {       
       state.insert(this, {
         src: dom.getAttribute("src") || null,
-        'data-test':'hello'
+        'data-embed-type': dom.dataset.embedType
       })
     }
   }
 )
 
 iFrame.prototype.isNotEditable = false
+
+
+// CodeMirror
+export class CodeMirror extends iFrame {
+  
+}
