@@ -10,7 +10,6 @@ import {Embed} from './embed'
 export {Embed}
 
 
-
 // Extend default schema with custom types
 
 let spec = defaultSchema.spec

@@ -58,20 +58,33 @@ FigCaption.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
 export class iFrame extends Block {
   
   get attrs() {
-    return {
-      src: new Attribute({default: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"}),
+    return {      
+      src: new Attribute({default: ""}),
       type: new Attribute({default: "text/html"}),
       width: new Attribute({default: 800}),
       height: new Attribute({default: 390 * 800/640})
     }
   }
   
+  serializeDOM(node, s) {
+    return s.elt("iframe", {
+      src: node.attrs.src,
+      type: node.attrs.type,
+      width: node.attrs.width,
+      height: node.attrs.height
+    })
+  }
 }
-iFrame.register('parseDOM', {tag: 'iframe', parse: 'block'})
-iFrame.prototype.serializeDOM = (node, s) => s.elt("iframe", {
-  src: node.attrs.src,
-  type: node.attrs.type,
-  width: node.attrs.width,
-  height: node.attrs.height
-})
+iFrame.register( 'parseDOM', 
+  {
+    tag: 'iframe', 
+    parse:function(dom, state) {       
+      state.insert(this, {
+        src: dom.getAttribute("src") || null,
+        'data-test':'hello'
+      })
+    }
+  }
+)
+
 iFrame.prototype.isNotEditable = false
