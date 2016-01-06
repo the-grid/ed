@@ -63,12 +63,7 @@ Embed.register("command", {
   menuRank: 99
 })
 
-//
-Embed.register("autoInput", new InputRule("autoDino", new RegExp("\\[(" + dinos.join("|") + ")\\]$"), "]", function(pm, match, pos) {
-  let start = pos.move(-match[0].length)
-  // pm EditorTransform
-  pm.tr.delete(start, pos).insertInline(start, this.create({type: match[1]})).apply()
-}))
+
 
 
 
