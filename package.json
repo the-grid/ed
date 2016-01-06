@@ -10,7 +10,8 @@
     "build": "npm run clean; webpack",
     "builddemo": "export DEMO=true; webpack",
     "clean": "rm -rf build",
-    "test": "echo 'todo'",
+    "test": "echo 'todo' && npm run lint",
+    "lint": "eslint src demo --ignore-pattern demo/fixture.js",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
