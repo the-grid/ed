@@ -8,13 +8,5 @@
     "node": true,
     "es6": true
   },
-  "rules": {
-    "semi": [2, "never"],
-    "strict": 0,
-    "no-underscore-dangle": 0,
-    "quotes": [
-      2,
-      "single"
-    ]
-  }
+  "extends": "standard"
 }
