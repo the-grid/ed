@@ -10,10 +10,8 @@ export function makeMediaDom (attrs) {
   return element
 }
 
-export class Media extends Block {}
+export class Media extends Block {
+  static get kinds() { return 'doc media' }
+}
 Media.register('parseDOM', {tag: 'div', parse: 'block'})
 Media.prototype.serializeDOM = wrapIn('div')
-Media.prototype.isNotEditable = true
-
-// Select on click
-Media.prototype.clicked = (_, path, dom, coords) => Pos.from(path)

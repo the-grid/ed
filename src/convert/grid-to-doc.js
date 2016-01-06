@@ -1,7 +1,6 @@
 import {fromDOM} from 'prosemirror/src/format'
 
 import GridSchema from '../schema/'
-import {makeFigureDom} from '../schema/figure'
 import {makeMediaDom} from '../schema/media'
 import {isMediaType, isHTMLType} from './types'
 
@@ -15,17 +14,8 @@ function itemToDOM (item) {
   } else if ( isMediaType(type) ) {
     let title = metadata ? metadata.title : ''
     let description = metadata ? metadata.description : ''
-    if (cover && cover.src) {
-      el = makeFigureDom({
-        src: cover.src,
-        title: title || '',
-        description: description || 'caption'
-      })
-    }
-    if (!el) {
-      description = description || `${type} block placeholder`
-      el = makeMediaDom({title, description})
-    }
+    description = description || `${type} block placeholder`
+    el = makeMediaDom({title, description})
   } else {
     return null
   }
