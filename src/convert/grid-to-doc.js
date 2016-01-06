@@ -16,10 +16,11 @@ function itemToDOM (item) {
     let description = metadata ? metadata.description : ''
     description = description || `${type} block placeholder`
     el = makeMediaDom({title, description})
+    el.setAttribute('grid-id', id)
+    el.setAttribute('grid-type', type)
   } else {
     return null
   }
-  el.setAttribute('data-grid-id', id)
   return el
 }
 
