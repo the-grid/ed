@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - '0.12'
-script: bash ./deploy.sh
+after_script: bash ./deploy.sh
 env:
   global:
     - GH_REF: github.com/the-grid/ed.git
