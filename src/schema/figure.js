@@ -58,6 +58,7 @@ FigCaption.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
 
 
 // iFrame
+
 export class iFrame extends Block {
   
   get contains() { return "inline" }
@@ -66,6 +67,7 @@ export class iFrame extends Block {
   get attrs() {
     return {
       'data-embed-type': new Attribute({default: "default"}),
+      'onload': new Attribute({default: ""}),
       src: new Attribute({default: ""}),
       type: new Attribute({default: "text/html"}),      
       width: new Attribute({default: 800}),
@@ -81,6 +83,7 @@ export class iFrame extends Block {
       type: node.attrs.type,
       width: node.attrs.width,
       height: node.attrs.height,
+      onload: node.attrs.onload,
       'data-embed-type': embedType
     })
   }

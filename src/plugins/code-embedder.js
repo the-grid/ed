@@ -15,10 +15,26 @@ import {iFrame,Embed, CodeMirror} from "../schema"
 //   pm.tr.delete(start, pos).insertInline(start, this.create({type: match[1]})).apply()
 // }))
 
-CodeMirror.register("autoInput", new InputRule("startCodeBlock", /^__$/, "_", function(pm, _, pos) {
-  pm.tr.setBlockType(pos, pos, this, {'data-embed-type':'ced', params: "", src:"../../node_modules/@the-grid/ced/editor/index.html"})
-       .delete(new Pos(pos.path, 0), pos)
-       .apply()
+
+window._focusCodeMirror = (el) => {
+  el.contentWindow.document.getElementsByTagName('textarea')[1].focus()
+}
+
+iFrame.register("autoInput", new InputRule("startCodeBlock", /^__$/, "_", function(pm, _, pos) {
+  pm.tr.setBlockType(
+    pos, 
+    pos, 
+    this, 
+    {
+      'data-embed-type':'ced', 
+      params: "", 
+      src:"../../node_modules/@the-grid/ced/editor/index.html",
+      onload:"window._focusCodeMirror(this);"
+    }
+  )
+  .delete(new Pos(pos.path, 0), pos)
+  .apply()
+  
 }))
 
 
