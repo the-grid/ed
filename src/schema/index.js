@@ -1,10 +1,14 @@
-import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 import uuid from 'uuid'
 
+import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
+export {defaultSchema, Attribute, Schema, Block}
 import {Figure, FigCaption, iFrame} from './figure'
+export {Figure, FigCaption, iFrame}
 import {Media} from './media'
+export {Media}
+import {Embed} from './embed'
+export {Embed}
 
-//import {Embed} from './embed'
 
 
 // Extend default schema with custom types
@@ -58,6 +62,6 @@ let editablePred = (_, data) => data.type.prototype.isNotEditable
 
 //
 
-const GridSchema = new Schema(spec)
-console.log(GridSchema)
-export default GridSchema
+export const schema = new Schema(spec)
+console.log(schema)
+export default schema

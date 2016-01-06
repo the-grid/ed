@@ -14,14 +14,14 @@ export function makeFigureDom (attrs) {
   //let element = wrapper.firstChild
   
   let element = elt("iframe", {
-    src: '',
+    src: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com",
     type: "text/html",
     width: 650,
     height: 390
   })
   
   //let element = elt('figure', {},
-  //  elt('img', {src}),
+  //  elt('img', {src,'data-test':'hello'}),
   //  elt('figcaption', {},
   //    elt('h1', {}, (title || '')),
   //    elt('p', {}, (description || ''))
@@ -55,12 +55,17 @@ FigCaption.prototype.clicked = (_, path, dom, coords) => Pos.from(path)
 
 
 
-export class iFrame extends Block {}
-iFrame.attributes = {
-  src: new Attribute({default: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"}),
-  type: new Attribute({default: "text/html"}),
-  width: new Attribute({default: 800}),
-  height: new Attribute({default: 390 * 800/640})
+export class iFrame extends Block {
+  
+  get attrs() {
+    return {
+      src: new Attribute({default: "http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"}),
+      type: new Attribute({default: "text/html"}),
+      width: new Attribute({default: 800}),
+      height: new Attribute({default: 390 * 800/640})
+    }
+  }
+  
 }
 iFrame.register('parseDOM', {tag: 'iframe', parse: 'block'})
 iFrame.prototype.serializeDOM = (node, s) => s.elt("iframe", {

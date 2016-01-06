@@ -12,6 +12,7 @@ import DocToGrid from './convert/doc-to-grid'
 
 import PluginMedia from './plugins/media.js'
 import UrlEmbedder from './plugins/url-embedder.js'
+import CodeEmbedder from './plugins/code-embedder.js'
 
 import {commandGroups} from "prosemirror/src/menu/menu"
 
@@ -53,7 +54,7 @@ export default class Ed {
       this.content = options.content
     }
     
-    let plugins = [PluginMedia, UrlEmbedder]
+    let plugins = [PluginMedia, UrlEmbedder, CodeEmbedder]
     this.plugins = plugins.map(plugin => new plugin(this))
   }
   teardown () {

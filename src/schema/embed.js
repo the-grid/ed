@@ -1,7 +1,5 @@
 import {Block, Textblock, Attribute, Pos} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
-import {InputRule} from "prosemirror/dist/inputrules"
-import {Tooltip} from "prosemirror/dist/menu/tooltip"
 import {wrapIn} from './utils'
 
 const dinos = ["brontosaurus", "stegosaurus", "triceratops", "tyrannosaurus", "pterodactyl"]
@@ -11,7 +9,7 @@ export class Embed extends Block {}
 // 
 Embed.register('parseDOM', {
   tag: 'div',
-  rank: 25
+  rank: 25,
   parse: function (dom, context) {
     let type = dom.getAttribute("dino-type") //!!!!
     if (!type) return false
@@ -24,7 +22,7 @@ Embed.register('parseDOM', {
 Embed.prototype.isNotEditable = true
 
 //
-Embed.gridToDoc = (attrs) {
+Embed.gridToDoc = (attrs) => {
   // TODO
   //let {title, description} = attrs
   //let element = elt('div', {},
