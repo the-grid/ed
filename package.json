@@ -1,5 +1,7 @@
 {
   "name": "@the-grid/ed",
+  "author": "Forrest Oliphant, The Grid",
+  "license": "MIT",
   "version": "0.0.16",
   "description": "the grid api with prosemirror",
   "main": "lib/ed.js",
@@ -16,8 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/the-grid/ed.git"
   },
-  "author": "Forrest Oliphant",
-  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/the-grid/ed/issues"
   },
