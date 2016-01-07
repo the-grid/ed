@@ -1,25 +1,22 @@
-// Make media blocks (figure, div) unselectable
-// Emit click events with id
-
-import Bean from 'bean'
+// Sync widget overlays with media blocks
 
 export default class PluginMedia {
   constructor (ed) {
     this.ed = ed
-    // FIXME Better way to bind to this?
-    this._handleClick = this.handleClick.bind(this)
-    Bean.on(this.ed.pm.content, 'click', 'figure, div', this._handleClick)
+    this._onChange = this.onChange.bind(this)
+    ed.pm.on('change', this._onChange)
   }
   teardown () {
-    Bean.off(this.ed.pm.content, 'click', 'figure, div', this._handleClick)
+    ed.pm.off('change', this._onChange)
   }
-  handleClick (event) {
-    event.preventDefault()
-    event.stopPropagation()
-
-    let block = event.currentTarget.dataset.gridId
-    if (block) {
-      this.ed.onPluginEvent('plugin.media.click', {block})
+  onChange (event) {
+    let els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+    for (let i = 0, len = els.length; i < len; i++) {
+      let el = els[i]
+      let id = el.getAttribute('grid-id')
+      let type = el.getAttribute('grid-type')
+      let rectangle = el.getBoundingClientRect()
+      console.log(type, id, rectangle.top, rectangle.left)
     }
   }
 }
