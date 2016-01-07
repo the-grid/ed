@@ -6,13 +6,20 @@ const WidgetTypes = {
   code: WidgetCode
 }
 
-function getWithId (array, id) {
+function getIndexWithId (array, id) {
   for (let i = 0, len = array.length; i < len; i++) {
     let item = array[i]
     if (item.id === id) {
-      return item
+      return i
     }
   }
+  return -1
+}
+
+function getItemWithId (array, id) {
+  let index = getIndexWithId(array, id)
+  if (index === -1) return
+  return array[index]
 }
 
 // Functions to bind in class constructor
@@ -44,7 +51,7 @@ function checkWidget (id, type, rectangle) {
 function initializeWidget (id, type, rectangle) {
   if (!WidgetTypes[type]) return
 
-  let initialBlock = getWithId(this.ed._content, id)
+  let initialBlock = getItemWithId(this.ed._content, id)
 
   this.widgets[id] = new WidgetTypes[type]({
     widgetContainer: this.el,
@@ -53,23 +60,42 @@ function initializeWidget (id, type, rectangle) {
   })
 }
 
+function onIframeMessage (message) {
+  if (message.data.topic !== 'changed') return
+
+  let block = message.data.payload
+  if (!block || !block.id) return
+
+  var index = getIndexWithId(this.ed._content, block.id)
+  if (index === -1) return
+
+  this.ed._content.splice(index, 1, block)
+}
+
+// The plugin
+
 export default class PluginWidget {
   constructor (ed) {
     this.onDOMChanged = onDOMChanged.bind(this)
     this.checkWidget = checkWidget.bind(this)
     this.initializeWidget = initializeWidget.bind(this)
+    this.onIframeMessage = onIframeMessage.bind(this)
 
     this.ed = ed
     this.widgets = {}
     this.el = document.createElement('div')
     this.el.className = 'GridEdWidgets'
     document.body.appendChild(this.el)
-    ed.pm.on('flushed', this.onDOMChanged)
+
+    this.ed.pm.on('flushed', this.onDOMChanged)
     window.addEventListener('resize', this.onDOMChanged)
+    window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
-    ed.pm.off('flushed', this.onDOMChanged)
-    this.el.parentNode.removeChild(this.el)
+    this.ed.pm.off('flushed', this.onDOMChanged)
     window.removeEventListener('resize', this.onDOMChanged)
+    window.removeEventListener('message', this.onIframeMessage)
+
+    this.el.parentNode.removeChild(this.el)
   }
 }

@@ -34,7 +34,7 @@ export default class WidgetIframe {
     this.el.style.left = rectangle.left + 'px'
   }
   teardown () {
-    if (options.initialBlock) {
+    if (this.initialBlock) {
       this.el.removeEventListener('load', this.postInitialBlock)
     }
     this.el.parentNode.removeChild(this.el)
