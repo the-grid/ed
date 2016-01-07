@@ -583,12 +583,13 @@ let post = {
       "html": `<h1>${getHappyLittlePhrase()}</h1>`,
       "metadata": {"starred": true}
     },
-    sharing,
+    code,
     {
       "id": "uuid-broken-00",
       "type": undefined
     },
     tweet,
+    sharing,
     imageCole,
     {
       "id": "abc-00000000-h2",
@@ -615,7 +616,6 @@ let post = {
       "html": `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`,
       "metadata": {"starred": false}
     },
-    code,
     videoTurtle,
     article,
     {

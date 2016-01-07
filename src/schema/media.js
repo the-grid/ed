@@ -31,4 +31,4 @@ Media.register('parseDOM', {
 Media.prototype.serializeDOM = (node, s) => s.elt('div', {
   'grid-id': node.attrs.id,
   'grid-type': node.attrs.type
-}, `${node.attrs.type} media block`)
+}, `${node.attrs.type} widget goes here`)
