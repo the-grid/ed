@@ -2,8 +2,10 @@ import uuid from 'uuid'
 
 import {defaultSchema, Attribute, Schema, Block} from 'prosemirror/src/model'
 export {defaultSchema, Attribute, Schema, Block}
-import {Figure, FigCaption, iFrame, CodeMirror} from './figure'
-export {Figure, FigCaption, iFrame, CodeMirror}
+import {Figure, FigCaption} from './figure'
+export {Figure, FigCaption}
+import {iFrame, CodeMirror} from './iframe'
+export {iFrame, CodeMirror}
 import {Media} from './media'
 export {Media}
 import {Embed} from './embed'
