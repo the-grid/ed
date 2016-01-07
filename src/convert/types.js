@@ -22,7 +22,7 @@ const HTML_TYPES = [
   'p',
   'quote',
   'text',
-  'ul' 
+  'ul'
 ]
 
 function contains (array, string) {
@@ -30,9 +30,9 @@ function contains (array, string) {
 }
 
 export function isMediaType (type) {
-  return contains( MEDIA_TYPES, type )
+  return contains(MEDIA_TYPES, type)
 }
 
 export function isHTMLType (type) {
-  return contains( HTML_TYPES, type )
+  return contains(HTML_TYPES, type)
 }

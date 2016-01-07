@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Dynamic Gist Embedding</title>
+</head>
+
+<body>
+
+<p>
+	<label for="gistList">Gists</label>
+	<select id="gistList">
+		<option value="">Select a Gist</option>
+		<option value="906758">Get a Twitter user's avatar using PHP</option>
+		<option value="785770">How to PHP regex match an HTML document's title</option>
+		<option value="785766">How to PHP regex match an HTML document's meta description</option>
+	</select>
+</p>
+
+<div id="gistZone"></div>
+
+<script type="text/javascript">
+  
+var injectGistIframe = function (targetEl, value) {
+	// Create an iframe, append it to this document where specified
+	var gistFrame = document.createElement("iframe");
+	gistFrame.setAttribute("width", "100%");
+	gistFrame.id = "gistFrame";
+    
+	// Create the iframe's document
+	var gistFrameHTML = '<html><head><base target="_parent" /></head><body onload="parent.adjustIframeSize(document.body.scrollHeight)"><scr' + 'ipt type="text/javascript" src="https://gist.github.com/' + value + '.js"></sc'+'ript></body></html>';
+	  
+  targetEl.appendChild(gistFrame);
+  
+	// Set iframe's document with a trigger for this document to adjust the height
+	var gistFrameDoc = gistFrame.document;
+	
+	if (gistFrame.contentDocument) {
+		gistFrameDoc = gistFrame.contentDocument;
+	} else if (gistFrame.contentWindow) {
+		gistFrameDoc = gistFrame.contentWindow.document;
+	}
+	
+	gistFrameDoc.open();
+	gistFrameDoc.writeln(gistFrameHTML);
+	gistFrameDoc.close();		
+}
+
+var adjustIframeSize = function (newHeight) {
+	var i = document.getElementById("gistFrame");
+	i.style.height = parseInt(newHeight) + "px";
+	console.log("size adjusted", newHeight);
+}
+	document.getElementById("gistList").onchange = function(e) {
+		if (e.target.value) {
+      			
+			var zone = document.getElementById("gistZone");
+			zone.innerHTML = "";
+      injectGistIframe(zone, e.target.value)				
+			
+			console.log("iframe added");
+		}
+	}
+	
+</script>
+
+</body>
+</html>

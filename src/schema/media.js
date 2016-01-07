@@ -2,7 +2,7 @@ import {Block, Attribute} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 
 export function makeMediaDom (attrs) {
-  let {title, description} = attrs
+  let {description} = attrs
   let element = elt('div', {},
     elt('p', {}, (description || ''))
   )
@@ -10,8 +10,8 @@ export function makeMediaDom (attrs) {
 }
 
 export class Media extends Block {
-  static get kinds() { return 'doc media' }
-  get attrs() {
+  static get kinds () { return 'doc media' }
+  get attrs () {
     return {
       id: new Attribute({default: 'uuid-0000'}),
       type: new Attribute({default: 'media'})
@@ -31,4 +31,4 @@ Media.register('parseDOM', {
 Media.prototype.serializeDOM = (node, s) => s.elt('div', {
   'grid-id': node.attrs.id,
   'grid-type': node.attrs.type
-}, `${node.attrs.type} media block`)
+}, `${node.attrs.type} widget goes here`)

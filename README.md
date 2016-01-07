@@ -1,3 +1,5 @@
+`npm run start`
+
 # ed
 
 :warning: WIP; not in production yet. :warning:

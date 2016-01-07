@@ -1,14 +1,14 @@
 import {defaultSchema, Schema} from 'prosemirror/src/model'
-import uuid from 'uuid'
+import {iFrame, CodeMirror} from './iframe'
 
 import {Media} from './media'
 
-
 // Extend default schema with custom types
-
 let spec = defaultSchema.spec
 spec = spec.update({
-  media: Media
+  iframe: iFrame,
+  media: Media,
+  CodeMirror: CodeMirror
 })
 
 const GridSchema = new Schema(spec)

@@ -1,8 +1,8 @@
 import Ed from '../src/'
 import fixture from './fixture'
 
-let content = fixture.content
 let ed
+let content = fixture.content
 let isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
@@ -21,6 +21,8 @@ function setup (options = {menu: 'tip'}) {
     onPluginEvent: onPluginEvent
   })
   console.log(ed)
+  console.log('ed.pm.options.registries', ed.pm.options.registries)
+  window.ed = ed
 }
 function onPostChange () {
   console.log('change')
@@ -85,10 +87,10 @@ let toggleUpdates = function () {
   if (timeout) {
     clearTimeout(timeout)
     timeout = null
-    document.querySelector('#sim').textContent = 'Simulate changes from API ▶'
+    document.querySelector('#sim').textContent = 'Sim changes from API ▶'
   } else {
     timeout = setTimeout(simulateUpdates, 500)
-    document.querySelector('#sim').textContent = 'Simulate changes from API ◼︎'
+    document.querySelector('#sim').textContent = 'Sim changes from API ◼︎'
   }
 }
 document.querySelector('#sim').onclick = toggleUpdates
