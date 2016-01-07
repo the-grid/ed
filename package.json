@@ -12,6 +12,7 @@
     "clean": "rm -rf build",
     "test": "echo 'todo' && npm run lint",
     "lint": "eslint src demo --ignore-pattern demo/fixture.js",
+    "lintfix": "eslint src demo --ignore-pattern demo/fixture.js --fix",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
