@@ -34,7 +34,7 @@ export default class Ed {
     this.pm = new ProseMirror(pmOptions)
 
     if (options.menutip) {
-      this.pm.setOption( 'tooltipMenu', {
+      this.pm.setOption('tooltipMenu', {
         emptyBlockMenu: false,
         selectedBlockMenu: true,
         inlineItems: commandGroups(this.pm, 'inline', 'block'), //, 'history'),

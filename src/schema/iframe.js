@@ -43,10 +43,5 @@ iFrame.register('parseDOM',
   }
 )
 
-iFrame.prototype.isNotEditable = false
-
-
 // CodeMirror
-export class CodeMirror extends iFrame {
-
-}
+export class CodeMirror extends iFrame {}

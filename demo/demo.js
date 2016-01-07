@@ -21,7 +21,7 @@ function setup (options = {menu: 'tip'}) {
     onPluginEvent: onPluginEvent
   })
   console.log(ed)
-  console.log('ed.pm.options.registries',ed.pm.options.registries)
+  console.log('ed.pm.options.registries', ed.pm.options.registries)
   window.ed = ed
 }
 function onPostChange () {

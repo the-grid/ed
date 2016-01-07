@@ -51,10 +51,10 @@ export default class UrlEmbedder {
     let tooltip = this.tooltip
     let text = pm.selection
     let showCompletions = (menuItems, from, to, urlPos, url) => {
-      function applyCompletion(name) {
+      function applyCompletion (name) {
         // pm.tr.delete(from, to).insertInline(from, dinoSchema.node('dino', {type: name})).apply()
         tooltip.close()
-      }      
+      }
       let items = menuItems.map(menuItem => {
         let {name, render} = menuItem
         let item = render()
@@ -71,8 +71,13 @@ export default class UrlEmbedder {
     if (!/[\[\w]/.test(text)) {
       return this.hide()
     }
-    let pos = pm.selection.head, line = ''
-    for (let i = pm.doc.path(pos.path).iter(0, pos.offset), child; child = i.next().value;) {
+    let pos = pm.selection.head
+    let line = ''
+    let i = pm.doc.path(pos.path).iter(0, pos.offset)
+    let child
+    for (;;) {
+      child = i.next().value
+      if (!child) break
       if (child.isText) line += child.text
       else line = ''
     }
@@ -129,5 +134,5 @@ export default class UrlEmbedder {
       this.ed.onPluginEvent('plugin.media.click', {block})
     }
   }
-  
+
 }
