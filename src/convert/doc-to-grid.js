@@ -1,6 +1,5 @@
 import {toDOM} from 'prosemirror/src/format'
-import {isMediaType, isHTMLType} from './types'
-import uuid from 'uuid'
+import {isMediaType} from './types'
 
 // Dumb clone, don't mutate old
 function clone (obj) {
@@ -19,11 +18,11 @@ export default function (domChildren, doc, lastAPI) {
   let dom = toDOM(doc)
   let currentContent = []
   let len = dom.children.length
-  for (let i=0; i<len; i++) {
+  for (let i = 0; i < len; i++) {
     let child = dom.children[i]
     let id = child.getAttribute('grid-id') || null
     let type = child.getAttribute('grid-type') || child.tagName.toLowerCase()
-    let isMedia = (!!id)
+    let isMedia = isMediaType(type)
 
     let apiBlock = apiContentMap[id]
     if (!apiBlock) {

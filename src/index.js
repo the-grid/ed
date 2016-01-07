@@ -1,5 +1,4 @@
 import {ProseMirror} from 'prosemirror/src/edit/main'
-import {Pos, Node} from 'prosemirror/src/model'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
@@ -14,17 +13,17 @@ import PluginMedia from './plugins/media.js'
 import UrlEmbedder from './plugins/url-embedder.js'
 import CodeEmbedder from './plugins/code-embedder.js'
 
-import {commandGroups} from "prosemirror/src/menu/menu"
+import {commandGroups} from 'prosemirror/src/menu/menu'
 
 export default class Ed {
   constructor (options) {
     if (!options.container) options.container = document.body
     this.container = options.container
-    
+
     let pmOptions = {
       place: this.container,
       autoInput: true,
-      docFormat: "html",
+      docFormat: 'html',
       schema: GridSchema
     }
 
@@ -33,16 +32,16 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
-    
+
     if (options.menutip) {
       this.pm.setOption( 'tooltipMenu', {
         emptyBlockMenu: false,
         selectedBlockMenu: true,
-        inlineItems: commandGroups(this.pm, "inline", "block"), //, "history"),
-        blockItems: commandGroups(this.pm, "inline", "block") //, "history")
+        inlineItems: commandGroups(this.pm, 'inline', 'block'), //, 'history'),
+        blockItems: commandGroups(this.pm, 'inline', 'block') //, 'history')
       })
     }
-    
+
     if (options.onChange) {
       this.pm.on('change', options.onChange)
     }
@@ -53,9 +52,9 @@ export default class Ed {
     if (options.content) {
       this.content = options.content
     }
-    
+
     let plugins = [PluginMedia, UrlEmbedder, CodeEmbedder]
-    this.plugins = plugins.map(plugin => new plugin(this))
+    this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())

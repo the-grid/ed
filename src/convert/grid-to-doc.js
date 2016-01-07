@@ -5,13 +5,13 @@ import {makeMediaDom} from '../schema/media'
 import {isMediaType, isHTMLType} from './types'
 
 function itemToDOM (item) {
-  let {id, type, html, cover, metadata} = item
+  let {id, type, metadata} = item
   let el
-  if ( isHTMLType(type) ) {
+  if (isHTMLType(type)) {
     let dummy = document.createElement('div')
     dummy.innerHTML = item.html
     el = dummy.firstChild
-  } else if ( isMediaType(type) ) {
+  } else if (isMediaType(type)) {
     let title = metadata ? metadata.title : ''
     let description = metadata ? metadata.description : ''
     description = description || `${type} block placeholder`
