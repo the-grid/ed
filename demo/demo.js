@@ -3,10 +3,11 @@ import fixture from './fixture'
 
 let ed
 let content = fixture.content
-let menu = 'tip'
+let isTouchDevice = ('ontouchstart' in window)
+let menu = isTouchDevice ? 'bar' : 'tip'
 
 // ProseMirror setup
-function setup (options={menu:'tip'}) {
+function setup (options = {menu: 'tip'}) {
   if (ed) {
     ed.teardown()
     ed = null
@@ -14,8 +15,8 @@ function setup (options={menu:'tip'}) {
   ed = new Ed({
     container: document.querySelector('#mirror'),
     content: content,
-    menutip: (options.menu === 'tip' ? true : false),
-    menubar: (options.menu === 'bar' ? true : false),
+    menutip: (options.menu === 'tip'),
+    menubar: (options.menu === 'bar'),
     onChange: onPostChange,
     onPluginEvent: onPluginEvent
   })
@@ -70,7 +71,7 @@ document.querySelector('#dehydrate').onclick = EditorToAPI
 let timeout
 const letters = 'pskzfgtaaiioo   '.split('')
 let randomLetter = function () {
-  return letters[ Math.floor(Math.random()*letters.length) ]
+  return letters[ Math.floor(Math.random() * letters.length) ]
 }
 let simulateUpdates = function () {
   // Loop
@@ -86,10 +87,10 @@ let toggleUpdates = function () {
   if (timeout) {
     clearTimeout(timeout)
     timeout = null
-    document.querySelector('#sim').textContent = 'Simulate changes from API ▶'
+    document.querySelector('#sim').textContent = 'Sim changes from API ▶'
   } else {
     timeout = setTimeout(simulateUpdates, 500)
-    document.querySelector('#sim').textContent = 'Simulate changes from API ◼︎'
+    document.querySelector('#sim').textContent = 'Sim changes from API ◼︎'
   }
 }
 document.querySelector('#sim').onclick = toggleUpdates

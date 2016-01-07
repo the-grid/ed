@@ -1,12 +1,28 @@
 const MEDIA_TYPES = [
-  'image', 'video', 'audio', 'article', 
-  'location', 'share', 'interactive', 'placeholder'
+  'article',
+  'audio',
+  'code',
+  'image',
+  'interactive',
+  'location',
+  'placeholder',
+  'share',
+  'video'
 ]
 const HTML_TYPES = [
-  'text', 'p', 'code',
-  'quote', 'blockquote',
-  'list', 'ol', 'ul',
-  'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+  'blockquote',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'list',
+  'ol',
+  'p',
+  'quote',
+  'text',
+  'ul' 
 ]
 
 function contains (array, string) {

@@ -10,26 +10,7 @@ function clone (obj) {
 // Singleton so cut / paste keeps meta
 let apiContentMap = {}
 
-// Deduplicate ids
-function domMutationDedupeIds (domChildren, doc) {
-  let ids = []
-  let len = domChildren.length
-  for (let i=0; i<len; i++) {
-    let child = domChildren[i]
-    let id = child.getAttribute('data-grid-id')
-    if (!id || ids.indexOf(id) !== -1) {
-      id = uuid.v4()
-      // Need to set it in both dom and doc for future consistency
-      child.setAttribute('data-grid-id', id)
-      doc.child(i).attrs.id = id
-    }
-    ids.push(id)
-  }
-}
-
 export default function (domChildren, doc, lastAPI) {
-  domMutationDedupeIds(domChildren, doc)
-
   let cloneLast = clone(lastAPI)
   cloneLast.forEach(block => {
     apiContentMap[block.id] = block
@@ -40,16 +21,18 @@ export default function (domChildren, doc, lastAPI) {
   let len = dom.children.length
   for (let i=0; i<len; i++) {
     let child = dom.children[i]
-    let id = child.getAttribute('data-grid-id')
-    let type = child.tagName.toLowerCase()
+    let id = child.getAttribute('grid-id') || null
+    let type = child.getAttribute('grid-type') || child.tagName.toLowerCase()
+    let isMedia = (!!id)
+
     let apiBlock = apiContentMap[id]
     if (!apiBlock) {
-      apiBlock = { id, type }
+      apiBlock = isMedia ? {id, type} : {type}
     }
-    // TODO children have extra ids 
-    child.removeAttribute('data-grid-id')
     // TODO massage media types that need it
-    apiBlock.html = child.outerHTML
+    if (!isMedia) {
+      apiBlock.html = child.outerHTML
+    }
     currentContent[i] = apiBlock
   }
 
