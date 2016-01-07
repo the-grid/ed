@@ -1,8 +1,26 @@
+function postInitialBlock () {
+  this.postMessage(this.initialBlock)
+}
+
+function postMessage (message) {
+  this.el.contentWindow.postMessage({
+    topic: 'setblock',
+    payload: message
+  }, '*')
+}
+
 export default class WidgetIframe {
   static type () { return 'iframe -- extend me' }
   src () { return 'about:blank' }
   constructor (options) {
+    this.postInitialBlock = postInitialBlock.bind(this)
+    this.postMessage = postMessage.bind(this)
+
     this.el = document.createElement('iframe')
+    if (options.initialBlock) {
+      this.initialBlock = options.initialBlock
+      this.el.addEventListener('load', this.postInitialBlock)
+    }
     this.el.src = this.src()
     this.el.width = 640
     this.el.height = 320
@@ -16,6 +34,9 @@ export default class WidgetIframe {
     this.el.style.left = rectangle.left + 'px'
   }
   teardown () {
+    if (options.initialBlock) {
+      this.el.removeEventListener('load', this.postInitialBlock)
+    }
     this.el.parentNode.removeChild(this.el)
   }
 }

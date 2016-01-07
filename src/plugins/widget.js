@@ -1,9 +1,21 @@
 // Sync widget overlays with media blocks
+
 import WidgetCode from './widget-code'
 
 const WidgetTypes = {
   code: WidgetCode
 }
+
+function getWithId (array, id) {
+  for (let i = 0, len = array.length; i < len; i++) {
+    let item = array[i]
+    if (item.id === id) {
+      return item
+    }
+  }
+}
+
+// Functions to bind in class constructor
 
 function onDOMChanged () {
   let els = this.ed.pm.content.querySelectorAll('div[grid-type]')
@@ -31,9 +43,13 @@ function checkWidget (id, type, rectangle) {
 
 function initializeWidget (id, type, rectangle) {
   if (!WidgetTypes[type]) return
+
+  let initialBlock = getWithId(this.ed._content, id)
+
   this.widgets[id] = new WidgetTypes[type]({
     widgetContainer: this.el,
-    initialRectangle: rectangle
+    initialRectangle: rectangle,
+    initialBlock: initialBlock
   })
 }
 

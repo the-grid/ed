@@ -22,7 +22,6 @@ export class Media extends Block {
 Media.register('parseDOM', {
   tag: 'div',
   parse: function (dom, state) {
-    console.log(dom, state)
     state.insert(this, {
       id: dom.getAttribute('grid-id') || null,
       type: dom.getAttribute('grid-type') || null
