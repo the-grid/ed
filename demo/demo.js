@@ -7,7 +7,7 @@ let isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
 // ProseMirror setup
-function setup (options={menu:'tip'}) {
+function setup (options = {menu: 'tip'}) {
   if (ed) {
     ed.teardown()
     ed = null
@@ -15,8 +15,8 @@ function setup (options={menu:'tip'}) {
   ed = new Ed({
     container: document.querySelector('#mirror'),
     content: content,
-    menutip: (options.menu === 'tip' ? true : false),
-    menubar: (options.menu === 'bar' ? true : false),
+    menutip: (options.menu === 'tip'),
+    menubar: (options.menu === 'bar'),
     onChange: onPostChange,
     onPluginEvent: onPluginEvent
   })
@@ -69,7 +69,7 @@ document.querySelector('#dehydrate').onclick = EditorToAPI
 let timeout
 const letters = 'pskzfgtaaiioo   '.split('')
 let randomLetter = function () {
-  return letters[ Math.floor(Math.random()*letters.length) ]
+  return letters[ Math.floor(Math.random() * letters.length) ]
 }
 let simulateUpdates = function () {
   // Loop
