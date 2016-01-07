@@ -33,7 +33,11 @@ function onDOMChanged () {
     if (!id || !type) {
       throw new Error('Bad placeholder!')
     }
-    let rectangle = el.getBoundingClientRect()
+    let rect = el.getBoundingClientRect()
+    let rectangle = {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX
+    }
     this.checkWidget(id, type, rectangle)
   }
 }
