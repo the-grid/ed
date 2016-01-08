@@ -9,7 +9,7 @@ import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
-import PluginMedia from './plugins/media.js'
+import PluginWidget from './plugins/widget.js'
 import UrlEmbedder from './plugins/url-embedder.js'
 import CodeEmbedder from './plugins/code-embedder.js'
 
@@ -53,7 +53,7 @@ export default class Ed {
       this.content = options.content
     }
 
-    let plugins = [PluginMedia, UrlEmbedder, CodeEmbedder]
+    let plugins = [PluginWidget, UrlEmbedder, CodeEmbedder]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {

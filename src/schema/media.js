@@ -11,6 +11,7 @@ export function makeMediaDom (attrs) {
 
 export class Media extends Block {
   static get kinds () { return 'doc media' }
+  static get locked () { return false }
   get attrs () {
     return {
       id: new Attribute({default: 'uuid-0000'}),
@@ -21,14 +22,17 @@ export class Media extends Block {
 Media.register('parseDOM', {
   tag: 'div',
   parse: function (dom, state) {
-    console.log(dom, state)
     state.insert(this, {
       id: dom.getAttribute('grid-id') || null,
       type: dom.getAttribute('grid-type') || null
     })
   }
 })
-Media.prototype.serializeDOM = (node, s) => s.elt('div', {
-  'grid-id': node.attrs.id,
-  'grid-type': node.attrs.type
-}, `${node.attrs.type} widget goes here`)
+Media.prototype.serializeDOM = (node, s) => s.elt('div',
+  {
+    'grid-id': node.attrs.id,
+    'grid-type': node.attrs.type,
+    'title': `${node.attrs.type} widget here`,
+    'contenteditable': 'false'
+  }
+)

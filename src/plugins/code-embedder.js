@@ -28,4 +28,7 @@ iFrame.register(
   )
 )
 
-export default class CodeEmbedder {}
+export default class CodeEmbedder {
+  constructor (ed) {}
+  teardown () {}
+}
