@@ -188,7 +188,6 @@ Tooltip.prototype.setDir = function (newDir) {
 
 // adds class to mirror element
 Tooltip.prototype.setStyle = function (style) {  
-  console.log(style)
   
   if (style == this.style) {    
     return null
@@ -252,11 +251,11 @@ class ContextMenu extends TooltipMenu {
     
   }
   
-  // overried 
+  // override
   prepareUpdate() {
     if (this.menu.active) return null
       
-    let {empty, node, from, to} = this.pm.selection, link    
+    let link, url, {empty, node, from, to} = this.pm.selection  
       
     if (!this.pm.hasFocus()) {
       return () => this.tooltip.close()
@@ -286,6 +285,14 @@ class ContextMenu extends TooltipMenu {
       return () => this.menu.show(this.items(true, true), coords)
     } 
     
+    // D4: url embedder
+    else if (this.showLinks && (url = this.urlUnderCursor())) {
+      this.tooltip.setDir('above') 
+      this.tooltip.setStyle('light')
+      let coords = this.pm.coordsAtPos(from)
+      return () => this.showUrl(url, coords)      
+    }
+    
     else if (this.showLinks && (link = this.linkUnderCursor())) {
       this.tooltip.setDir('above') 
       this.tooltip.setStyle('light')
@@ -298,5 +305,61 @@ class ContextMenu extends TooltipMenu {
     }
   }
   
+  //
+  urlUnderCursor() {
+    let head = this.pm.selection.head
+    if (!head) return null
+    let url = getWordUnderCursor(this.pm)
+    if (url.indexOf('http://') != 0) url = null
+    return url
+  }
+  
+  showUrl(url, pos) {
+    let node = elt("div", {class: classPrefix + "-linktext"}, elt("a", {href: url, title: url}, url))
+    this.tooltip.open(node, pos)
+  }
+  
+  
 }
 
+
+function getLineOfTextToCursor(pm) {  
+  let line = ''
+  let pos = pm.selection.head 
+  if (!pos) return line
+  let i = pm.doc.path(pos.path).iter(0, pos.offset)
+  let child
+  for (;;) {
+    child = i.next().value
+    if (!child) break
+    if (child.isText) {
+      line += child.text
+    } 
+    else {
+      line = ''
+    }
+  }   
+  return line
+  
+}
+
+function getWordUnderCursor(pm) {  
+  let word = ''
+  let pos = pm.selection.head
+  if (!pos) return word
+  let path = pm.doc.path(pos.path)
+  let pathText = path.textContent
+  let pathTextToCursor = ''  
+  let i = path.iter(0, pos.offset)
+  let child
+  for (;;) {
+    child = i.next().value
+    if (!child) break
+    if (child.isText) pathTextToCursor += child.text
+  }
+  let parts = pathTextToCursor.split(' ')
+  //let lastPart = parts[parts.length-1]  
+  word = pathText.split(' ')[parts.length-1]
+  return word
+  
+}
