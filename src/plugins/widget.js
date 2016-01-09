@@ -6,22 +6,6 @@ const WidgetTypes = {
   code: WidgetCode
 }
 
-function getIndexWithId (array, id) {
-  for (let i = 0, len = array.length; i < len; i++) {
-    let item = array[i]
-    if (item.id === id) {
-      return i
-    }
-  }
-  return -1
-}
-
-function getItemWithId (array, id) {
-  let index = getIndexWithId(array, id)
-  if (index === -1) return
-  return array[index]
-}
-
 // Functions to bind in class constructor
 
 function onDOMChanged () {
@@ -55,7 +39,7 @@ function checkWidget (id, type, rectangle) {
 function initializeWidget (id, type, rectangle) {
   if (!WidgetTypes[type]) return
 
-  let initialBlock = getItemWithId(this.ed._content, id)
+  let initialBlock = this.ed.getBlock(id)
 
   this.widgets[id] = new WidgetTypes[type]({
     widgetContainer: this.el,
@@ -68,12 +52,7 @@ function onIframeMessage (message) {
   if (message.data.topic !== 'changed') return
 
   let block = message.data.payload
-  if (!block || !block.id) return
-
-  var index = getIndexWithId(this.ed._content, block.id)
-  if (index === -1) return
-
-  this.ed._content.splice(index, 1, block)
+  this.ed.updateMediaBlock(block)
 }
 
 // The plugin
