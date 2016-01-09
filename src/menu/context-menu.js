@@ -287,7 +287,7 @@ class ContextMenu extends TooltipMenu {
     
     // D4: url embedder
     else if (this.showLinks && (url = this.urlUnderCursor())) {
-      this.tooltip.setDir('above') 
+      this.tooltip.setDir('below') 
       this.tooltip.setStyle('light')
       let coords = this.pm.coordsAtPos(from)
       return () => this.showUrl(url, coords)      
@@ -315,7 +315,17 @@ class ContextMenu extends TooltipMenu {
   }
   
   showUrl(url, pos) {
-    let node = elt("div", {class: classPrefix + "-linktext"}, elt("a", {href: url, title: url}, url))
+    let wrapper = document.createElement('div')
+    wrapper.innerHTML = `<svg class="logo-loader" width="48" height="48">
+      <path d="M 24 24 L 32 24 L 32 32 L 16 32 L 16 16 L 40 16 L 40 40 L 8 40 L 8 8 L 40 8" stroke="rgba(0, 0, 0, .125)" fill="none" stroke-width="2" stroke-linecap="square"></path>
+      <path class="logo-loader-path" d="M 24 24 L 32 24 L 32 32 L 16 32 L 16 16 L 40 16 L 40 40 L 8 40 L 8 8 L 40 8" stroke="#fff266" fill="none" stroke-width="2" stroke-linecap="square" style="transition: stroke-dashoffset 3000ms linear; stroke-dasharray: 211.2px, 211.2px; stroke-dashoffset: -4435.2px;"></path>
+    </svg>`
+    let loader = wrapper.firstChild
+    
+    let node = elt("div", {class: classPrefix + "-linktext"},       
+      elt("a", {href: url, title: url}, url),
+      loader
+    )
     this.tooltip.open(node, pos)
   }
   
