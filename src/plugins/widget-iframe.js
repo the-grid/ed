@@ -22,16 +22,15 @@ export default class WidgetIframe {
       this.el.addEventListener('load', this.postInitialBlock)
     }
     this.el.src = this.src()
-    this.el.width = 640
-    this.el.height = 320
     this.el.style.position = 'absolute'
-    this.el.style.top = options.initialRectangle.top + 'px'
-    this.el.style.left = options.initialRectangle.left + 'px'
+    this.move(options.initialRectangle)
     options.widgetContainer.appendChild(this.el)
   }
   move (rectangle) {
     this.el.style.top = rectangle.top + 'px'
     this.el.style.left = rectangle.left + 'px'
+    this.el.style.width = rectangle.width + 'px'
+    this.el.style.height = rectangle.height + 'px'
   }
   teardown () {
     if (this.initialBlock) {

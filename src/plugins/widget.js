@@ -20,7 +20,9 @@ function onDOMChanged () {
     let rect = el.getBoundingClientRect()
     let rectangle = {
       top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX
+      left: rect.left + window.scrollX,
+      width: rect.width,
+      height: rect.height
     }
     this.checkWidget(id, type, rectangle)
   }
