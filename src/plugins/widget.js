@@ -67,8 +67,8 @@ export default class PluginWidget {
     this.ed = ed
     this.widgets = {}
     this.el = document.createElement('div')
-    this.el.className = 'GridEdWidgets'
-    document.body.appendChild(this.el)
+    this.el.className = 'EdPlugins-Widgets'
+    this.ed.pluginContainer.appendChild(this.el)
 
     this.ed.pm.on('flushed', this.onDOMChanged)
     window.addEventListener('resize', this.onDOMChanged)

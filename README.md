@@ -4,7 +4,7 @@
 
 :warning: WIP; not in production yet. :warning:
 
-Early prototype to use [ProseMirror](http://prosemirror.net/) with data from [the Grid API](http://developer.thegrid.io/)
+Use [ProseMirror](http://prosemirror.net/) with data from [the Grid API](http://developer.thegrid.io/)
 
 Demo: [the-grid.github.io/ed/](https://the-grid.github.io/ed/)
 
@@ -19,18 +19,21 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 ## todo
 
+* [ ] API communication layer
 * [x] iframe widgets
 * [ ] native widgets
-* [ ] handle image, video, article, other media types
-* [ ] API communication layer
+* [ ] handle image, video, article, quote types
+  * [ ] edit attribution
 * [ ] Integrate into web app
 * [ ] Integrate into mobile apps
 
 ## plugins
 
-[Plugins](./src/plugins) are ES2015 classes with 2 require methods:
+[Plugins](./src/plugins) are ES2015 classes with 2 required methods:
 
-* `constructor (ed) {}` gets a reference to the main ed, where you can listen to `ed.pm` events and set up UI
+* `constructor (ed) {}` gets a reference to the main `ed`, where you can
+  * listen to PM events: `ed.pm.on('flushed', ...)`
+  * and set up UI: `ed.pluginContainer.appendChild(...)`
 * `teardown () {}` where all listeners and UI should be removed
 
 ## code style

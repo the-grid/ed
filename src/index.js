@@ -54,12 +54,18 @@ export default class Ed {
       this.content = options.content
     }
 
+    // Plugins setup
+    this.pluginContainer = document.createElement('div')
+    this.pluginContainer.className = 'EdPlugins'
+    this.container.appendChild(this.pluginContainer)
+
     let plugins = [PluginWidget, UrlEmbedder, CodeEmbedder]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())
     this.pm.off('change')
+    this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
   }
   getBlock (id) {
