@@ -8,13 +8,12 @@ import 'prosemirror/src/collab'
 import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
+
 import {isMediaType} from './convert/types'
+import './menu/context-menu'
 
 import PluginWidget from './plugins/widget.js'
-import UrlEmbedder from './plugins/url-embedder.js'
 import CodeEmbedder from './plugins/code-embedder.js'
-
-import {commandGroups} from 'prosemirror/src/menu/menu'
 
 export default class Ed {
   constructor (options) {
@@ -35,11 +34,9 @@ export default class Ed {
     this.pm = new ProseMirror(pmOptions)
 
     if (options.menutip) {
-      this.pm.setOption('tooltipMenu', {
-        emptyBlockMenu: false,
-        selectedBlockMenu: true,
-        inlineItems: commandGroups(this.pm, 'inline', 'block'), //, 'history'),
-        blockItems: commandGroups(this.pm, 'inline', 'block') //, 'history')
+      this.pm.setOption('contextMenu', {
+        emptyBlockMenu: true,
+        selectedBlockMenu: true
       })
     }
 
@@ -59,7 +56,7 @@ export default class Ed {
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget, UrlEmbedder, CodeEmbedder]
+    let plugins = [PluginWidget, CodeEmbedder]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
