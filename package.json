@@ -27,7 +27,7 @@
   "dependencies": {
     "@the-grid/ced": "0.0.3",
     "bean": "^1.0.15",
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#8a9e0fe0eb6b6fa44af216fadb63f294afd1b319",
+    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#35e5d866e8f4d5228dfba6b29d3460d6e9b85441",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
