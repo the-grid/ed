@@ -15,6 +15,7 @@
     padding: 1em;
   }
   #api {
+    font-size: 0.6em;
     width: 100%;
     height: 75vh;
     border: 1px solid silver;
@@ -49,11 +50,11 @@
   [contenteditable]:focus { outline: 0px solid transparent; }
   
   .ProseMirror {
-    border:none;
+    border: none;
   }
   
   .ProseMirror-content {
-    border:none;
+    border: none;
     padding: 0px;
     white-space: pre-wrap;
     margin: auto;
@@ -80,14 +81,13 @@
     padding-top: 1.5rem;
   }
   
-  .ProseMirror-content div {
+  .ProseMirror-content > div {
     border-left: 3px solid green;
     padding: 0 0 0 1em;
     margin: 0.5em 0;
-  }
-  .ProseMirror-content figure {
-    border-left: 3px solid blue;
-    padding: 0 0 0 1em;
+    display: inline-block;
+    width: 640px;
+    height: 320px;
   }
   .ProseMirror-content iframe {
     border:none;
@@ -200,7 +200,15 @@
     font-size: 90%;
   }
   
-  
+  .GridEdWidgets {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .GridEdWidgets > iframe {
+    margin-left: 6px;
+    border: 1px lightgray solid;
+  }
   
   
   .logo-loader {
