@@ -9,6 +9,7 @@ import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 import './menu/context-menu'
+import './edit'
 
 import PluginWidget from './plugins/widget.js'
 import CodeEmbedder from './plugins/code-embedder.js'

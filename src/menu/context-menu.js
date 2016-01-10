@@ -252,6 +252,29 @@ class ContextMenu extends TooltipMenu {
   }
   
   // override
+  items(inline, block, empty) {
+    if (!empty) {
+      return super.items(inline,block)
+    }    
+    let _items = []
+    _items = getItems(this.pm, [
+      'schema:image:insert',
+      'schema:blockquote:wrap',
+      'schema:bullet_list:wrap',
+      'schema:ordered_list:wrap',
+      'textblockType'
+    ])
+    //if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
+    //else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
+    //
+    //if (block) {
+    //  if (this.config.blockItems) _items = _items.concat(getItems(this.pm, this.config.blockItems))
+    //  else _items = _items.concat(menuGroups(this.pm, this.config.blockGroups || ["block"]))
+    //}
+    return _items
+  }
+  
+  // override
   prepareUpdate() {
     if (this.menu.active) return null
       
@@ -282,7 +305,7 @@ class ContextMenu extends TooltipMenu {
       this.tooltip.setDir('right')
       this.tooltip.setStyle('light')      
       let coords = this.pm.coordsAtPos(from)
-      return () => this.menu.show(this.items(true, true), coords)
+      return () => this.menu.show(this.items(false, false, true), coords)
     } 
     
     // D4: url embedder
@@ -293,6 +316,7 @@ class ContextMenu extends TooltipMenu {
       return () => this.showUrl(url, coords)      
     }
     
+    // above link
     else if (this.showLinks && (link = this.linkUnderCursor())) {
       this.tooltip.setDir('above') 
       this.tooltip.setStyle('light')
@@ -371,5 +395,4 @@ function getWordUnderCursor(pm) {
   //let lastPart = parts[parts.length-1]  
   word = pathText.split(' ')[parts.length-1]
   return word
-  
 }
