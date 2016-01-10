@@ -1,2 +1,2 @@
-import "./base-commands"
-import "./schema-commands"
+import './base-commands'
+import './schema-commands'
