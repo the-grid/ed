@@ -1,10 +1,12 @@
-`npm run start`
+[![Build Status](https://travis-ci.org/the-grid/ed.svg?branch=master)](https://travis-ci.org/the-grid/ed)
+
+`npm start`
 
 # ed
 
-:warning: WIP; not in production yet. :warning:
+:warning: WIP; not in production yet. :warning: [![Build Status](https://travis-ci.org/the-grid/ed.svg?branch=master)](https://travis-ci.org/the-grid/ed)
 
-Early prototype to use [ProseMirror](http://prosemirror.net/) with data from [the Grid API](http://developer.thegrid.io/)
+Using [ProseMirror](http://prosemirror.net/) with data from [the Grid API](http://developer.thegrid.io/)
 
 Demo: [the-grid.github.io/ed/](https://the-grid.github.io/ed/)
 
