@@ -258,12 +258,19 @@ class ContextMenu extends TooltipMenu {
     }
     let _items = []
     _items = getItems(this.pm, [
-      'schema:image:insert',
-      'schema:blockquote:wrap',
-      'schema:bullet_list:wrap',
-      'schema:ordered_list:wrap',
-      'textblockType'
+      [
+        'upload_embed',
+        'insert_embed'
+      ],
+      [
+        //'schema:image:insert',
+        'schema:blockquote:wrap',
+        'schema:bullet_list:wrap',
+        'schema:ordered_list:wrap'
+        //'textblockType'
+      ]
     ])
+    console.log(_items)
     //if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
     //else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
     //

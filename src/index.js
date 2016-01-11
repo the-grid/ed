@@ -1,5 +1,7 @@
 import {ProseMirror} from 'prosemirror/src/edit/main'
 
+import './edit'
+
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
@@ -9,7 +11,6 @@ import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 import './menu/context-menu'
-import './edit'
 
 import PluginWidget from './plugins/widget.js'
 import CodeEmbedder from './plugins/code-embedder.js'

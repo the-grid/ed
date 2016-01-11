@@ -274,5 +274,34 @@
 
 
 
+
+<div id="widget-store">
+  <div class="nav">
+    <a onclick="document.getElementById('widget-store').classList.remove('show')">close</a>
+  </div>
+  <div class="featured">
+  </div>
+  <div>
+  </div>
+</div>
+<style>
+
+  #widget-store:not(.show) {
+    display:none;
+  }  
+  #widget-store {
+    position:fixed;
+    top:0px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    background-color: hsl(0, 100%, 100%);
+    z-index: 1000;
+  }
+  
+
+</style>
+
+
 <!-- Ususally loaded from memory (npm start), but (npm run builddemo) copies for gh-pages -->
 <script src="./webpack/demo.js"></script>
