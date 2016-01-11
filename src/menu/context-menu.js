@@ -49,43 +49,54 @@ const classPrefix = 'ProseMirror-tooltipmenu'
 //   : Overrides the commands shown for block content.
 
 
-function getItems (pm, items) {
+//defineOption("tooltipMenu", false, function(pm, value) {
+//  if (pm.mod.tooltipMenu) pm.mod.tooltipMenu.detach()
+//  pm.mod.tooltipMenu = value ? new TooltipMenu(pm, value) : null
+//})
+
+function getItems(pm, items) {
   return Array.isArray(items) ? items.map(getItems.bind(null, pm)) : pm.commands[items]
 }
 
 // WARNING, THIS WAS COPY & PASTED FROM PROSEMIRROR!
 class TooltipMenu {
-  constructor (pm, config) {
+  constructor(pm, config) {
     this.pm = pm
     this.config = config || {}
 
     this.showLinks = this.config.showLinks !== false
     this.selectedBlockMenu = this.config.selectedBlockMenu
-    this.update = new UpdateScheduler(pm, 'change selectionChange blur commandsChanged', () => this.prepareUpdate())
+    this.update = new UpdateScheduler(pm, "change selectionChange blur commandsChanged", () => this.prepareUpdate())
+    this.onContextMenu = this.onContextMenu.bind(this)
+    pm.content.addEventListener("contextmenu", this.onContextMenu)
+    this.onMouseDown = () => { if (this.menu.active) this.menu.reset() }
+    pm.content.addEventListener("mousedown", this.onMouseDown)
 
-    this.tooltip = new Tooltip(pm.wrapper, 'above')
+    this.tooltip = new Tooltip(pm.wrapper, "above")
     this.menu = new Menu(pm, new TooltipDisplay(this.tooltip), () => this.update.force())
   }
 
-  detach () {
+  detach() {
     this.update.detach()
     this.tooltip.detach()
+    this.pm.content.removeEventListener("contextmenu", this.onContextMenu)
+    this.pm.content.removeEventListener("mousedown", this.onMouseDown)
   }
 
-  items (inline, block) {
-    let _items
-    if (!inline) _items = []
-    else if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
-    else _items = menuGroups(this.pm, this.config.inlineGroups || ['inline'])
+  items(inline, block) {
+    let result
+    if (!inline) result = []
+    else if (this.config.inlineItems) result = getItems(this.pm, this.config.inlineItems)
+    else result = menuGroups(this.pm, this.config.inlineGroups || ["inline", "insert"])
 
     if (block) {
-      if (this.config.blockItems) _items = _items.concat(getItems(this.pm, this.config.blockItems))
-      else _items = _items.concat(menuGroups(this.pm, this.config.blockGroups || ['block']))
+      if (this.config.blockItems) addIfNew(result, getItems(this.pm, this.config.blockItems))
+      else addIfNew(result, menuGroups(this.pm, this.config.blockGroups || ["insert", "block"]))
     }
-    return _items
+    return result
   }
 
-  prepareUpdate () {
+  prepareUpdate() {
     if (this.menu.active) return null
 
     let {empty, node, from, to} = this.pm.selection, link
@@ -97,9 +108,9 @@ class TooltipMenu {
     } else if (!empty) {
       let coords = node ? topOfNodeSelection(this.pm) : topCenterOfSelection()
       let showBlock = this.selectedBlockMenu && Pos.samePath(from.path, to.path) &&
-          from.offset === 0 && to.offset === this.pm.doc.path(from.path).size
+          from.offset == 0 && to.offset == this.pm.doc.path(from.path).size
       return () => this.menu.show(this.items(true, showBlock), coords)
-    } else if (this.selectedBlockMenu && this.pm.doc.path(from.path).size === 0) {
+    } else if (this.selectedBlockMenu && this.pm.doc.path(from.path).size == 0) {
       let coords = this.pm.coordsAtPos(from)
       return () => this.menu.show(this.items(false, true), coords)
     } else if (this.showLinks && (link = this.linkUnderCursor())) {
@@ -110,30 +121,40 @@ class TooltipMenu {
     }
   }
 
-  linkUnderCursor () {
+  linkUnderCursor() {
     let head = this.pm.selection.head
     if (!head) return null
     let marks = this.pm.doc.marksAt(head)
-    return marks.reduce((found, m) => found || (m.type.name === 'link' && m), null)
+    return marks.reduce((found, m) => found || (m.type.name == "link" && m), null)
   }
 
-  showLink (link, pos) {
-    let node = elt('div', {class: classPrefix + '-linktext'}, elt('a', {href: link.attrs.href, title: link.attrs.title}, link.attrs.href))
+  showLink(link, pos) {
+    let node = elt("div", {class: classPrefix + "-linktext"}, elt("a", {href: link.attrs.href, title: link.attrs.title}, link.attrs.href))
     this.tooltip.open(node, pos)
+  }
+
+  onContextMenu(e) {
+    if (!this.pm.selection.empty) return
+    let pos = this.pm.posAtCoords({left: e.clientX, top: e.clientY})
+    if (!pos || !pos.isValid(this.pm.doc, true)) return
+
+    this.pm.setTextSelection(pos, pos)
+    this.pm.flush()
+    this.menu.show(this.items(true, false), topCenterOfSelection())
   }
 }
 
 // Get the x and y coordinates at the top center of the current DOM selection.
-function topCenterOfSelection () {
+function topCenterOfSelection() {
   let rects = window.getSelection().getRangeAt(0).getClientRects()
   let {left, right, top} = rects[0], i = 1
-  while (left === right && rects.length > i) {
+  while (left == right && rects.length > i) {
     ;({left, right, top} = rects[i++])
   }
   for (; i < rects.length; i++) {
     if (rects[i].top < rects[0].bottom - 1 &&
         // Chrome bug where bogus rectangles are inserted at span boundaries
-        (i === rects.length - 1 || Math.abs(rects[i + 1].left - rects[i].left) > 1)) {
+        (i == rects.length - 1 || Math.abs(rects[i + 1].left - rects[i].left) > 1)) {
       left = Math.min(left, rects[i].left)
       right = Math.max(right, rects[i].right)
       top = Math.min(top, rects[i].top)
@@ -142,11 +163,16 @@ function topCenterOfSelection () {
   return {top, left: (left + right) / 2}
 }
 
-function topOfNodeSelection (pm) {
-  let selected = pm.content.querySelector('.ProseMirror-selectednode')
+function topOfNodeSelection(pm) {
+  let selected = pm.content.querySelector(".ProseMirror-selectednode")
   if (!selected) return {left: 0, top: 0}
   let box = selected.getBoundingClientRect()
   return {left: Math.min((box.left + box.right) / 2, box.left + 20), top: box.top}
+}
+
+function addIfNew(array, elts) {
+  for (let i = 0; i < elts.length; i++)
+    if (array.indexOf(elts[i]) == -1) array.push(elts[i])
 }
 
 insertCSS(`
@@ -263,10 +289,10 @@ class ContextMenu extends TooltipMenu {
         'insert_embed'
       ],
       [
-        //'schema:image:insert',
-        'schema:blockquote:wrap',
-        'schema:bullet_list:wrap',
-        'schema:ordered_list:wrap'
+        //'image:insert',
+        'blockquote:wrap',
+        'bullet_list:wrap',
+        'ordered_list:wrap'
         //'textblockType'
       ]
     ])
