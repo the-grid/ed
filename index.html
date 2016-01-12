@@ -207,18 +207,30 @@
 
 
   .ProseMirror-select {
-    padding: 8px 21px 8px 8px;
+    padding: 8px 8px 15px;
     display: inline-block;
     vertical-align: middle;
     position: relative;
     cursor: pointer;
     margin: 0 8px;
+    margin-bottom: -16px;
+    margin-top: -16px;
   }
   .ProseMirror-select, .ProseMirror-select-menu {
     border: 1px solid hsl(0, 0%, 43%);
-    /* box-shadow: 0 1px 1px hsl(0, 0%, 0%); */
+    border: none;
+    box-shadow: 0 1px 1px hsl(0, 0%, 10.1%);
+    box-shadow: none;
     border-radius: 3px;
-    font-size: 90%;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  .ProseMirror-select:after {
+    content: "▾";
+    color: hsl(0, 0%, 50%);
+    position: absolute;
+    right: calc(50% + -7.3px);
+    top: 22px;
   }
 
   .GridEdWidgets {

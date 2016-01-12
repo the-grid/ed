@@ -279,23 +279,35 @@ class ContextMenu extends TooltipMenu {
 
   // override
   items (inline, block, empty) {
-    if (!empty) {
-      return super.items(inline, block)
-    }
     let _items = []
-    _items = getItems(this.pm, [
-      [
-        'upload_embed',
-        'insert_embed'
-      ],
-      [
-        //'image:insert',
+    if (!empty) {
+      //return super.items(inline, block)
+      _items = getItems(this.pm, [
+        'strong:toggle',
+        'em:toggle',
+        'link:unset',
+        'link:set',
+        'textblockType',
         'blockquote:wrap',
         'bullet_list:wrap',
         'ordered_list:wrap'
-        //'textblockType'
-      ]
-    ])
+      ])
+    }
+    else {
+      _items = getItems(this.pm, [
+        [
+          'upload_embed',
+          'insert_embed'
+        ],
+        [
+          //'image:insert',
+          'blockquote:wrap',
+          'bullet_list:wrap',
+          'ordered_list:wrap'
+          //'textblockType'
+        ]
+      ])
+    }
     //console.log(_items)
     //if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
     //else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
