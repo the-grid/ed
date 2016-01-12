@@ -6,15 +6,15 @@ document.body.appendChild(uploaderMount)
 let uploaderDom = uploaderMount.firstChild
 
 baseCommands.upload_embed = {
-  label: "upload something...",
-  run(pm) {
+  label: 'upload something...',
+  run (pm) {
     uploaderDom.click()
     //let node = nodeAboveSelection(pm)
     //if (!node) return false
     //pm.setNodeSelection(node)
   },
-  menuGroup: "block(100)",
-  display: {type: "icon", text: "upload", style: "font-weight: bold; vertical-align: 20%"}
+  menuGroup: 'block(100)',
+  display: {type: 'icon', text: 'upload', style: 'font-weight: bold; vertical-align: 20%'}
   //keys: ["Esc"]
 }
 
@@ -22,14 +22,14 @@ baseCommands.upload_embed = {
 let widgetStoreDom = document.getElementById('widget-store')
 
 baseCommands.insert_embed = {
-  label: "insert something...",
-  run(pm) {
+  label: 'insert something...',
+  run (pm) {
     widgetStoreDom.classList.add('show')
     //let node = nodeAboveSelection(pm)
     //if (!node) return false
     //pm.setNodeSelection(node)
   },
-  menuGroup: "block(100)",
-  display: {type: "icon", text: "insert", style: "font-weight: bold; vertical-align: 20%"}
+  menuGroup: 'block(100)',
+  display: {type: 'icon', text: 'insert', style: 'font-weight: bold; vertical-align: 20%'}
   //keys: ["Esc"]
 }

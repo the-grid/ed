@@ -35,7 +35,7 @@ export default class Ed {
 
     this.pm = new ProseMirror(pmOptions)
 
-    this.pm.setOption('commands',commands)
+    this.pm.setOption('commands', commands)
 
     if (options.menutip) {
       this.pm.setOption('contextMenu', {
