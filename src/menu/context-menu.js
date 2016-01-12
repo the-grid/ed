@@ -296,7 +296,7 @@ class ContextMenu extends TooltipMenu {
         //'textblockType'
       ]
     ])
-    console.log(_items)
+    //console.log(_items)
     //if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
     //else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
     //

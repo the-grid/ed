@@ -571,6 +571,13 @@ let post = {
   },
   published: false,
   content: [
+
+    {
+      "id": "abc-00000000-h1",
+      "type": "h1",
+      "html": `<h1>${getHappyLittlePhrase()}</h1>`,
+      "metadata": {"starred": true}
+    },
     {
       "id": "abc-00000000-p",
       "type": "text",
@@ -578,17 +585,11 @@ let post = {
       "metadata": {}
     },
     {
-      "id": "abc-00000000-h1",
-      "type": "h1",
-      "html": `<h1>${getHappyLittlePhrase()}</h1>`,
-      "metadata": {"starred": true}
-    },
-    code,
-    {
       "id": "uuid-broken-00",
       "type": undefined
     },
     tweet,
+    code,
     sharing,
     imageCole,
     {
