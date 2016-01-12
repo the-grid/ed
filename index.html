@@ -217,12 +217,14 @@
     margin-top: -16px;
   }
   .ProseMirror-select, .ProseMirror-select-menu {
+    font-family: Lucida Grande, Verdana;
+    font-size: 16px;
+
     border: 1px solid hsl(0, 0%, 43%);
     border: none;
     box-shadow: 0 1px 1px hsl(0, 0%, 10.1%);
     box-shadow: none;
     border-radius: 3px;
-    font-size: 16px;
     box-sizing: border-box;
   }
   .ProseMirror-select:after {
@@ -232,6 +234,24 @@
     right: calc(50% + -7.3px);
     top: 22px;
   }
+  .ProseMirror-select-menu {
+    position: absolute;
+    background: hsl(0, 0%, 27%);
+    color: hsl(0, 100%, 100%);
+    padding: 4px;
+    margin-top: -4px;
+    margin-left: -4px;
+    z-index: 15;
+    box-shadow: 0 1.6px 3px hsla(0,0%,0%,0.5), inset 0 -2px 1px hsla(0,0%,0%,0.7) !important;
+  }
+  .ProseMirror .ProseMirror-select-menu > * {
+    margin: 0;
+    padding: .5em;
+  }
+  .ProseMirror-select-menu div:hover {
+    background: hsl(0, 0%, 7%);
+  }
+
 
   .GridEdWidgets {
     position: absolute;
