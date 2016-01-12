@@ -297,15 +297,17 @@ class ContextMenu extends TooltipMenu {
       _items = getItems(this.pm, [
         [
           'upload_embed',
-          'insert_embed'
         ],
         [
-          //'image:insert',
-          'blockquote:wrap',
-          'bullet_list:wrap',
-          'ordered_list:wrap'
-          //'textblockType'
+          'insert_embed'
         ]
+        //[
+        //  //'image:insert',
+        //  'blockquote:wrap',
+        //  'bullet_list:wrap',
+        //  'ordered_list:wrap'
+        //  //'textblockType'
+        //]
       ])
     }
     //console.log(_items)
