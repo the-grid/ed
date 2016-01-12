@@ -27,14 +27,16 @@
     top: 0;
     left: 0;
     width: 15em;
-    -webkit-filter: blur(4px);
+    -webkit-filter: blur(10px);
+    opacity:.2;
   }
   #controls:hover {
     -webkit-filter: blur(0px);
+    opacity:1;
   }
 
   #mirror {
-    margin-left: 16em;
+    margin-left: 0em;
   }
   img {
     max-width: 100%;
@@ -328,11 +330,22 @@
 
 
 
-<div id="widget-store">
+<div id="widget-store" onclick="document.getElementById('widget-store').classList.remove('show')">
+	<!--nav class="menu menu--alonso">
+		<ul class="menu__list">
+			<li class="menu__item menu__item--current"><a href="#" class="menu__link">Search</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Posts</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Widgets</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Photography</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Gisg</a></li>
+			<li class="menu__line"></li>
+		</ul>
+	</nav-->
   <div class="nav">
-    <a onclick="document.getElementById('widget-store').classList.remove('show')">close</a>
+    <!--a onclick="document.getElementById('widget-store').classList.remove('show')">x</a-->
   </div>
   <div class="featured">
+    <img style="display:block;margin:auto;" src="./assets/posts-placeholder.png" width="938" height="537" alt="Posts Placeholder">
   </div>
   <div>
   </div>
@@ -340,19 +353,30 @@
 <style>
 
   #widget-store:not(.show) {
-    display:none;
+    top: calc(100% + 12px)
+    /* top: calc(100% - 48px); */
   }
   #widget-store {
-    position:fixed;
-    top:0px;
-    right:0px;
-    left:0px;
-    bottom:0px;
-    background-color: hsl(0, 100%, 100%);
+    position: fixed;
+    top: 30%;
+    right: 0px;
+    left: 0px;
+    height: 70%;
+    border-top: solid 1px hsl(0, 100%, 100%);
+    background-color: hsl(0, 0%, 98%);
+    box-shadow: 0 0px 12px hsla(0,0%,0%,0.1);
     z-index: 1000;
+
+    -webkit-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+       -moz-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+         -o-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
+
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+       -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+         -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
   }
-
-
 </style>
 
 
