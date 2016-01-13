@@ -9,15 +9,14 @@ baseCommands.upload_embed = {
   label: 'upload something...',
   run (pm) {
     uploaderDom.click()
-    //let node = nodeAboveSelection(pm)
-    //if (!node) return false
-    //pm.setNodeSelection(node)
+    // let node = nodeAboveSelection(pm)
+    // if (!node) return false
+    // pm.setNodeSelection(node)
   },
   menuGroup: 'block(100)',
   display: {type: 'icon', text: 'upload', style: 'font-weight: bold; vertical-align: 20%'}
-  //keys: ["Esc"]
+  // keys: ["Esc"]
 }
-
 
 let widgetStoreDom = document.getElementById('widget-store')
 
@@ -25,11 +24,11 @@ baseCommands.insert_embed = {
   label: 'insert something...',
   run (pm) {
     widgetStoreDom.classList.add('show')
-    //let node = nodeAboveSelection(pm)
-    //if (!node) return false
-    //pm.setNodeSelection(node)
+    // let node = nodeAboveSelection(pm)
+    // if (!node) return false
+    // pm.setNodeSelection(node)
   },
   menuGroup: 'block(100)',
   display: {type: 'icon', text: 'insert', style: 'font-weight: bold; vertical-align: 20%'}
-  //keys: ["Esc"]
+  // keys: ["Esc"]
 }

@@ -1,9 +1,7 @@
-import {HardBreak, BulletList, OrderedList, ListItem, BlockQuote, Heading, Paragraph, CodeBlock, HorizontalRule,
-        StrongMark, EmMark, CodeMark, LinkMark, Image, Pos} from 'prosemirror/src/model'
-
-import {selectedNodeAttr} from 'prosemirror/src/edit/command'
-
-
+// import {HardBreak, BulletList, OrderedList, ListItem, BlockQuote, Heading, Paragraph, CodeBlock, HorizontalRule,
+//         StrongMark, EmMark, CodeMark, LinkMark, Image, Pos} from 'prosemirror/src/model'
+//
+// import {selectedNodeAttr} from 'prosemirror/src/edit/command'
 
 /*
 
@@ -82,6 +80,5 @@ OrderedList.register("command", {
   },
   keys: ["Alt-Right '1'"]
 })
-
 
 */

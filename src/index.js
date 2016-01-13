@@ -15,7 +15,7 @@ import './menu/context-menu'
 import PluginWidget from './plugins/widget.js'
 import CodeEmbedder from './plugins/code-embedder.js'
 
-//import {commandGroups} from 'prosemirror/src/menu/menu'
+// import {commandGroups} from 'prosemirror/src/menu/menu'
 
 export default class Ed {
   constructor (options) {
@@ -40,8 +40,8 @@ export default class Ed {
     if (options.menutip) {
       this.pm.setOption('contextMenu', {
         emptyBlockMenu: true,
-        selectedBlockMenu: true,
-        //blockGroups: ['block','inline']
+        selectedBlockMenu: true
+        // blockGroups: ['block','inline']
       })
     }
 

@@ -48,11 +48,10 @@ const classPrefix = 'ProseMirror-tooltipmenu'
 // **`blockItems`**`: [union<string, [string]>]`
 //   : Overrides the commands shown for block content.
 
-
-//defineOption("tooltipMenu", false, function(pm, value) {
-//  if (pm.mod.tooltipMenu) pm.mod.tooltipMenu.detach()
-//  pm.mod.tooltipMenu = value ? new TooltipMenu(pm, value) : null
-//})
+// defineOption("tooltipMenu", false, function(pm, value) {
+//   if (pm.mod.tooltipMenu) pm.mod.tooltipMenu.detach()
+//   pm.mod.tooltipMenu = value ? new TooltipMenu(pm, value) : null
+// })
 
 function getItems (pm, items) {
   return Array.isArray(items) ? items.map(getItems.bind(null, pm)) : pm.commands[items]
@@ -99,7 +98,8 @@ class TooltipMenu {
   prepareUpdate () {
     if (this.menu.active) return null
 
-    let {empty, node, from, to} = this.pm.selection, link
+    let {empty, node, from, to} = this.pm.selection
+    let link
     if (!this.pm.hasFocus()) {
       return () => this.tooltip.close()
     } else if (node && node.isBlock) {
@@ -147,7 +147,8 @@ class TooltipMenu {
 // Get the x and y coordinates at the top center of the current DOM selection.
 function topCenterOfSelection () {
   let rects = window.getSelection().getRangeAt(0).getClientRects()
-  let {left, right, top} = rects[0], i = 1
+  let {left, right, top} = rects[0]
+  let i = 1
   while (left === right && rects.length > i) {
     ;({left, right, top} = rects[i++])
   }
@@ -171,8 +172,9 @@ function topOfNodeSelection (pm) {
 }
 
 function addIfNew (array, elts) {
-  for (let i = 0; i < elts.length; i++)
+  for (let i = 0; i < elts.length; i++) {
     if (array.indexOf(elts[i]) === -1) array.push(elts[i])
+  }
 }
 
 insertCSS(`
@@ -188,11 +190,6 @@ insertCSS(`
 }
 
 `)
-
-
-
-
-
 
 // extend Tooltip
 // ================================================
@@ -214,7 +211,6 @@ Tooltip.prototype.setDir = function (newDir) {
 
 // adds class to mirror element
 Tooltip.prototype.setStyle = function (style) {
-
   if (style === this.style) {
     return null
   }
@@ -251,11 +247,7 @@ insertCSS(`
   display: none !important;
 }
 
-
-
 `)
-
-
 
 // Context Menu
 // ================================================
@@ -269,19 +261,16 @@ defineOption('contextMenu', false, function (pm, value) {
 })
 
 class ContextMenu extends TooltipMenu {
-
   constructor (pm, config) {
-
     super(pm, config)
     this.emptyBlockMenu = this.config.emptyBlockMenu
-
   }
 
   // override
   items (inline, block, empty) {
     let _items = []
     if (!empty) {
-      //return super.items(inline, block)
+      // return super.items(inline, block)
       _items = getItems(this.pm, [
         'strong:toggle',
         'em:toggle',
@@ -292,32 +281,31 @@ class ContextMenu extends TooltipMenu {
         'bullet_list:wrap',
         'ordered_list:wrap'
       ])
-    }
-    else {
+    } else {
       _items = getItems(this.pm, [
         [
-          'upload_embed',
+          'upload_embed'
         ],
         [
           'insert_embed'
         ]
-        //[
-        //  //'image:insert',
-        //  'blockquote:wrap',
-        //  'bullet_list:wrap',
-        //  'ordered_list:wrap'
-        //  //'textblockType'
-        //]
+        // [
+        //   //'image:insert',
+        //   'blockquote:wrap',
+        //   'bullet_list:wrap',
+        //   'ordered_list:wrap'
+        //   //'textblockType'
+        // ]
       ])
     }
-    //console.log(_items)
-    //if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
-    //else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
+    // console.log(_items)
+    // if (this.config.inlineItems) _items = getItems(this.pm, this.config.inlineItems)
+    // else _items = menuGroups(this.pm, this.config.inlineGroups || ["inline"])
     //
-    //if (block) {
-    //  if (this.config.blockItems) _items = _items.concat(getItems(this.pm, this.config.blockItems))
-    //  else _items = _items.concat(menuGroups(this.pm, this.config.blockGroups || ["block"]))
-    //}
+    // if (block) {
+    //   if (this.config.blockItems) _items = _items.concat(getItems(this.pm, this.config.blockItems))
+    //   else _items = _items.concat(menuGroups(this.pm, this.config.blockGroups || ["block"]))
+    // }
     return _items
   }
 
@@ -325,58 +313,53 @@ class ContextMenu extends TooltipMenu {
   prepareUpdate () {
     if (this.menu.active) return null
 
-    let link, url, {empty, node, from, to} = this.pm.selection
+    let link
+    let url
+    let {empty, node, from, to} = this.pm.selection
 
     if (!this.pm.hasFocus()) {
       return () => this.tooltip.close()
-    }
 
-    else if (node && node.isBlock) {
+    } else if (node && node.isBlock) {
       this.tooltip.setDir('above')
       this.tooltip.setStyle('default')
       let coords = topOfNodeSelection(this.pm)
       return () => this.menu.show(this.items(false, true), coords)
-    }
 
-    else if (!empty) {
+    } else if (!empty) {
       this.tooltip.setDir('above')
       this.tooltip.setStyle('default')
       let coords = node ? topOfNodeSelection(this.pm) : topCenterOfSelection()
       let showBlock = this.selectedBlockMenu && Pos.samePath(from.path, to.path) &&
           from.offset === 0 && to.offset === this.pm.doc.path(from.path).size
       return () => this.menu.show(this.items(true, showBlock), coords)
-    }
 
-    // D4: empty block menu
-    else if (this.emptyBlockMenu && this.pm.doc.path(from.path).size === 0) {
+    } else if (this.emptyBlockMenu && this.pm.doc.path(from.path).size === 0) {
+      // D4: empty block menu
       this.tooltip.setDir('right')
       this.tooltip.setStyle('light')
       let coords = this.pm.coordsAtPos(from)
       return () => this.menu.show(this.items(false, false, true), coords)
-    }
 
-    // D4: url embedder
-    else if (this.showLinks && (url = this.urlUnderCursor())) {
+    } else if (this.showLinks && (url = this.urlUnderCursor())) {
+      // D4: url embedder
       this.tooltip.setDir('below')
       this.tooltip.setStyle('light')
       let coords = this.pm.coordsAtPos(from)
       return () => this.showUrl(url, coords)
-    }
 
-    // above link
-    else if (this.showLinks && (link = this.linkUnderCursor())) {
+    } else if (this.showLinks && (link = this.linkUnderCursor())) {
+      // above link
       this.tooltip.setDir('above')
       this.tooltip.setStyle('light')
       let coords = this.pm.coordsAtPos(from)
       return () => this.showLink(link, coords)
-    }
 
-    else {
+    } else {
       return () => this.tooltip.close()
     }
   }
 
-  //
   urlUnderCursor () {
     let head = this.pm.selection.head
     if (!head) return null
@@ -400,29 +383,27 @@ class ContextMenu extends TooltipMenu {
     this.tooltip.open(node, pos)
   }
 
-
 }
 
-
-function getLineOfTextToCursor (pm) {
-  let line = ''
-  let pos = pm.selection.head
-  if (!pos) return line
-  let i = pm.doc.path(pos.path).iter(0, pos.offset)
-  let child
-  for (;;) {
-    child = i.next().value
-    if (!child) break
-    if (child.isText) {
-      line += child.text
-    }
-    else {
-      line = ''
-    }
-  }
-  return line
-
-}
+// function getLineOfTextToCursor (pm) {
+//   let line = ''
+//   let pos = pm.selection.head
+//   if (!pos) return line
+//   let i = pm.doc.path(pos.path).iter(0, pos.offset)
+//   let child
+//   for (;;) {
+//     child = i.next().value
+//     if (!child) break
+//     if (child.isText) {
+//       line += child.text
+//     }
+//     else {
+//       line = ''
+//     }
+//   }
+//   return line
+//
+// }
 
 function getWordUnderCursor (pm) {
   let word = ''
@@ -439,7 +420,7 @@ function getWordUnderCursor (pm) {
     if (child.isText) pathTextToCursor += child.text
   }
   let parts = pathTextToCursor.split(' ')
-  //let lastPart = parts[parts.length-1]
+  // let lastPart = parts[parts.length-1]
   word = pathText.split(' ')[parts.length - 1]
   return word
 }
