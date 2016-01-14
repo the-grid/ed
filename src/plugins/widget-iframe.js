@@ -17,6 +17,7 @@ export default class WidgetIframe {
     this.postMessage = postMessage.bind(this)
 
     this.el = document.createElement('iframe')
+    this.el.setAttribute('grid-id', options.id)
     if (options.initialBlock) {
       this.initialBlock = options.initialBlock
       this.el.addEventListener('load', this.postInitialBlock)

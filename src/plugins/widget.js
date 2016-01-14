@@ -59,6 +59,7 @@ function initializeWidget (id, type, rectangle) {
   let initialBlock = this.ed.getBlock(id)
 
   this.widgets[id] = new WidgetTypes[type]({
+    id: id,
     widgetContainer: this.el,
     initialRectangle: rectangle,
     initialBlock: initialBlock
@@ -66,10 +67,19 @@ function initializeWidget (id, type, rectangle) {
 }
 
 function onIframeMessage (message) {
-  if (message.data.topic !== 'changed') return
-
-  let block = message.data.payload
-  this.ed.updateMediaBlock(block)
+  let fromId = message.source.frameElement.getAttribute('grid-id')
+  switch (message.data.topic) {
+    case 'changed':
+      let block = message.data.payload
+      // FIXME should `data.id` be part of every message?
+      if (fromId !== block.id) return
+      this.ed.updateMediaBlock(block)
+      break
+    case 'height':
+    case 'cursor':
+    default:
+      break    
+  }
 }
 
 // The plugin
