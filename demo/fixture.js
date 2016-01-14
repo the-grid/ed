@@ -309,29 +309,18 @@ let imageCole = {
 }
 
 let code = {
-    "id": "uuid-code",
-    "type": "code",
-    "html": "<pre><code>Hello world:-&gt;\n  &amp;this is code()</code></pre>",
-    "score": 8,
-    "created_at": "2015-03-11T17:00:11.219Z",
-    "updated_at": null,
-    "metadata": {
-        "title": "code code",
-        "categories": [
-            "zzz"
-        ],
-        "layout": "post",
-        "description": "very sample code",
-        "@context": "http://schema.org",
-        "@type": "Article",
-        "starred": false,
-        "source": "619ed41f-fdd6-4aba-9c06-682ef16a1b7c",
-        "publisher": {}
-    },
-    "src": null,
-    "text": "Hello world:->\n  &this is code()",
-    "length": 32,
-    "measurementVersion": 5
+  "id": "uuid-code",
+  "type": "code",
+  "html": "<pre><code class=\"language-coffeescript\">&num; Assignment&colon;&NewLine;number   &equals; 42&NewLine;opposite &equals; true&NewLine;&NewLine;&num; Conditions&colon;&NewLine;number &equals; -42 if opposite&NewLine;&NewLine;&num; Functions&colon;&NewLine;square &equals; &lpar;x&rpar; -&gt; x &midast; x&NewLine;&NewLine;&num; Arrays&colon;&NewLine;list &equals; &lsqb;1&comma; 2&comma; 3&comma; 4&comma; 5&rsqb;&NewLine;&NewLine;&num; Objects&colon;&NewLine;math &equals;&NewLine;  root&colon;   Math&period;sqrt&NewLine;  square&colon; square&NewLine;  cube&colon;   &lpar;x&rpar; -&gt; x &midast; square x&NewLine;&NewLine;&num; Splats&colon;&NewLine;race &equals; &lpar;winner&comma; runners&period;&period;&period;&rpar; -&gt;&NewLine;  print winner&comma; runners&NewLine;&NewLine;&num; Existence&colon;&NewLine;alert &quot;I knew it&excl;&quot; if elvis&quest;&NewLine;&NewLine;&num; Array comprehensions&colon;&NewLine;cubes &equals; &lpar;math&period;cube num for num in list&rpar;</code></pre>",
+  "metadata": {
+    "title": "code code",
+    "description": "very sample code",
+    "programmingLanguage": "text/coffeescript"
+  },
+  "src": null,
+  "text": "# Assignment:\nnumber   = 42\nopposite = true\n\n# Conditions:\nnumber = -42 if opposite\n\n# Functions:\nsquare = (x) -> x * x\n\n# Arrays:\nlist = [1, 2, 3, 4, 5]\n\n# Objects:\nmath =\n  root:   Math.sqrt\n  square: square\n  cube:   (x) -> x * square x\n\n# Splats:\nrace = (winner, runners...) ->\n  print winner, runners\n\n# Existence:\nalert \"I knew it!\" if elvis?\n\n# Array comprehensions:\ncubes = (math.cube num for num in list)",
+  "length": 32,
+  "measurementVersion": 5
 }
 
 let imageBeingD4 = {
