@@ -27,14 +27,16 @@
     top: 0;
     left: 0;
     width: 15em;
-    -webkit-filter: blur(4px);
+    -webkit-filter: blur(10px);
+    opacity:.2;
   }
   #controls:hover {
     -webkit-filter: blur(0px);
+    opacity:1;
   }
-  
+
   #mirror {
-    margin-left: 16em;
+    margin-left: 0em;
   }
   img {
     max-width: 100%;
@@ -46,13 +48,13 @@
   .mb1 {
     margin-bottom: 0.5em;
   }
-  
+
   [contenteditable]:focus { outline: 0px solid transparent; }
-  
+
   .ProseMirror {
     border: none;
   }
-  
+
   .ProseMirror-content {
     border: none;
     padding: 0px;
@@ -62,25 +64,31 @@
     margin-bottom: 4rem;
     max-width: 800px;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 32px;
   }
   .ProseMirror-content > * {
     margin: 0px;
     padding: 1rem 0px;
-    line-height: 1.4em;
+    line-height: 1.5em;
   }
   .ProseMirror-content > h1 {
-    padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    font-size: 64px;
+    line-height: 72px;
+    font-weight: 500;
   }
   .ProseMirror-content > h2 {
+    font-size: 40px;
+    line-height: 48px;
     padding-top: 2rem;
     padding-bottom: 1.5rem;
   }
   .ProseMirror-content > h3 {
     padding-top: 1.5rem;
+    font-size: 24px;
   }
-  
+
   .ProseMirror-content > div {
     border-left: 3px solid green;
     padding: 0 0 0 1em;
@@ -96,21 +104,36 @@
     font-size: 2rem;
     font-style: italic;
     color: hsl(0,0%,30%);
+    position: relative;
+    padding-left: 0;
+    border-left: none;
+    margin-left: 0;
+    margin-right: 0;
   }
+  .ProseMirror-content blockquote:before {
+    content: '“';
+    font-family: Georgia;
+    font-size: 2em;
+    position: absolute;
+    margin-top: 1.7rem;
+    left: -0.8em;
+    opacity: 0.3;
+  }
+
   .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
     margin-top: .3em;
     padding-top: 0px;
   }
-  
-  
-  
+
+
+
   .ProseMirror-tooltip, .ProseMirror-tooltip input, textarea, keygen, select, button {
     font-family: Lucida Grande, Verdana;
     font-size: 16px;
   }
   .ProseMirror-tooltip {
     white-space: nowrap;
-  }  
+  }
   .ProseMirror-tooltip {
     position: absolute;
     display: none;
@@ -122,7 +145,7 @@
     transition: width 0.4s ease-out, height 0.4s ease-out, left 0.4s ease-out, top 0.4s ease-out, opacity 0.2s;
     opacity: 0;
     border-radius: 5px;
-    padding: 0px; 
+    padding: 0px;
     margin: 0;
     background: hsl(0, 0%, 27%);
     border-color: hsl(0, 0%, 47%);
@@ -139,8 +162,8 @@
     border-right: 6px solid hsla(0, 0%, 0%, 0);
     border-top: 6px solid hsl(0, 0%, 0%);
   }
-  
-  
+
+
   /* fix!!! */
   .ProseMirror-menu {
     margin: 0 0px;
@@ -150,7 +173,7 @@
   .ProseMirror-tooltip > * {
     margin:8px;
   }
-  
+
   .ProseMirror-tooltip .ProseMirror-menuicon {
     font-size: 20px;
   }
@@ -182,24 +205,57 @@
     /* float: left; */
     display: inline;
   }
-  
-  
-  
+
+
+
   .ProseMirror-select {
-    padding: 8px 21px 8px 8px;
+    padding: 8px 8px 15px;
     display: inline-block;
     vertical-align: middle;
     position: relative;
     cursor: pointer;
     margin: 0 8px;
+    margin-bottom: -16px;
+    margin-top: -16px;
   }
   .ProseMirror-select, .ProseMirror-select-menu {
+    font-family: Lucida Grande, Verdana;
+    font-size: 16px;
+
     border: 1px solid hsl(0, 0%, 43%);
-    /* box-shadow: 0 1px 1px hsl(0, 0%, 0%); */
+    border: none;
+    box-shadow: 0 1px 1px hsl(0, 0%, 10.1%);
+    box-shadow: none;
     border-radius: 3px;
-    font-size: 90%;
+    box-sizing: border-box;
   }
-  
+  .ProseMirror-select:after {
+    content: "▾";
+    color: hsl(0, 0%, 50%);
+    position: absolute;
+    right: calc(50% + -7.3px);
+    top: 22px;
+  }
+
+  .ProseMirror-select-menu {
+    position: absolute;
+    background: hsl(0, 0%, 27%);
+    color: hsl(0, 100%, 100%);
+    padding: 4px;
+    margin-top: -4px;
+    margin-left: -4px;
+    z-index: 15;
+    box-shadow: 0 1.6px 3px hsla(0,0%,0%,0.5), inset 0 -2px 1px hsla(0,0%,0%,0.7) !important;
+  }
+  .ProseMirror .ProseMirror-select-menu > * {
+    margin: 0;
+    padding: .5em;
+  }
+  .ProseMirror-select-menu div:hover {
+    background: hsl(0, 0%, 7%);
+  }
+
+
   .EdPlugins-Widgets {
     position: absolute;
     top: 0;
@@ -208,8 +264,8 @@
   .EdPlugins-Widgets > iframe {
     border: 1px lightgray solid;
   }
-  
-  
+
+
   .logo-loader {
     margin: auto;
     margin-top: 10px;
@@ -223,17 +279,17 @@
     -moz-transition-duration: 1s;
     transition-property: stroke-dashoffset;
     transition-duration: 1s;
-    
-      -webkit-animation-name: spin; 
-      -webkit-animation-duration: 20s; 
+
+      -webkit-animation-name: spin;
+      -webkit-animation-duration: 20s;
       -webkit-animation-iteration-count: infinite;
       -webkit-animation-timing-function: linear;
-      -moz-animation-name: spin; 
-      -moz-animation-duration: 20s; 
+      -moz-animation-name: spin;
+      -moz-animation-duration: 20s;
       -moz-animation-iteration-count: infinite;
       -moz-animation-timing-function: linear;
-      animation-name: spin; 
-      animation-duration: 20s; 
+      animation-name: spin;
+      animation-duration: 20s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
   }
@@ -251,9 +307,9 @@
       from {stroke-dashoffset: -4435.2px;}
       to {stroke-dashoffset: 0px;}
   }
-  
-  
-  
+
+
+
   iframe.embed-type-ced {
     border: none;
     margin-left: -43px;
@@ -271,6 +327,57 @@
   <p><a href="https://github.com/the-grid/ed">source</a></p>
 </div>
 
+
+
+
+<div id="widget-store" onclick="document.getElementById('widget-store').classList.remove('show')">
+	<!--nav class="menu menu--alonso">
+		<ul class="menu__list">
+			<li class="menu__item menu__item--current"><a href="#" class="menu__link">Search</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Posts</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Widgets</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Photography</a></li>
+			<li class="menu__item"><a href="#" class="menu__link">Gisg</a></li>
+			<li class="menu__line"></li>
+		</ul>
+	</nav-->
+  <div class="nav">
+    <!--a onclick="document.getElementById('widget-store').classList.remove('show')">x</a-->
+  </div>
+  <div class="featured">
+    <img style="display:block;margin:auto;" src="./assets/posts-placeholder.png" width="938" height="537" alt="Posts Placeholder">
+  </div>
+  <div>
+  </div>
+</div>
+<style>
+
+  #widget-store:not(.show) {
+    top: calc(100% + 12px)
+    /* top: calc(100% - 48px); */
+  }
+  #widget-store {
+    position: fixed;
+    top: 30%;
+    right: 0px;
+    left: 0px;
+    height: 70%;
+    border-top: solid 1px hsl(0, 100%, 100%);
+    background-color: hsl(0, 0%, 98%);
+    box-shadow: 0 0px 12px hsla(0,0%,0%,0.1);
+    z-index: 1000;
+
+    -webkit-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+       -moz-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+         -o-transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition: top 300ms cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
+
+    -webkit-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+       -moz-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+         -o-transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000); /* easeOutCubic */
+  }
+</style>
 
 
 <!-- Ususally loaded from memory (npm start), but (npm run builddemo) copies for gh-pages -->

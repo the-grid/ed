@@ -1,5 +1,7 @@
 import {ProseMirror} from 'prosemirror/src/edit/main'
 
+import {commands} from './edit'
+
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
@@ -32,6 +34,8 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
+
+    this.pm.setOption('commands', commands)
 
     if (options.menutip) {
       this.pm.setOption('contextMenu', {

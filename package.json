@@ -25,16 +25,16 @@
   },
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
-    "@the-grid/ced": "0.0.3",
+    "@the-grid/ced": "0.0.4",
     "bean": "^1.0.15",
-    "prosemirror": "git+https://github.com/prosemirror/prosemirror.git#35e5d866e8f4d5228dfba6b29d3460d6e9b85441",
+    "prosemirror": "^0.1.1",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
-    "babel": "^5.0.0",
-    "babel-core": "^5.0.0",
-    "babel-eslint": "^4.1.6",
-    "babel-loader": "^5.0.0",
+    "babel-core": "^6.4.0",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
     "bob-ross-lipsum": "^1.0.0",
     "eslint": "^1.10.3",
     "eslint-config-standard": "^4.4.0",
