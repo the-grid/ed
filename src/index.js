@@ -17,6 +17,8 @@ import './menu/context-menu'
 import PluginWidget from './plugins/widget.js'
 import CodeEmbedder from './plugins/code-embedder.js'
 
+function noop () { /* noop */ }
+
 export default class Ed {
   constructor (options) {
     if (!options.container) options.container = document.body
@@ -45,7 +47,8 @@ export default class Ed {
     }
 
     if (options.onChange) {
-      this.pm.on('change', options.onChange)
+      this.onChange = options.onChange || noop
+      this.pm.on('change', this.onChange)
     }
     if (options.onPluginEvent) {
       this.onPluginEvent = options.onPluginEvent
@@ -83,6 +86,7 @@ export default class Ed {
 
     // MUTATION
     this._content.splice(index, 1, block)
+    this.onChange()
   }
   set content (content) {
     // Cache the content object that we originally get from the API.
