@@ -94,8 +94,8 @@
     padding: 0 0 0 1em;
     margin: 0.5em 0;
     display: inline-block;
-    width: 640px;
-    height: 320px;
+    width: 100%;
+    min-height: 100px;
   }
   .ProseMirror-content iframe {
     border:none;
@@ -236,6 +236,7 @@
     right: calc(50% + -7.3px);
     top: 22px;
   }
+
   .ProseMirror-select-menu {
     position: absolute;
     background: hsl(0, 0%, 27%);
@@ -255,13 +256,12 @@
   }
 
 
-  .GridEdWidgets {
+  .EdPlugins-Widgets {
     position: absolute;
     top: 0;
     left: 0;
   }
-  .GridEdWidgets > iframe {
-    margin-left: 6px;
+  .EdPlugins-Widgets > iframe {
     border: 1px lightgray solid;
   }
 

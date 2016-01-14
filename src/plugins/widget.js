@@ -6,26 +6,12 @@ const WidgetTypes = {
   code: WidgetCode
 }
 
-function getIndexWithId (array, id) {
-  for (let i = 0, len = array.length; i < len; i++) {
-    let item = array[i]
-    if (item.id === id) {
-      return i
-    }
-  }
-  return -1
-}
-
-function getItemWithId (array, id) {
-  let index = getIndexWithId(array, id)
-  if (index === -1) return
-  return array[index]
-}
-
 // Functions to bind in class constructor
 
 function onDOMChanged () {
+  // Mount or move widget overlays
   let els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+  let inDoc = []
   for (let i = 0, len = els.length; i < len; i++) {
     let el = els[i]
     let id = el.getAttribute('grid-id')
@@ -33,12 +19,27 @@ function onDOMChanged () {
     if (!id || !type) {
       throw new Error('Bad placeholder!')
     }
+    inDoc.push(id)
     let rect = el.getBoundingClientRect()
     let rectangle = {
       top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX
+      left: rect.left + window.scrollX,
+      width: rect.width,
+      height: rect.height
     }
     this.checkWidget(id, type, rectangle)
+  }
+
+  // Hide or show widgets
+  let inDOM = Object.keys(this.widgets)
+  for (let i = 0, len = inDOM.length; i < len; i++) {
+    let key = inDOM[i]
+    let widget = this.widgets[key]
+    if (inDoc.indexOf(key) !== -1) {
+      widget.show()
+    } else {
+      widget.hide()
+    }
   }
 }
 
@@ -55,9 +56,10 @@ function checkWidget (id, type, rectangle) {
 function initializeWidget (id, type, rectangle) {
   if (!WidgetTypes[type]) return
 
-  let initialBlock = getItemWithId(this.ed._content, id)
+  let initialBlock = this.ed.getBlock(id)
 
   this.widgets[id] = new WidgetTypes[type]({
+    id: id,
     widgetContainer: this.el,
     initialRectangle: rectangle,
     initialBlock: initialBlock
@@ -65,15 +67,19 @@ function initializeWidget (id, type, rectangle) {
 }
 
 function onIframeMessage (message) {
-  if (message.data.topic !== 'changed') return
-
-  let block = message.data.payload
-  if (!block || !block.id) return
-
-  var index = getIndexWithId(this.ed._content, block.id)
-  if (index === -1) return
-
-  this.ed._content.splice(index, 1, block)
+  let fromId = message.source.frameElement.getAttribute('grid-id')
+  switch (message.data.topic) {
+    case 'changed':
+      let block = message.data.payload
+      // FIXME should `data.id` be part of every message?
+      if (fromId !== block.id) return
+      this.ed.updateMediaBlock(block)
+      break
+    case 'height':
+    case 'cursor':
+    default:
+      break
+  }
 }
 
 // The plugin
@@ -88,8 +94,8 @@ export default class PluginWidget {
     this.ed = ed
     this.widgets = {}
     this.el = document.createElement('div')
-    this.el.className = 'GridEdWidgets'
-    document.body.appendChild(this.el)
+    this.el.className = 'EdPlugins-Widgets'
+    this.ed.pluginContainer.appendChild(this.el)
 
     this.ed.pm.on('flushed', this.onDOMChanged)
     window.addEventListener('resize', this.onDOMChanged)

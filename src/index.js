@@ -10,12 +10,14 @@ import 'prosemirror/src/collab'
 import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
+
+import {isMediaType} from './convert/types'
 import './menu/context-menu'
 
 import PluginWidget from './plugins/widget.js'
 import CodeEmbedder from './plugins/code-embedder.js'
 
-// import {commandGroups} from 'prosemirror/src/menu/menu'
+function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
@@ -41,12 +43,12 @@ export default class Ed {
       this.pm.setOption('contextMenu', {
         emptyBlockMenu: true,
         selectedBlockMenu: true
-        // blockGroups: ['block','inline']
       })
     }
 
     if (options.onChange) {
-      this.pm.on('change', options.onChange)
+      this.onChange = options.onChange || noop
+      this.pm.on('change', this.onChange)
     }
     if (options.onPluginEvent) {
       this.onPluginEvent = options.onPluginEvent
@@ -56,13 +58,35 @@ export default class Ed {
       this.content = options.content
     }
 
+    // Plugins setup
+    this.pluginContainer = document.createElement('div')
+    this.pluginContainer.className = 'EdPlugins'
+    this.container.appendChild(this.pluginContainer)
+
     let plugins = [PluginWidget, CodeEmbedder]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())
     this.pm.off('change')
+    this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
+  }
+  getBlock (id) {
+    return getItemWithId(this._content, id)
+  }
+  updateMediaBlock (block) {
+    // Widget plugin calls this to update a block in the content array
+    // Only media blocks can use this.
+    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
+      throw new Error('Cant update this block')
+    }
+    let index = getIndexWithId(this._content, block.id)
+    if (index === -1) return
+
+    // MUTATION
+    this._content.splice(index, 1, block)
+    this.onChange()
   }
   set content (content) {
     // Cache the content object that we originally get from the API.
@@ -79,4 +103,22 @@ export default class Ed {
     let doc = this.pm.getContent()
     return DocToGrid(dom, doc, this._content)
   }
+}
+
+// Util
+
+function getIndexWithId (array, id) {
+  for (let i = 0, len = array.length; i < len; i++) {
+    let item = array[i]
+    if (item.id === id) {
+      return i
+    }
+  }
+  return -1
+}
+
+function getItemWithId (array, id) {
+  let index = getIndexWithId(array, id)
+  if (index === -1) return
+  return array[index]
 }

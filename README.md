@@ -12,13 +12,37 @@ The demo shows translating from ProseMirror to the the Grid API JSON and back.
 
 ## purpose
 
-ProseMirror provides a high-level schema-based interface for interacting with `contenteditable`, taking care of that pain. This project is focused on the schema to translate between the Grid API data and ProseMirror DOM.
+ProseMirror provides a high-level schema-based interface for interacting with `contenteditable`, taking care of that pain. This project is focused on:
+
+* Schema to translate between the Grid API data and ProseMirror doc type
+* Coordinating widgets (block editors specialized by type) ([example](https://github.com/the-grid/ced))
 
 ## todo
 
-* [ ] Properly handle image, video, article, other media types
+* [ ] API communication layer
+* [x] iframe widgets
+* [ ] native widgets
+* [ ] handle image, video, article, quote types
+  * [ ] edit attribution
 * [ ] Integrate into web app
 * [ ] Integrate into mobile apps
+
+## plugins
+
+[Plugins](./src/plugins) are ES2015 classes with 2 required methods:
+
+* `constructor (ed) {}` gets a reference to the main `ed`, where you can
+  * listen to PM events: `ed.pm.on('flushed', ...)`
+  * and set up UI: `ed.pluginContainer.appendChild(...)`
+* `teardown () {}` where all listeners and UI should be removed
+
+## code style
+
+Feross [standard](https://github.com/feross/standard#rules) checked by ESLint with `npm test` or `npm run lint`
+
+* no unneeded semicolons
+* no trailing spaces
+* single quotes
 
 ## dev
 
