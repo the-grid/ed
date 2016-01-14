@@ -9,7 +9,9 @@ const WidgetTypes = {
 // Functions to bind in class constructor
 
 function onDOMChanged () {
+  // Mount or move widget overlays
   let els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+  let inDoc = []
   for (let i = 0, len = els.length; i < len; i++) {
     let el = els[i]
     let id = el.getAttribute('grid-id')
@@ -17,6 +19,7 @@ function onDOMChanged () {
     if (!id || !type) {
       throw new Error('Bad placeholder!')
     }
+    inDoc.push(id)
     let rect = el.getBoundingClientRect()
     let rectangle = {
       top: rect.top + window.scrollY,
@@ -25,6 +28,18 @@ function onDOMChanged () {
       height: rect.height
     }
     this.checkWidget(id, type, rectangle)
+  }
+
+  // Hide or show widgets
+  let inDOM = Object.keys(this.widgets)
+  for (let i = 0, len = inDOM.length; i < len; i++) {
+    let key = inDOM[i]
+    let widget = this.widgets[key]
+    if (inDoc.indexOf(key) !== -1) {
+      widget.show()
+    } else {
+      widget.hide()
+    }
   }
 }
 
