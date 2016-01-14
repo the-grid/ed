@@ -8,5 +8,9 @@
     "node": true,
     "es6": true
   },
+  "rules": {
+      "padded-blocks": 0,
+      "brace-style": 0
+  },
   "extends": "standard"
 }
