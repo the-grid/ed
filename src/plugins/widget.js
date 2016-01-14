@@ -78,7 +78,7 @@ function onIframeMessage (message) {
     case 'height':
     case 'cursor':
     default:
-      break    
+      break
   }
 }
 
