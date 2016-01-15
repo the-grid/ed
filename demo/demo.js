@@ -34,6 +34,19 @@ setup()
 
 // Debug buttons
 
+// Toggle debug
+let showDebug = false
+let debug = document.getElementById('debug')
+let toggleDebug = document.getElementById('debug-toggle')
+toggleDebug.onclick = () => {
+  if (showDebug) {
+    debug.style.display = 'none'
+  } else {
+    debug.style.display = 'block'
+  }
+  showDebug = !showDebug
+}
+
 // Switch menu
 let toggleMenu = document.querySelector('#menu')
 toggleMenu.onclick = function (event) {
@@ -48,7 +61,7 @@ toggleMenu.onclick = function (event) {
 }
 
 // Hydrate
-let apiJSON = document.querySelector('#api')
+let apiJSON = document.querySelector('#debug-api')
 apiJSON.value = JSON.stringify(content, null, 2)
 function APIToEditor () {
   let json
