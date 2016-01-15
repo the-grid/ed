@@ -3,6 +3,8 @@
 * http://facebook.github.io/react/docs/reusable-components.html#stateless-functions
 */
 
+import React from 'react'
+
 export default function Image (props) {
   let {src, width, height} = props
   let style = {
