@@ -6,8 +6,8 @@
 import React from 'react'
 
 export default function Image (props) {
-  let {src, width, height} = props
-  let style = {
+  const {src, width, height} = props
+  const style = {
     width: '100%',
     height: '100px',
     backgroundImage: `url(${src})`,
