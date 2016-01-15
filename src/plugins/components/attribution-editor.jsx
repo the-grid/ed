@@ -15,8 +15,8 @@ function renderCover (cover) {
 class AttributionEditor extends React.Component {
   render () {
     console.log(this.props)
-    let {cover, metadata} = this.props.initialBlock
-    
+    const {cover, metadata} = this.props.initialBlock
+
     return (
       <div>
         {renderCover(cover)}
