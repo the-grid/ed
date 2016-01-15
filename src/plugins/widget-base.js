@@ -7,8 +7,17 @@ export default class WidgetBase {
     this.left = 0
     this.width = 1
     this.height = 1
+
+    // Base div container
+    this.el = document.createElement('div')
+    this.el.setAttribute('grid-id', options.id)
+    this.initialBlock = options.initialBlock
+    this.el.style.position = 'absolute'
+    this.move(options.initialRectangle)
+    options.widgetContainer.appendChild(this.el)
   }
   teardown () {
+    this.el.parentNode.removeChild(this.el)
   }
   move (rectangle) {
     if (this.top !== rectangle.top) {

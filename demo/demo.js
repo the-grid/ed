@@ -1,4 +1,4 @@
-import Ed from '../src/'
+import Ed from '../src/index'
 import fixture from './fixture'
 
 let ed
