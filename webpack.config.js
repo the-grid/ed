@@ -27,27 +27,18 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/, 
+        test: /\.jsx?$/, 
         loader: 'babel-loader', 
         include: [
           path.resolve(__dirname, 'demo'),
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'node_modules', 'prosemirror')
-        ],
-        // Need this here for prosemirror til it has own .babelrc
-        query: {
-          presets: ['es2015']
-        }
+        ]
       },
-      // {
-      //   test: /\.js$/,
-      //   loader: 'eslint-loader', 
-      //   include: [/demo/, /src/]
-      // },
-      { test: /\.json$/, loader: 'json-loader' },
+      { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ['', '.js', '.jsx', '.json']
   }
 }

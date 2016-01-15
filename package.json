@@ -28,6 +28,8 @@
     "@the-grid/ced": "^0.0.4",
     "bean": "^1.0.15",
     "prosemirror": "^0.1.1",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
     "uuid": "^2.0.1"
   },
   "devDependencies": {
@@ -35,6 +37,7 @@
     "babel-eslint": "^5.0.0-beta6",
     "babel-loader": "^6.2.1",
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "bob-ross-lipsum": "^1.1.1",
     "eslint": "^1.10.3",
     "eslint-config-standard": "^4.4.0",
