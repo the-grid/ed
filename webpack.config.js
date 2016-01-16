@@ -35,10 +35,11 @@ module.exports = {
           path.resolve(__dirname, 'node_modules', 'prosemirror')
         ]
       },
+      { test: /\.css$/, loader: 'style?singleton!raw' },
       { test: /\.json$/, loader: 'json-loader' }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json']
+    extensions: ['', '.js', '.jsx', '.json', '.css']
   }
 }
