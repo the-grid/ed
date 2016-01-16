@@ -578,6 +578,12 @@ let post = {
       "id": "uuid-broken-00",
       "type": undefined
     },
+    code,
+    {
+      "id": "abc-00000000-p2",
+      "type": "p",
+      "html": `<p>${getHappyLittlePhrase()}</p>`
+    },
     imageRaphael,
     videoTurtle,
     {
@@ -587,38 +593,32 @@ let post = {
     },
     article,
     tweet,
-    code,
     sharing,
     {
       "id": "abc-00000000-h3",
       "type": "h3",
-      "html": `<h3>${getHappyLittlePhrase()}</h3>`,
-      "metadata": {"starred": false}
+      "html": `<h3>${getHappyLittlePhrase()}</h3>`
     },
     imageBeingD4,
     {
       "id": "abc-00000000-02",
       "type": "text",
-      "html": `<p>${getHappyLittlePhrase(2)}</p>`,
-      "metadata": {"starred": false}
+      "html": `<p>${getHappyLittlePhrase(2)}</p>`
     },
     {
       "id": "abc-00000000-03",
       "type": "quote",
-      "html": `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`,
-      "metadata": {"starred": false}
+      "html": `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`
     },
     {
       "id": "abc-00000000-ol",
       "type": "list",
-      "html": `<ol><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ol>`,
-      "metadata": {"starred": false}
+      "html": `<ol><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ol>`
     },
     {
       "id": "abc-00000000-ul",
       "type": "list",
-      "html": `<ul><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ul>`,
-      "metadata": {"starred": false}
+      "html": `<ul><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ul>`
     }
   ]
 }
