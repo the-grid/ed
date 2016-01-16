@@ -2,6 +2,8 @@
 * Plugin to sync widget overlays with media blocks
 */
 
+require('./widget.css')
+
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
 import WidgetCode from './widget-code'
