@@ -3,19 +3,17 @@
 * http://facebook.github.io/react/docs/reusable-components.html#stateless-functions
 */
 
+require('./image.css')
+
 import React from 'react'
+
 
 export default function Image (props) {
   const {src, width, height} = props
   const style = {
-    width: '100%',
-    height: '100px',
-    backgroundImage: `url(${src})`,
-    backgroundSize: 'contain',
-    backgroundPosition: '50% 50%',
-    backgroundRepeat: 'no-repeat'
+    backgroundImage: `url(${src})`
   }
   return (
-    <div style={style}></div>
+    <div className="Image" style={style}></div>
   )
 }
