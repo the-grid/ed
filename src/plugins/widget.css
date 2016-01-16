@@ -5,9 +5,10 @@
 }
 .EdPlugins-Widgets > div {
   overflow: hidden;
+  border: 1px #DDDDDD solid;
 }
 .EdPlugins-Widgets iframe {
-  border: 1px lightgray solid;
+  border: none;
   width: 100%;
   height: 100%;
 }
