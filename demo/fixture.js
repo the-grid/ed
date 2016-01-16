@@ -159,7 +159,7 @@ let videoTurtle = {
       "milling",
       "jens"
     ],
-    "description": "noflo + mirobot workshop timelapse from above",
+    "description": getHappyLittlePhrase(),
     "inLanguage": "English",
     "@type": "VideoObject",
     "app_links": [
@@ -182,7 +182,7 @@ let videoTurtle = {
     ],
     "@context": "http://schema.org",
     "isBasedOnUrl": "https://www.youtube.com/watch?v=IMShMTn8yEU",
-    "title": "Mozfest 2014 - Turtle Power: Mirobot and Flowhub penplotting",
+    "title": getHappyLittlePhrase(),
     "starred": false,
     "source": "77d2788d-d7c5-4fbe-9087-4328d9f12ddb"
   },
@@ -239,13 +239,13 @@ let article = {
       "workshops",
       "graph"
     ],
-    "description": "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot.",
+    "description": getHappyLittlePhrase(5),
     "inLanguage": "English",
     "app_links": [],
     "@context": "http://schema.org",
     "@type": "Article",
     "isBasedOnUrl": "http://meemoo.org/blog/2015-01-14-turtle-power-to-the-people/",
-    "title": "Turtle power to the people",
+    "title": getHappyLittlePhrase(),
     "starred": false,
     "caption": "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot.",
     "source": "ad25432f-11f9-4326-8b0c-edbffa7afbdc"
@@ -272,7 +272,7 @@ let imageCole = {
   "created_at": "2015-02-24T16:09:10.501Z",
   "updated_at": null,
   "metadata": {
-    "description": "silk photo",
+    "description": getHappyLittlePhrase(5),
     "@context": "http://schema.org",
     "@type": "Article",
     "isBasedOnUrl": "http://the-grid-user-content.s3-us-west-2.amazonaws.com/b1dd2ebd-7461-4960-a3be-05f22c649a63.jpg",
@@ -286,7 +286,7 @@ let imageCole = {
       name: 'Cole Rise',
       url: 'https://cole.grid/'
     }],
-    title: 'Silk',
+    title: getHappyLittlePhrase(),
     coverPrefs: {
       filter: false
     }
@@ -340,7 +340,7 @@ let imageBeingD4 = {
     "description": "",
     "@context": "http://schema.org",
     "source": "df7acda0-96f2-4185-995c-ed52f921bc8c",
-    "title": "being d4",
+    "title": getHappyLittlePhrase(),
     "author": [
       {
         "name": "Gordon"
