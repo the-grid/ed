@@ -9,7 +9,7 @@ import {createElement as el} from 'react'
 
 
 export default function Image (props) {
-  const {src, width, height} = props
+  const {src} = props
   const style = {
     backgroundImage: `url(${src})`
   }
