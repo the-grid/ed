@@ -5,7 +5,7 @@
 
 require('./image.css')
 
-import React from 'react'
+import {createElement as el} from 'react'
 
 
 export default function Image (props) {
@@ -13,7 +13,5 @@ export default function Image (props) {
   const style = {
     backgroundImage: `url(${src})`
   }
-  return (
-    <div className="Image" style={style}></div>
-  )
+  return el('div', {className: 'Image', style})
 }
