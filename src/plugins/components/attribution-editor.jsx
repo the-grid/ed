@@ -26,7 +26,8 @@ class AttributionEditor extends React.Component {
       <div className='AttributionEditor'>
         {renderCover(cover)}
         <div className='AttributionEditor-metadata'>
-          {JSON.stringify(metadata, null, 2)}
+          <h1>{metadata.title}</h1>
+          <p>{metadata.description}</p>
         </div>
       </div>
     )
