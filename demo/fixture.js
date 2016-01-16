@@ -573,20 +573,22 @@ let post = {
       "html": `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       "metadata": {}
     },
+    imageCole,
     {
       "id": "uuid-broken-00",
       "type": undefined
     },
-    tweet,
-    code,
-    sharing,
-    imageCole,
+    imageRaphael,
+    videoTurtle,
     {
       "id": "abc-00000000-h2",
       "type": "h2",
       "html": `<h2>${getHappyLittlePhrase()}</h2>`
     },
-    imageRaphael,
+    article,
+    tweet,
+    code,
+    sharing,
     {
       "id": "abc-00000000-h3",
       "type": "h3",
@@ -606,8 +608,6 @@ let post = {
       "html": `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`,
       "metadata": {"starred": false}
     },
-    videoTurtle,
-    article,
     {
       "id": "abc-00000000-ol",
       "type": "list",
