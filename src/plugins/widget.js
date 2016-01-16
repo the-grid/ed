@@ -75,7 +75,9 @@ function initializeWidget (id, type, rectangle) {
 }
 
 function onIframeMessage (message) {
+  if (!message || !message.source || !message.source.frameElement) return
   let fromId = message.source.frameElement.getAttribute('grid-id')
+  if (!fromId) return
   switch (message.data.topic) {
     case 'changed':
       let block = message.data.payload
