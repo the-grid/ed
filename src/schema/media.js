@@ -1,3 +1,5 @@
+require('./media.css')
+
 import {Block, Attribute} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 
