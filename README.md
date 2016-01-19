@@ -64,7 +64,7 @@ Changes will trigger a browser refresh.
 [Plugins](./src/plugins) are ES2015 classes with 2 required methods:
 
 * `constructor (ed) {}` gets a reference to the main `ed`, where you can
-  * listen to PM events: `ed.pm.on('flushed', ...)`
+  * listen to PM events: `ed.pm.on('draw', ...)`
   * and set up UI: `ed.pluginContainer.appendChild(...)`
 * `teardown () {}` where all listeners and UI should be removed
 

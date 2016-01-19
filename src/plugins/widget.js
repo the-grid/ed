@@ -107,12 +107,12 @@ export default class PluginWidget {
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
 
-    this.ed.pm.on('flushed', this.onDOMChanged)
+    this.ed.pm.on('draw', this.onDOMChanged)
     window.addEventListener('resize', this.onDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
-    this.ed.pm.off('flushed', this.onDOMChanged)
+    this.ed.pm.off('draw', this.onDOMChanged)
     window.removeEventListener('resize', this.onDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 
