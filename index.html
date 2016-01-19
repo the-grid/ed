@@ -101,17 +101,12 @@
   }
 
   .ProseMirror-content > div {
-    border-left: 3px solid green;
-    padding: 0 0 0 1em;
     margin: 0.5em 0;
     display: inline-block;
     width: 100%;
-    min-height: 100px;
+    min-height: 200px;
   }
-  .ProseMirror-content iframe {
-    border:none;
-  }
-  .ProseMirror-content blockquote {
+  .ProseMirror-content > blockquote {
     font-size: 2rem;
     font-style: italic;
     color: hsl(0,0%,30%);
@@ -121,7 +116,7 @@
     margin-left: 0;
     margin-right: 0;
   }
-  .ProseMirror-content blockquote:before {
+  .ProseMirror-content > blockquote:before {
     content: '“';
     font-family: Georgia;
     font-size: 2em;
@@ -265,17 +260,7 @@
   .ProseMirror-select-menu div:hover {
     background: hsl(0, 0%, 7%);
   }
-
-
-  .EdPlugins-Widgets {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .EdPlugins-Widgets > iframe {
-    border: 1px lightgray solid;
-  }
-
+  
 
   .logo-loader {
     margin: auto;
@@ -319,12 +304,6 @@
       to {stroke-dashoffset: 0px;}
   }
 
-
-
-  iframe.embed-type-ced {
-    border: none;
-    margin-left: -43px;
-  }
 </style>
 
 </head>

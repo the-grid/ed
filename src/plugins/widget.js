@@ -1,9 +1,17 @@
-// Sync widget overlays with media blocks
+/*
+* Plugin to sync widget overlays with media blocks
+*/
+
+require('./widget.css')
+
+// WidgetTypes keys correspond with PM media block's grid-type attribute
 
 import WidgetCode from './widget-code'
+import WidgetCover from './widget-cover'
 
 const WidgetTypes = {
-  code: WidgetCode
+  code: WidgetCode,
+  cover: WidgetCover
 }
 
 // Functions to bind in class constructor
@@ -54,11 +62,11 @@ function checkWidget (id, type, rectangle) {
 }
 
 function initializeWidget (id, type, rectangle) {
-  if (!WidgetTypes[type]) return
+  let Widget = WidgetTypes[type] || WidgetTypes.cover
 
   let initialBlock = this.ed.getBlock(id)
 
-  this.widgets[id] = new WidgetTypes[type]({
+  this.widgets[id] = new Widget({
     id: id,
     widgetContainer: this.el,
     initialRectangle: rectangle,
@@ -67,7 +75,9 @@ function initializeWidget (id, type, rectangle) {
 }
 
 function onIframeMessage (message) {
+  if (!message || !message.source || !message.source.frameElement) return
   let fromId = message.source.frameElement.getAttribute('grid-id')
+  if (!fromId) return
   switch (message.data.topic) {
     case 'changed':
       let block = message.data.payload

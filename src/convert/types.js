@@ -6,6 +6,7 @@ const MEDIA_TYPES = [
   'interactive',
   'location',
   'placeholder',
+  'quote',
   'share',
   'video'
 ]
@@ -20,7 +21,6 @@ const HTML_TYPES = [
   'list',
   'ol',
   'p',
-  'quote',
   'text',
   'ul'
 ]
