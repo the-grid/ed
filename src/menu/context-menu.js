@@ -284,6 +284,12 @@ class ContextMenu extends TooltipMenu {
     } else {
       _items = getItems(this.pm, [
         [
+          'textblockType',
+          'blockquote:wrap',
+          'bullet_list:wrap',
+          'ordered_list:wrap'
+        ],
+        [
           'upload_embed'
         ],
         [
