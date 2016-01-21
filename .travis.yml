@@ -1,11 +1,8 @@
 language: node_js
 node_js:
 - '0.12'
-after_script: bash ./deploy.sh
-env:
-  global:
-  - GH_REF: github.com/the-grid/ed.git
-  - secure: Pz7NfvRl0OWA1Jmwzjdzt5Ug8TCVw8x44JbmniBhiMooh7/hFAVN9b6RvCWPx/7eqf+uQXiyaFfG9UcXQNwLo9cEkvwWlEyhSW/k7sMMyddl3rOK8zf9PfmoNU9K6Q0t3YPvYOAXTe2Ma43d/4OEJY1JgbtlooDldjhHqQqIiFuPxUhk7rfLdtpfI4mijVt7wjSmY7pPg2jtddRfNFExAk0p4KZOSSQlrn6R9tdIMeSALRfo7oulKheGq0V5CLTaX5OlRojeI5UIrGPJpIk4QbYaN19u6opGetlLzQ1qqyiSs8pDL8XXV55GPyPjB8m4iEJXnAjIDgqc5LTtDdhRpmlti+23xX5GKIto9/uj4TU/knouuAs54lcXgwuyBT+G8MLDsED3Xzpxmw8JmvpKiiilRwn58bT1SZ2BHkJdvB/qnzQQ7G4726OuAo0rsMR3S8eRk3ysnf4Vva+rHtA26zuYeIZlP0GAkZCjs45r56fJVS0hvLqPANBrhZETdxBKOyRo64KAft0ql3oQUpdXmuwY4IbhKDKtYDjlQe3J262wLBnSo878RFWoB6YTvVxojhOv98nc2yuTcUjX8n72fDtnceSFkj4x4pMRmg6a+eAwN0Qq28BwlMm+H1913AGQ3wsVNakwQ5CSWU8C5LuacUd0HOV3q2PfhcroVnWNmhc=
+script: npm test
+before_deploy: npm run build
 deploy:
   provider: npm
   email: forrest@sembiki.com
@@ -14,3 +11,8 @@ deploy:
   on:
     tags: true
     repo: the-grid/ed
+after_script: bash ./deploy.sh
+env:
+  global:
+  - GH_REF: github.com/the-grid/ed.git
+  - secure: Pz7NfvRl0OWA1Jmwzjdzt5Ug8TCVw8x44JbmniBhiMooh7/hFAVN9b6RvCWPx/7eqf+uQXiyaFfG9UcXQNwLo9cEkvwWlEyhSW/k7sMMyddl3rOK8zf9PfmoNU9K6Q0t3YPvYOAXTe2Ma43d/4OEJY1JgbtlooDldjhHqQqIiFuPxUhk7rfLdtpfI4mijVt7wjSmY7pPg2jtddRfNFExAk0p4KZOSSQlrn6R9tdIMeSALRfo7oulKheGq0V5CLTaX5OlRojeI5UIrGPJpIk4QbYaN19u6opGetlLzQ1qqyiSs8pDL8XXV55GPyPjB8m4iEJXnAjIDgqc5LTtDdhRpmlti+23xX5GKIto9/uj4TU/knouuAs54lcXgwuyBT+G8MLDsED3Xzpxmw8JmvpKiiilRwn58bT1SZ2BHkJdvB/qnzQQ7G4726OuAo0rsMR3S8eRk3ysnf4Vva+rHtA26zuYeIZlP0GAkZCjs45r56fJVS0hvLqPANBrhZETdxBKOyRo64KAft0ql3oQUpdXmuwY4IbhKDKtYDjlQe3J262wLBnSo878RFWoB6YTvVxojhOv98nc2yuTcUjX8n72fDtnceSFkj4x4pMRmg6a+eAwN0Qq28BwlMm+H1913AGQ3wsVNakwQ5CSWU8C5LuacUd0HOV3q2PfhcroVnWNmhc=
