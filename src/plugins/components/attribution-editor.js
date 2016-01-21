@@ -2,7 +2,7 @@
 require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
-import Image from './Image'
+import Image from './image'
 
 
 function renderCover (cover) {
