@@ -14,7 +14,7 @@ function setup (options = {menu: 'tip'}) {
   }
   ed = new Ed({
     container: document.querySelector('#mirror'),
-    content: content,
+    initialContent: content,
     menutip: (options.menu === 'tip'),
     menubar: (options.menu === 'bar'),
     onChange: onPostChange,
@@ -70,7 +70,7 @@ function APIToEditor () {
   } catch (e) {
     return console.warn('bad json')
   }
-  ed.content = json
+  ed.setContent(json)
 }
 document.querySelector('#hydrate').onclick = APIToEditor
 
@@ -90,11 +90,11 @@ let simulateUpdates = function () {
   // Loop
   timeout = setTimeout(simulateUpdates, 500)
   // Mutate
-  let content = ed.content
+  let content = ed.getContent()
   let html = content[0].html
   html = html.slice(0, -4) + randomLetter() + '</p>'
   content[0].html = html
-  ed.content = content
+  ed.setContent(content)
 }
 let toggleUpdates = function () {
   if (timeout) {

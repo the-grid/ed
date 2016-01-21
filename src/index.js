@@ -1,3 +1,5 @@
+require('./index.css')
+
 import {ProseMirror} from 'prosemirror/src/edit/main'
 
 import {commands} from './edit'
@@ -54,8 +56,8 @@ export default class Ed {
       this.onPluginEvent = options.onPluginEvent
     }
 
-    if (options.content) {
-      this.content = options.content
+    if (options.initialContent) {
+      this.setContent(options.initialContent)
     }
 
     // Plugins setup
@@ -88,17 +90,18 @@ export default class Ed {
     this._content.splice(index, 1, block)
     this.onChange()
   }
-  set content (content) {
+  setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.
     this._content = content
     let doc = GridToDoc(content)
+    // TODO merge placeholders
     // Cache selection to restore after DOM update
     let selection = this.pm.selection
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
   }
-  get content () {
+  getContent () {
     let dom = this.pm.content.children
     let doc = this.pm.getContent()
     return DocToGrid(dom, doc, this._content)

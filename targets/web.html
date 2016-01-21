@@ -1,0 +1,27 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8"/>
+  <title>The Grid Post Editor</title>
+</head>
+<body>
+  <div id="ed"></div>
+  <script src="../lib/ed.js"></script>
+  <script>
+    
+    function onChange () {
+      console.log('change')
+    }
+      
+    window.edMount = function (options) {
+      window.ed = new TheGridEd.default({
+        container: document.querySelector('#ed'),
+        initialContent: options.initialContent,
+        menutip: (options.menu === 'tip'),
+        menubar: (options.menu === 'bar'),
+        onChange: onChange
+      })
+    }
+
+  </script>
+</body>
+</html>
