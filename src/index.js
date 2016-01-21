@@ -1,3 +1,5 @@
+require('./index.css')
+
 import {ProseMirror} from 'prosemirror/src/edit/main'
 
 import {commands} from './edit'
