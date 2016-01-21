@@ -1,5 +1,5 @@
-webpack = require('webpack')
-path = require('path')
+var webpack = require('webpack')
+var path = require('path')
 var __DEV = (process.env.DEV === 'true')
 var __DEMO = (process.env.DEMO === 'true')
 
@@ -10,7 +10,7 @@ if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/index.js'
-  // plugins.push( new webpack.optimize.UglifyJsPlugin() )
+  plugins.push(new webpack.optimize.UglifyJsPlugin())
 }
 
 module.exports = {
