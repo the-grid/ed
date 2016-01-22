@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.0.24",
   "description": "the grid api with prosemirror",
-  "main": "lib/ed.js",
+  "main": "dist/ed.js",
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline",
     "build": "npm run clean; webpack",
