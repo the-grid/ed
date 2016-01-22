@@ -1,5 +1,8 @@
 var webpack = require('webpack')
 var path = require('path')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
+var packageWidgets = require('./package.json').widgets
+
 var __DEV = (process.env.DEV === 'true')
 var __DEMO = (process.env.DEMO === 'true')
 
@@ -13,11 +16,29 @@ if (__DEV || __DEMO) {
   plugins.push(new webpack.optimize.UglifyJsPlugin())
 }
 
+if (!__DEV) {
+  var copyPatterns = [{
+    from: 'targets/web.html',
+    to: 'index.html'
+  }]
+  // Copy iframe widgets to dist, whitelisted files and directories only
+  Object.keys(packageWidgets).forEach(function (key) {
+    var widget = packageWidgets[key]
+    widget.include.forEach(function (include) {
+      copyPatterns.push({
+        from: 'node_modules/' + key + include,
+        to: 'node_modules/' + key + include
+      })
+    })
+  })
+  plugins.push(new CopyWebpackPlugin(copyPatterns))
+}
+
 module.exports = {
   entry: entry,
   plugins: plugins,
   output: {
-    path: './lib/',
+    path: './dist/',
     publicPath: '/webpack/',
     filename: '[name].js',
     library: 'TheGridEd'

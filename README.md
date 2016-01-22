@@ -96,6 +96,6 @@ Feross [standard](https://github.com/feross/standard#rules) checked by ESLint wi
 
 ## build
 
-`npm build`
+`npm run build`
 
-Outputs minified ed.js to /lib
+Outputs minified dist/ed.js and copies widgets defined in [package.json](./package.json).
