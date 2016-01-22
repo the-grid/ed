@@ -9,18 +9,15 @@ fi
 #!/bin/bash
 set -e # exit with nonzero exit code if anything fails
 
-# clear and re-create the out directory
-rm -rf build || exit 0
-mkdir build
-mkdir build/webpack
-
 # run our compile script, discussed above
 npm run builddemo
-cp lib/demo.js build/webpack/demo.js
-cp index.html build/index.html
+
+# move demo stuff around
+mkdir dist/webpack
+mv dist/demo.js dist/webpack/demo.js
 
 # go to the build directory and create a *new* Git repo
-cd build
+cd dist
 git init
 
 # inside this git repo we'll pretend to be a new user

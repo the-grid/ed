@@ -8,7 +8,7 @@
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline",
     "build": "npm run clean; webpack",
-    "builddemo": "export DEMO=true; webpack",
+    "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",
     "test": "echo 'todo' && npm run lint",
     "lint": "eslint src demo",

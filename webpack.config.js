@@ -13,14 +13,23 @@ if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/index.js'
-  plugins.push(new webpack.optimize.UglifyJsPlugin())
 }
 
 if (!__DEV) {
-  var copyPatterns = [{
-    from: 'targets/web.html',
-    to: 'index.html'
-  }]
+  plugins.push(new webpack.optimize.UglifyJsPlugin())
+  var copyPatterns = []
+
+  if (__DEMO) {
+    copyPatterns.push({
+      from: 'index.html',
+      to: 'index.html'
+    })
+  } else {
+    copyPatterns.push({
+      from: 'targets/web.html',
+      to: 'index.html'
+    })
+  }
   // Copy iframe widgets to dist, whitelisted files and directories only
   Object.keys(packageWidgets).forEach(function (key) {
     var widget = packageWidgets[key]
