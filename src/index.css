@@ -12,36 +12,6 @@ body {
   padding: 1em;
   padding-bottom: 300px;
 }
-#debug {
-  display: none;
-  padding: 1em;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 300px;
-  max-height: 50vh;
-  background: rgba(255, 255, 255, 0.8);
-  border-top: 1px gray solid;
-}
-#debug-buttons {
-  margin-left: calc(75% + 10px);
-}
-#debug-api {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 75%;
-  font-size: 0.6em;
-  border: 1px solid silver;
-  padding: 0;
-}
-#debug-toggle {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-}
 
 #mirror {
   margin-left: 0em;
