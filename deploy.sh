@@ -15,6 +15,7 @@ npm run builddemo
 # move demo stuff around
 mkdir dist/webpack
 mv dist/demo.js dist/webpack/demo.js
+mv dist/demo.map dist/webpack/demo.map
 
 # go to the build directory and create a *new* Git repo
 cd dist

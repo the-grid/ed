@@ -50,10 +50,11 @@ module.exports = {
     path: './dist/',
     publicPath: '/webpack/',
     filename: '[name].js',
+    sourceMapFilename: '[name].map',
     library: 'TheGridEd'
   },
   debug: __DEV,
-  devtool: (__DEV ? 'cheap-module-eval-source-map' : null),
+  devtool: (__DEV ? 'cheap-module-eval-source-map' : 'source-map'),
   module: {
     loaders: [
       {
