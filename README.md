@@ -35,7 +35,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     // Where ed will mount
     container: document.querySelector('#ed'),
     // Content array from post
-    content: [],
+    initialContent: [],
     menutip: true,
     menubar: false,
     // Hit with each change
@@ -43,9 +43,10 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
   })  
 ```
 
-* You can only set `ed.content` once, after which ed has responsibility for the content.
-* If you need to load new content in, you must make a `new Ed`.
-* Getting `ed.content` takes some processing and should not be done on every change.
+* You can only call `ed.setContent()` with full content once (or as constructor `initialContent` option).
+  * Future calls will only update placeholder blocks.
+  * If you need to load new content in, you must make a `new Ed`.
+* `ed.getContent()` takes some processing and should not be done on every change.
 
 Demo: [./demo/demo.js](./demo/demo.js)
 
