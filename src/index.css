@@ -75,7 +75,6 @@ img {
 }
 .ProseMirror-content > blockquote {
   font-size: 2rem;
-  font-style: italic;
   color: hsl(0,0%,30%);
   position: relative;
   padding-left: 0;
