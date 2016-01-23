@@ -8,17 +8,16 @@
   <script src="./ed.js"></script>
   <script>
     
-    function onChange () {
-      console.log('change')
-    }
-      
     window.edMount = function (options) {
       window.ed = new TheGridEd.default({
         container: document.querySelector('#ed'),
         initialContent: options.initialContent,
         menutip: (options.menu === 'tip'),
         menubar: (options.menu === 'bar'),
-        onChange: onChange
+        onChange: options.onChange || function () {
+          // App should debounce these, and call ed.getContent() when ready to save
+          console.log('change!')
+        }
       })
     }
 
