@@ -56,8 +56,10 @@ export default class Ed {
       this.onPluginEvent = options.onPluginEvent
     }
 
-    if (options.initialContent) {
+    if (options.initialContent && Array.isArray(options.initialContent)) {
       this.setContent(options.initialContent)
+    } else {
+      throw new Error('Missing options.initialContent array')
     }
 
     // Plugins setup
