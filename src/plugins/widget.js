@@ -18,18 +18,18 @@ const WidgetTypes = {
 
 function onDOMChanged () {
   // Mount or move widget overlays
-  let els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+  const els = this.ed.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
   for (let i = 0, len = els.length; i < len; i++) {
-    let el = els[i]
-    let id = el.getAttribute('grid-id')
-    let type = el.getAttribute('grid-type')
+    const el = els[i]
+    const id = el.getAttribute('grid-id')
+    const type = el.getAttribute('grid-type')
     if (!id || !type) {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    let rect = el.getBoundingClientRect()
-    let rectangle = {
+    const rect = el.getBoundingClientRect()
+    const rectangle = {
       top: rect.top + window.scrollY,
       left: rect.left + window.scrollX,
       width: rect.width,
@@ -41,13 +41,30 @@ function onDOMChanged () {
   // Hide or show widgets
   let inDOM = Object.keys(this.widgets)
   for (let i = 0, len = inDOM.length; i < len; i++) {
-    let key = inDOM[i]
-    let widget = this.widgets[key]
+    const key = inDOM[i]
+    const widget = this.widgets[key]
     if (inDoc.indexOf(key) !== -1) {
       widget.show()
     } else {
       widget.hide()
     }
+  }
+
+  // Change placeholder heights
+  let heightChanges = []
+  for (let i = 0, len = inDoc.length; i < len; i++) {
+    const id = inDoc[i]
+    const widget = this.widgets[id]
+    if (widget.heightChanged) {
+      heightChanges.push({
+        id,
+        height: widget.height
+      })
+      widget.heightChanged = false
+    }
+  }
+  if (heightChanges.length) {
+    this.ed.updatePlaceholderHeights(heightChanges)
   }
 }
 

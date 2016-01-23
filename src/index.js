@@ -90,6 +90,16 @@ export default class Ed {
     this._content.splice(index, 1, block)
     this.onChange()
   }
+  updatePlaceholderHeights (changes) {
+    // Do this in a batch, with one widget remeasure/move
+    for (let i = 0, len = changes.length; i < len; i++) {
+      const change = changes[i]
+      const els = document.querySelectorAll(`div[grid-id="${change.id}"]`)
+      els[0].style.height = change.height + 'px'
+      els[1].style.height = change.height + 'px'
+    }
+    this.pm.signal('draw')
+  }
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.

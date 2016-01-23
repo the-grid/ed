@@ -32,9 +32,11 @@ export default class WidgetBase {
       this.el.style.width = rectangle.width + 'px'
       this.width = rectangle.width
     }
-    if (this.height !== rectangle.height) {
+    const scrollHeight = this.getHeight()
+    if (this.height !== scrollHeight) {
       this.el.style.height = rectangle.height + 'px'
-      this.height = rectangle.height
+      this.height = scrollHeight
+      this.heightChanged = true
     }
   }
   show () {
@@ -48,5 +50,11 @@ export default class WidgetBase {
       this.el.style.display = 'none'
       this.shown = false
     }
+  }
+  getHeight () {
+    if (this.el.firstChild) {
+      return this.el.firstChild.scrollHeight
+    }
+    return 25
   }
 }
