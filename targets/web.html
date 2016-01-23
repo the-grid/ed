@@ -10,7 +10,7 @@
     
     window.edMount = function (options) {
       window.ed = new TheGridEd.default({
-        container: document.querySelector('#ed'),
+        container: document.getElementById('ed'),
         initialContent: options.initialContent,
         menutip: (options.menu === 'tip'),
         menubar: (options.menu === 'bar'),
