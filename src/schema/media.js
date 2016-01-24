@@ -32,6 +32,7 @@ Media.register('parseDOM', {
 })
 Media.prototype.serializeDOM = (node, s) => s.elt('div',
   {
+    'class': 'EdSchemaMedia',
     'grid-id': node.attrs.id,
     'grid-type': node.attrs.type,
     'title': `${node.attrs.type} widget here`,

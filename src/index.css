@@ -67,12 +67,6 @@ img {
   font-size: 24px;
 }
 
-.ProseMirror-content > div {
-  margin: 0.5em 0;
-  display: inline-block;
-  width: 100%;
-  min-height: 200px;
-}
 .ProseMirror-content > blockquote {
   font-size: 2rem;
   color: hsl(0,0%,30%);
