@@ -17,15 +17,14 @@ function setup (options = {menu: 'tip'}) {
     initialContent: content,
     menutip: (options.menu === 'tip'),
     menubar: (options.menu === 'bar'),
-    onChange: onPostChange,
+    onChange: () => { console.log('change') },
+    onAutosave: () => { console.log('autosave') },
+    autosaveInterval: 1000,
     onPluginEvent: onPluginEvent
   })
   console.log(ed)
   console.log('ed.pm.options.registries', ed.pm.options.registries)
   window.ed = ed
-}
-function onPostChange () {
-  console.log('change')
 }
 function onPluginEvent (name, payload) {
   console.log(name, payload)

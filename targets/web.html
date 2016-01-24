@@ -15,9 +15,14 @@
         menutip: (options.menu === 'tip'),
         menubar: (options.menu === 'bar'),
         onChange: options.onChange || function () {
-          // App should debounce these, and call ed.getContent() when ready to save
+          // App should not call ed.getContent() here
           console.log('change!')
-        }
+        },
+        onAutosave: options.onAutosave || function () {
+          // App can call ed.getContent() here
+          console.log('save!')
+        },
+        autosaveInterval: 100
       })
     }
 

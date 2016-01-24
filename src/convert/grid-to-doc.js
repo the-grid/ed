@@ -25,12 +25,7 @@ function itemToDOM (item) {
 }
 
 function itemsToEls (items) {
-  // items.map(itemToDOM)
-  let elements = []
-  for (let i = 0, len = items.length; i < len; i++) {
-    elements.push(itemToDOM(items[i]))
-  }
-  return elements
+  return items.map(itemToDOM)
 }
 
 export default function (items) {

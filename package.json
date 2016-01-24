@@ -2,7 +2,7 @@
   "name": "@the-grid/ed",
   "author": "Forrest Oliphant, The Grid",
   "license": "MIT",
-  "version": "0.0.27",
+  "version": "0.0.29",
   "description": "the grid api with prosemirror",
   "main": "dist/ed.js",
   "scripts": {
@@ -27,6 +27,7 @@
   "dependencies": {
     "@the-grid/ced": "^0.0.4",
     "bean": "^1.0.15",
+    "lodash": "^4.0.0",
     "prosemirror": "^0.1.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
