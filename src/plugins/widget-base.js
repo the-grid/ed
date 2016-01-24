@@ -49,4 +49,10 @@ export default class WidgetBase {
       this.shown = false
     }
   }
+  getHeight () {
+    if (this.el.firstChild) {
+      return this.el.firstChild.scrollHeight
+    }
+    return 25
+  }
 }

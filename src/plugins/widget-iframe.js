@@ -35,4 +35,8 @@ export default class WidgetIframe extends WidgetBase {
     }
     super.teardown()
   }
+  getHeight () {
+    // Don't measure from outside: iframes report own height
+    return this.height
+  }
 }
