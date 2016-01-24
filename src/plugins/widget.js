@@ -115,6 +115,7 @@ function onIframeMessage (message) {
         id: message.data.id,
         height: message.data.payload
       }])
+      break
     case 'cursor':
     default:
       break
