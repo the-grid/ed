@@ -32,11 +32,9 @@ export default class WidgetBase {
       this.el.style.width = rectangle.width + 'px'
       this.width = rectangle.width
     }
-    const scrollHeight = this.getHeight()
-    if (this.height !== scrollHeight) {
+    if (this.height !== rectangle.height) {
       this.el.style.height = rectangle.height + 'px'
-      this.height = scrollHeight
-      this.heightChanged = true
+      this.height = rectangle.height
     }
   }
   show () {

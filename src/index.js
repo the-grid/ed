@@ -104,9 +104,9 @@ export default class Ed {
     // Do this in a batch, with one widget remeasure/move
     for (let i = 0, len = changes.length; i < len; i++) {
       const change = changes[i]
-      const els = document.querySelectorAll(`div[grid-id="${change.id}"]`)
-      els[0].style.height = change.height + 'px'
-      els[1].style.height = change.height + 'px'
+      // TODO do this with standard pm.tr interface, not direct DOM
+      const placeholder = document.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
+      placeholder.style.height = change.height + 'px'
     }
     this.pm.signal('draw')
   }

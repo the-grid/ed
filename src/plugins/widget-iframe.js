@@ -36,9 +36,7 @@ export default class WidgetIframe extends WidgetBase {
     super.teardown()
   }
   getHeight () {
-    if (this.frame && this.frame.contentDocument) {
-      return this.frame.contentDocument.body.scrollHeight
-    }
-    return 300
+    // Don't measure from outside: iframes report own height
+    return this.height
   }
 }

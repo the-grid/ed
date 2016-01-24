@@ -4,6 +4,8 @@
 
 require('./widget.css')
 
+import {debounce} from 'lodash'
+
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
 import WidgetCode from './widget-code'
@@ -16,6 +18,7 @@ const WidgetTypes = {
 
 // Functions to bind in class constructor
 
+// Should use debounced version
 function onDOMChanged () {
   // Mount or move widget overlays
   const els = this.ed.pm.content.querySelectorAll('div[grid-type]')
@@ -41,29 +44,31 @@ function onDOMChanged () {
   // Hide or show widgets
   let inDOM = Object.keys(this.widgets)
   for (let i = 0, len = inDOM.length; i < len; i++) {
-    const key = inDOM[i]
-    const widget = this.widgets[key]
-    if (inDoc.indexOf(key) !== -1) {
+    const id = inDOM[i]
+    const widget = this.widgets[id]
+    if (inDoc.indexOf(id) !== -1) {
       widget.show()
     } else {
       widget.hide()
     }
   }
 
-  // Change placeholder heights
+  // Measure inner heights of widgets
   let heightChanges = []
-  for (let i = 0, len = inDoc.length; i < len; i++) {
-    const id = inDoc[i]
+  for (let i = 0, len = inDOM.length; i < len; i++) {
+    const id = inDOM[i]
     const widget = this.widgets[id]
-    if (widget.heightChanged) {
+    if (!widget.shown) continue
+    const innerHeight = widget.getHeight()
+    if (innerHeight !== widget.height) {
       heightChanges.push({
-        id,
-        height: widget.height
+        id: id,
+        height: innerHeight
       })
-      widget.heightChanged = false
     }
   }
   if (heightChanges.length) {
+    // Will trigger a redraw / this onDOMChanged again
     this.ed.updatePlaceholderHeights(heightChanges)
   }
 }
@@ -93,16 +98,23 @@ function initializeWidget (id, type, rectangle) {
 
 function onIframeMessage (message) {
   if (!message || !message.source || !message.source.frameElement) return
-  let fromId = message.source.frameElement.getAttribute('grid-id')
+  const fromId = message.source.frameElement.getAttribute('grid-id')
   if (!fromId) return
+  const messageId = message.data.id
+  if (!messageId) throw new Error('Iframe widget message missing message.data.id')
+  if (fromId !== messageId) throw new Error('Iframe message id does not match frame id')
   switch (message.data.topic) {
     case 'changed':
       let block = message.data.payload
-      // FIXME should `data.id` be part of every message?
-      if (fromId !== block.id) return
+      if (fromId !== block.id) throw new Error('Iframe block id does not match frame id')
       this.ed.updateMediaBlock(block)
       break
     case 'height':
+      if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
+      this.ed.updatePlaceholderHeights([{
+        id: message.data.id,
+        height: message.data.payload
+      }])
     case 'cursor':
     default:
       break
@@ -114,6 +126,7 @@ function onIframeMessage (message) {
 export default class PluginWidget {
   constructor (ed) {
     this.onDOMChanged = onDOMChanged.bind(this)
+    this.debouncedDOMChanged = debounce(this.onDOMChanged, 50)
     this.checkWidget = checkWidget.bind(this)
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
@@ -124,13 +137,13 @@ export default class PluginWidget {
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
 
-    this.ed.pm.on('draw', this.onDOMChanged)
-    window.addEventListener('resize', this.onDOMChanged)
+    this.ed.pm.on('draw', this.debouncedDOMChanged)
+    window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
-    this.ed.pm.off('draw', this.onDOMChanged)
-    window.removeEventListener('resize', this.onDOMChanged)
+    this.ed.pm.off('draw', this.debouncedDOMChanged)
+    window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 
     this.el.parentNode.removeChild(this.el)
