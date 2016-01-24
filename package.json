@@ -27,6 +27,7 @@
   "dependencies": {
     "@the-grid/ced": "^0.0.4",
     "bean": "^1.0.15",
+    "lodash": "^4.0.0",
     "prosemirror": "^0.1.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",

@@ -39,7 +39,10 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     menutip: true,
     menubar: false,
     // Hit with each change
-    onChange: function () { console.log('change') }
+    onChange: function () { console.log('change') },
+    // Debounced for saves
+    onAutosave: function () { console.log(ed.getContent()) },
+    autosaveInterval: 100
   })  
 ```
 

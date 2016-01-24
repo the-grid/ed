@@ -1,6 +1,7 @@
 require('./index.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
+import {debounce} from 'lodash'
 
 import {commands} from './edit'
 
@@ -51,6 +52,13 @@ export default class Ed {
     if (options.onChange) {
       this.onChange = options.onChange || noop
       this.pm.on('change', this.onChange)
+    }
+    if (options.onAutosave) {
+      const autosaveInterval = options.autosaveInterval || 100
+      const debounced = debounce(function () {
+        options.onAutosave()
+      }, autosaveInterval)
+      this.pm.on('change', debounced)
     }
     if (options.onPluginEvent) {
       this.onPluginEvent = options.onPluginEvent
