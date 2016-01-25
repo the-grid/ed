@@ -4,7 +4,7 @@
 
 require('./widget.css')
 
-import {debounce} from 'lodash'
+import debounce from 'lodash.debounce'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
