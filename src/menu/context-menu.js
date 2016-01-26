@@ -294,10 +294,10 @@ class ContextMenu extends TooltipMenu {
         ],
         [
           'upload_embed'
-        ],
-        [
-          'insert_embed'
         ]
+        // [
+        //   'insert_embed'
+        // ]
         // [
         //   //'image:insert',
         //   'blockquote:wrap',

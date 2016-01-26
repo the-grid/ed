@@ -14,10 +14,15 @@ baseCommands.upload_embed = {
     // pm.setNodeSelection(node)
   },
   menuGroup: 'block(100)',
-  display: {type: 'icon', text: 'upload', style: 'font-weight: bold; vertical-align: 20%'}
+  display: {
+    type: 'icon',
+    text: 'upload',
+    style: 'font-weight: bold; vertical-align: 20%'
+  }
   // keys: ["Esc"]
 }
 
+/*
 let widgetStoreDom = document.getElementById('widget-store')
 
 baseCommands.insert_embed = {
@@ -32,3 +37,4 @@ baseCommands.insert_embed = {
   display: {type: 'icon', text: 'insert', style: 'font-weight: bold; vertical-align: 20%'}
   // keys: ["Esc"]
 }
+*/
