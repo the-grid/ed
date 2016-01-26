@@ -4,7 +4,7 @@
 
 require('./widget.css')
 
-import debounce from 'lodash.debounce'
+import _ from '../util/lodash'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
@@ -127,7 +127,7 @@ function onIframeMessage (message) {
 export default class PluginWidget {
   constructor (ed) {
     this.onDOMChanged = onDOMChanged.bind(this)
-    this.debouncedDOMChanged = debounce(this.onDOMChanged, 50)
+    this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
     this.checkWidget = checkWidget.bind(this)
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
