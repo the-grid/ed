@@ -15,14 +15,15 @@
         menutip: (options.menu === 'tip'),
         menubar: (options.menu === 'bar'),
         onChange: options.onChange || function () {
-          // App should not call ed.getContent() here
           console.log('change!')
         },
+        autosaveInterval: options.autosaveInterval || 100,
         onAutosave: options.onAutosave || function () {
-          // App can call ed.getContent() here
           console.log('save!')
         },
-        autosaveInterval: 100
+        onShareFile: options.onShareFile || function (index) {
+          console.log('onShareFile index:', index)
+        }
       })
     }
 

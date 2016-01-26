@@ -20,14 +20,11 @@ function setup (options = {menu: 'tip'}) {
     onChange: () => { console.log('change') },
     onAutosave: () => { console.log('autosave') },
     autosaveInterval: 1000,
-    onPluginEvent: onPluginEvent
+    onShareFile: (index) => { console.log('pick file & insert placeholder(s) at index', index) }
   })
   console.log(ed)
   console.log('ed.pm.options.registries', ed.pm.options.registries)
   window.ed = ed
-}
-function onPluginEvent (name, payload) {
-  console.log(name, payload)
 }
 setup({menu})
 

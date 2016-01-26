@@ -1,17 +1,22 @@
 export const baseCommands = Object.create(null)
 
-let uploaderMount = document.createElement('div')
-uploaderMount.innerHTML = `<input id="uploader" type="file" name="files[]" multiple style="width:0px; height:0px; display:none;"/>`
-document.body.appendChild(uploaderMount)
-let uploaderDom = uploaderMount.firstChild
+// Copied from https://github.com/ProseMirror/prosemirror/blob/1ce4ad1f8f9028e1efa8af5d48ecb28cdca1f800/src/edit/base_commands.js#L485
+function nodeAboveSelection (pm) {
+  let sel = pm.selection
+  let i = 0
+  if (sel.node) return !!sel.from.depth && sel.from.shorten()
+  for (; i < sel.head.depth && i < sel.anchor.depth; i++)
+    if (sel.head.path[i] !== sel.anchor.path[i]) break
+  return i === 0 ? false : sel.head.shorten(i - 1)
+}
 
 baseCommands.upload_embed = {
   label: 'upload something...',
   run (pm) {
-    uploaderDom.click()
-    // let node = nodeAboveSelection(pm)
-    // if (!node) return false
-    // pm.setNodeSelection(node)
+    let pos = nodeAboveSelection(pm)
+    if (!pos || pos.offset == null) return false
+    const index = pos.offset
+    pm.signal('ed.menu.file', index)
   },
   menuGroup: 'block(100)',
   display: {
@@ -19,7 +24,6 @@ baseCommands.upload_embed = {
     text: 'upload',
     style: 'font-weight: bold; vertical-align: 20%'
   }
-  // keys: ["Esc"]
 }
 
 /*

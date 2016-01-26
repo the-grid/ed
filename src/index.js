@@ -70,6 +70,10 @@ export default class Ed {
       throw new Error('Missing options.initialContent array')
     }
 
+    // Menu setup
+    this.onShareFile = options.onShareFile || noop
+    this.pm.on('ed.menu.file', this.onShareFile)
+
     // Plugins setup
     this.pluginContainer = document.createElement('div')
     this.pluginContainer.className = 'EdPlugins'
@@ -81,6 +85,7 @@ export default class Ed {
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())
     this.pm.off('change')
+    this.pm.off('ed.menu.file')
     this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
   }
