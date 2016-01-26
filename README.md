@@ -30,7 +30,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 # use
 
-```
+``` javascript
   ed = new Ed({
     // Where ed will mount
     container: document.querySelector('#ed'),
@@ -38,13 +38,22 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     initialContent: [],
     menutip: true,
     menubar: false,
-    // Hit with each change
-    onChange: function () { console.log('change') },
-    // Debounced for saves
-    onAutosave: function () { console.log(ed.getContent()) },
+    // Every change
+    onChange: function () {
+      /* App can show "unsaved changes" in UI */
+      /* Don't call ed.getContent() here */
+    },
+    // Debounced changes
     autosaveInterval: 100,
-    onShareFile: function (index) { /* app splices placeholder block(s) and calls ed.setContent() */ },
-    onShareUrl: function (index, url) { /* app splices placeholder block and calls ed.setContent() */ }
+    onAutosave: function () {
+      /* App chooses when to call ed.getContent() and save to API */
+    },
+    onShareFile: function (index) {
+      /* App splices placeholder block(s) and calls ed.setContent() */
+    },
+    onShareUrl: function (index, url) {
+      /* App replaces text block with url and calls ed.setContent() */
+    }
   })  
 ```
 
