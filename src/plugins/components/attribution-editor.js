@@ -30,8 +30,8 @@ class AttributionEditor extends React.Component {
       el(
         'div',
         {className: 'AttributionEditor-metadata'},
-        el('h1', {}, title),
-        el('p', {}, description)
+        el('h1', {className: 'AttributionEditor-title'}, title),
+        el('p', {className: 'AttributionEditor-description'}, description)
       )
     )
   }

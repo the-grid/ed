@@ -1,3 +1,6 @@
+require('./menu.css')
+require('./menubar.css')
+
 import {Pos} from 'prosemirror/src/model'
 import {defineOption} from 'prosemirror/src/edit'
 import {elt, insertCSS} from 'prosemirror/src/dom'

@@ -29,7 +29,7 @@ function setup (options = {menu: 'tip'}) {
 function onPluginEvent (name, payload) {
   console.log(name, payload)
 }
-setup()
+setup({menu})
 
 // Debug buttons
 
