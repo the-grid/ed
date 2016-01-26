@@ -1,9 +1,9 @@
 if [ "$TRAVIS_TAG" = "" ]
 then
-   echo "Not a tag, not deploying"
+   echo "Not a tag, not publishing"
    exit 0
 else
-   echo "==> Building and deploying tag $TRAVIS_TAG <=="
+   echo "==> Building and publishing demo tag $TRAVIS_TAG <=="
 fi
 
 #!/bin/bash
@@ -28,7 +28,7 @@ git config user.email "f.bot@forresto.com"
 # The first and only commit to this new Git repo contains all the
 # files present with the commit message "Deploy to GitHub Pages".
 git add .
-git commit -m "Publishing demo $TRAVIS_TAG to gh-pages"
+git commit -m "demo $TRAVIS_TAG to gh-pages"
 
 # Force push from the current repo's master branch to the remote
 # repo's gh-pages branch. (All previous history on the gh-pages branch

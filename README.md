@@ -103,3 +103,8 @@ Feross [standard](https://github.com/feross/standard#rules) checked by ESLint wi
 `npm run build`
 
 Outputs minified dist/ed.js and copies widgets defined in [package.json](./package.json).
+
+## deploying
+
+Travis will publish tags to [npm](https://www.npmjs.com/package/@the-grid/ed)
+and build the demo to publish to [gh-pages](https://the-grid.github.io/ed/).
