@@ -12,7 +12,7 @@ deploy:
   on:
     tags: true
     repo: the-grid/ed
-after_script: bash ./deploy.sh
+after_script: bash ./gh-pages.sh
 env:
   global:
   - GH_REF: github.com/the-grid/ed.git
