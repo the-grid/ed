@@ -282,7 +282,8 @@ class ContextMenu extends TooltipMenu {
         'textblockType',
         'blockquote:wrap',
         'bullet_list:wrap',
-        'ordered_list:wrap'
+        'ordered_list:wrap',
+        'lift'
       ])
     } else {
       _items = getItems(this.pm, [

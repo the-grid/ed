@@ -66,23 +66,23 @@ img {
 }
 
 .ProseMirror-content > blockquote {
-  font-size: 150%;
+  font-size: 125%;
 
   color: hsl(0,0%,30%);
   position: relative;
-  padding-left: 0;
+  padding-left: 1.5em;
   border-left: none;
   margin-left: 0;
   margin-right: 0;
 }
 .ProseMirror-content > blockquote:before {
-  font-size: 150%;
+  font-size: 250%;
 
   content: '“';
   font-family: Georgia;
   position: absolute;
-  margin-top: 1.7rem;
-  left: -0.8em;
+  margin-top: 0;
+  left: 0em;
   opacity: 0.3;
 }
 
