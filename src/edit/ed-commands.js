@@ -9,7 +9,7 @@ function nodeAboveSelection (pm) {
   return i === 0 ? false : sel.head.shorten(i - 1)
 }
 
-const upload_embed = {
+const ed_upload_image = {
   label: 'upload something...',
   run (pm) {
     let pos = nodeAboveSelection(pm)
@@ -23,7 +23,6 @@ const upload_embed = {
     text: 'upload'
   }
 }
-
 
 /*
 let widgetStoreDom = document.getElementById('widget-store')
@@ -42,4 +41,4 @@ baseCommands.insert_embed = {
 }
 */
 
-export default {upload_embed}
+export default {ed_upload_image}

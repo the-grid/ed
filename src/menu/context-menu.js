@@ -291,21 +291,13 @@ class ContextMenu extends TooltipMenu {
           'textblockType',
           'blockquote:wrap',
           'bullet_list:wrap',
-          'ordered_list:wrap'
+          'ordered_list:wrap',
+          'lift'
         ],
         [
-          'upload_embed'
+          'image:insert',
+          'ed_upload_image'
         ]
-        // [
-        //   'insert_embed'
-        // ]
-        // [
-        //   //'image:insert',
-        //   'blockquote:wrap',
-        //   'bullet_list:wrap',
-        //   'ordered_list:wrap'
-        //   //'textblockType'
-        // ]
       ])
     }
     // console.log(_items)
