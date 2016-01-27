@@ -5,7 +5,7 @@ import uuid from 'uuid'
 
 Media.register(
   'autoInput',
-  new InputRule('replaceWithCodeBlock', /^```$/, '`', function (pm, _, pos) {
+  new InputRule('replaceWithCodeWidget', /^```$/, '`', function (pm, _, pos) {
     pm.tr.replaceWith(pos, pos, pm.schema.node(this, {
       id: uuid.v4(),
       type: 'code'
