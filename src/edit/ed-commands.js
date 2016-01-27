@@ -1,5 +1,3 @@
-export const baseCommands = Object.create(null)
-
 // Copied from https://github.com/ProseMirror/prosemirror/blob/1ce4ad1f8f9028e1efa8af5d48ecb28cdca1f800/src/edit/base_commands.js#L485
 function nodeAboveSelection (pm) {
   let sel = pm.selection
@@ -11,7 +9,7 @@ function nodeAboveSelection (pm) {
   return i === 0 ? false : sel.head.shorten(i - 1)
 }
 
-baseCommands.upload_embed = {
+const upload_embed = {
   label: 'upload something...',
   run (pm) {
     let pos = nodeAboveSelection(pm)
@@ -22,10 +20,10 @@ baseCommands.upload_embed = {
   menuGroup: 'block(100)',
   display: {
     type: 'icon',
-    text: 'upload',
-    style: 'font-weight: bold; vertical-align: 20%'
+    text: 'upload'
   }
 }
+
 
 /*
 let widgetStoreDom = document.getElementById('widget-store')
@@ -43,3 +41,5 @@ baseCommands.insert_embed = {
   // keys: ["Esc"]
 }
 */
+
+export default {upload_embed}
