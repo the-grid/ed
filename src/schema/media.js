@@ -1,7 +1,6 @@
 require('./media.css')
 
 import {Block, Attribute} from 'prosemirror/src/model'
-import {elt} from 'prosemirror/src/dom'
 
 export class Media extends Block {
   static get kinds () { return 'doc media' }
