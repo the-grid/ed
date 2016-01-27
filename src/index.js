@@ -18,7 +18,7 @@ import {isMediaType} from './convert/types'
 import './menu/context-menu'
 
 import PluginWidget from './plugins/widget.js'
-import CodeEmbedder from './plugins/code-embedder.js'
+import './inputrules/autoinput'
 
 function noop () { /* noop */ }
 
@@ -79,7 +79,7 @@ export default class Ed {
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget, CodeEmbedder]
+    let plugins = [PluginWidget]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
