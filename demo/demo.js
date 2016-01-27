@@ -72,7 +72,7 @@ document.querySelector('#hydrate').onclick = APIToEditor
 
 // Dehydrate
 function EditorToAPI () {
-  apiJSON.value = JSON.stringify(ed.content, null, 2)
+  apiJSON.value = JSON.stringify(ed.getContent(), null, 2)
 }
 document.querySelector('#dehydrate').onclick = EditorToAPI
 

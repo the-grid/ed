@@ -5,7 +5,7 @@ import {elt} from 'prosemirror/src/dom'
 
 export class Media extends Block {
   static get kinds () { return 'doc media' }
-  static get locked () { return false }
+  static get locked () { return true }
   get attrs () {
     return {
       id: new Attribute({default: 'uuid-0000'}),
