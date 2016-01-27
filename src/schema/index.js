@@ -6,7 +6,8 @@ import {Media} from './media'
 let spec = defaultSchema.spec
 spec = spec.update({
   media: Media,
-  code_block: null
+  code_block: null,
+  horizontal_rule: null
 })
 
 const GridSchema = new Schema(spec)
