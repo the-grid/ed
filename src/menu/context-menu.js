@@ -292,6 +292,7 @@ class ContextMenu extends TooltipMenu {
           'blockquote:wrap',
           'bullet_list:wrap',
           'ordered_list:wrap',
+          // 'ed_codewidget_insert',
           'lift'
         ],
         [

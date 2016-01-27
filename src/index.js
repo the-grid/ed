@@ -19,6 +19,7 @@ import './menu/context-menu'
 
 import PluginWidget from './plugins/widget.js'
 import './inputrules/autoinput'
+// import './edit/schema-commands'
 
 function noop () { /* noop */ }
 
