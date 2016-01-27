@@ -9,6 +9,7 @@ spec = spec.update({
   iframe: iFrame,
   media: Media,
   CodeMirror: CodeMirror
+  code_block: null
 })
 
 const GridSchema = new Schema(spec)
