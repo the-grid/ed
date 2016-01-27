@@ -3,14 +3,6 @@ require('./media.css')
 import {Block, Attribute} from 'prosemirror/src/model'
 import {elt} from 'prosemirror/src/dom'
 
-export function makeMediaDom (attrs) {
-  let {description} = attrs
-  let element = elt('div', {},
-    elt('p', {}, (description || ''))
-  )
-  return element
-}
-
 export class Media extends Block {
   static get kinds () { return 'doc media' }
   static get locked () { return false }
