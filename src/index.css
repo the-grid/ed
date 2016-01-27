@@ -10,6 +10,10 @@ body {
   padding: 1em;
   padding-bottom: 300px;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
+  font-weight: normal;
+}
 
 #mirror {
   margin-left: 0em;
@@ -48,25 +52,19 @@ img {
 }
 .ProseMirror-content > h1 {
   font-size: 300%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
 }
 .ProseMirror-content > h2 {
   font-size: 175%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
 }
 .ProseMirror-content > h3 {
   font-size: 125%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
 }
 .ProseMirror-content > p {
   font-size: 100%;
 }
 
 .ProseMirror-content > blockquote {
-  font-size: 125%;
+  font-size: 110%;
 
   color: hsl(0,0%,30%);
   position: relative;
@@ -84,6 +82,9 @@ img {
   margin-top: 0;
   left: 0em;
   opacity: 0.3;
+}
+blockquote > * {
+  padding: 1rem 0px;
 }
 
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
