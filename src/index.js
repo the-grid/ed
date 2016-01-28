@@ -124,8 +124,12 @@ export default class Ed {
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.
-    this._content = content
-    let doc = GridToDoc(content)
+    if (!this._content) {
+      this._content = content
+    } else {
+      this._content = mergeContent(this._content, content)
+    }
+    let doc = GridToDoc(this._content)
     // TODO merge placeholders
     // Cache selection to restore after DOM update
     let selection = this.pm.selection
@@ -155,4 +159,10 @@ function getItemWithId (array, id) {
   let index = getIndexWithId(array, id)
   if (index === -1) return
   return array[index]
+}
+
+function mergeContent (oldContent, newContent) {
+  // TODO make this a little smarter
+  // Only add new placeholders and update exiting placeholders
+  return newContent
 }

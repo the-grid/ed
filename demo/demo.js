@@ -1,5 +1,6 @@
 import Ed from '../src/index'
 import fixture from './fixture'
+import uuid from 'uuid'
 
 let ed
 let content = fixture.content
@@ -20,13 +21,40 @@ function setup (options = {menu: 'tip'}) {
     onChange: () => { console.log('change') },
     onAutosave: () => { console.log('autosave') },
     autosaveInterval: 1000,
-    onShareFile: (index) => { console.log('pick file & insert placeholder(s) at index', index) }
+    onShareFile: onShareFileDemo
   })
   console.log(ed)
   console.log('ed.pm.options.registries', ed.pm.options.registries)
   window.ed = ed
 }
 setup({menu})
+
+// onShareFile upload demo
+let fileInput = document.getElementById('file-input')
+function onShareFileDemo (index) {
+  fileInput.onchange = function (event) {
+    let blocks = []
+    for (let i = 0, len = fileInput.files.length; i < len; i++) {
+      let file = fileInput.files[i]
+      blocks.push({
+        id: uuid.v4(),
+        type: 'placeholder',
+        metadata: {
+          title: file.name
+        }
+      })
+    }
+    let content = ed.getContent()
+    mutateArraySpliceAtIndex(content, index, blocks)
+    ed.setContent(content)
+    console.log('app uploads files now and calls ed.setContent() with updates')
+  }
+  fileInput.click()
+}
+function mutateArraySpliceAtIndex(array, index, arrayToInsert) {
+  Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert))
+}
+
 
 // Debug buttons
 
