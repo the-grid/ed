@@ -28,7 +28,7 @@
     "@the-grid/ced": "^0.1.0",
     "bean": "^1.0.15",
     "lodash.debounce": "^4.0.0",
-    "prosemirror": "^0.1.1",
+    "prosemirror": "^0.2.0",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "uuid": "^2.0.1"
