@@ -44,10 +44,15 @@ export default class Ed {
     this.pm.setOption('commands', commands)
 
     if (options.menutip) {
+      this.container.className = 'Mirror--menutip'
       this.pm.setOption('contextMenu', {
         emptyBlockMenu: true,
         selectedBlockMenu: true
       })
+    }
+
+    if (options.menubar) {
+      this.container.className = 'Mirror--menubar'
     }
 
     if (options.onChange) {

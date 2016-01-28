@@ -40,18 +40,22 @@ img {
   padding: 0px;
   white-space: pre-wrap;
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-bottom: 4rem;
   max-width: 800px;
 
   font-size: 1.5rem;
+}
+.Mirror--menubar .ProseMirror-content {
+  /* Room for menubar */
+  margin-top: 5rem;  
 }
 .ProseMirror-content > * {
   margin: 0px;
   padding: 1rem 0px;
 }
 .ProseMirror-content > h1 {
-  font-size: 300%;
+  font-size: 250%;
 }
 .ProseMirror-content > h2 {
   font-size: 175%;
