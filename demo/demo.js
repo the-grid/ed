@@ -51,7 +51,7 @@ function onShareFileDemo (index) {
   }
   fileInput.click()
 }
-function mutateArraySpliceAtIndex(array, index, arrayToInsert) {
+function mutateArraySpliceAtIndex (array, index, arrayToInsert) {
   Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert))
 }
 
