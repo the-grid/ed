@@ -282,7 +282,8 @@ class ContextMenu extends TooltipMenu {
         'textblockType',
         'blockquote:wrap',
         'bullet_list:wrap',
-        'ordered_list:wrap'
+        'ordered_list:wrap',
+        'lift'
       ])
     } else {
       _items = getItems(this.pm, [
@@ -290,21 +291,14 @@ class ContextMenu extends TooltipMenu {
           'textblockType',
           'blockquote:wrap',
           'bullet_list:wrap',
-          'ordered_list:wrap'
+          'ordered_list:wrap',
+          // 'ed_codewidget_insert',
+          'lift'
         ],
         [
-          'upload_embed'
-        ],
-        [
-          'insert_embed'
+          'image:insert',
+          'ed_upload_image'
         ]
-        // [
-        //   //'image:insert',
-        //   'blockquote:wrap',
-        //   'bullet_list:wrap',
-        //   'ordered_list:wrap'
-        //   //'textblockType'
-        // ]
       ])
     }
     // console.log(_items)

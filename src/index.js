@@ -18,7 +18,8 @@ import {isMediaType} from './convert/types'
 import './menu/context-menu'
 
 import PluginWidget from './plugins/widget.js'
-import CodeEmbedder from './plugins/code-embedder.js'
+import './inputrules/autoinput'
+// import './edit/schema-commands'
 
 function noop () { /* noop */ }
 
@@ -43,10 +44,15 @@ export default class Ed {
     this.pm.setOption('commands', commands)
 
     if (options.menutip) {
+      this.container.className = 'Mirror--menutip'
       this.pm.setOption('contextMenu', {
         emptyBlockMenu: true,
         selectedBlockMenu: true
       })
+    }
+
+    if (options.menubar) {
+      this.container.className = 'Mirror--menubar'
     }
 
     if (options.onChange) {
@@ -70,17 +76,22 @@ export default class Ed {
       throw new Error('Missing options.initialContent array')
     }
 
+    // Menu setup
+    this.onShareFile = options.onShareFile || noop
+    this.pm.on('ed.menu.file', this.onShareFile)
+
     // Plugins setup
     this.pluginContainer = document.createElement('div')
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget, CodeEmbedder]
+    let plugins = [PluginWidget]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())
     this.pm.off('change')
+    this.pm.off('ed.menu.file')
     this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
   }
@@ -113,8 +124,12 @@ export default class Ed {
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.
-    this._content = content
-    let doc = GridToDoc(content)
+    if (!this._content) {
+      this._content = content
+    } else {
+      this._content = mergeContent(this._content, content)
+    }
+    let doc = GridToDoc(this._content)
     // TODO merge placeholders
     // Cache selection to restore after DOM update
     let selection = this.pm.selection
@@ -144,4 +159,10 @@ function getItemWithId (array, id) {
   let index = getIndexWithId(array, id)
   if (index === -1) return
   return array[index]
+}
+
+function mergeContent (oldContent, newContent) {
+  // TODO make this a little smarter
+  // Only add new placeholders and update exiting placeholders
+  return newContent
 }
