@@ -15,7 +15,7 @@ export class Media extends Block {
     }
   }
 }
-Media.register('parseDOM', {
+Media.register('parseDOM', 'div', {
   tag: 'div',
   parse: function (dom, state) {
     state.insert(this, {
