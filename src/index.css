@@ -40,15 +40,11 @@ img {
   padding: 0px;
   white-space: pre-wrap;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 2rem;
   margin-bottom: 4rem;
   max-width: 800px;
 
   font-size: 1.5rem;
-}
-.Mirror--menubar .ProseMirror-content {
-  /* Room for menubar */
-  margin-top: 5rem;  
 }
 .ProseMirror-content > * {
   margin: 0px;

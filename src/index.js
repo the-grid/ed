@@ -43,14 +43,12 @@ export default class Ed {
     this.pm = new ProseMirror(pmOptions)
 
     if (options.menubar) {
-      this.container.className = 'Mirror--menubar'
       this.pm.setOption('menuBar', {
         float: true,
         items: barMenu
       })
     }
     if (options.menutip) {
-      this.container.className = 'Mirror--menutip'
       this.pm.setOption('tooltipMenu', {
         emptyBlockMenu: true,
         selectedBlockMenu: true,
