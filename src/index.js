@@ -20,7 +20,7 @@ import {isMediaType} from './convert/types'
 import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
-import './inputrules/autoinput'
+// import './inputrules/autoinput'
 // import './edit/schema-commands'
 
 function noop () { /* noop */ }

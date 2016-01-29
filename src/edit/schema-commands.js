@@ -12,8 +12,7 @@
 //   return i === 0 ? false : sel.head.shorten(i - 1)
 // }
 
-// Media.register('command', {
-//   name: 'ed_codewidget_insert',
+// Media.register('command', 'ed_codewidget_insert', {
 //   label: 'code block',
 //   run (pm) {
 //     // console.log('code!')
