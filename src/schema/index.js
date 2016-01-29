@@ -3,7 +3,7 @@ import {defaultSchema, Schema, Heading} from 'prosemirror/src/model'
 import {Media} from './media'
 
 class Heading1to3 extends Heading {
-  get maxLevel() { return 3 }
+  get maxLevel () { return 3 }
 }
 
 // Extend default schema with custom types
