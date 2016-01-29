@@ -36,8 +36,8 @@
   "widgets": {
     "@the-grid/ced": {
       "include": [
-        "/editor",
-        "/lib/mount.js"
+        "/editor/index.html",
+        "/lib/mount.*"
       ]
     }
   },
