@@ -1,21 +1,17 @@
 import {fromDOM} from 'prosemirror/src/format'
 
 import GridSchema from '../schema/'
-import {makeMediaDom} from '../schema/media'
 import {isMediaType, isHTMLType} from './types'
 
 function itemToDOM (item) {
-  let {id, type, metadata} = item
+  let {id, type} = item
   let el
   if (isHTMLType(type)) {
     let dummy = document.createElement('div')
     dummy.innerHTML = item.html
     el = dummy.firstChild
   } else if (isMediaType(type)) {
-    let title = metadata ? metadata.title : ''
-    let description = metadata ? metadata.description : ''
-    description = description || `${type} block placeholder`
-    el = makeMediaDom({title, description})
+    el = document.createElement('div')
     el.setAttribute('grid-id', id)
     el.setAttribute('grid-type', type)
   } else {

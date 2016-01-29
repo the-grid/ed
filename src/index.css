@@ -10,6 +10,10 @@ body {
   padding: 1em;
   padding-bottom: 300px;
 }
+h1, h2, h3, h4, h5, h6 {
+  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
+  font-weight: normal;
+}
 
 #mirror {
   margin-left: 0em;
@@ -36,54 +40,55 @@ img {
   padding: 0px;
   white-space: pre-wrap;
   margin: auto;
-  margin-top: 4rem;
+  margin-top: 3rem;
   margin-bottom: 4rem;
   max-width: 800px;
 
   font-size: 1.5rem;
+}
+.Mirror--menubar .ProseMirror-content {
+  /* Room for menubar */
+  margin-top: 5rem;  
 }
 .ProseMirror-content > * {
   margin: 0px;
   padding: 1rem 0px;
 }
 .ProseMirror-content > h1 {
-  font-size: 300%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
+  font-size: 250%;
 }
 .ProseMirror-content > h2 {
   font-size: 175%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
 }
 .ProseMirror-content > h3 {
   font-size: 125%;
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
 }
 .ProseMirror-content > p {
   font-size: 100%;
 }
 
 .ProseMirror-content > blockquote {
-  font-size: 150%;
+  font-size: 110%;
 
   color: hsl(0,0%,30%);
   position: relative;
-  padding-left: 0;
+  padding-left: 1.5em;
   border-left: none;
   margin-left: 0;
   margin-right: 0;
 }
 .ProseMirror-content > blockquote:before {
-  font-size: 150%;
+  font-size: 250%;
 
   content: '“';
   font-family: Georgia;
   position: absolute;
-  margin-top: 1.7rem;
-  left: -0.8em;
+  margin-top: 0;
+  left: 0em;
   opacity: 0.3;
+}
+blockquote > * {
+  padding: 1rem 0px;
 }
 
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
