@@ -10,7 +10,7 @@ function nodeAboveSelection (pm) {
 }
 
 const ed_upload_image = {
-  label: 'upload something...',
+  label: 'upload image',
   run (pm) {
     let pos = nodeAboveSelection(pm)
     if (!pos || pos.offset == null) return false
@@ -20,7 +20,7 @@ const ed_upload_image = {
   menuGroup: 'block(100)',
   display: {
     type: 'icon',
-    text: 'upload'
+    text: 'Upload'
   }
 }
 

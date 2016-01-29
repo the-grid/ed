@@ -1,9 +1,11 @@
 require('./index.css')
+require('./menu/menu.css')
+require('./menu/menubar.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
 
-import {commands} from './edit'
+import {commands} from './edit/index'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
@@ -15,7 +17,7 @@ import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import {isMediaType} from './convert/types'
-import './menu/context-menu'
+import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 import './inputrules/autoinput'
@@ -28,32 +30,36 @@ export default class Ed {
     if (!options.container) options.container = document.body
     this.container = options.container
 
+    // PM setup
+
     let pmOptions = {
       place: this.container,
       autoInput: true,
       docFormat: 'html',
-      schema: GridSchema
-    }
-
-    if (options.menubar) {
-      pmOptions.menuBar = {float: true}
+      schema: GridSchema,
+      commands: commands
     }
 
     this.pm = new ProseMirror(pmOptions)
 
-    this.pm.setOption('commands', commands)
-
+    if (options.menubar) {
+      this.container.className = 'Mirror--menubar'
+      this.pm.setOption('menuBar', {
+        float: true,
+        items: barMenu
+      })
+    }
     if (options.menutip) {
       this.container.className = 'Mirror--menutip'
-      this.pm.setOption('contextMenu', {
+      this.pm.setOption('tooltipMenu', {
         emptyBlockMenu: true,
-        selectedBlockMenu: true
+        selectedBlockMenu: true,
+        inlineItems: inlineMenu,
+        blockItems: blockMenu
       })
     }
 
-    if (options.menubar) {
-      this.container.className = 'Mirror--menubar'
-    }
+    // Events setup
 
     if (options.onChange) {
       this.onChange = options.onChange || noop
@@ -76,7 +82,7 @@ export default class Ed {
       throw new Error('Missing options.initialContent array')
     }
 
-    // Menu setup
+    // Menu events setup
     this.onShareFile = options.onShareFile || noop
     this.pm.on('ed.menu.file', this.onShareFile)
 
