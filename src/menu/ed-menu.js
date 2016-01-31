@@ -15,7 +15,6 @@ const block = [
 
 const custom = [
   // 'insert',
-  'image:insert',
   'ed_upload_image'
   // 'ed_codewidget_insert'
 ]

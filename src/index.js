@@ -22,6 +22,7 @@ import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 import PluginWidget from './plugins/widget.js'
 // import './inputrules/autoinput'
 // import './edit/schema-commands'
+import ShareUrl from './plugins/share-url'
 
 function noop () { /* noop */ }
 
@@ -80,22 +81,26 @@ export default class Ed {
       throw new Error('Missing options.initialContent array')
     }
 
-    // Menu events setup
+    // Share events setup
     this.onShareFile = options.onShareFile || noop
     this.pm.on('ed.menu.file', this.onShareFile)
+
+    this.onShareUrl = options.onShareUrl || noop
+    this.pm.on('ed.plugin.url', this.onShareUrl)
 
     // Plugins setup
     this.pluginContainer = document.createElement('div')
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget]
+    let plugins = [PluginWidget, ShareUrl]
     this.plugins = plugins.map(Plugin => new Plugin(this))
   }
   teardown () {
     this.plugins.forEach(plugin => plugin.teardown())
     this.pm.off('change')
     this.pm.off('ed.menu.file')
+    this.pm.off('ed.plugin.url')
     this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
   }

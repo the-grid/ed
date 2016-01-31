@@ -21,10 +21,10 @@ function setup (options = {menu: 'tip'}) {
     onChange: () => { console.log('change') },
     onAutosave: () => { console.log('autosave') },
     autosaveInterval: 1000,
-    onShareFile: onShareFileDemo
+    onShareFile: onShareFileDemo,
+    onShareUrl: onShareUrlDemo
   })
   console.log(ed)
-  console.log('ed.pm.options.registries', ed.pm.options.registries)
   window.ed = ed
 }
 setup({menu})
@@ -40,7 +40,7 @@ function onShareFileDemo (index) {
         id: uuid.v4(),
         type: 'placeholder',
         metadata: {
-          title: file.name
+          status: `Uploading... ${file.name}`
         }
       })
     }
@@ -55,6 +55,20 @@ function mutateArraySpliceAtIndex (array, index, arrayToInsert) {
   Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert))
 }
 
+// onShareUrl demo
+function onShareUrlDemo (index, url) {
+  const block = {
+    id: uuid.v4(),
+    type: 'placeholder',
+    metadata: {
+      status: `Sharing... ${url}`
+    }
+  }
+  let content = ed.getContent()
+  content.splice(index, 1, block)
+  ed.setContent(content)
+  console.log('app shares url now and calls ed.setContent() with updates')
+}
 
 // Debug buttons
 
