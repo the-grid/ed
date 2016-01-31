@@ -9,11 +9,11 @@ import _ from '../util/lodash'
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
 import WidgetCode from './widget-code'
-import WidgetCover from './widget-cover'
+import WidgetReact from './widget-react'
 
 const WidgetTypes = {
   code: WidgetCode,
-  cover: WidgetCover
+  react: WidgetReact
 }
 
 // Functions to bind in class constructor
@@ -84,7 +84,7 @@ function checkWidget (id, type, rectangle) {
 }
 
 function initializeWidget (id, type, rectangle) {
-  let Widget = WidgetTypes[type] || WidgetTypes.cover
+  let Widget = WidgetTypes[type] || WidgetTypes.react
 
   let initialBlock = this.ed.getBlock(id)
 
