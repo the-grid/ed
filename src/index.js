@@ -71,9 +71,6 @@ export default class Ed {
       }, autosaveInterval)
       this.pm.on('change', debouncedAutosave)
     }
-    if (options.onPluginEvent) {
-      this.onPluginEvent = options.onPluginEvent
-    }
 
     if (options.initialContent && Array.isArray(options.initialContent)) {
       this.setContent(options.initialContent)
