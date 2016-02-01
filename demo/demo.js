@@ -44,15 +44,16 @@ function onShareFileDemo (index) {
         }
       })
     }
-    let content = ed.getContent()
-    mutateArraySpliceAtIndex(content, index, blocks)
-    ed.setContent(content)
+    const content = ed.getContent()
+    const contentSpliced = arrayInsertAll(content, index, blocks)
+    ed.setContent(contentSpliced)
     console.log('app uploads files now and calls ed.setContent() with updates')
   }
-  fileInput.click()
 }
-function mutateArraySpliceAtIndex (array, index, arrayToInsert) {
-  Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert))
+function arrayInsertAll (array, index, arrayToInsert) {
+  let before = array.slice(0, index)
+  const after = array.slice(index)
+  return before.concat(arrayToInsert, after)
 }
 
 // onShareUrl demo
