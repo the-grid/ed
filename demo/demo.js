@@ -32,6 +32,7 @@ setup({menu})
 // onShareFile upload demo
 let input
 function onShareFileDemo (index) {
+  console.log('...')
   // Remove old input from DOM
   if (input && input.parentNode) {
     input.parentNode.removeChild(input)
@@ -79,7 +80,7 @@ function arrayInsertAll (array, index, arrayToInsert) {
 
 // File picker debug
 document.getElementById('upload').onclick = function () {
-  ed.onShareFile(1)
+  window.ed.pm.signal('ed.menu.file', 1)
 }
 
 // onShareUrl demo
