@@ -3,12 +3,12 @@ import fixture from './fixture'
 import uuid from 'uuid'
 
 let ed
-let content = fixture.content
-let isTouchDevice = ('ontouchstart' in window)
+const content = fixture.content
+const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
 // ProseMirror setup
-function setup (options = {menu: 'tip'}) {
+function setup (options) {
   if (ed) {
     ed.teardown()
     ed = null
@@ -30,12 +30,30 @@ function setup (options = {menu: 'tip'}) {
 setup({menu})
 
 // onShareFile upload demo
-let fileInput = document.getElementById('file-input')
+let input
 function onShareFileDemo (index) {
-  fileInput.onchange = function (event) {
+  // Remove old input from DOM
+  if (input && input.parentNode) {
+    input.parentNode.removeChild(input)
+  }
+  input = document.createElement('input')
+  input.type = 'file'
+  input.multiple = true
+  input.accept = 'image/*'
+  input.onchange = makeInputOnChange(index)
+  input.style.display = 'none'
+  document.body.appendChild(input)
+  input.click()
+}
+function makeInputOnChange (index) {
+  return function (event) {
+    event.stopPropagation()
+
+    // Make placeholder blocks
+    const input = event.target
     let blocks = []
-    for (let i = 0, len = fileInput.files.length; i < len; i++) {
-      let file = fileInput.files[i]
+    for (let i = 0, len = input.files.length; i < len; i++) {
+      let file = input.files[i]
       blocks.push({
         id: uuid.v4(),
         type: 'placeholder',
@@ -44,15 +62,24 @@ function onShareFileDemo (index) {
         }
       })
     }
-    let content = ed.getContent()
-    mutateArraySpliceAtIndex(content, index, blocks)
-    ed.setContent(content)
+
+    // Splice placeholder blocks into content
+    const content = ed.getContent()
+    const contentSpliced = arrayInsertAll(content, index, blocks)
+    ed.setContent(contentSpliced)
+
     console.log('app uploads files now and calls ed.setContent() with updates')
   }
-  fileInput.click()
 }
-function mutateArraySpliceAtIndex (array, index, arrayToInsert) {
-  Array.prototype.splice.apply(array, [index, 0].concat(arrayToInsert))
+function arrayInsertAll (array, index, arrayToInsert) {
+  let before = array.slice(0, index)
+  const after = array.slice(index)
+  return before.concat(arrayToInsert, after)
+}
+
+// File picker debug
+document.getElementById('upload').onclick = function () {
+  window.ed.pm.signal('ed.menu.file', 1)
 }
 
 // onShareUrl demo
