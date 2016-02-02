@@ -13,12 +13,6 @@
   margin-left: calc(300px + 1rem); /* FIXME make me smarter and responsive */
 }
 
-.AttributionEditor-title {
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
-}
-
-
 @media screen and (max-width:550px) {
   .AttributionEditor-cover {
     float: none;
