@@ -5,11 +5,11 @@ import React, {createElement as el} from 'react'
 import Image from './image'
 
 
-function renderCover (cover) {
+function renderCover (cover, imgfloConfig) {
   if (!cover) return
   let {src, width, height} = cover
   if (!src) return
-  let props = {src, width, height}
+  let props = {src, width, height, imgfloConfig}
   return el(
     'div',
     {className: 'AttributionEditor-cover'},
@@ -19,14 +19,15 @@ function renderCover (cover) {
 
 class AttributionEditor extends React.Component {
   render () {
-    const {cover, metadata} = this.props.initialBlock
+    const {imgfloConfig, initialBlock} = this.props
+    const {cover, metadata} = initialBlock
     const title = metadata ? metadata.title : ''
     const description = metadata ? metadata.description : ''
 
     return el(
       'div',
       {className: 'AttributionEditor'},
-      renderCover(cover),
+      renderCover(cover, imgfloConfig),
       el(
         'div',
         {className: 'AttributionEditor-metadata'},

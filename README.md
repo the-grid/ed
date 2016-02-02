@@ -43,6 +43,12 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       /* App can show "unsaved changes" in UI */
       /* Don't call ed.getContent() here */
     },
+    // Optional imgflo image proxy config
+    imgfloConfig: {
+      server: 'https://imgflo.herokuapp.com/',
+      key: 'key',
+      secret: 'secret'
+    },
     // Debounced changes
     autosaveInterval: 100,
     onAutosave: function () {

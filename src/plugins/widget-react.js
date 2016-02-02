@@ -21,7 +21,8 @@ export default class WidgetReact extends WidgetBase {
 
     const props = {
       initialBlock: this.initialBlock,
-      onChange: this.onChange
+      onChange: this.onChange,
+      imgfloConfig: this.ed.imgfloConfig
     }
 
     const {type} = this.initialBlock

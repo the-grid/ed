@@ -1,3 +1,8 @@
+## dev
+
+* Ed `options.imgfloConfig = {server, key, secret}` for sizing and proxying images through imgflo
+  * If not present (as in demo), will continue to load images directly
+
 ## 0.0.35 - 2016-02-02
 
 * No interface changes. Tweaks to demo file input dance.

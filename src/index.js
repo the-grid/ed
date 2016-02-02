@@ -58,6 +58,10 @@ export default class Ed {
       })
     }
 
+    if (options.imgfloConfig) {
+      this.imgfloConfig = options.imgfloConfig
+    }
+
     // Events setup
 
     if (options.onChange) {
