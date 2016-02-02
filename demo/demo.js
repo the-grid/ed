@@ -32,7 +32,6 @@ setup({menu})
 // onShareFile upload demo
 let input
 function onShareFileDemo (index) {
-  console.log('...')
   // Remove old input from DOM
   if (input && input.parentNode) {
     input.parentNode.removeChild(input)
