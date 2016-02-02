@@ -3,12 +3,12 @@ import fixture from './fixture'
 import uuid from 'uuid'
 
 let ed
-let content = fixture.content
-let isTouchDevice = ('ontouchstart' in window)
+const content = fixture.content
+const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
 // ProseMirror setup
-function setup (options = {menu: 'tip'}) {
+function setup (options) {
   if (ed) {
     ed.teardown()
     ed = null
