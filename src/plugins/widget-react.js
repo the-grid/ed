@@ -1,8 +1,8 @@
 import WidgetBase from './widget-base'
 import ReactDOM from 'react-dom'
 
-import Placeholder from './components/placeholder'
-import AttributionEditor from './components/attribution-editor'
+import Placeholder from '../components/placeholder'
+import AttributionEditor from '../components/attribution-editor'
 
 const Components = {
   placeholder: Placeholder,
