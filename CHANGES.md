@@ -1,3 +1,7 @@
+## 0.0.35 - 2016-02-02
+
+* No interface changes. Tweaks to demo file input dance.
+
 ## 0.0.34 - 2016-01-31
 
 * [Demo implementation](./demo/demo.js) of Ed's `options.onShareUrl`
