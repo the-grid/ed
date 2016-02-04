@@ -4,6 +4,7 @@ const blockMetaSchema = {
   image: {
     title: true,
     description: true,
+    isBasedOnUrl: true,
     cover: true,
     author: true,
     publisher: true
@@ -11,6 +12,7 @@ const blockMetaSchema = {
   video: {
     title: true,
     description: true,
+    isBasedOnUrl: true,
     cover: true,
     author: true,
     publisher: true
@@ -18,6 +20,7 @@ const blockMetaSchema = {
   quote: {
     title: false,
     description: false,
+    isBasedOnUrl: true,
     cover: false,
     author: true,
     publisher: true
@@ -25,6 +28,7 @@ const blockMetaSchema = {
   default: {
     title: true,
     description: true,
+    isBasedOnUrl: true,
     cover: true,
     author: true,
     publisher: true

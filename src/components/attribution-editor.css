@@ -9,8 +9,13 @@
 }
 
 .AttributionEditor-metadata {
-  padding: 1rem 1rem 0 0;
+  padding: 1rem;
   margin-left: calc(300px + 1rem); /* FIXME make me smarter and responsive */
+}
+
+.AttributionEditor-title {
+  font-size: 20px !important;
+  line-height: 24px !important;
 }
 
 @media screen and (max-width:550px) {
