@@ -9,13 +9,13 @@ export default function CreditAdd (props) {
   const {schema, metadata = {}} = props
   let links = []
   if (schema.isBasedOnUrl && !metadata.isBasedOnUrl) {
-    links.push(el(MenuItem, {key: 'link', primaryText: "Add Link"}))
+    links.push(el(MenuItem, {key: 'link', primaryText: 'Add Link'}))
   }
   if (schema.author) {
-    links.push(el(MenuItem, {key: 'author', primaryText: "Add Author"}))
+    links.push(el(MenuItem, {key: 'author', primaryText: 'Add Author'}))
   }
   if (schema.publisher && !metadata.publisher) {
-    links.push(el(MenuItem, {key: 'publisher', primaryText: "Add Publisher"}))
+    links.push(el(MenuItem, {key: 'publisher', primaryText: 'Add Publisher'}))
   }
   if (links.length > 0) {
     console.log(links)

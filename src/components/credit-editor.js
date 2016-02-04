@@ -26,12 +26,12 @@ function renderTextField (key, label, value) {
 }
 
 function renderFields (name, label, url, avatar) {
-  return el('div', 
+  return el('div',
     {style: {
       padding: '1rem',
       width: 360
     }},
-    (label != 'Link' ? renderTextField('name', 'Name', name) : null),
+    (label !== 'Link' ? renderTextField('name', 'Name', name) : null),
     renderTextField('url', 'Link', url)
   )
 }
@@ -56,7 +56,7 @@ class CreditEditor extends React.Component {
       })
     }
   }
-  
+
   componentDidUpdate (_, prevState) {
     // Focus on open
     if (!prevState.open && this.state.open) {
