@@ -28,8 +28,7 @@ function renderCreditEditor (key, label, item) {
     label: label,
     name: item.name,
     url: item.url,
-    avatar: item.avatar,
-    favicon: item.favicon
+    avatar: item.avatar
   })
   
 }
@@ -55,7 +54,7 @@ function renderFields (schema, metadata = {}) {
     fields.push(renderTextField('description', 'Description', metadata.description))
   }
   if (schema.isBasedOnUrl) {
-    fields.push(renderTextField('isBasedOnUrl', 'Link', metadata.isBasedOnUrl, false))
+    fields.push(renderCreditEditor('isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}))
   }
   if (schema.author && metadata.author && metadata.author[0]) {
     fields.push(renderCreditEditor('author.0', 'Author', metadata.author[0]))

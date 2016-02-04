@@ -13,7 +13,7 @@ function renderAvatar (cover) {
 
 class CreditEditor extends React.Component {
   render () {
-    const {name, url, avatar} = this.props
+    const {name, label, url, avatar} = this.props
     
     return el(
       FlatButton, {
@@ -21,7 +21,7 @@ class CreditEditor extends React.Component {
           textTransform: 'inherit'
         },
         icon: renderAvatar(avatar),
-        label: name,
+        label: name || label,
         labelPosition: 'after'
       }
     )
