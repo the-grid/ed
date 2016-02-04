@@ -18,6 +18,15 @@
   line-height: 24px !important;
 }
 
+.AttributionEditor-links {
+  padding: 0.5rem 0;
+  text-align: right;
+}
+
+.AttributionEditor-links > * {
+  vertical-align: middle;
+}
+
 @media screen and (max-width:550px) {
   .AttributionEditor-cover {
     float: none;

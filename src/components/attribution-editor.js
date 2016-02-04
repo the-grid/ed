@@ -4,6 +4,8 @@ require('./attribution-editor.css')
 import React, {createElement as el} from 'react'
 import Image from './image'
 import CreditEditor from './credit-editor'
+import CreditAdd from './credit-add'
+
 import TextField from 'material-ui/lib/text-field'
 
 import blockMetaSchema from '../schema/block-meta'
@@ -30,7 +32,6 @@ function renderCreditEditor (key, label, item) {
     url: item.url,
     avatar: item.avatar
   })
-  
 }
 
 function renderTextField (key, label, value, multiLine = true) {
@@ -53,16 +54,21 @@ function renderFields (schema, metadata = {}) {
   if (schema.description) {
     fields.push(renderTextField('description', 'Description', metadata.description))
   }
-  if (schema.isBasedOnUrl) {
-    fields.push(renderCreditEditor('isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}))
+  return fields
+}
+
+function renderLinks (schema, metadata = {}) {
+  let links = []
+  if (schema.isBasedOnUrl && metadata.isBasedOnUrl) {
+    links.push(renderCreditEditor('isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}))
   }
   if (schema.author && metadata.author && metadata.author[0]) {
-    fields.push(renderCreditEditor('author.0', 'Author', metadata.author[0]))
+    links.push(renderCreditEditor('author.0', 'Author', metadata.author[0]))
   }
   if (schema.publisher && metadata.publisher) {
-    fields.push(renderCreditEditor('publisher', 'Publisher', metadata.publisher))
+    links.push(renderCreditEditor('publisher', 'Publisher', metadata.publisher))
   }
-  return fields
+  return links
 }
 
 class AttributionEditor extends React.Component {
@@ -76,6 +82,10 @@ class AttributionEditor extends React.Component {
       coverEl,
       el('div', {className: 'AttributionEditor-metadata'},
         renderFields(schema, metadata)
+      ),
+      el('div', {className: 'AttributionEditor-links'},
+        renderLinks(schema, metadata),
+        CreditAdd({schema, metadata})
       )
     )
   }
