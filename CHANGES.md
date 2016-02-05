@@ -1,3 +1,7 @@
+## 0.0.36 - 2016-02-05
+
+* PM 0.3.0
+
 ## 0.0.35 - 2016-02-02
 
 * No interface changes. Tweaks to demo file input dance.
