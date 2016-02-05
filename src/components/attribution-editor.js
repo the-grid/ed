@@ -11,6 +11,28 @@ import TextField from 'material-ui/lib/text-field'
 import blockMetaSchema from '../schema/block-meta'
 
 
+class AttributionEditor extends React.Component {
+  render () {
+    const {imgfloConfig, initialBlock} = this.props
+    const {type, cover, metadata} = initialBlock
+    const schema = blockMetaSchema[type] || blockMetaSchema.default
+    const coverEl = schema.cover ? renderCover(cover, imgfloConfig) : null
+
+    return el('div', {className: 'AttributionEditor'},
+      coverEl,
+      el('div', {className: 'AttributionEditor-metadata'},
+        renderFields(schema, metadata)
+      ),
+      el('div', {className: 'AttributionEditor-links'},
+        renderLinks(schema, metadata),
+        CreditAdd({schema, metadata})
+      )
+    )
+  }
+}
+export default React.createFactory(AttributionEditor)
+
+
 function renderCover (cover, imgfloConfig) {
   if (!cover) return
   let {src, width, height} = cover
@@ -70,25 +92,3 @@ function renderLinks (schema, metadata = {}) {
   }
   return links
 }
-
-class AttributionEditor extends React.Component {
-  render () {
-    const {imgfloConfig, initialBlock} = this.props
-    const {type, cover, metadata} = initialBlock
-    const schema = blockMetaSchema[type] || blockMetaSchema.default
-    const coverEl = schema.cover ? renderCover(cover, imgfloConfig) : null
-
-    return el('div', {className: 'AttributionEditor'},
-      coverEl,
-      el('div', {className: 'AttributionEditor-metadata'},
-        renderFields(schema, metadata)
-      ),
-      el('div', {className: 'AttributionEditor-links'},
-        renderLinks(schema, metadata),
-        CreditAdd({schema, metadata})
-      )
-    )
-  }
-}
-
-export default React.createFactory(AttributionEditor)

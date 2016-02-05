@@ -6,36 +6,6 @@ import Popover from 'material-ui/lib/popover/popover'
 import TextField from 'material-ui/lib/text-field'
 
 
-function renderAvatar (cover) {
-  if (!cover || !cover.src) return
-
-  // TODO imgflo it
-  const {src} = cover
-  return el(Avatar, {src})
-}
-
-function renderTextField (key, label, value) {
-  return el(TextField, {
-    className: `AttributionEditor-${key}`,
-    floatingLabelText: label,
-    defaultValue: value,
-    ref: key,
-    key: key,
-    style: {width: '100%'}
-  })
-}
-
-function renderFields (name, label, url, avatar) {
-  return el('div',
-    {style: {
-      padding: '1rem',
-      width: 360
-    }},
-    (label !== 'Link' ? renderTextField('name', 'Name', name) : null),
-    renderTextField('url', 'Link', url)
-  )
-}
-
 class CreditEditor extends React.Component {
 
   constructor (props) {
@@ -97,5 +67,35 @@ class CreditEditor extends React.Component {
     )
   }
 }
-
 export default React.createFactory(CreditEditor)
+
+
+function renderAvatar (cover) {
+  if (!cover || !cover.src) return
+
+  // TODO imgflo it
+  const {src} = cover
+  return el(Avatar, {src})
+}
+
+function renderTextField (key, label, value) {
+  return el(TextField, {
+    className: `AttributionEditor-${key}`,
+    floatingLabelText: label,
+    defaultValue: value,
+    ref: key,
+    key: key,
+    style: {width: '100%'}
+  })
+}
+
+function renderFields (name, label, url, avatar) {
+  return el('div',
+    {style: {
+      padding: '1rem',
+      width: 360
+    }},
+    (label !== 'Link' ? renderTextField('name', 'Name', name) : null),
+    renderTextField('url', 'Link', url)
+  )
+}
