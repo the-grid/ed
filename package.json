@@ -2,7 +2,7 @@
   "name": "@the-grid/ed",
   "author": "Forrest Oliphant, The Grid",
   "license": "MIT",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "description": "the grid api with prosemirror",
   "main": "dist/ed.js",
   "scripts": {
