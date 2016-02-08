@@ -3,7 +3,7 @@ require('./media.css')
 import {Block, Attribute} from 'prosemirror/src/model'
 
 export class Media extends Block {
-  static get kinds () { return 'doc media' }
+  static get kinds () { return 'block' }
   get isBlock () { return true }
   get locked () { return true }
   get contains () { return null }
