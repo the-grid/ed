@@ -1,4 +1,5 @@
 import React, {createElement as el} from 'react'
+import imgflo from 'imgflo-url'
 
 import FlatButton from 'material-ui/lib/flat-button'
 import Avatar from 'material-ui/lib/avatar'
@@ -40,6 +41,7 @@ class CreditEditor extends React.Component {
 
   render () {
     const {name, label, url, avatar} = this.props
+    const {imgfloConfig} = this.context
 
     return el('span', {},
       el(
@@ -48,7 +50,7 @@ class CreditEditor extends React.Component {
           style: {
             textTransform: 'inherit'
           },
-          icon: renderAvatar(avatar),
+          icon: renderAvatar(avatar, imgfloConfig),
           label: name || label,
           labelPosition: 'after',
           onClick: this.handleClick
@@ -67,14 +69,24 @@ class CreditEditor extends React.Component {
     )
   }
 }
+
+CreditEditor.contextTypes = {
+  imgfloConfig: React.PropTypes.object
+}
+
 export default React.createFactory(CreditEditor)
 
 
-function renderAvatar (cover) {
+function renderAvatar (cover, imgfloConfig) {
   if (!cover || !cover.src) return
-
-  // TODO imgflo it
-  const {src} = cover
+  let {src} = cover
+  if (imgfloConfig) {
+    const params = {
+      input: src,
+      width: 72
+    }
+    src = imgflo(imgfloConfig, 'passthrough', params)
+  }
   return el(Avatar, {src})
 }
 
