@@ -33,8 +33,8 @@ class AttributionEditor extends React.Component {
         renderFields(schema, metadata, onChange)
       ),
       el('div', {className: 'AttributionEditor-links'},
-        renderLinks(schema, metadata, onChange),
-        CreditAdd({schema, metadata})
+        renderLinks(schema, metadata, onChange)
+        // CreditAdd({schema, metadata})
       )
     )
   }
