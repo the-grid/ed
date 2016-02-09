@@ -8,7 +8,8 @@ const ed_upload_image = {
     const index = pos.offset
     pm.signal('ed.menu.file', index)
   },
-  menuGroup: 'block(100)',
+  group: 'block',
+  rank: 100,
   display: {
     type: 'icon',
     text: 'Upload'

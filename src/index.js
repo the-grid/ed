@@ -3,7 +3,7 @@ require('./index.css')
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
 
-import {commands} from './edit/index'
+import commands from './commands/index'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
@@ -15,7 +15,7 @@ import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import {isMediaType} from './convert/types'
-import {inlineMenu, blockMenu, barMenu, trimDefaultMenus} from './menu/ed-menu'
+import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 // import './inputrules/autoinput'
@@ -40,7 +40,6 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
-    trimDefaultMenus(this.pm)
 
     if (options.menubar) {
       this.pm.setOption('menuBar', {

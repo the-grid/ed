@@ -33,7 +33,3 @@ export const barMenu = [
   blockGroup,
   historyGroup
 ]
-
-export function trimDefaultMenus (pm) {
-  delete pm.commands.selectParentNode.spec.menu
-}
