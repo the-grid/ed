@@ -34,13 +34,17 @@ export default function CreditAdd (props) {
 function makeLinks (schema, metadata = {}) {
   let links = []
   if (schema.isBasedOnUrl && !metadata.isBasedOnUrl) {
-    links.push(el(MenuItem, {key: 'link', primaryText: 'Add Link'}))
+    links.push(makeLink('link', 'Add Source Link'))
   }
   if (schema.author) {
-    links.push(el(MenuItem, {key: 'author', primaryText: 'Add Author'}))
+    links.push(makeLink('author', 'Add Author'))
   }
   if (schema.publisher && !metadata.publisher) {
-    links.push(el(MenuItem, {key: 'publisher', primaryText: 'Add Publisher'}))
+    links.push(makeLink('publisher', 'Add Publisher'))
   }
   return links
+}
+
+function makeLink (key, label) {
+  return el(MenuItem, {key, primaryText: label})
 }

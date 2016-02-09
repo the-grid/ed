@@ -26,6 +26,10 @@ class CreditEditor extends React.Component {
         open: false
       })
     }
+    this.fieldOnEnterKeyDown = (event) => {
+      event.preventDefault()
+      this.handleRequestClose()
+    } 
   }
 
   componentDidUpdate (_, prevState) {
@@ -40,7 +44,7 @@ class CreditEditor extends React.Component {
   }
 
   render () {
-    const {name, label, url, avatar} = this.props
+    const {name, label, url, avatar, onChange, onlyUrl, path} = this.props
     const {imgfloConfig} = this.context
 
     return el('span', {},
@@ -64,16 +68,32 @@ class CreditEditor extends React.Component {
           onRequestClose: this.handleRequestClose,
           zDepth: 2
         },
-        renderFields(name, label, url, avatar)
+        el(
+          'div',
+          {
+            style: {
+              padding: '1rem',
+              width: 360
+            }
+          },
+          (
+            onlyUrl ?
+            renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown) :
+            renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
+          )
+        )
       )
     )
   }
 }
-
 CreditEditor.contextTypes = {
   imgfloConfig: React.PropTypes.object
 }
-
+CreditEditor.propTypes = {
+  path: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onlyUrl: React.PropTypes.bool.isRequired
+}
 export default React.createFactory(CreditEditor)
 
 
@@ -90,24 +110,35 @@ function renderAvatar (cover, imgfloConfig) {
   return el(Avatar, {src})
 }
 
-function renderTextField (key, label, value) {
+
+function renderFields (name, label, url, avatar, onChange, path, onEnterKeyDown) {
+  return [
+    renderTextField('name', 'Name', name, onChange, path.concat(['name']), onEnterKeyDown),
+    renderTextField('url', 'Link', url, onChange, path.concat(['url']), onEnterKeyDown)
+  ]
+}
+
+function renderBasedOnUrl (value, onChange, path, onEnterKeyDown) {
+  return renderTextField('url', 'Link', value, onChange, path, onEnterKeyDown)
+}
+
+function renderTextField (key, label, value, onChange, path, onEnterKeyDown) {
   return el(TextField, {
     className: `AttributionEditor-${key}`,
     floatingLabelText: label,
     defaultValue: value,
     ref: key,
     key: key,
-    style: {width: '100%'}
+    multiLine: true,
+    rowsMax: 5,
+    style: {width: '100%'},
+    onChange: makeChange(path, onChange),
+    onEnterKeyDown
   })
 }
 
-function renderFields (name, label, url, avatar) {
-  return el('div',
-    {style: {
-      padding: '1rem',
-      width: 360
-    }},
-    (label !== 'Link' ? renderTextField('name', 'Name', name) : null),
-    renderTextField('url', 'Link', url)
-  )
+function makeChange (path, onChange) {
+  return function (event) {
+    onChange(path, event.target.value)
+  }
 }
