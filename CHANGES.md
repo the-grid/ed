@@ -2,6 +2,7 @@
 
 * Ed `options.imgfloConfig = {server, key, secret}` for sizing and proxying images through imgflo
   * If not present (as in demo), will continue to load images directly
+  * All images are proxied (currently `block.cover.src` and `block.metadata.author[n].avatar`)
 
 ## 0.0.37 - 2016-02-07
 
