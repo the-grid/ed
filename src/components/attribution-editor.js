@@ -1,5 +1,5 @@
 // Copy style to head
-require('./widget-default.css')
+require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
 import Image from './image'
@@ -11,26 +11,26 @@ import TextField from 'material-ui/lib/text-field'
 import blockMetaSchema from '../schema/block-meta'
 
 
-class WidgetDefault extends React.Component {
+class AttributionEditor extends React.Component {
   render () {
     const {imgfloConfig, initialBlock} = this.props
     const {type, cover, metadata} = initialBlock
     const schema = blockMetaSchema[type] || blockMetaSchema.default
     const coverEl = schema.cover ? renderCover(cover, imgfloConfig) : null
 
-    return el('div', {className: 'WidgetDefault'},
+    return el('div', {className: 'AttributionEditor'},
       coverEl,
-      el('div', {className: 'WidgetDefault-metadata'},
+      el('div', {className: 'AttributionEditor-metadata'},
         renderFields(schema, metadata)
       ),
-      el('div', {className: 'WidgetDefault-links'},
+      el('div', {className: 'AttributionEditor-links'},
         renderLinks(schema, metadata),
         CreditAdd({schema, metadata})
       )
     )
   }
 }
-export default React.createFactory(WidgetDefault)
+export default React.createFactory(AttributionEditor)
 
 
 function renderCover (cover, imgfloConfig) {
@@ -40,14 +40,14 @@ function renderCover (cover, imgfloConfig) {
   let props = {src, width, height, imgfloConfig}
   return el(
     'div',
-    {className: 'WidgetDefault-cover'},
+    {className: 'AttributionEditor-cover'},
     el(Image, props)
   )
 }
 
 function renderCreditEditor (key, label, item) {
   return el(CreditEditor, {
-    className: `WidgetDefault-${key}`,
+    className: `AttributionEditor-${key}`,
     key: key,
     label: label,
     name: item.name,
@@ -58,7 +58,7 @@ function renderCreditEditor (key, label, item) {
 
 function renderTextField (key, label, value, multiLine = true) {
   return el(TextField, {
-    className: `WidgetDefault-${key}`,
+    className: `AttributionEditor-${key}`,
     floatingLabelText: label,
     defaultValue: value,
     key: key,
