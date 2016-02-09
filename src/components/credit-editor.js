@@ -29,7 +29,7 @@ class CreditEditor extends React.Component {
     this.fieldOnEnterKeyDown = (event) => {
       event.preventDefault()
       this.handleRequestClose()
-    } 
+    }
   }
 
   componentDidUpdate (_, prevState) {
@@ -77,9 +77,9 @@ class CreditEditor extends React.Component {
             }
           },
           (
-            onlyUrl ?
-            renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown) :
-            renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
+            onlyUrl
+            ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
+            : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
           )
         )
       )

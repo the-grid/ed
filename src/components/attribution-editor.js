@@ -4,7 +4,7 @@ require('./attribution-editor.css')
 import React, {createElement as el} from 'react'
 import Image from './image'
 import CreditEditor from './credit-editor'
-import CreditAdd from './credit-add'
+// import CreditAdd from './credit-add'
 
 import TextField from 'material-ui/lib/text-field'
 
@@ -48,7 +48,6 @@ AttributionEditor.propTypes = {
   onChange: React.PropTypes.func.isRequired
 }
 export default React.createFactory(AttributionEditor)
-
 
 
 function preventDefault (event) {
