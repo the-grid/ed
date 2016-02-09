@@ -15,7 +15,7 @@ import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import {isMediaType} from './convert/types'
-import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
+import {inlineMenu, blockMenu, barMenu, trimDefaultMenus} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 // import './inputrules/autoinput'
@@ -40,22 +40,25 @@ export default class Ed {
     }
 
     this.pm = new ProseMirror(pmOptions)
+    trimDefaultMenus(this.pm)
 
     if (options.menubar) {
       this.pm.setOption('menuBar', {
         float: true,
-        items: barMenu
+        content: barMenu
       })
     }
     if (options.menutip) {
       this.pm.setOption('tooltipMenu', {
+        showLinks: true,
         emptyBlockMenu: true,
         selectedBlockMenu: true,
-        inlineItems: inlineMenu,
-        blockItems: blockMenu
+        inlineContent: inlineMenu,
+        selectedBlockContent: inlineMenu,
+        blockContent: blockMenu
       })
     }
-
+    
     if (options.imgfloConfig) {
       this.imgfloConfig = options.imgfloConfig
     }

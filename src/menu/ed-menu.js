@@ -1,36 +1,39 @@
-const inline = [
-  'strong:toggle',
-  'em:toggle',
-  'link:unset',
-  'link:set'
-]
+import {MenuCommandGroup, Dropdown, inlineGroup, blockGroup, historyGroup} from 'prosemirror/src/menu/menu'
 
-const block = [
-  'textblockType',
-  'blockquote:wrap',
-  'bullet_list:wrap',
-  'ordered_list:wrap',
-  'lift'
-]
+const textblockMenu = new Dropdown(
+  {
+    label: "Type...",
+    activeLabel: true,
+    class: "ProseMirror-textblock-dropdown"
+  },
+  [
+    new MenuCommandGroup("textblock"),
+    new MenuCommandGroup("textblockHeading")
+  ]
+)
 
 const custom = [
-  // 'insert',
-  'ed_upload_image'
-  // 'ed_codewidget_insert'
+  // 'ed_upload_image'
 ]
 
 export const inlineMenu = [
-  inline,
-  block
+  inlineGroup,
+  textblockMenu,
+  blockGroup
 ]
 
 export const blockMenu = [
-  block,
-  custom
+  textblockMenu,
+  blockGroup
 ]
 
 export const barMenu = [
-  inline,
-  block,
-  custom
+  inlineGroup,
+  textblockMenu,
+  blockGroup,
+  historyGroup
 ]
+
+export function trimDefaultMenus (pm) {
+  delete pm.commands.selectParentNode.spec.menu
+}
