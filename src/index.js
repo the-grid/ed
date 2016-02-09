@@ -1,6 +1,4 @@
 require('./index.css')
-require('./menu/menu.css')
-require('./menu/menubar.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
