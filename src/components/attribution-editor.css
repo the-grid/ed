@@ -9,15 +9,23 @@
 }
 
 .AttributionEditor-metadata {
-  padding: 1rem 1rem 0 0;
+  padding: 1rem;
   margin-left: calc(300px + 1rem); /* FIXME make me smarter and responsive */
 }
 
 .AttributionEditor-title {
-  font-weight: normal;
-  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
+  font-size: 20px !important;
+  line-height: 24px !important;
 }
 
+.AttributionEditor-links {
+  padding: 0.5rem 0;
+  text-align: right;
+}
+
+.AttributionEditor-links > * {
+  vertical-align: middle;
+}
 
 @media screen and (max-width:550px) {
   .AttributionEditor-cover {

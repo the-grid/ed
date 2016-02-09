@@ -60,7 +60,7 @@ let imageRaphael = {
         "name": "deepforger",
         "url": "http://twitter.com/deepforger",
         "avatar": {
-          "src": "https://pbs.twimg.com/profile_images/639908228814344196/ZQaqwb4p_400x400.jpg",
+          "src": "https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg",
           "width": 400,
           "height": 400,
           "colors": [
@@ -278,7 +278,7 @@ let imageCole = {
     "isBasedOnUrl": "http://the-grid-user-content.s3-us-west-2.amazonaws.com/b1dd2ebd-7461-4960-a3be-05f22c649a63.jpg",
     "publisher": {
       "domain": "the-grid-user-content.s3-us-west-2.amazonaws.com",
-      "name": "the-grid-user-content.s3-us-west-2.amazonaws.com"
+      "name": "The Grid"
     },
     "starred": false,
     "source": "51642a12-50cf-4072-855c-d7d8294ba125",
@@ -543,8 +543,10 @@ let imageBeingD4 = {
 
 let sharing = {
   id: 'uuid-share-00',
-  type: 'share',
-  status: 'https://thegrid.io/#8 sharing...'
+  type: 'placeholder',
+  metadata: {
+    status: 'Sharing... https://thegrid.io/#8'
+  }
 }
 
 let post = {

@@ -1,6 +1,8 @@
 export default class WidgetBase {
   static type () { return 'base -- extend me' }
   constructor (options) {
+    this.ed = options.ed
+
     // Cache these so we don't hit DOM unless needed
     this.shown = true
     this.top = 0

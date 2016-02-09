@@ -1,6 +1,15 @@
+## dev
+
+## 0.0.38 - 2016-02-09
+
+* Ed `options.imgfloConfig = {server, key, secret}` for sizing and proxying images through imgflo
+  * If not present (as in demo), will continue to load images directly
+  * All images are proxied (currently `block.cover.src` and `block.metadata.author[n].avatar`)
+* Metadata editing works, triggering same `ed.onChange` as other edits
+
 ## 0.0.37 - 2016-02-07
 
-* PM 0.3.0
+* [ProseMirror 0.3.0](https://discuss.prosemirror.net/t/release-0-3-0/160)
 
 ## 0.0.35 - 2016-02-02
 

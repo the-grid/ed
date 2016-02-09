@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '4.1'
+- '5.5'
 script: npm test
 before_deploy: npm run build
 deploy:

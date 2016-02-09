@@ -22,7 +22,8 @@ function setup (options) {
     onAutosave: () => { console.log('autosave') },
     autosaveInterval: 1000,
     onShareFile: onShareFileDemo,
-    onShareUrl: onShareUrlDemo
+    onShareUrl: onShareUrlDemo,
+    imgfloConfig: null
   })
   console.log(ed)
   window.ed = ed

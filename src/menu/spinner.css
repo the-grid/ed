@@ -1,0 +1,41 @@
+.logo-loader {
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: block;
+}
+.logo-loader-path{
+  -webkit-transition-property: stroke-dashoffset;
+  -webkit-transition-duration: 1s;
+  -moz-transition-property: stroke-dashoffset;
+  -moz-transition-duration: 1s;
+  transition-property: stroke-dashoffset;
+  transition-duration: 1s;
+
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 20s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes spin {
+    from {stroke-dashoffset: -4435.2px;}
+    to {stroke-dashoffset: 0px;}
+}
+
+@-moz-keyframes spin {
+    from {stroke-dashoffset: -4435.2px;}
+    to {stroke-dashoffset: 0px;}
+}
+
+@keyframes spin {
+    from {stroke-dashoffset: -4435.2px;}
+    to {stroke-dashoffset: 0px;}
+}

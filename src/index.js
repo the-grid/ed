@@ -1,6 +1,4 @@
 require('./index.css')
-require('./menu/menu.css')
-require('./menu/menubar.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
@@ -56,6 +54,10 @@ export default class Ed {
         inlineItems: inlineMenu,
         blockItems: blockMenu
       })
+    }
+
+    if (options.imgfloConfig) {
+      this.imgfloConfig = options.imgfloConfig
     }
 
     // Events setup

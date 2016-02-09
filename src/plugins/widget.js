@@ -89,6 +89,7 @@ function initializeWidget (id, type, rectangle) {
   let initialBlock = this.ed.getBlock(id)
 
   this.widgets[id] = new Widget({
+    ed: this.ed,
     id: id,
     widgetContainer: this.el,
     initialRectangle: rectangle,
