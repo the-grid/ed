@@ -2,19 +2,16 @@
 * Plugin to sync widget overlays with media blocks
 */
 
-require('./widget.css')
-
 import _ from '../util/lodash'
 
-// WidgetTypes keys correspond with PM media block's grid-type attribute
+import {createElement as el} from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 
-import WidgetCode from './widget-code'
-import WidgetReact from './widget-react'
+import AppContainer from '../components/app-container'
+import {addWidget} from '../state/actions'
+import configureStore from '../state/store'
 
-const WidgetTypes = {
-  code: WidgetCode,
-  react: WidgetReact
-}
 
 // Functions to bind in class constructor
 
@@ -84,17 +81,14 @@ function checkWidget (id, type, rectangle) {
 }
 
 function initializeWidget (id, type, rectangle) {
-  let Widget = WidgetTypes[type] || WidgetTypes.react
-
   let initialBlock = this.ed.getBlock(id)
 
-  this.widgets[id] = new Widget({
-    ed: this.ed,
-    id: id,
-    widgetContainer: this.el,
-    initialRectangle: rectangle,
+  this.store.dispatch(addWidget({
+    id,
+    type,
+    rectangle,
     initialBlock: initialBlock
-  })
+  }))
 }
 
 function onIframeMessage (message) {
@@ -138,6 +132,13 @@ export default class PluginWidget {
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
+
+    let store = configureStore()
+    this.store = store
+    this.app = render(
+      el(Provider, {store}, el(AppContainer)),
+      this.el
+    )
 
     this.ed.pm.on('draw', this.debouncedDOMChanged)
     window.addEventListener('resize', this.debouncedDOMChanged)

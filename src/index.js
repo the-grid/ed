@@ -1,6 +1,5 @@
 require('./index.css')
-require('./menu/menu.css')
-require('./menu/menubar.css')
+
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
@@ -25,6 +24,7 @@ import PluginWidget from './plugins/widget.js'
 import ShareUrl from './plugins/share-url'
 
 function noop () { /* noop */ }
+
 
 export default class Ed {
   constructor (options) {

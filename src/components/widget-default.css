@@ -1,39 +1,39 @@
-.AttributionEditor {
+.WidgetDefault {
 }
 
-.AttributionEditor-cover {
+.WidgetDefault-cover {
   width: 50%;
   max-width: 300px;
   height: 200px;
   float: left;
 }
 
-.AttributionEditor-metadata {
+.WidgetDefault-metadata {
   padding: 1rem;
   margin-left: calc(300px + 1rem); /* FIXME make me smarter and responsive */
 }
 
-.AttributionEditor-title {
+.WidgetDefault-title {
   font-size: 20px !important;
   line-height: 24px !important;
 }
 
-.AttributionEditor-links {
+.WidgetDefault-links {
   padding: 0.5rem 0;
   text-align: right;
 }
 
-.AttributionEditor-links > * {
+.WidgetDefault-links > * {
   vertical-align: middle;
 }
 
 @media screen and (max-width:550px) {
-  .AttributionEditor-cover {
+  .WidgetDefault-cover {
     float: none;
     width: 100%;
     max-width: 100%;
   }
-  .AttributionEditor-metadata {
+  .WidgetDefault-metadata {
     margin-left: 0;
   }
 }

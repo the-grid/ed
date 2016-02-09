@@ -1,5 +1,5 @@
 // Copy style to head
-require('./attribution-editor.css')
+require('./widget-default.css')
 
 import React, {createElement as el} from 'react'
 import Image from './image'
@@ -11,26 +11,26 @@ import TextField from 'material-ui/lib/text-field'
 import blockMetaSchema from '../schema/block-meta'
 
 
-class AttributionEditor extends React.Component {
+class WidgetDefault extends React.Component {
   render () {
     const {imgfloConfig, initialBlock} = this.props
     const {type, cover, metadata} = initialBlock
     const schema = blockMetaSchema[type] || blockMetaSchema.default
     const coverEl = schema.cover ? renderCover(cover, imgfloConfig) : null
 
-    return el('div', {className: 'AttributionEditor'},
+    return el('div', {className: 'WidgetDefault'},
       coverEl,
-      el('div', {className: 'AttributionEditor-metadata'},
+      el('div', {className: 'WidgetDefault-metadata'},
         renderFields(schema, metadata)
       ),
-      el('div', {className: 'AttributionEditor-links'},
+      el('div', {className: 'WidgetDefault-links'},
         renderLinks(schema, metadata),
         CreditAdd({schema, metadata})
       )
     )
   }
 }
-export default React.createFactory(AttributionEditor)
+export default React.createFactory(WidgetDefault)
 
 
 function renderCover (cover, imgfloConfig) {
@@ -40,14 +40,14 @@ function renderCover (cover, imgfloConfig) {
   let props = {src, width, height, imgfloConfig}
   return el(
     'div',
-    {className: 'AttributionEditor-cover'},
+    {className: 'WidgetDefault-cover'},
     el(Image, props)
   )
 }
 
 function renderCreditEditor (key, label, item) {
   return el(CreditEditor, {
-    className: `AttributionEditor-${key}`,
+    className: `WidgetDefault-${key}`,
     key: key,
     label: label,
     name: item.name,
@@ -58,7 +58,7 @@ function renderCreditEditor (key, label, item) {
 
 function renderTextField (key, label, value, multiLine = true) {
   return el(TextField, {
-    className: `AttributionEditor-${key}`,
+    className: `WidgetDefault-${key}`,
     floatingLabelText: label,
     defaultValue: value,
     key: key,

@@ -1,13 +1,14 @@
-.EdPlugins-Widgets {
+.Widget {
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
 }
-.EdPlugins-Widgets > div {
+.Widget > div {
   overflow: hidden;
   border: 1px #DDDDDD solid;
 }
-.EdPlugins-Widgets iframe {
+.Widget iframe {
   border: none;
   width: 100%;
   height: 100%;
