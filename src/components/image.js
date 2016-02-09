@@ -5,24 +5,27 @@
 
 require('./image.css')
 
-import {createElement as el} from 'react'
+import React, {createElement as el} from 'react'
 import imgflo from 'imgflo-url'
 
 
-export default function Image (props) {
+export default function Image (props, context) {
   let {src} = props
-  const {width, height, imgfloConfig} = props
-  if (imgfloConfig) {
+  const {width, height} = props
+  if (context.imgfloConfig) {
     const params = {
       input: src,
       width: getSize(width, height)
     }
-    src = imgflo(imgfloConfig, 'passthrough', params)
+    src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
   const style = {
     backgroundImage: `url(${src})`
   }
   return el('div', {className: 'Image', style})
+}
+Image.contextTypes = {
+  imgfloConfig: React.PropTypes.object
 }
 
 

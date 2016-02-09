@@ -12,14 +12,16 @@ import blockMetaSchema from '../schema/block-meta'
 
 
 class AttributionEditor extends React.Component {
+  getChildContext () {
+    return {imgfloConfig: this.props.imgfloConfig}
+  }
   render () {
-    const {imgfloConfig, initialBlock} = this.props
+    const {initialBlock} = this.props
     const {type, cover, metadata} = initialBlock
     const schema = blockMetaSchema[type] || blockMetaSchema.default
-    const coverEl = schema.cover ? renderCover(cover, imgfloConfig) : null
 
     return el('div', {className: 'AttributionEditor'},
-      coverEl,
+      renderCover(cover),
       el('div', {className: 'AttributionEditor-metadata'},
         renderFields(schema, metadata)
       ),
@@ -30,14 +32,17 @@ class AttributionEditor extends React.Component {
     )
   }
 }
+AttributionEditor.childContextTypes = {
+  imgfloConfig: React.PropTypes.object
+}
 export default React.createFactory(AttributionEditor)
 
 
-function renderCover (cover, imgfloConfig) {
+function renderCover (cover) {
   if (!cover) return
   let {src, width, height} = cover
   if (!src) return
-  let props = {src, width, height, imgfloConfig}
+  let props = {src, width, height}
   return el(
     'div',
     {className: 'AttributionEditor-cover'},
