@@ -12,7 +12,7 @@ export default {
     cover: true,
     author: true,
     publisher: true,
-    makeHtml: makeFigure 
+    makeHtml: makeFigure
   },
   video: {
     title: true,

@@ -14,10 +14,10 @@ export default class WidgetReact extends WidgetBase {
   static type () { return 'react' }
   constructor (options) {
     super(options)
-    
+
     const {type} = this.initialBlock
     const schema = BlockSchema[type] || BlockSchema.default
-    
+
     this.onChange = (path, value) => {
       onChange.call(this, path, value, schema)
     }
@@ -41,7 +41,7 @@ function onChange (path, value, schema) {
     parent = parent[path[i]]
   }
   parent[path[path.length - 1]] = value
-  
+
   // Regenerate html if needed
   if (schema.makeHtml) {
     block.html = schema.makeHtml(block.metadata, block.cover)
