@@ -8,3 +8,8 @@ export function nodeAboveSelection (pm) {
   }
   return i === 0 ? false : sel.head.shorten(i - 1)
 }
+
+export function onBlankLine (pm) {
+  const selection = pm.selection
+  return (selection.empty && selection.anchor.offset === 0 && selection.anchor.path.length === 1)
+}

@@ -1,9 +1,10 @@
 require('./index.css')
+require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
 
-import {commands} from './edit/index'
+import commands from './commands/index'
 
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
@@ -44,15 +45,17 @@ export default class Ed {
     if (options.menubar) {
       this.pm.setOption('menuBar', {
         float: true,
-        items: barMenu
+        content: barMenu
       })
     }
     if (options.menutip) {
       this.pm.setOption('tooltipMenu', {
+        showLinks: true,
         emptyBlockMenu: true,
         selectedBlockMenu: true,
-        inlineItems: inlineMenu,
-        blockItems: blockMenu
+        inlineContent: inlineMenu,
+        selectedBlockContent: inlineMenu,
+        blockContent: blockMenu
       })
     }
 

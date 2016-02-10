@@ -1,17 +1,23 @@
-import {nodeAboveSelection} from '../util/pm'
+import {nodeAboveSelection, onBlankLine} from '../util/pm'
 
 const ed_upload_image = {
-  label: 'upload image',
+  label: 'Choose an image file to upload to your post',
   run (pm) {
     let pos = nodeAboveSelection(pm)
     if (!pos || pos.offset == null) return false
     const index = pos.offset
     pm.signal('ed.menu.file', index)
   },
-  menuGroup: 'block(100)',
-  display: {
-    type: 'icon',
-    text: 'Upload'
+  select (pm) {
+    return onBlankLine(pm)
+  },
+  menu: {
+    group: 'ed_block',
+    rank: 100,
+    display: {
+      type: 'label',
+      label: 'Upload Image'
+    }
   }
 }
 
