@@ -1,5 +1,9 @@
 ## dev
 
+## 0.0.39 - 2016-02-09
+
+* Fix "Upload Image" in new line menu.
+
 ## 0.0.38 - 2016-02-09
 
 * Ed `options.imgfloConfig = {server, key, secret}` for sizing and proxying images through imgflo
