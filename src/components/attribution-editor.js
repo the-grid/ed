@@ -10,6 +10,9 @@ import TextField from 'material-ui/lib/text-field'
 
 import blockMetaSchema from '../schema/block-meta'
 
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import MaterialTheme from './material-theme'
+
 
 class AttributionEditor extends React.Component {
   constructor (props) {
@@ -19,7 +22,10 @@ class AttributionEditor extends React.Component {
     }
   }
   getChildContext () {
-    return {imgfloConfig: this.props.imgfloConfig}
+    return {
+      imgfloConfig: this.props.imgfloConfig,
+      muiTheme: ThemeManager.getMuiTheme(MaterialTheme)
+    }
   }
   render () {
     const {onChange} = this.props
@@ -40,7 +46,8 @@ class AttributionEditor extends React.Component {
   }
 }
 AttributionEditor.childContextTypes = {
-  imgfloConfig: React.PropTypes.object
+  imgfloConfig: React.PropTypes.object,
+  muiTheme: React.PropTypes.object
 }
 AttributionEditor.propTypes = {
   initialBlock: React.PropTypes.object.isRequired,
