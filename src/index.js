@@ -1,4 +1,5 @@
 require('./index.css')
+require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
@@ -57,7 +58,7 @@ export default class Ed {
         blockContent: blockMenu
       })
     }
-    
+
     if (options.imgfloConfig) {
       this.imgfloConfig = options.imgfloConfig
     }

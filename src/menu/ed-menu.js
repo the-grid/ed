@@ -2,19 +2,17 @@ import {MenuCommandGroup, Dropdown, inlineGroup, blockGroup, historyGroup} from 
 
 const textblockMenu = new Dropdown(
   {
-    label: "Type...",
+    label: 'Type...',
     activeLabel: true,
-    class: "ProseMirror-textblock-dropdown"
+    class: 'ProseMirror-textblock-dropdown'
   },
   [
-    new MenuCommandGroup("textblock"),
-    new MenuCommandGroup("textblockHeading")
+    new MenuCommandGroup('textblock'),
+    new MenuCommandGroup('textblockHeading')
   ]
 )
 
-const custom = [
-  // 'ed_upload_image'
-]
+const edMenuGroup = new MenuCommandGroup('ed_block')
 
 export const inlineMenu = [
   inlineGroup,
@@ -24,7 +22,8 @@ export const inlineMenu = [
 
 export const blockMenu = [
   textblockMenu,
-  blockGroup
+  blockGroup,
+  edMenuGroup
 ]
 
 export const barMenu = [
