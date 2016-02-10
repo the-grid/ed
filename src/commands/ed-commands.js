@@ -1,4 +1,4 @@
-import {nodeAboveSelection} from '../util/pm'
+import {nodeAboveSelection, onBlankLine} from '../util/pm'
 
 const ed_upload_image = {
   label: 'Choose an image file to upload to your post',
@@ -9,7 +9,7 @@ const ed_upload_image = {
     pm.signal('ed.menu.file', index)
   },
   select (pm) {
-    return nodeAboveSelection(pm)
+    return onBlankLine(pm)
   },
   menu: {
     group: 'ed_block',
