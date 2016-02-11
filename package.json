@@ -11,8 +11,8 @@
     "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",
     "test": "npm run lint && npm run mocha",
-    "lint": "eslint src demo",
-    "lintfix": "eslint src demo --fix",
+    "lint": "eslint src demo test",
+    "lintfix": "eslint src demo test --fix",
     "mocha": "mocha --compilers js:babel-core/register",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
