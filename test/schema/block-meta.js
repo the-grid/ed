@@ -26,9 +26,9 @@ describe('BlockMeta', function () {
   it('gives expected html out for image', function () {
     const html = BlockMeta.image.makeHtml(block.metadata, block.cover)
     expect(html).to.equal(
-      `<figure>`+
-        `<img src="http://....jpg">`+
-        `<figcaption><h1>Title</h1><p>Description</p></figcaption>`+
+      `<figure>` +
+        `<img src="http://....jpg">` +
+        `<figcaption><h1>Title</h1><p>Description</p></figcaption>` +
       `</figure>`
     )
   })
@@ -38,7 +38,7 @@ describe('BlockMeta', function () {
     blockToFlatten.html = BlockMeta.image.makeHtml(block.metadata, block.cover)
     let item = {content: [blockToFlatten]}
     const expected = _.cloneDeep(blockToFlatten)
-    
+
     const f = new Flatten()
     f.flattenItem(item, function (err) {
       if (err) {
