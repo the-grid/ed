@@ -3,6 +3,10 @@
 * Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes.
 * Block type `quote` shows up.
 
+## 0.0.40 - 2016-02-12
+
+* Fix selection when `setContent` splices in non-focusable Media nodes.
+
 ## 0.0.39 - 2016-02-09
 
 * Fix "Upload Image" in new line menu.
