@@ -4,6 +4,7 @@ import BlockMeta from '../../src/schema/block-meta'
 import Flatten from 'html-flatten'
 import _ from '../../src/util/lodash'
 
+
 const block = {
   type: 'image',
   metadata: {
@@ -23,33 +24,58 @@ describe('BlockMeta', function () {
     ])
   })
 
-  it('gives expected html out for image', function () {
-    const html = BlockMeta.image.makeHtml(block.metadata, block.cover)
-    expect(html).to.equal(
-      `<figure>` +
-        `<img src="http://....jpg">` +
-        `<figcaption><h1>Title</h1><p>Description</p></figcaption>` +
-      `</figure>`
-    )
-  })
-
-  it('gives html that survives html-flatten', function (done) {
-    let blockToFlatten = _.clone(block)
-    blockToFlatten.html = BlockMeta.image.makeHtml(block.metadata, block.cover)
-    let item = {content: [blockToFlatten]}
-    const expected = _.cloneDeep(blockToFlatten)
-
-    const f = new Flatten()
-    f.flattenItem(item, function (err) {
-      if (err) {
-        return done(err)
-      }
-      let flattened = item.content[0]
-      expect(flattened.metadata).to.deep.equal(expected.metadata)
-      expect(flattened.cover).to.deep.equal(expected.cover)
-      expect(flattened.html).to.equal(expected.html)
-      done()
+  describe('Type image', function () {
+    it('gives expected html out', function () {
+      const html = BlockMeta.image.makeHtml(block.metadata, block.cover)
+      expect(html).to.equal(
+        `<figure>` +
+          `<img src="http://....jpg">` +
+          `<figcaption><h1>Title</h1><p>Description</p></figcaption>` +
+        `</figure>`
+      )
+    })
+    it('gives html that survives html-flatten', function (done) {
+      survivesHtmlFlatten(block, done)
     })
   })
 
+  describe('Type video', function () {
+    const video = _.cloneDeep(block)
+    video.type = 'video'
+    it('gives expected html out', function () {
+      const html = BlockMeta.video.makeHtml(video.metadata, video.cover)
+      expect(html).to.equal(
+        `<figure>` +
+          `<img src="http://....jpg">` +
+          `<figcaption><h1>Title</h1><p>Description</p></figcaption>` +
+        `</figure>`
+      )
+    })
+    it('gives html that survives html-flatten', function (done) {
+      survivesHtmlFlatten(video, done)
+    })
+  })
 })
+
+
+function survivesHtmlFlatten (block, done) {
+  let blockToFlatten = _.cloneDeep(block)
+  const {type} = block
+  const makeHtml = BlockMeta[type].makeHtml
+  blockToFlatten.html = makeHtml(block.metadata, block.cover)
+  let item = {content: [blockToFlatten]}
+  const expected = _.cloneDeep(blockToFlatten)
+
+  const f = new Flatten()
+  f.flattenItem(item, function (err) {
+    if (err) {
+      return done(err)
+    }
+    let flattened = item.content[0]
+    expect(flattened.type).to.equal(expected.type)
+    expect(flattened.metadata).to.deep.equal(expected.metadata)
+    expect(flattened.cover).to.deep.equal(expected.cover)
+    expect(flattened.html).to.equal(expected.html)
+    done()
+  })
+}
