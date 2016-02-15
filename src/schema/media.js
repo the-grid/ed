@@ -10,26 +10,43 @@ export class Media extends Block {
   get canBeEmpty () { return true }
   get attrs () {
     return {
-      id: new Attribute({default: 'uuid-0000'}),
-      type: new Attribute({default: 'media'})
+      id: new Attribute(),
+      type: new Attribute()
     }
   }
 }
 Media.register('parseDOM', 'div', {
   tag: 'div',
+  rank: 9999,
   parse: function (dom, state) {
+    const id = dom.getAttribute('grid-id')
+    if (!id) {
+      throw new Error('Can not parse Media div without id')
+    }
+    const type = dom.getAttribute('grid-type')
+    if (!type) {
+      throw new Error('Can not parse Media div without type')
+    }
     state.insert(this, {
-      id: dom.getAttribute('grid-id') || null,
-      type: dom.getAttribute('grid-type') || null
+      id,
+      type
     })
   }
 })
-Media.prototype.serializeDOM = (node, s) => s.elt('div',
-  {
-    'class': 'EdSchemaMedia',
-    'grid-id': node.attrs.id,
-    'grid-type': node.attrs.type,
-    'title': `${node.attrs.type} widget here`,
-    'contenteditable': 'false'
+Media.prototype.serializeDOM = (node, s) => {
+  const {id, type} = node.attrs
+  if (!id) {
+    throw new Error('Can not serialize Media div without id')
   }
-)
+  if (!type) {
+    throw new Error('Can not serialize Media div without type')
+  }
+  return s.elt('div',
+    {
+      'class': 'EdSchemaMedia',
+      'grid-id': id,
+      'grid-type': type,
+      'contenteditable': 'false'
+    }
+  )
+}
