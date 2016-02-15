@@ -5,8 +5,7 @@ import Flatten from 'html-flatten'
 import _ from '../../src/util/lodash'
 
 
-const block = {
-  type: 'image',
+const blockWithCover = {
   metadata: {
     title: 'Title',
     description: 'Description'
@@ -25,8 +24,10 @@ describe('BlockMeta', function () {
   })
 
   describe('Type image', function () {
+    const image = _.cloneDeep(blockWithCover)
+    image.type = 'image'
     it('gives expected html out', function () {
-      const html = BlockMeta.image.makeHtml(block.metadata, block.cover)
+      const html = BlockMeta.image.makeHtml(image.metadata, image.cover)
       expect(html).to.equal(
         `<figure>` +
           `<img src="http://....jpg">` +
@@ -35,15 +36,16 @@ describe('BlockMeta', function () {
       )
     })
     it('gives html that survives html-flatten', function (done) {
-      survivesHtmlFlatten(block, done)
+      survivesHtmlFlatten(image, done)
     })
   })
 
   describe('Type video', function () {
-    const video = _.cloneDeep(block)
+    const video = _.cloneDeep(blockWithCover)
     video.type = 'video'
     it('gives expected html out', function () {
       const html = BlockMeta.video.makeHtml(video.metadata, video.cover)
+      video.html = html
       expect(html).to.equal(
         `<figure>` +
           `<img src="http://....jpg">` +
