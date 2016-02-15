@@ -24,7 +24,7 @@ function testPrevUrl () {
       }
     }
     this.ed.replaceBlock(prevIndex, block)
-    this.ed.pm.signal('ed.plugin.url', id, prevText)
+    this.ed.pm.signal('ed.plugin.url', {block: id, url: prevText})
   }
 }
 

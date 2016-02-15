@@ -84,8 +84,9 @@ document.getElementById('upload').onclick = function () {
 }
 
 // onShareUrl demo
-function onShareUrlDemo (block, url) {
-  console.log(block, url)
+function onShareUrlDemo (share) {
+  // const {block, url} = share
+  console.log(share)
   console.log('app shares url now and calls ed.setContent() with updates')
 }
 

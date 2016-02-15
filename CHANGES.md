@@ -1,5 +1,11 @@
 ## dev
 
+## 0.0.41 - 2016-02-12
+
+* Fix bug with fixing selection in `setContent`
+* BREAKING -- `onShareUrl` is called with `{block, url}` (block id, url to share) now.
+
+
 ## 0.0.40 - 2016-02-12
 
 * Fix selection when `setContent` splices in non-focusable Media nodes.
