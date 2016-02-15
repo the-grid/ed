@@ -96,10 +96,10 @@ export default class Ed {
     this.container.appendChild(this.pluginContainer)
 
     let plugins = [PluginWidget, ShareUrl]
-    this.plugins = plugins.map(Plugin => new Plugin(this))
+    this.plugins = plugins.map((Plugin) => new Plugin(this))
   }
   teardown () {
-    this.plugins.forEach(plugin => plugin.teardown())
+    this.plugins.forEach((plugin) => plugin.teardown())
     this.pm.off('change')
     this.pm.off('ed.menu.file')
     this.pm.off('ed.plugin.url')
