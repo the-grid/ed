@@ -8,11 +8,35 @@ var __DEMO = (process.env.DEMO === 'true')
 
 var entry = {}
 var plugins = []
+var loaders = [
+  {
+    test: /\.js$/, 
+    loader: 'babel-loader', 
+    include: [
+      path.resolve(__dirname, 'demo'),
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules', 'prosemirror')
+    ]
+  },
+  { test: /\.css$/, loader: 'style?singleton!raw' },
+  { test: /\.json$/, loader: 'json-loader' }
+]
 
 if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
   entry.ed = './src/index.js'
+}
+
+if (__DEV) {
+  entry.test = './test/index.js'
+  loaders.push({
+    test: /\.js$/, 
+    loader: 'mocha-loader!babel-loader',
+    include: [
+      path.resolve(__dirname, 'test')
+    ]
+  })
 }
 
 if (!__DEV) {
@@ -56,19 +80,7 @@ module.exports = {
   debug: __DEV,
   devtool: (__DEV ? 'cheap-module-eval-source-map' : 'source-map'),
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/, 
-        loader: 'babel-loader', 
-        include: [
-          path.resolve(__dirname, 'demo'),
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'node_modules', 'prosemirror')
-        ]
-      },
-      { test: /\.css$/, loader: 'style?singleton!raw' },
-      { test: /\.json$/, loader: 'json-loader' }
-    ]
+    loaders: loaders
   },
   resolve: {
     extensions: ['', '.js', '.json', '.css']
