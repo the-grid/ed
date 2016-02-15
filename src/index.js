@@ -143,7 +143,7 @@ export default class Ed {
     let doc = GridToDoc(this._content)
     // TODO merge placeholders
     // Cache selection to restore after DOM update
-    let selection = this.pm.selection
+    let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
   }
@@ -176,4 +176,15 @@ function mergeContent (oldContent, newContent) {
   // TODO make this a little smarter
   // Only add new placeholders and update exiting placeholders
   return newContent
+}
+
+// Can't restore selection to a non-focuable (Media) div
+function fixSelection (selection, doc) {
+  let index = selection.anchor.path[0]
+  console.log(selection, doc.content.content[index].type)
+  while (doc.content.content[index].type.contains === null) {
+    index++
+  }
+  selection.anchor.path[0] = index
+  return selection
 }
