@@ -11,7 +11,7 @@ let apiContentMap = {}
 
 export default function (domChildren, doc, lastAPI) {
   let cloneLast = clone(lastAPI)
-  cloneLast.forEach(block => {
+  cloneLast.forEach((block) => {
     apiContentMap[block.id] = block
   })
 
