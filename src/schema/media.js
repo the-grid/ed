@@ -20,12 +20,9 @@ Media.register('parseDOM', 'div', {
   rank: 9999,
   parse: function (dom, state) {
     const id = dom.getAttribute('grid-id')
-    if (!id) {
-      throw new Error('Can not parse Media div without id')
-    }
     const type = dom.getAttribute('grid-type')
-    if (!type) {
-      throw new Error('Can not parse Media div without type')
+    if (!id || !type) {
+      return false
     }
     state.insert(this, {
       id,
