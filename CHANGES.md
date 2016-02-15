@@ -4,6 +4,7 @@
 
 * Fix bug with fixing selection in `setContent`
 * BREAKING -- `onShareUrl` is called with `{block, url}` (block id, url to share) now.
+* BREAKING -- Ed is now responsible for creating and inserting the placeholder before hitting `.onShareUrl`.
 
 
 ## 0.0.40 - 2016-02-12
