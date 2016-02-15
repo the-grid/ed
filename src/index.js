@@ -132,6 +132,13 @@ export default class Ed {
     }
     this.pm.signal('draw')
   }
+  replaceBlock (index, block) {
+    let content = this.getContent()
+    // MUTATION
+    content.splice(index, 1, block)
+    this.setContent(content)
+    // this.onChange()
+  }
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.
@@ -181,10 +188,18 @@ function mergeContent (oldContent, newContent) {
 // Can't restore selection to a non-focuable (Media) div
 function fixSelection (selection, doc) {
   let index = selection.anchor.path[0]
-  console.log(selection, doc.content.content[index].type)
-  while (doc.content.content[index].type.contains === null) {
+  if (doc.content.content[index] && doc.content.content[index].type.contains !== null) {
+    return selection
+  }
+  while (doc.content.content[index] && doc.content.content[index].type.contains === null) {
+    console.log(index)
     index++
   }
-  selection.anchor.path[0] = index
+  if (!doc.content.content[index]) {
+    return selection
+  }
+  // MUTATION
+  selection.anchor.path = [index]
+  selection.head.path = [index]
   return selection
 }

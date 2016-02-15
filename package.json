@@ -6,7 +6,7 @@
   "description": "the grid api with prosemirror",
   "main": "dist/ed.js",
   "scripts": {
-    "start": "export DEV=true; webpack-dev-server --inline",
+    "start": "export DEV=true; webpack-dev-server --inline --host 0.0.0.0",
     "build": "npm run clean; webpack",
     "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",

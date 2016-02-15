@@ -1,4 +1,5 @@
 import {nodeAboveSelection} from '../util/pm'
+import uuid from 'uuid'
 
 function checkUrl (string) {
   return string.match(/^https?:\/\/[^\s]+\.[^\s]+$/)
@@ -14,7 +15,16 @@ function testPrevUrl () {
   if (!prevBlock) return
   const prevText = prevBlock.textContent.trim()
   if (prevText && checkUrl(prevText)) {
-    this.ed.pm.signal('ed.plugin.url', prevIndex, prevText)
+    const id = uuid.v4()
+    const block = {
+      id,
+      type: 'placeholder',
+      metadata: {
+        status: `Sharing... ${prevText}`
+      }
+    }
+    this.ed.replaceBlock(prevIndex, block)
+    this.ed.pm.signal('ed.plugin.url', {block: id, url: prevText})
   }
 }
 
