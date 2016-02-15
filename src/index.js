@@ -132,6 +132,13 @@ export default class Ed {
     }
     this.pm.signal('draw')
   }
+  replaceBlock (index, block) {
+    let content = this.getContent()
+    // MUTATION
+    content.splice(index, 1, block)
+    this.setContent(content)
+    // this.onChange()
+  }
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.

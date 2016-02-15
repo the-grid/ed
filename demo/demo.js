@@ -84,17 +84,8 @@ document.getElementById('upload').onclick = function () {
 }
 
 // onShareUrl demo
-function onShareUrlDemo (index, url) {
-  const block = {
-    id: uuid.v4(),
-    type: 'placeholder',
-    metadata: {
-      status: `Sharing... ${url}`
-    }
-  }
-  let content = ed.getContent()
-  content.splice(index, 1, block)
-  ed.setContent(content)
+function onShareUrlDemo (block, url) {
+  console.log(block, url)
   console.log('app shares url now and calls ed.setContent() with updates')
 }
 
