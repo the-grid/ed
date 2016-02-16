@@ -8,7 +8,6 @@ body {
   margin: 0;
   height: 100%;
   padding: 0;
-  padding-bottom: 300px;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: San Francisco, Roboto, Avenir Next, sans-serif;
@@ -37,11 +36,9 @@ img {
 
 .ProseMirror-content {
   border: none;
-  padding: 0px 1rem;
+  margin: 3rem auto 15rem;
+  padding: 0 1rem;
   white-space: pre-wrap;
-  margin: auto;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
   max-width: 800px;
 
   font-size: 1.5rem;
