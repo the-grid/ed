@@ -4,33 +4,34 @@ import Ed from '../src/ed'
 
 
 describe('Ed', function () {
-  let mount
-  beforeEach(function () {
+  let mount, ed
+  const fixture = [
+    {type: 'h1', html: '<h1>Title</h1>'},
+    {type: 'text', html: '<p>Text 1</p>'},
+    {type: 'text', html: '<p>Text 2</p>'}
+  ]
+  beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
+    ed = new Ed({
+      container: mount,
+      initialContent: fixture
+    })
+    ed.pm.on('draw', function () {
+      done()
+    })
   })
   afterEach(function () {
     mount.parentNode.removeChild(mount)
   })
 
-  it('on mount it has expected editable html structure', function (done) {
-    const fixture = [
-      {type: 'h1', html: '<h1>Title</h1>'},
-      {type: 'text', html: '<p>Text 1</p>'},
-      {type: 'text', html: '<p>Text 2</p>'}
-    ]
-    const expected =
-      '<h1 pm-container="true" pm-offset="0"><span pm-offset="0" pm-leaf="5">Title</span></h1>' +
-      '<p pm-container="true" pm-offset="1"><span pm-offset="0" pm-leaf="6">Text 1</span></p>' +
-      '<p pm-container="true" pm-offset="2"><span pm-offset="0" pm-leaf="6">Text 2</span></p>'
-
-    const ed = new Ed({
-      container: mount,
-      initialContent: fixture
-    })
-    ed.pm.on('draw', function () {
-      expect(ed.pm.content.innerHTML).to.equal(expected)
-      done()
-    })
+  it('on mount it has expected editable html structure', function () {
+    const children = ed.pm.content.children
+    expect(children[0].textContent).to.equal('Title')
+    expect(children[0].nodeName).to.equal('H1')
+    expect(children[1].textContent).to.equal('Text 1')
+    expect(children[1].nodeName).to.equal('P')
+    expect(children[2].textContent).to.equal('Text 2')
+    expect(children[2].nodeName).to.equal('P')
   })
 })
