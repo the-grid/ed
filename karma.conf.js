@@ -5,7 +5,7 @@ var webpackConf = require('./webpack.config.js')
 
 
 module.exports = function (config) {
-  config.set({
+  var cfg = {
     browsers: [ 'Chrome' ],
     files: [
       './test/index.js'
@@ -28,5 +28,17 @@ module.exports = function (config) {
     webpackMiddleware: {
       noInfo: true
     }
-  })
+  }
+  
+  if (process.env.TRAVIS) {
+    cfg.customLaunchers = {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    }
+    cfg.browsers = ['Chrome_travis_ci']
+  }
+  
+  config.set(cfg)
 }
