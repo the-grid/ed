@@ -6,3 +6,7 @@
 .ProseMirror-menubar .ProseMirror-menu-dropdown {
   padding: 0.75rem 1rem;
 }
+
+.ProseMirror-menu-dropdown-item {
+  padding: 0.5rem 4px;
+}
