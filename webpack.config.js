@@ -5,9 +5,12 @@ var packageWidgets = require('./package.json').widgets
 
 var __DEV = (process.env.DEV === 'true')
 var __DEMO = (process.env.DEMO === 'true')
+var __KARMA = (process.env.KARMA === 'true')
+
 
 var entry = {}
 var plugins = []
+var devtool = 'source-map'
 var loaders = [
   {
     test: /\.js$/, 
@@ -28,7 +31,14 @@ if (__DEV || __DEMO) {
   entry.ed = './src/ed.js'
 }
 
-if (__DEV) {
+if (__KARMA) {
+  entry = './test/index.js'
+  devtool = 'inline-source-map'
+  loaders[0].include.push(path.resolve(__dirname, 'test'))
+}
+
+if (__DEV && !__KARMA) {
+  devtool = 'cheap-module-eval-source-map'
   entry.test = './test/index.js'
   loaders.push({
     test: /\.js$/, 
@@ -39,7 +49,8 @@ if (__DEV) {
   })
 }
 
-if (!__DEV) {
+// Build for publish
+if (!__DEV && !__KARMA) {
   plugins.push(new webpack.optimize.UglifyJsPlugin())
   var copyPatterns = []
 
@@ -67,6 +78,7 @@ if (!__DEV) {
   plugins.push(new CopyWebpackPlugin(copyPatterns))
 }
 
+
 module.exports = {
   entry: entry,
   plugins: plugins,
@@ -78,7 +90,7 @@ module.exports = {
     library: 'TheGridEd'
   },
   debug: __DEV,
-  devtool: (__DEV ? 'cheap-module-eval-source-map' : 'source-map'),
+  devtool: devtool,
   module: {
     loaders: loaders
   },
