@@ -192,7 +192,6 @@ function fixSelection (selection, doc) {
     return selection
   }
   while (doc.content.content[index] && doc.content.content[index].type.contains === null) {
-    console.log(index)
     index++
   }
   if (!doc.content.content[index]) {
