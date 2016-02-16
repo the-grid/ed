@@ -7,7 +7,7 @@ body {
   font-family: Georgia, Times, Times New Roman, serif;
   margin: 0;
   height: 100%;
-  padding: 1em;
+  padding: 0;
   padding-bottom: 300px;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -37,7 +37,7 @@ img {
 
 .ProseMirror-content {
   border: none;
-  padding: 0px;
+  padding: 0px 1rem;
   white-space: pre-wrap;
   margin: auto;
   margin-top: 2rem;
