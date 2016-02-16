@@ -17,8 +17,12 @@ describe('Ed', function () {
       container: mount,
       initialContent: fixture
     })
+    let doneCalled = false
     ed.pm.on('draw', function () {
-      done()
+      if (!doneCalled) {
+        doneCalled = true
+        done()
+      }
     })
   })
   afterEach(function () {
