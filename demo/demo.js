@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import Ed from '../src/index'
+import Ed from '../src/ed'
 import fixture from './fixture'
 import uuid from 'uuid'
 

@@ -25,7 +25,7 @@ var loaders = [
 if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
-  entry.ed = './src/index.js'
+  entry.ed = './src/ed.js'
 }
 
 if (__DEV) {
