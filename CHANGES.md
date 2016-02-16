@@ -1,5 +1,10 @@
 ## dev
 
+## 0.1.1 - 2016-02-15
+
+* Padding tweaks for menubar
+* "Upload Image" button in menubar
+
 ## 0.1.0 - 2016-02-15
 
 * Fix bug with fixing selection in `setContent`
