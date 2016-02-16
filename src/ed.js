@@ -205,7 +205,6 @@ function mergeContent (oldContent, newContent) {
       }
     }
   }
-  console.log(oldContent, newContent, merged)
   return merged
 }
 

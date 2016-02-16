@@ -72,7 +72,7 @@ describe('Ed', function () {
     expect(content[4].textContent).to.equal('Text 2')
     expect(content[4].type.name).to.equal('paragraph')
   })
-  
+
   it('replace text with placeholder block', function () {
     ed.replaceBlock(1, {
       id: '0000',
