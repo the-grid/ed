@@ -1,4 +1,4 @@
-require('./index.css')
+require('./ed.css')
 require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
@@ -192,7 +192,6 @@ function fixSelection (selection, doc) {
     return selection
   }
   while (doc.content.content[index] && doc.content.content[index].type.contains === null) {
-    console.log(index)
     index++
   }
   if (!doc.content.content[index]) {

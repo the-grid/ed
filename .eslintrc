@@ -9,7 +9,8 @@
     "es6": true
   },
   "rules": {
-    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}]
+    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}],
+    "no-console": 2
   },
   "extends": "standard"
 }

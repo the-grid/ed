@@ -30,5 +30,6 @@ export const barMenu = [
   inlineGroup,
   textblockMenu,
   blockGroup,
+  edMenuGroup,
   historyGroup
 ]

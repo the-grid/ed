@@ -1,10 +1,15 @@
 ## dev
 
-## 0.0.41 - 2016-02-12
+## 0.1.1 - 2016-02-15
+
+* Padding tweaks for menubar
+* "Upload Image" button in menubar
+
+## 0.1.0 - 2016-02-15
 
 * Fix bug with fixing selection in `setContent`
 * BREAKING -- `onShareUrl` is called with `{block, url}` (block id, url to share) now.
-* BREAKING -- Ed is now responsible for creating and inserting the placeholder before hitting `.onShareUrl`.
+* BREAKING -- Ed is now responsible for creating and inserting the placeholder before hitting `.onShareUrl` ([demo](./demo/demo.js)).
 
 
 ## 0.0.40 - 2016-02-12

@@ -5,17 +5,52 @@ var packageWidgets = require('./package.json').widgets
 
 var __DEV = (process.env.DEV === 'true')
 var __DEMO = (process.env.DEMO === 'true')
+var __KARMA = (process.env.KARMA === 'true')
+
 
 var entry = {}
 var plugins = []
+var devtool = 'source-map'
+var loaders = [
+  {
+    test: /\.js$/, 
+    loader: 'babel-loader', 
+    include: [
+      path.resolve(__dirname, 'demo'),
+      path.resolve(__dirname, 'src'),
+      path.resolve(__dirname, 'node_modules', 'prosemirror')
+    ]
+  },
+  { test: /\.css$/, loader: 'style?singleton!raw' },
+  { test: /\.json$/, loader: 'json-loader' }
+]
 
 if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
-  entry.ed = './src/index.js'
+  entry.ed = './src/ed.js'
 }
 
-if (!__DEV) {
+if (__KARMA) {
+  entry = './test/index.js'
+  devtool = 'inline-source-map'
+  loaders[0].include.push(path.resolve(__dirname, 'test'))
+}
+
+if (__DEV && !__KARMA) {
+  devtool = 'cheap-module-eval-source-map'
+  entry.test = './test/index.js'
+  loaders.push({
+    test: /\.js$/, 
+    loader: 'mocha-loader!babel-loader',
+    include: [
+      path.resolve(__dirname, 'test')
+    ]
+  })
+}
+
+// Build for publish
+if (!__DEV && !__KARMA) {
   plugins.push(new webpack.optimize.UglifyJsPlugin())
   var copyPatterns = []
 
@@ -43,6 +78,7 @@ if (!__DEV) {
   plugins.push(new CopyWebpackPlugin(copyPatterns))
 }
 
+
 module.exports = {
   entry: entry,
   plugins: plugins,
@@ -54,21 +90,9 @@ module.exports = {
     library: 'TheGridEd'
   },
   debug: __DEV,
-  devtool: (__DEV ? 'cheap-module-eval-source-map' : 'source-map'),
+  devtool: devtool,
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/, 
-        loader: 'babel-loader', 
-        include: [
-          path.resolve(__dirname, 'demo'),
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'node_modules', 'prosemirror')
-        ]
-      },
-      { test: /\.css$/, loader: 'style?singleton!raw' },
-      { test: /\.json$/, loader: 'json-loader' }
-    ]
+    loaders: loaders
   },
   resolve: {
     extensions: ['', '.js', '.json', '.css']
