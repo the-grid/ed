@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.5.2",
-    "babel-eslint": "^4.1.8",
+    "babel-eslint": "^5.0.0",
     "babel-loader": "^6.2.2",
     "babel-preset-es2015": "^6.5.0",
     "bob-ross-lipsum": "^1.1.1",
