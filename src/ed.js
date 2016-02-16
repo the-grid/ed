@@ -136,6 +136,8 @@ export default class Ed {
     let content = this.getContent()
     // MUTATION
     content.splice(index, 1, block)
+    this._content = content
+    // Render
     this.setContent(content)
     // this.onChange()
   }
@@ -148,7 +150,6 @@ export default class Ed {
       this._content = mergeContent(this._content, content)
     }
     let doc = GridToDoc(this._content)
-    // TODO merge placeholders
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
@@ -180,9 +181,31 @@ function getItemWithId (array, id) {
 }
 
 function mergeContent (oldContent, newContent) {
-  // TODO make this a little smarter
   // Only add new placeholders and update exiting placeholders
-  return newContent
+  let merged = oldContent.slice()
+  // New placeholders
+  for (let i = 0, len = newContent.length; i < len; i++) {
+    const block = newContent[i]
+    if (block.type === 'placeholder') {
+      const index = getIndexWithId(oldContent, block.id)
+      if (index > -1) {
+        merged.splice(index, 1, block)
+      } else {
+        merged.splice(i, 0, block)
+      }
+    }
+  }
+  // Old placeholders
+  for (let i = 0, len = merged.length; i < len; i++) {
+    const block = merged[i]
+    if (block.type === 'placeholder') {
+      const index = getIndexWithId(newContent, block.id)
+      if (index > -1) {
+        merged.splice(i, 1, newContent[index])
+      }
+    }
+  }
+  return merged
 }
 
 // Can't restore selection to a non-focuable (Media) div
@@ -195,7 +218,7 @@ function fixSelection (selection, doc) {
     index++
   }
   if (!doc.content.content[index]) {
-    return selection
+    return
   }
   // MUTATION
   selection.anchor.path = [index]
