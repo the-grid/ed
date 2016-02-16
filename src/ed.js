@@ -1,4 +1,4 @@
-require('./index.css')
+require('./ed.css')
 require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
