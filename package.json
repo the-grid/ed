@@ -10,10 +10,9 @@
     "build": "npm run clean; webpack",
     "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",
-    "test": "npm run lint && npm run mocha",
+    "test": "npm run lint && npm run karma",
     "lint": "eslint src demo test",
     "lintfix": "eslint src demo test --fix",
-    "mocha": "mocha --compilers js:babel-core/register",
     "karma": "karma start",
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
