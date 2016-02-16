@@ -6,23 +6,24 @@ var webpackConf = require('./webpack.config.js')
 
 module.exports = function (config) {
   var cfg = {
-    browsers: [ 'Chrome' ],
+    browsers: ['Chrome', 'Firefox'],
     files: [
       './test/index.js'
     ],
-    frameworks: [ 'chai', 'mocha' ],
+    frameworks: ['chai', 'mocha'],
     plugins: [
       'karma-chrome-launcher',
       'karma-chai',
+      'karma-firefox-launcher',
       'karma-mocha',
       'karma-mocha-reporter',
       'karma-sourcemap-loader',
       'karma-webpack'
     ],
     preprocessors: {
-      'test/index.js': [ 'webpack', 'sourcemap' ]
+      'test/index.js': ['webpack', 'sourcemap']
     },
-    reporters: [ 'dots', 'mocha' ],
+    reporters: ['dots', 'mocha'],
     singleRun: true,
     webpack: webpackConf,
     webpackMiddleware: {
@@ -37,7 +38,7 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     }
-    cfg.browsers = ['Chrome_travis_ci']
+    cfg.browsers = ['Chrome_travis_ci', 'Firefox']
   }
   
   config.set(cfg)
