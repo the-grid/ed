@@ -121,7 +121,7 @@ export default class Ed {
     // MUTATION
     this._content.splice(index, 1, block)
     this.onChange()
-    
+
     // Trigger remeasure
     this.pm.signal('draw')
   }

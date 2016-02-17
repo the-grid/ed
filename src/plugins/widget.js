@@ -147,7 +147,7 @@ export default class PluginWidget {
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
-    
+
     this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
 

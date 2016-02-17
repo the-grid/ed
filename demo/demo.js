@@ -82,7 +82,7 @@ function onShareUrlDemo (share) {
   const {block, url} = share
   console.log(share)
   console.log('app shares url now and calls ed.setContent() with updates')
-  
+
   simulateProgress(
     function (percent) {
       ed.setContent([{
