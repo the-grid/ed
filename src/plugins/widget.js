@@ -5,6 +5,7 @@
 require('./widget.css')
 
 import _ from '../util/lodash'
+import {UpdateScheduler} from 'prosemirror/src/ui/update'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
@@ -146,13 +147,15 @@ export default class PluginWidget {
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
+    
+    this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
+    this.updater.force()
 
-    this.ed.pm.on('draw', this.debouncedDOMChanged)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
-    this.ed.pm.off('draw', this.debouncedDOMChanged)
+    this.updater.detach()
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 

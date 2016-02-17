@@ -121,6 +121,9 @@ export default class Ed {
     // MUTATION
     this._content.splice(index, 1, block)
     this.onChange()
+    
+    // Trigger remeasure
+    this.pm.signal('draw')
   }
   updatePlaceholderHeights (changes) {
     // Do this in a batch, with one widget remeasure/move
@@ -139,7 +142,6 @@ export default class Ed {
     this._content = content
     // Render
     this.setContent(content)
-    // this.onChange()
   }
   insertBlocks (index, blocks) {
     const content = this.getContent()
@@ -162,6 +164,7 @@ export default class Ed {
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
+    this.pm.flush()
   }
   getContent () {
     let dom = this.pm.content.children
