@@ -1,7 +1,10 @@
 ## dev
 
+## 0.3.0 - 2016-02-16
+
 * `ed.insertBlocks` for file share flow ([demo](./demo/demo.js)).
   (Convenience method: app can still `getContent`, splice blocks, `setContent`.)
+* Tweak merging logic, add tests
 
 ## 0.2.0 - 2016-02-16
 
