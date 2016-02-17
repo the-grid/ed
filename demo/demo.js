@@ -79,9 +79,25 @@ document.getElementById('upload').onclick = function () {
 
 // onShareUrl demo
 function onShareUrlDemo (share) {
-  // const {block, url} = share
+  const {block, url} = share
   console.log(share)
   console.log('app shares url now and calls ed.setContent() with updates')
+
+  setTimeout(function () {
+    ed.setContent([{
+      id: block,
+      type: 'article',
+      metadata: {
+        title: 'Shared article title',
+        description: `Simulated share from ${url}`
+      },
+      cover: {
+        src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+        width: 400,
+        height: 474
+      }
+    }])
+  }, 1000)
 }
 
 // Debug buttons
