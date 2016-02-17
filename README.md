@@ -57,8 +57,9 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     onShareFile: function (index) {
       /* App splices placeholder block(s) and calls ed.setContent() */
     },
-    onShareUrl: function (index, url) {
-      /* App replaces text block with url and calls ed.setContent() */
+    onShareUrl: function ({block, url}) {
+      /* Ed made the placeholder with block id */
+      /* App shares url with given block id */
     }
   })  
 ```
