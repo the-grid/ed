@@ -75,7 +75,7 @@ function onDOMChanged () {
 
 function checkWidget (id, type, rectangle) {
   let widget = this.widgets[id]
-  if (widget && widget.type != type) {
+  if (widget && widget.type !== type) {
     // Remove it
     widget.teardown()
     // Will be overwritten in initializeWidget
