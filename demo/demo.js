@@ -82,22 +82,50 @@ function onShareUrlDemo (share) {
   const {block, url} = share
   console.log(share)
   console.log('app shares url now and calls ed.setContent() with updates')
+  
+  simulateProgress(
+    function (percent) {
+      ed.setContent([{
+        id: block,
+        type: 'placeholder',
+        metadata: {
+          status: `${percent}% sharing... ${url}`
+        }
+      }])
+    },
+    function () {
+      ed.setContent([{
+        id: block,
+        type: 'article',
+        metadata: {
+          title: 'Shared article title',
+          description: `Simulated share from ${url}`
+        },
+        cover: {
+          src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+          width: 400,
+          height: 474
+        }
+      }])
+    }
+  )
+}
 
-  setTimeout(function () {
-    ed.setContent([{
-      id: block,
-      type: 'article',
-      metadata: {
-        title: 'Shared article title',
-        description: `Simulated share from ${url}`
-      },
-      cover: {
-        src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-        width: 400,
-        height: 474
-      }
-    }])
-  }, 1000)
+function simulateProgress (progress, complete) {
+  let percent = 0
+  let animate = function () {
+    percent += 10
+    if (percent < 100) {
+      // Loop animation
+      setTimeout(animate, 250)
+      // Update placeholder status
+      progress(percent)
+    } else {
+      // Change placeholder to article block
+      complete()
+    }
+  }
+  animate()
 }
 
 // Debug buttons
