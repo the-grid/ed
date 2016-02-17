@@ -66,18 +66,10 @@ function makeInputOnChange (index) {
       })
     }
 
-    // Splice placeholder blocks into content
-    const content = ed.getContent()
-    const contentSpliced = arrayInsertAll(content, index, blocks)
-    ed.setContent(contentSpliced)
-
+    // Insert placeholder blocks into content
+    ed.insertBlocks(index, blocks)
     console.log('app uploads files now and calls ed.setContent() with updates')
   }
-}
-function arrayInsertAll (array, index, arrayToInsert) {
-  let before = array.slice(0, index)
-  const after = array.slice(index)
-  return before.concat(arrayToInsert, after)
 }
 
 // File picker debug

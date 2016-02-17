@@ -55,11 +55,14 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       /* App chooses when to call ed.getContent() and save to API */
     },
     onShareFile: function (index) {
-      /* App splices placeholder block(s) and calls ed.setContent() */
+      /* App makes placeholder block(s) and calls ed.insertBlocks(index, blocks) */
+      /* App uploads files and sets status on placeholder blocks with ed.setContent */
+      /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     onShareUrl: function ({block, url}) {
       /* Ed made the placeholder with block id */
       /* App shares url with given block id */
+      /* On share / measurement finishing, app replaces placeholder blocks with ed.setContent */
     }
   })  
 ```
@@ -67,6 +70,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 * You can only call `ed.setContent()` with full content once (or as constructor `initialContent` option).
   * Future calls will only update placeholder blocks.
   * If you need to load new content in, you must make a `new Ed`.
+  * You can call `ed.setContent()` with only the blocks you want to update.
 * `ed.getContent()` takes some processing and should not be done on every change.
 
 Demo: [./demo/demo.js](./demo/demo.js)
