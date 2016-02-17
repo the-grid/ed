@@ -86,7 +86,7 @@ function onShareUrlDemo (share) {
   setTimeout(function(){
     ed.setContent([{
       id: block,
-      type: 'image',
+      type: 'article',
       metadata: {
         title: 'Shared article title',
         description: `Simulated share from ${url}`

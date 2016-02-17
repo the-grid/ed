@@ -17,6 +17,14 @@ const blockMetaSchema = {
     author: true,
     publisher: true
   },
+  article: {
+    title: true,
+    description: true,
+    isBasedOnUrl: true,
+    cover: true,
+    author: true,
+    publisher: true
+  },
   quote: {
     title: false,
     description: false,
