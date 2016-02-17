@@ -74,9 +74,16 @@ function onDOMChanged () {
 }
 
 function checkWidget (id, type, rectangle) {
-  if (this.widgets[id]) {
+  let widget = this.widgets[id]
+  if (widget && widget.type != type) {
+    // Remove it
+    widget.teardown()
+    // Will be overwritten in initializeWidget
+    widget = null
+  }
+  if (widget) {
     // Move it
-    this.widgets[id].move(rectangle)
+    widget.move(rectangle)
   } else {
     // Make it
     this.initializeWidget(id, type, rectangle)
@@ -90,7 +97,8 @@ function initializeWidget (id, type, rectangle) {
 
   this.widgets[id] = new Widget({
     ed: this.ed,
-    id: id,
+    id,
+    type,
     widgetContainer: this.el,
     initialRectangle: rectangle,
     initialBlock: initialBlock
