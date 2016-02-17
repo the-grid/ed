@@ -19,11 +19,11 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 ## todo
 
-* [ ] API communication layer
+* [x] test crucial parts
 * [x] iframe widgets
-* [ ] native widgets
-* [ ] handle image, video, article, quote types
-  * [ ] edit attribution
+* [x] native widgets
+* [x] handle image, video, article, quote types
+  * [x] edit attribution
 * [ ] Integrate into web app
 * [ ] Integrate into mobile apps
 * [ ] Read-only mode
