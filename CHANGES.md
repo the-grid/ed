@@ -1,5 +1,9 @@
 ## dev
 
+## 0.3.1 - 2016-02-16
+
+* Widgets now reinitialize when block type changes.
+
 ## 0.3.0 - 2016-02-16
 
 * `ed.insertBlocks` for file share flow ([demo](./demo/demo.js)).
