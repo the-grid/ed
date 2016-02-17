@@ -1,5 +1,8 @@
 ## dev
 
+* `ed.insertBlocks` for file share flow ([demo](./demo/demo.js)).
+  (Convenience method: app can still `getContent`, splice blocks, `setContent`.)
+
 ## 0.2.0 - 2016-02-16
 
 * Fixed placeholder merging logic: `setContent` can only add placeholders or convert them to real blocks.

@@ -141,6 +141,14 @@ export default class Ed {
     this.setContent(content)
     // this.onChange()
   }
+  insertBlocks (index, blocks) {
+    const content = this.getContent()
+    // MUTATION
+    const newContent = arrayInsertAll(content, index, blocks)
+    this._content = newContent
+    // Render
+    this.setContent(newContent)
+  }
   setContent (content) {
     // Cache the content object that we originally get from the API.
     // We'll need the content and block metadata later, in `get content`.
@@ -178,6 +186,12 @@ function getItemWithId (array, id) {
   let index = getIndexWithId(array, id)
   if (index === -1) return
   return array[index]
+}
+
+function arrayInsertAll (array, index, arrayToInsert) {
+  let before = array.slice(0, index)
+  const after = array.slice(index)
+  return before.concat(arrayToInsert, after)
 }
 
 function mergeContent (oldContent, newContent) {
