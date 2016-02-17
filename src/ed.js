@@ -201,7 +201,7 @@ function mergeContent (oldContent, newContent) {
   for (let i = 0, len = newContent.length; i < len; i++) {
     const block = newContent[i]
     if (block.type === 'placeholder') {
-      const index = getIndexWithId(oldContent, block.id)
+      const index = getIndexWithId(merged, block.id)
       if (index > -1) {
         merged.splice(index, 1, block)
       } else {

@@ -135,4 +135,37 @@ describe('Ed', function () {
     expect(content[2].textContent).to.equal('Text 2')
     expect(content[2].type.name).to.equal('paragraph')
   })
+
+  it('replace multiple placeholders, should correctly merge', function () {
+    ed.replaceBlock(1, {
+      id: '0000',
+      type: 'placeholder'
+    })
+    ed.replaceBlock(2, {
+      id: '0001',
+      type: 'placeholder'
+    })
+    ed.setContent([
+      {
+        id: '0001',
+        type: 'image'
+      },
+      {
+        id: '0000',
+        type: 'image'
+      }
+    ])
+    const content = ed.pm.doc.content.content
+    expect(content.length).to.equal(3)
+    expect(content[0].textContent).to.equal('Title')
+    expect(content[0].type.name).to.equal('heading')
+    expect(content[1].textContent).to.equal('')
+    expect(content[1].type.name).to.equal('media')
+    expect(content[1].attrs.type).to.equal('image')
+    expect(content[1].attrs.id).to.equal('0000')
+    expect(content[2].textContent).to.equal('')
+    expect(content[2].type.name).to.equal('media')
+    expect(content[2].attrs.type).to.equal('image')
+    expect(content[2].attrs.id).to.equal('0001')
+  })
 })
