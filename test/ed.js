@@ -17,13 +17,7 @@ describe('Ed', function () {
       container: mount,
       initialContent: fixture
     })
-    let doneCalled = false
-    ed.pm.on('draw', function () {
-      if (!doneCalled) {
-        doneCalled = true
-        done()
-      }
-    })
+    done()
   })
   afterEach(function () {
     mount.parentNode.removeChild(mount)

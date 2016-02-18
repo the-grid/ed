@@ -34,10 +34,17 @@ export default class Ed {
 
     let pmOptions = {
       place: this.container,
-      autoInput: true,
-      docFormat: 'html',
       schema: GridSchema,
-      commands: commands
+      commands: commands,
+      label: 'the-grid-ed'
+    }
+
+    if (options.initialContent) {
+      this._content = options.initialContent
+      pmOptions.doc = GridToDoc(this._content)
+      console.log(pmOptions.doc)
+    } else {
+      throw new Error('Missing options.initialContent array')
     }
 
     this.pm = new ProseMirror(pmOptions)
@@ -75,12 +82,6 @@ export default class Ed {
         options.onAutosave()
       }, autosaveInterval)
       this.pm.on('change', debouncedAutosave)
-    }
-
-    if (options.initialContent && Array.isArray(options.initialContent)) {
-      this.setContent(options.initialContent)
-    } else {
-      throw new Error('Missing options.initialContent array')
     }
 
     // Share events setup
@@ -152,13 +153,7 @@ export default class Ed {
     this.setContent(newContent)
   }
   setContent (content) {
-    // Cache the content object that we originally get from the API.
-    // We'll need the content and block metadata later, in `get content`.
-    if (!this._content) {
-      this._content = content
-    } else {
-      this._content = mergeContent(this._content, content)
-    }
+    this._content = mergeContent(this._content, content)
     let doc = GridToDoc(this._content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
