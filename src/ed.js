@@ -27,13 +27,13 @@ function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
-    if(!options.initialContent) {
+    if (!options.initialContent) {
       throw new Error('Missing options.initialContent array')
     }
-    if(!options.onChange) {
+    if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
-    
+
     if (!options.container) options.container = document.body
     this.container = options.container
 

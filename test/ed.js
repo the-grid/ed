@@ -19,9 +19,10 @@ describe('Ed', function () {
     afterEach(function () {
       mount.parentNode.removeChild(mount)
     })
+
     it('throws without options.onChange', function () {
       function no_onChange () {
-        new Ed({
+        ed = new Ed({
           container: mount,
           initialContent: fixture,
           onChange: null
@@ -31,7 +32,7 @@ describe('Ed', function () {
     })
     it('throws without options.initialContent', function () {
       function no_initialContent () {
-        new Ed({
+        ed = new Ed({
           container: mount,
           initialContent: null,
           onChange: function () {}
@@ -42,7 +43,6 @@ describe('Ed', function () {
   })
 
   describe('Content mounting and merging', function () {
-
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
@@ -56,7 +56,7 @@ describe('Ed', function () {
     afterEach(function () {
       mount.parentNode.removeChild(mount)
     })
-    
+
     it('on mount it has expected editable html structure', function () {
       const children = ed.pm.content.children
       expect(children.length).to.equal(3)
