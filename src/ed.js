@@ -70,17 +70,23 @@ export default class Ed {
     }
 
     // Events setup
-
-    if (options.onChange) {
-      this.onChange = options.onChange || noop
-      this.pm.on('change', this.onChange)
-    }
+    let debouncedAutosave
     if (options.onAutosave) {
       const autosaveInterval = options.autosaveInterval || 100
-      const debouncedAutosave = _.debounce(function () {
+      debouncedAutosave = _.debounce(function () {
         options.onAutosave()
       }, autosaveInterval)
-      this.pm.on('change', debouncedAutosave)
+    }
+    if (options.onChange) {
+      this.onChange = function () {
+        options.onChange()
+        if (debouncedAutosave) {
+          debouncedAutosave()
+        }
+      }
+      this.pm.on('change', this.onChange)
+    } else {
+      throw new Error('Missing options.onChange')
     }
 
     // Share events setup
