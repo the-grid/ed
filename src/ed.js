@@ -42,7 +42,6 @@ export default class Ed {
     if (options.initialContent) {
       this._content = options.initialContent
       pmOptions.doc = GridToDoc(this._content)
-      console.log(pmOptions.doc)
     } else {
       throw new Error('Missing options.initialContent array')
     }
