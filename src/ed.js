@@ -27,6 +27,13 @@ function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
+    if(!options.initialContent) {
+      throw new Error('Missing options.initialContent array')
+    }
+    if(!options.onChange) {
+      throw new Error('Missing options.onChange')
+    }
+    
     if (!options.container) options.container = document.body
     this.container = options.container
 
@@ -38,13 +45,8 @@ export default class Ed {
       commands: commands,
       label: 'the-grid-ed'
     }
-
-    if (options.initialContent) {
-      this._content = options.initialContent
-      pmOptions.doc = GridToDoc(this._content)
-    } else {
-      throw new Error('Missing options.initialContent array')
-    }
+    this._content = options.initialContent
+    pmOptions.doc = GridToDoc(this._content)
 
     this.pm = new ProseMirror(pmOptions)
 
@@ -69,7 +71,7 @@ export default class Ed {
       this.imgfloConfig = options.imgfloConfig
     }
 
-    // Events setup
+    // Change / autosave events setup
     let debouncedAutosave
     if (options.onAutosave) {
       const autosaveInterval = options.autosaveInterval || 100
@@ -77,17 +79,13 @@ export default class Ed {
         options.onAutosave()
       }, autosaveInterval)
     }
-    if (options.onChange) {
-      this.onChange = function () {
-        options.onChange()
-        if (debouncedAutosave) {
-          debouncedAutosave()
-        }
+    this.onChange = function () {
+      options.onChange()
+      if (debouncedAutosave) {
+        debouncedAutosave()
       }
-      this.pm.on('change', this.onChange)
-    } else {
-      throw new Error('Missing options.onChange')
     }
+    this.pm.on('change', this.onChange)
 
     // Share events setup
     this.onShareFile = options.onShareFile || noop
