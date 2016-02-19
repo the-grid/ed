@@ -114,10 +114,10 @@ function onShareUrlDemo (share) {
 function simulateProgress (progress, complete) {
   let percent = 0
   let animate = function () {
-    percent += 10
+    percent++
     if (percent < 100) {
       // Loop animation
-      setTimeout(animate, 250)
+      requestAnimationFrame(animate)
       // Update placeholder status
       progress(percent)
     } else {

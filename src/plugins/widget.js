@@ -132,7 +132,7 @@ function onIframeMessage (message) {
   }
 }
 
-function updatePlaceholder () {
+function updatePlaceholders () {
   const ids = Object.keys(this.widgets)
   for (let i = 0, length = ids.length; i < length; i++) {
     const id = ids[i]
@@ -154,7 +154,7 @@ export default class PluginWidget {
     this.checkWidget = checkWidget.bind(this)
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
-    this.updatePlaceholder = updatePlaceholder.bind(this)
+    this.updatePlaceholders = updatePlaceholders.bind(this)
 
     this.ed = ed
     this.widgets = {}
@@ -164,13 +164,13 @@ export default class PluginWidget {
 
     this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
-    this.ed.pm.on('ed.content.changed', this.updatePlaceholder)
+    this.ed.pm.on('ed.content.changed', this.updatePlaceholders)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
     this.updater.detach()
-    this.ed.pm.off('ed.content.changed', this.updatePlaceholder)
+    this.ed.pm.off('ed.content.changed', this.updatePlaceholders)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 
