@@ -9,12 +9,16 @@ const Components = {
   attribution: AttributionEditor
 }
 
+
 export default class WidgetReact extends WidgetBase {
   static type () { return 'react' }
   constructor (options) {
     super(options)
     this.onChange = onChange.bind(this)
 
+    this.mount()
+  }
+  mount () {
     const props = {
       initialBlock: this.initialBlock,
       onChange: this.onChange,

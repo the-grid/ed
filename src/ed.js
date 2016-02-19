@@ -164,7 +164,8 @@ export default class Ed {
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
-    this.pm.flush()
+    // Let widgets know to update
+    this.pm.signal('ed.content.changed')
   }
   getContent () {
     let dom = this.pm.content.children

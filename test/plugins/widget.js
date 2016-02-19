@@ -42,7 +42,7 @@ describe('PluginWidget', function () {
       expect(content[1].attrs.id).to.equal('0000')
       expect(content[1].attrs.type).to.equal('placeholder')
     })
-     
+
     it('has mounted widget', function () {
       const widget = PluginWidget.widgets['0000']
       expect(widget).to.exist
@@ -67,20 +67,20 @@ describe('PluginWidget', function () {
         done()
       }, 100)
     })
-    
+
     it('changes widget type', function (done) {
       ed.setContent([{
         id: '0000',
         type: 'image'
       }])
-      
+
       // PM change
       const content = ed.pm.doc.content.content
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
       expect(content[1].attrs.id).to.equal('0000')
       expect(content[1].attrs.type).to.equal('image')
-      
+
       // Widget switch
       setTimeout(function () {
         const widget = PluginWidget.widgets['0000']
