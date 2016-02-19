@@ -7,7 +7,7 @@ import {Media} from './media'
 
 // These schema modificaions change which nodes can go where
 class EdDoc extends Doc {
-  get contains() { return 'ed_toplevel' }
+  get contains () { return 'ed_toplevel' }
 }
 
 class EdHeading extends Heading {
