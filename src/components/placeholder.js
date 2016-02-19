@@ -1,7 +1,7 @@
 require('./placeholder.css')
 
 import {createElement as el} from 'react'
-import LinearProgress from 'material-ui/lib/linear-progress';
+import LinearProgress from 'material-ui/lib/linear-progress'
 
 
 export default function Placeholder (props) {
