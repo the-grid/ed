@@ -72,6 +72,12 @@ function onDOMChanged () {
     // Will trigger a redraw / this onDOMChanged again
     this.ed.updatePlaceholderHeights(heightChanges)
   }
+
+  // Signal widgets initialized if first
+  if (!this.initialized) {
+    this.initialized = true
+    this.ed.pm.signal('ed.plugin.widget.initialized')
+  }
 }
 
 function checkWidget (id, type, rectangle) {
@@ -104,6 +110,8 @@ function initializeWidget (id, type, rectangle) {
     initialRectangle: rectangle,
     initialBlock: initialBlock
   })
+
+  this.ed.pm.signal('ed.plugin.widget.one.initialized', id)
 }
 
 function onIframeMessage (message) {
@@ -155,6 +163,8 @@ export default class PluginWidget {
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
     this.updatePlaceholders = updatePlaceholders.bind(this)
+
+    this.initialized = false
 
     this.ed = ed
     this.widgets = {}
