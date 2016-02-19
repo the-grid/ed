@@ -1,5 +1,7 @@
 ## dev
 
+## 0.3.2 - 2016-02-19
+
 * PM is initialized with initialContent (simplifies constructor and tests)
 * FIX -- Metadata changes also bounce onAutosave
 * Reenable autoinput rules: >, #, ##, ###, *, 1.
