@@ -5,6 +5,7 @@
 require('./widget.css')
 
 import _ from '../util/lodash'
+import {UpdateScheduler} from 'prosemirror/src/ui/update'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
@@ -71,6 +72,12 @@ function onDOMChanged () {
     // Will trigger a redraw / this onDOMChanged again
     this.ed.updatePlaceholderHeights(heightChanges)
   }
+
+  // Signal widgets initialized if first
+  if (!this.initialized) {
+    this.initialized = true
+    this.ed.pm.signal('ed.plugin.widget.initialized')
+  }
 }
 
 function checkWidget (id, type, rectangle) {
@@ -103,6 +110,8 @@ function initializeWidget (id, type, rectangle) {
     initialRectangle: rectangle,
     initialBlock: initialBlock
   })
+
+  this.ed.pm.signal('ed.plugin.widget.one.initialized', id)
 }
 
 function onIframeMessage (message) {
@@ -131,6 +140,19 @@ function onIframeMessage (message) {
   }
 }
 
+function updatePlaceholders () {
+  const ids = Object.keys(this.widgets)
+  for (let i = 0, length = ids.length; i < length; i++) {
+    const id = ids[i]
+    const widget = this.widgets[ids[i]]
+    if (widget.type === 'placeholder') {
+      const block = this.ed.getBlock(id)
+      widget.initialBlock = block
+      widget.mount()
+    }
+  }
+}
+
 // The plugin
 
 export default class PluginWidget {
@@ -140,6 +162,9 @@ export default class PluginWidget {
     this.checkWidget = checkWidget.bind(this)
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
+    this.updatePlaceholders = updatePlaceholders.bind(this)
+
+    this.initialized = false
 
     this.ed = ed
     this.widgets = {}
@@ -147,12 +172,15 @@ export default class PluginWidget {
     this.el.className = 'EdPlugins-Widgets'
     this.ed.pluginContainer.appendChild(this.el)
 
-    this.ed.pm.on('draw', this.debouncedDOMChanged)
+    this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
+    this.updater.force()
+    this.ed.pm.on('ed.content.changed', this.updatePlaceholders)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
-    this.ed.pm.off('draw', this.debouncedDOMChanged)
+    this.updater.detach()
+    this.ed.pm.off('ed.content.changed', this.updatePlaceholders)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 

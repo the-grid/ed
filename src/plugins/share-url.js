@@ -20,7 +20,8 @@ function testPrevUrl () {
       id,
       type: 'placeholder',
       metadata: {
-        status: `Sharing... ${prevText}`
+        status: `Sharing... ${prevText}`,
+        percent: 0
       }
     }
     this.ed.replaceBlock(prevIndex, block)

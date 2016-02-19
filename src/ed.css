@@ -44,8 +44,8 @@ img {
   font-size: 1.5rem;
 }
 .ProseMirror-content > * {
-  margin: 0px;
-  padding: 1rem 0px;
+  margin: 2rem 0px;
+  padding: 0px;
 }
 .ProseMirror-content > h1 {
   font-size: 250%;

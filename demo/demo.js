@@ -68,6 +68,29 @@ function makeInputOnChange (index) {
 
     // Insert placeholder blocks into content
     ed.insertBlocks(index, blocks)
+
+    simulateProgress(
+      function (percent) {
+        const updatedBlocks = blocks.map(function (block) {
+          block.metadata.progress = percent
+          return block
+        })
+        ed.setContent(updatedBlocks)
+      },
+      function () {
+        const updatedBlocks = blocks.map(function (block) {
+          block.type = 'image'
+          block.cover = {
+            src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+            width: 400,
+            height: 474
+          }
+          return block
+        })
+        ed.setContent(updatedBlocks)
+      }
+    )
+
     console.log('app uploads files now and calls ed.setContent() with updates')
   }
 }
@@ -83,21 +106,50 @@ function onShareUrlDemo (share) {
   console.log(share)
   console.log('app shares url now and calls ed.setContent() with updates')
 
-  setTimeout(function () {
-    ed.setContent([{
-      id: block,
-      type: 'article',
-      metadata: {
-        title: 'Shared article title',
-        description: `Simulated share from ${url}`
-      },
-      cover: {
-        src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-        width: 400,
-        height: 474
-      }
-    }])
-  }, 1000)
+  simulateProgress(
+    function (percent) {
+      ed.setContent([{
+        id: block,
+        type: 'placeholder',
+        metadata: {
+          status: `Sharing... ${url} ${percent}%`,
+          progress: percent
+        }
+      }])
+    },
+    function () {
+      ed.setContent([{
+        id: block,
+        type: 'article',
+        metadata: {
+          title: 'Shared article title',
+          description: `Simulated share from ${url}`
+        },
+        cover: {
+          src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+          width: 400,
+          height: 474
+        }
+      }])
+    }
+  )
+}
+
+function simulateProgress (progress, complete) {
+  let percent = 0
+  let animate = function () {
+    percent++
+    if (percent < 100) {
+      // Loop animation
+      requestAnimationFrame(animate)
+      // Update placeholder status
+      progress(percent)
+    } else {
+      // Change placeholder to article block
+      complete()
+    }
+  }
+  animate()
 }
 
 // Debug buttons

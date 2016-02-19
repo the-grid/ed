@@ -3,15 +3,17 @@ require('./media.css')
 import {Block, Attribute} from 'prosemirror/src/model'
 
 export class Media extends Block {
-  static get kinds () { return 'block' }
+  static get kinds () { return 'ed_toplevel' }
   get isBlock () { return true }
   get locked () { return true }
   get contains () { return null }
   get canBeEmpty () { return true }
+  get draggable () { return true }
   get attrs () {
     return {
       id: new Attribute(),
-      type: new Attribute()
+      type: new Attribute(),
+      height: new Attribute({default: 50})
     }
   }
 }
@@ -31,7 +33,7 @@ Media.register('parseDOM', 'div', {
   }
 })
 Media.prototype.serializeDOM = (node, s) => {
-  const {id, type} = node.attrs
+  const {id, type, height} = node.attrs
   if (!id) {
     throw new Error('Can not serialize Media div without id')
   }
@@ -40,10 +42,11 @@ Media.prototype.serializeDOM = (node, s) => {
   }
   return s.elt('div',
     {
-      'class': 'EdSchemaMedia',
+      class: 'EdSchemaMedia',
       'grid-id': id,
       'grid-type': type,
-      'contenteditable': 'false'
+      style: `height: ${height};`,
+      contenteditable: 'false'
     }
   )
 }

@@ -12,7 +12,7 @@ import imgflo from 'imgflo-url'
 export default function Image (props, context) {
   let {src} = props
   const {width, height} = props
-  if (context.imgfloConfig) {
+  if (context && context.imgfloConfig) {
     const params = {
       input: src,
       width: getSize(width, height)
@@ -31,11 +31,14 @@ Image.contextTypes = {
 
 // Proxy via imgflo with width multiple of 360
 function getSize (width, height) {
-  let size = 360
+  let size = width || 360
+  if (width && (width >= 360)) {
+    size = 360
+  }
   if (width && (width >= 720)) {
     size = 720
   }
-  if (height && height > width) {
+  if (height && height > width && (width >= 360)) {
     size = 360
   }
   return size

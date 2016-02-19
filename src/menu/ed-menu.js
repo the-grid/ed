@@ -1,4 +1,6 @@
-import {MenuCommandGroup, Dropdown, inlineGroup, blockGroup, historyGroup} from 'prosemirror/src/menu/menu'
+import {MenuCommandGroup, Dropdown,
+  inlineGroup, blockGroup,
+  historyGroup} from 'prosemirror/src/menu/menu'
 
 const textblockMenu = new Dropdown(
   {

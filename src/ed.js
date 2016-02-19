@@ -9,24 +9,32 @@ import commands from './commands/index'
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
-import 'prosemirror/src/collab'
+// import 'prosemirror/src/collab'
 
 import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
+// import './inputrules/autoinput'
+// import './edit/schema-commands'
+
 import {isMediaType} from './convert/types'
 import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
-// import './inputrules/autoinput'
-// import './edit/schema-commands'
 import ShareUrl from './plugins/share-url'
 
 function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
+    if (!options.initialContent) {
+      throw new Error('Missing options.initialContent array')
+    }
+    if (!options.onChange) {
+      throw new Error('Missing options.onChange')
+    }
+
     if (!options.container) options.container = document.body
     this.container = options.container
 
@@ -35,10 +43,12 @@ export default class Ed {
     let pmOptions = {
       place: this.container,
       autoInput: true,
-      docFormat: 'html',
       schema: GridSchema,
-      commands: commands
+      commands: commands,
+      label: 'the-grid-ed'
     }
+    this._content = options.initialContent
+    pmOptions.doc = GridToDoc(this._content)
 
     this.pm = new ProseMirror(pmOptions)
 
@@ -63,25 +73,21 @@ export default class Ed {
       this.imgfloConfig = options.imgfloConfig
     }
 
-    // Events setup
-
-    if (options.onChange) {
-      this.onChange = options.onChange || noop
-      this.pm.on('change', this.onChange)
-    }
+    // Change / autosave events setup
+    let debouncedAutosave
     if (options.onAutosave) {
       const autosaveInterval = options.autosaveInterval || 100
-      const debouncedAutosave = _.debounce(function () {
+      debouncedAutosave = _.debounce(function () {
         options.onAutosave()
       }, autosaveInterval)
-      this.pm.on('change', debouncedAutosave)
     }
-
-    if (options.initialContent && Array.isArray(options.initialContent)) {
-      this.setContent(options.initialContent)
-    } else {
-      throw new Error('Missing options.initialContent array')
+    this.onChange = function () {
+      options.onChange()
+      if (debouncedAutosave) {
+        debouncedAutosave()
+      }
     }
+    this.pm.on('change', this.onChange)
 
     // Share events setup
     this.onShareFile = options.onShareFile || noop
@@ -121,6 +127,9 @@ export default class Ed {
     // MUTATION
     this._content.splice(index, 1, block)
     this.onChange()
+
+    // Trigger remeasure
+    this.pm.signal('draw')
   }
   updatePlaceholderHeights (changes) {
     // Do this in a batch, with one widget remeasure/move
@@ -139,7 +148,6 @@ export default class Ed {
     this._content = content
     // Render
     this.setContent(content)
-    // this.onChange()
   }
   insertBlocks (index, blocks) {
     const content = this.getContent()
@@ -150,18 +158,14 @@ export default class Ed {
     this.setContent(newContent)
   }
   setContent (content) {
-    // Cache the content object that we originally get from the API.
-    // We'll need the content and block metadata later, in `get content`.
-    if (!this._content) {
-      this._content = content
-    } else {
-      this._content = mergeContent(this._content, content)
-    }
+    this._content = mergeContent(this._content, content)
     let doc = GridToDoc(this._content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
+    // Let widgets know to update
+    this.pm.signal('ed.content.changed')
   }
   getContent () {
     let dom = this.pm.content.children

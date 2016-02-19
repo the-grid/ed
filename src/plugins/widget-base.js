@@ -9,7 +9,7 @@ export default class WidgetBase {
     this.top = 0
     this.left = 0
     this.width = 1
-    this.height = 1
+    this.height = 50
 
     // Base div container
     this.el = document.createElement('div')
@@ -53,9 +53,9 @@ export default class WidgetBase {
     }
   }
   getHeight () {
-    if (this.el.firstChild) {
+    if (this.el && this.el.firstChild) {
       return this.el.firstChild.scrollHeight
     }
-    return 25
+    return this.height
   }
 }
