@@ -68,6 +68,29 @@ function makeInputOnChange (index) {
 
     // Insert placeholder blocks into content
     ed.insertBlocks(index, blocks)
+
+    simulateProgress(
+      function (percent) {
+        const updatedBlocks = blocks.map(function (block) {
+          block.metadata.progress = percent
+          return block
+        })
+        ed.setContent(updatedBlocks)
+      },
+      function () {
+        const updatedBlocks = blocks.map(function (block) {
+          block.type = 'image'
+          block.cover = {
+            src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+            width: 400,
+            height: 474
+          }
+          return block
+        })
+        ed.setContent(updatedBlocks)
+      }
+    )
+
     console.log('app uploads files now and calls ed.setContent() with updates')
   }
 }
