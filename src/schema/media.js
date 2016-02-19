@@ -3,11 +3,12 @@ require('./media.css')
 import {Block, Attribute} from 'prosemirror/src/model'
 
 export class Media extends Block {
-  static get kinds () { return 'block' }
+  static get kinds () { return 'ed_toplevel' }
   get isBlock () { return true }
   get locked () { return true }
   get contains () { return null }
   get canBeEmpty () { return true }
+  get draggable () { return true }
   get attrs () {
     return {
       id: new Attribute(),
