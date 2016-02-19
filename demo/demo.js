@@ -89,7 +89,8 @@ function onShareUrlDemo (share) {
         id: block,
         type: 'placeholder',
         metadata: {
-          status: `${percent}% sharing... ${url}`
+          status: `Sharing... ${url} ${percent}%`,
+          progress: percent
         }
       }])
     },

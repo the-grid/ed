@@ -5,6 +5,7 @@
 * Reenable autoinput rules: >, #, ##, ###, *, 1.
 * Tighten schema for types that can only be top-level blocks: media, heading, and blockquote.
   This means those commands don't show in menus when they shouldn't.
+* Placeholder blocks can now have `metadata.progress` (0-100) for a progress bar.
 
 ## 0.3.1 - 2016-02-16
 

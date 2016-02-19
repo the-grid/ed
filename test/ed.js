@@ -54,6 +54,7 @@ describe('Ed', function () {
       done()
     })
     afterEach(function () {
+      ed.teardown()
       mount.parentNode.removeChild(mount)
     })
 
