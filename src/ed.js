@@ -9,18 +9,19 @@ import commands from './commands/index'
 import 'prosemirror/src/inputrules/autoinput'
 import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
-import 'prosemirror/src/collab'
+// import 'prosemirror/src/collab'
 
 import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
+// import './inputrules/autoinput'
+// import './edit/schema-commands'
+
 import {isMediaType} from './convert/types'
 import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
-// import './inputrules/autoinput'
-// import './edit/schema-commands'
 import ShareUrl from './plugins/share-url'
 
 function noop () { /* noop */ }
@@ -41,6 +42,7 @@ export default class Ed {
 
     let pmOptions = {
       place: this.container,
+      autoInput: true,
       schema: GridSchema,
       commands: commands,
       label: 'the-grid-ed'
