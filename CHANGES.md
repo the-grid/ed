@@ -1,5 +1,7 @@
 ## dev
 
+## 0.4.0 - 2016-02-20
+
 * NEW -- These changes make it possible for Ed to be responsible for all content array manipulation
   * `ed.insertPlaceholders(index, count)` will insert placeholders and return an array or new block ids
   * `ed.updatePlaceholder(id, status, progress)` will update a placeholder widget (`progress` is optional, 0-100)
