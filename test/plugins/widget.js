@@ -66,6 +66,32 @@ describe('PluginWidget', function () {
       }])
     })
 
+    it('updates widget props via setContent', function (done) {
+      ed.pm.on('ed.content.changed', function () {
+        const widget = PluginWidget.widgets['0000']
+        expect(widget.type).to.equal('placeholder')
+        expect(widget.el.textContent).to.equal('Status changed')
+        done()
+      })
+      ed.setContent([{
+        id: '0000',
+        type: 'placeholder',
+        metadata: {
+          status: 'Status changed'
+        }
+      }])
+    })
+
+    it('updates widget props via updatePlaceholder', function (done) {
+      ed.pm.on('ed.content.changed', function () {
+        const widget = PluginWidget.widgets['0000']
+        expect(widget.type).to.equal('placeholder')
+        expect(widget.el.textContent).to.equal('Status changed')
+        done()
+      })
+      ed.updatePlaceholder('0000', 'Status changed')
+    })
+
     it('changes widget type via setContent', function (done) {
       // Widget change is async
       ed.pm.on('ed.plugin.widget.one.initialized', function (id) {
