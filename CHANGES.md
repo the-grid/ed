@@ -7,6 +7,7 @@
 * Reenable autoinput rules: >, #, ##, ###, *, 1.
 * Tighten schema for types that can only be top-level blocks: media, heading, and blockquote.
   This means those commands don't show in menus when they shouldn't.
+  Also, HTML paste goes through same schema for sanitization.
 * NEW -- Placeholder blocks can now have `metadata.progress` (0-100) for a progress bar.
 * Couple `ed.plugin.widget` events to make tests more solid.
 
