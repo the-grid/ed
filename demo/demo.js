@@ -54,44 +54,42 @@ function makeInputOnChange (index) {
 
     // Make placeholder blocks
     const input = event.target
-    let blocks = []
+    let names = []
     for (let i = 0, len = input.files.length; i < len; i++) {
       let file = input.files[i]
-      blocks.push({
-        id: uuid.v4(),
-        type: 'placeholder',
-        metadata: {
-          status: `Uploading... ${file.name}`
-        }
-      })
+      names.push(file.name)
     }
 
     // Insert placeholder blocks into content
-    ed.insertBlocks(index, blocks)
+    const ids = ed.insertPlaceholders(index, names.length)
+
+    console.log('app uploads files now and calls ed.updatePlaceholder with updates')
 
     simulateProgress(
       function (percent) {
-        const updatedBlocks = blocks.map(function (block) {
-          block.metadata.progress = percent
-          return block
+        ids.forEach(function (id, index) {
+          let status = `${percent}% done uploading ${names[index]}`
+          ed.updatePlaceholder(id, status, percent)
         })
-        ed.setContent(updatedBlocks)
       },
       function () {
-        const updatedBlocks = blocks.map(function (block) {
-          block.type = 'image'
-          block.cover = {
-            src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-            width: 400,
-            height: 474
+        const updatedBlocks = ids.map(function (id, index) {
+          return {
+            id,
+            type: 'image',
+            metadata: {
+              title: names[index]
+            },
+            cover: {
+              src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+              width: 400,
+              height: 474
+            }
           }
-          return block
         })
         ed.setContent(updatedBlocks)
       }
     )
-
-    console.log('app uploads files now and calls ed.setContent() with updates')
   }
 }
 
@@ -108,14 +106,8 @@ function onShareUrlDemo (share) {
 
   simulateProgress(
     function (percent) {
-      ed.setContent([{
-        id: block,
-        type: 'placeholder',
-        metadata: {
-          status: `Sharing... ${url} ${percent}%`,
-          progress: percent
-        }
-      }])
+      const status = `${percent}% done sharing ${url}`
+      ed.updatePlaceholder(block, status, percent)
     },
     function () {
       ed.setContent([{
