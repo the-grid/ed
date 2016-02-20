@@ -173,7 +173,7 @@ export default class Ed {
   insertPlaceholders (index, count) {
     let toInsert = []
     let ids = []
-    for (let i = 0, length = count; i<length; i++) {
+    for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
       toInsert.push({

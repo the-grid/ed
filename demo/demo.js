@@ -2,7 +2,6 @@
 
 import Ed from '../src/ed'
 import fixture from './fixture'
-import uuid from 'uuid'
 
 let ed
 const content = fixture.content
