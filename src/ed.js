@@ -3,6 +3,7 @@ require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
+import uuid from 'uuid'
 
 import commands from './commands/index'
 
@@ -156,6 +157,8 @@ export default class Ed {
     this._content = newContent
     // Render
     this.setContent(newContent)
+    // Signal
+    this.onChange()
   }
   setContent (content) {
     this._content = mergeContent(this._content, content)
@@ -164,6 +167,29 @@ export default class Ed {
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
+    // Let widgets know to update
+    this.pm.signal('ed.content.changed')
+  }
+  insertPlaceholders (index, count) {
+    let toInsert = []
+    let ids = []
+    for (let i = 0, length = count; i<length; i++) {
+      const id = uuid.v4()
+      ids.push(id)
+      toInsert.push({
+        id,
+        type: 'placeholder',
+        metadata: {}
+      })
+    }
+    this.insertBlocks(index, toInsert)
+    return ids
+  }
+  updatePlaceholder (id, status, progress) {
+    let block = this.getBlock(id)
+    // Mutation
+    if (status != null) block.metadata.status = status
+    if (progress != null) block.metadata.progress = progress
     // Let widgets know to update
     this.pm.signal('ed.content.changed')
   }

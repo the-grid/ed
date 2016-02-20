@@ -129,6 +129,27 @@ describe('Ed', function () {
       expect(content[4].type.name).to.equal('paragraph')
     })
 
+    it('inject placeholder blocks via insertPlaceholders', function () {
+      const ids = ed.insertPlaceholders(1, 2)
+      expect(ids.length).to.equal(2)
+      const content = ed.pm.doc.content.content
+      expect(content.length).to.equal(5)
+      expect(content[0].textContent).to.equal('Title')
+      expect(content[0].type.name).to.equal('heading')
+      expect(content[1].textContent).to.equal('')
+      expect(content[1].type.name).to.equal('media')
+      expect(content[1].attrs.id.length).to.equal(36)
+      expect(content[1].attrs.type).to.equal('placeholder')
+      expect(content[2].textContent).to.equal('')
+      expect(content[2].type.name).to.equal('media')
+      expect(content[2].attrs.id.length).to.equal(36)
+      expect(content[2].attrs.type).to.equal('placeholder')
+      expect(content[3].textContent).to.equal('Text 1')
+      expect(content[3].type.name).to.equal('paragraph')
+      expect(content[4].textContent).to.equal('Text 2')
+      expect(content[4].type.name).to.equal('paragraph')
+    })
+
     it('replace text with placeholder block', function () {
       ed.replaceBlock(1, {
         id: '0000',
