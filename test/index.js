@@ -1,4 +1,5 @@
 import './ed'
 import './components/image'
+import './plugins/tap-add-text'
 import './plugins/widget'
 import './schema/block-meta'
