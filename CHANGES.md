@@ -1,5 +1,7 @@
 ## dev
 
+## 0.4.1 - 2016-02-22
+
 * NEW -- tap under PM content to add and focus a new text block
 
 ## 0.4.0 - 2016-02-20
