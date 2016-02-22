@@ -1,5 +1,7 @@
 ## dev
 
+* NEW -- tap under PM content to add and focus a new text block
+
 ## 0.4.0 - 2016-02-20
 
 * NEW -- These changes make it possible for Ed to be responsible for all content array manipulation
