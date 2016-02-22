@@ -3,9 +3,8 @@
  * On tap add and focus new paragraph to end.
  */
 
-import {dispatchKey} from 'prosemirror/src/edit/input'
-import {TextSelection} from 'prosemirror/src/edit/selection'
 import {Pos} from 'prosemirror/src/model/pos'
+import {TextSelection} from 'prosemirror/src/edit/selection'
 
 function addText () {
   const size = this.ed.pm.doc.size
