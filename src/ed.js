@@ -24,6 +24,7 @@ import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 import ShareUrl from './plugins/share-url'
+import TapAddText from './plugins/tap-add-text'
 
 function noop () { /* noop */ }
 
@@ -102,7 +103,7 @@ export default class Ed {
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget, ShareUrl]
+    let plugins = [PluginWidget, ShareUrl, TapAddText]
     this.plugins = plugins.map((Plugin) => new Plugin(this))
   }
   teardown () {
