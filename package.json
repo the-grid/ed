@@ -31,7 +31,7 @@
     "imgflo-url": "^1.1.0",
     "lodash.debounce": "^4.0.3",
     "material-ui": "^0.14.4",
-    "prosemirror": "^0.3.0",
+    "prosemirror": "^0.4.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-tap-event-plugin": "^0.2.2",
