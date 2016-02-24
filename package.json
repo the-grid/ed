@@ -64,14 +64,14 @@
     "karma-cli": "^0.1.2",
     "karma-firefox-launcher": "^0.1.7",
     "karma-mocha": "^0.2.2",
-    "karma-mocha-reporter": "^1.2.0",
+    "karma-mocha-reporter": "^1.2.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
     "mocha-loader": "^0.7.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.13",
+    "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
 }
