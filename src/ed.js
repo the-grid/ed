@@ -149,7 +149,7 @@ export default class Ed {
     content.splice(index, 1, block)
     this._content = content
     // Render
-    this.setContent(content)
+    this.setContent(content, false)
   }
   insertBlocks (index, blocks) {
     const content = this.getContent()
@@ -157,12 +157,16 @@ export default class Ed {
     const newContent = arrayInsertAll(content, index, blocks)
     this._content = newContent
     // Render
-    this.setContent(newContent)
+    this.setContent(newContent, false)
     // Signal
     this.onChange()
   }
-  setContent (content) {
-    this._content = mergeContent(this._content, content)
+  setContent (content, needsMerge = true) {
+    if (needsMerge) {
+      this._content = mergeContent(this.getContent(), content)
+    } else {
+      this._content = content
+    }
     let doc = GridToDoc(this._content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
