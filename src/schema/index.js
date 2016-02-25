@@ -1,12 +1,12 @@
 import {defaultSchema, Schema,
   Doc, Heading, BlockQuote, Paragraph,
-  BulletList, OrderedList} from 'prosemirror/src/model'
+  BulletList, OrderedList, ListItem} from 'prosemirror/src/model'
 import {NodeKind} from 'prosemirror/src/model/schema'
 
 import {Media} from './media'
 
 export const NodeKindTop = new NodeKind('ed_toplevel')
-const NodeKindTopOrBlock = new NodeKind('ed_toplevel_or_block', NodeKindTop, NodeKind.block)
+const NodeKindTopOrBlock = new NodeKind('ed_block', NodeKindTop)
 
 // These schema modificaions change which nodes can go where
 class EdDoc extends Doc {
@@ -22,6 +22,7 @@ class EdHeading extends Heading {
 
 class EdBlockQuote extends BlockQuote {
   get kind () { return NodeKindTop }
+  get contains () { return NodeKindTopOrBlock }
 }
 
 class EdParagraph extends Paragraph {
@@ -36,6 +37,10 @@ class EdOrderedList extends OrderedList {
   get kind () { return NodeKindTopOrBlock }
 }
 
+class EdListItem extends ListItem {
+  get contains () { return NodeKindTopOrBlock }
+}
+
 // Extend default schema with custom types
 let spec = defaultSchema.spec
 spec = spec.update({
@@ -45,6 +50,7 @@ spec = spec.update({
   paragraph: EdParagraph,
   bullet_list: EdBulletList,
   ordered_list: EdOrderedList,
+  list_item: EdListItem,
   media: Media,
   code_block: null,
   horizontal_rule: null

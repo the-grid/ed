@@ -573,9 +573,15 @@ let post = {
       "id": "abc-00000000-p",
       "type": "text",
       "html": `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
-      "metadata": {}
+      "metadata": {"starred": true}
     },
     imageCole,
+    {
+      "id": "abc-00000000-blockquote",
+      "type": "blockquote",
+      "html": `<blockquote>${getHappyLittlePhrase()}</blockquote>`,
+      "metadata": {}
+    },
     {
       "id": "uuid-broken-00",
       "type": undefined
