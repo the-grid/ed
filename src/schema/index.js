@@ -7,7 +7,6 @@ import {Media} from './media'
 
 export const NodeKindTop = new NodeKind('ed_toplevel')
 const NodeKindTopOrBlock = new NodeKind('ed_block', NodeKindTop)
-const NodeKindParagraph = new NodeKind('ed_para', NodeKindTop)
 
 // These schema modificaions change which nodes can go where
 class EdDoc extends Doc {
@@ -23,11 +22,11 @@ class EdHeading extends Heading {
 
 class EdBlockQuote extends BlockQuote {
   get kind () { return NodeKindTop }
-  get contains () { return NodeKindParagraph }
+  get contains () { return NodeKindTopOrBlock }
 }
 
 class EdParagraph extends Paragraph {
-  get kind () { return NodeKindParagraph }
+  get kind () { return NodeKindTopOrBlock }
 }
 
 class EdBulletList extends BulletList {
@@ -39,7 +38,7 @@ class EdOrderedList extends OrderedList {
 }
 
 class EdListItem extends ListItem {
-  get contains () { return NodeKindParagraph }
+  get contains () { return NodeKindTopOrBlock }
 }
 
 // Extend default schema with custom types
