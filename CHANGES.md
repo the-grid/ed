@@ -1,5 +1,10 @@
 ## dev
 
+## 0.4.2 - 2016-02-25
+
+* [ProseMirror 0.4.0](https://discuss.prosemirror.net/t/release-0-4-0/195)
+* FIX -- `setContent` could merge with outdated cached version of content (#72)
+
 ## 0.4.1 - 2016-02-22
 
 * NEW -- tap under PM content to add and focus a new text block
