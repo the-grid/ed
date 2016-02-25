@@ -6,8 +6,7 @@ import {NodeKind} from 'prosemirror/src/model/schema'
 import {Media} from './media'
 
 export const NodeKindTop = new NodeKind('ed_toplevel')
-const NodeKindTopOrBlock = new NodeKind('ed_toplevel_or_block', NodeKindTop)
-NodeKindTopOrBlock.supers[NodeKind.block.id] = true
+const NodeKindTopOrBlock = new NodeKind('ed_toplevel_or_block', NodeKindTop, NodeKind.block)
 
 // These schema modificaions change which nodes can go where
 class EdDoc extends Doc {
