@@ -129,19 +129,6 @@ export default class Ed {
     // MUTATION
     this._content.splice(index, 1, block)
     this.onChange()
-
-    // Trigger remeasure
-    this.pm.signal('draw')
-  }
-  updatePlaceholderHeights (changes) {
-    // Do this in a batch, with one widget remeasure/move
-    for (let i = 0, len = changes.length; i < len; i++) {
-      const change = changes[i]
-      // TODO do this with standard pm.tr interface, not direct DOM
-      const placeholder = document.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
-      placeholder.style.height = change.height + 'px'
-    }
-    this.pm.signal('draw')
   }
   replaceBlock (index, block) {
     let content = this.getContent()
