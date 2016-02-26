@@ -159,20 +159,6 @@ export default class Ed {
     // Signal
     this.onChange()
   }
-  setContent (content) {
-    const merged = mergeContent(this.getContent(), content)
-    this._setMergedContent(merged)
-  }
-  _setMergedContent (content) {
-    this._content = content
-    let doc = GridToDoc(this._content)
-    // Cache selection to restore after DOM update
-    let selection = fixSelection(this.pm.selection, doc)
-    // Populate ProseMirror
-    this.pm.setDoc(doc, selection)
-    // Let widgets know to update
-    this.pm.signal('ed.content.changed')
-  }
   insertPlaceholders (index, count) {
     let toInsert = []
     let ids = []
@@ -200,6 +186,20 @@ export default class Ed {
     let dom = this.pm.content.children
     let doc = this.pm.getContent()
     return DocToGrid(dom, doc, this._content)
+  }
+  setContent (content) {
+    const merged = mergeContent(this.getContent(), content)
+    this._setMergedContent(merged)
+  }
+  _setMergedContent (content) {
+    this._content = content
+    let doc = GridToDoc(this._content)
+    // Cache selection to restore after DOM update
+    let selection = fixSelection(this.pm.selection, doc)
+    // Populate ProseMirror
+    this.pm.setDoc(doc, selection)
+    // Let widgets know to update
+    this.pm.signal('ed.content.changed')
   }
 }
 
