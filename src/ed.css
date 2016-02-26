@@ -89,6 +89,13 @@ blockquote > * {
   padding-top: 0px;
 }
 
+.ProseMirror-menubar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 @media screen and (max-width:550px) {
   .ProseMirror-content {
     font-size: 1.2rem;

@@ -56,7 +56,6 @@ export default class Ed {
 
     if (options.menubar) {
       this.pm.setOption('menuBar', {
-        float: true,
         content: barMenu
       })
     }
