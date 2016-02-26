@@ -72,6 +72,7 @@ img {
 }
 .ProseMirror-content > blockquote:before {
   font-size: 250%;
+  line-height: 100%;
 
   content: '“';
   font-family: Georgia;
@@ -87,6 +88,13 @@ blockquote > * {
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
   margin-top: .3em;
   padding-top: 0px;
+}
+
+.ProseMirror-menubar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
 @media screen and (max-width:550px) {
