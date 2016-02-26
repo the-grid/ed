@@ -147,26 +147,24 @@ export default class Ed {
     let content = this.getContent()
     // MUTATION
     content.splice(index, 1, block)
-    this._content = content
     // Render
-    this.setContent(content, false)
+    this._setMergedContent(content)
   }
   insertBlocks (index, blocks) {
     const content = this.getContent()
     // MUTATION
     const newContent = arrayInsertAll(content, index, blocks)
-    this._content = newContent
     // Render
-    this.setContent(newContent, false)
+    this._setMergedContent(newContent)
     // Signal
     this.onChange()
   }
-  setContent (content, needsMerge = true) {
-    if (needsMerge) {
-      this._content = mergeContent(this.getContent(), content)
-    } else {
-      this._content = content
-    }
+  setContent (content) {
+    const merged = mergeContent(this.getContent(), content)
+    this._setMergedContent(merged)
+  }
+  _setMergedContent (content) {
+    this._content = content
     let doc = GridToDoc(this._content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
