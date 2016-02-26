@@ -1,5 +1,9 @@
 ## dev
 
+## 0.4.3 - 2016-02-26
+
+* :apple: FIX -- menubar sticky by CSS, not JS (#69)
+
 ## 0.4.2 - 2016-02-25
 
 * [ProseMirror 0.4.0](https://discuss.prosemirror.net/t/release-0-4-0/195)
