@@ -1,5 +1,9 @@
 ## dev
 
+## 0.4.4 - 2016-02-27
+
+* :apple: FIX -- in iOS only menubar sticky by `absolute`, not `fixed` (#69 try again)
+
 ## 0.4.3 - 2016-02-26
 
 * :apple: FIX -- menubar sticky by CSS, not JS (#69)
