@@ -36,8 +36,8 @@ img {
 
 .ProseMirror-content {
   border: none;
-  margin: 3rem auto 0;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
   white-space: pre-wrap;
   max-width: 800px;
 
