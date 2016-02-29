@@ -1,6 +1,8 @@
 ## dev
 
-## 0.4.5 - 2016-02-27
+* Tests and logic to convert irregular Grid types (#93)
+
+## 0.4.5 - 2016-02-29
 
 * :apple: Smoother "fixed" menu hack
 

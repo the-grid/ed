@@ -9,11 +9,13 @@ function clone (obj) {
 // Singleton so cut / paste keeps meta
 let apiContentMap = {}
 
+
 export default function (domChildren, doc, lastAPI) {
-  let cloneLast = clone(lastAPI)
-  cloneLast.forEach((block) => {
+  const cloneLast = clone(lastAPI)
+  for (let i = 0, len = cloneLast.length; i < len; i++) {
+    const block = cloneLast[i]
     apiContentMap[block.id] = block
-  })
+  }
 
   let dom = toDOM(doc)
   let currentContent = []
@@ -22,6 +24,7 @@ export default function (domChildren, doc, lastAPI) {
     let child = dom.children[i]
     let id = child.getAttribute('grid-id') || null
     let type = child.getAttribute('grid-type') || child.tagName.toLowerCase()
+    type = translateIrregularGridTypes(type)
     let isMedia = isMediaType(type)
 
     let apiBlock = apiContentMap[id]
@@ -36,4 +39,17 @@ export default function (domChildren, doc, lastAPI) {
   }
 
   return currentContent
+}
+
+
+// Ugh.
+function translateIrregularGridTypes (type) {
+  switch (type) {
+    case 'blockquote':
+      return 'quote'
+    case 'p':
+      return 'text'
+    default:
+      return type
+  }
 }
