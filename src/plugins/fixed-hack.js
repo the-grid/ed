@@ -22,7 +22,7 @@ export default class FixedMenuBarHack {
     this.contentEl = document.querySelector('.ProseMirror-content')
 
     // Padding for all
-    this.spaceContent = _.debounce(spaceContent, 50).bind(this)
+    this.spaceContent = _.debounce(spaceContent, 250).bind(this)
     this.updater = new UpdateScheduler(ed.pm, 'selectionChange activeMarkChange commandsChanged', this.spaceContent)
     this.updater.force()
 
@@ -32,7 +32,7 @@ export default class FixedMenuBarHack {
       return
     }
     this.menuEl.style.position = 'absolute'
-    this.onScroll = _.debounce(onScroll, 50).bind(this)
+    this.onScroll = onScroll.bind(this)
     this.ed = ed
     window.addEventListener('scroll', this.onScroll)
   }
