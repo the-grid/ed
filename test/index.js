@@ -1,5 +1,6 @@
 import './ed'
 import './components/image'
+import './convert/grid-to-doc.js'
 import './plugins/tap-add-text'
 import './plugins/widget'
 import './schema/block-meta'
