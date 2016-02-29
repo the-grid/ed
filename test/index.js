@@ -1,3 +1,6 @@
+import chai from 'chai'
+chai.config.truncateThreshold = 0
+
 import './ed'
 import './components/image'
 import './convert/doc-to-grid.js'

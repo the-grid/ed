@@ -1,6 +1,7 @@
 ## dev
 
-* Tests and logic to convert irregular Grid types (#93)
+* Tests and logic to convert irregular Grid types `quote` and `text` (#93)
+* Space subsequent media blocks (#94)
 
 ## 0.4.5 - 2016-02-29
 
