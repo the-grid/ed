@@ -12,80 +12,80 @@ describe('GridToDoc', function () {
     {id: 'video-0000', type: 'video'},
     {type: 'quote', html: '<blockquote>bq</blockquote>'}
   ]
-  
+
   const expected = {
-    "type": "doc",
-    "content": [
+    'type': 'doc',
+    'content': [
       {
-        "type": "heading",
-        "attrs": {
-          "level": 1
+        'type': 'heading',
+        'attrs': {
+          'level': 1
         },
-        "content": [
+        'content': [
           {
-            "type": "text",
-            "text": "heading 1"
+            'type': 'text',
+            'text': 'heading 1'
           }
         ]
       },
       {
-        "type": "heading",
-        "attrs": {
-          "level": 2
+        'type': 'heading',
+        'attrs': {
+          'level': 2
         },
-        "content": [
+        'content': [
           {
-            "type": "text",
-            "text": "heading 2"
+            'type': 'text',
+            'text': 'heading 2'
           }
         ]
       },
       {
-        "type": "heading",
-        "attrs": {
-          "level": 3
+        'type': 'heading',
+        'attrs': {
+          'level': 3
         },
-        "content": [
+        'content': [
           {
-            "type": "text",
-            "text": "heading 3"
+            'type': 'text',
+            'text': 'heading 3'
           }
         ]
       },
       {
-        "type": "paragraph",
-        "content": [
+        'type': 'paragraph',
+        'content': [
           {
-            "type": "text",
-            "text": "paragraph 1"
+            'type': 'text',
+            'text': 'paragraph 1'
           }
         ]
       },
       {
-        "type": "media",
-        "attrs": {
-          "id": "image-0000",
-          "type": "image",
-          "height": 50
+        'type': 'media',
+        'attrs': {
+          'id': 'image-0000',
+          'type': 'image',
+          'height': 50
         }
       },
       {
-        "type": "media",
-        "attrs": {
-          "id": "video-0000",
-          "type": "video",
-          "height": 50
+        'type': 'media',
+        'attrs': {
+          'id': 'video-0000',
+          'type': 'video',
+          'height': 50
         }
       },
       {
-        "type": "blockquote",
-        "content": [
+        'type': 'blockquote',
+        'content': [
           {
-            "type": "paragraph",
-            "content": [
+            'type': 'paragraph',
+            'content': [
               {
-                "type": "text",
-                "text": "bq"
+                'type': 'text',
+                'text': 'bq'
               }
             ]
           }
@@ -93,10 +93,9 @@ describe('GridToDoc', function () {
       }
     ]
   }
-  
+
   it('correctly converts Grid content to Doc', function () {
     const doc = GridToDoc(fixture)
     expect(doc.toJSON()).to.deep.equal(expected)
   })
-
 })
