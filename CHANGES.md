@@ -1,5 +1,9 @@
 ## dev
 
+## 0.4.5 - 2016-02-27
+
+* :apple: Smoother "fixed" menu hack
+
 ## 0.4.4 - 2016-02-27
 
 * :apple: FIX -- in iOS only menubar sticky by `absolute`, not `fixed` (#69 try again)
