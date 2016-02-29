@@ -17,15 +17,14 @@ export default function (domChildren, doc, lastAPI) {
     apiContentMap[block.id] = block
   }
 
-  let dom = toDOM(doc)
+  const dom = toDOM(doc)
   let currentContent = []
-  let len = dom.children.length
-  for (let i = 0; i < len; i++) {
-    let child = dom.children[i]
-    let id = child.getAttribute('grid-id') || null
+  for (let i = 0, len = dom.children.length; i < len; i++) {
+    const child = dom.children[i]
+    const id = child.getAttribute('grid-id') || null
     let type = child.getAttribute('grid-type') || child.tagName.toLowerCase()
     type = translateIrregularGridTypes(type)
-    let isMedia = isMediaType(type)
+    const isMedia = isMediaType(type)
 
     let apiBlock = apiContentMap[id]
     if (!apiBlock) {
