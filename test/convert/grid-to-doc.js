@@ -110,12 +110,7 @@ describe('GridToDoc', function () {
       'type': 'doc',
       'content': [
         {
-          'type': 'paragraph',
-          'content': [
-            {
-              'type': 'hard_break'
-            }
-          ]
+          'type': 'paragraph'
         },
         {
           'type': 'media',
@@ -126,12 +121,7 @@ describe('GridToDoc', function () {
           }
         },
         {
-          'type': 'paragraph',
-          'content': [
-            {
-              'type': 'hard_break'
-            }
-          ]
+          'type': 'paragraph'
         },
         {
           'type': 'media',
@@ -142,12 +132,7 @@ describe('GridToDoc', function () {
           }
         },
         {
-          'type': 'paragraph',
-          'content': [
-            {
-              'type': 'hard_break'
-            }
-          ]
+          'type': 'paragraph'
         }
       ]
     }

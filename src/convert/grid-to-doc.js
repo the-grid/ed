@@ -39,7 +39,7 @@ function itemsToEls (items) {
 function makeEmptyTextBlock () {
   return {
     type: 'text',
-    html: '<p><br/></p>'
+    html: '<p></p>'
   }
 }
 
