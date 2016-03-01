@@ -3,6 +3,7 @@ require('./menu/menu.css')
 
 import {ProseMirror} from 'prosemirror/src/edit/main'
 import _ from './util/lodash'
+import './util/react-tap-hack'
 import uuid from 'uuid'
 
 import commands from './commands/index'
