@@ -2,7 +2,8 @@ import {UpdateScheduler} from 'prosemirror/src/ui/update'
 import _ from '../util/lodash'
 
 function onScroll (event) {
-  this.menuEl.style.top = window.scrollY + 'px'
+  const scroll = Math.max(window.scrollY, 0)
+  this.menuEl.style.top = scroll + 'px'
 }
 
 function spaceContent () {
