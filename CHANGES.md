@@ -1,5 +1,10 @@
 ## dev
 
+## 0.4.7 - 2016-03-01
+
+* Popovers don't autohide on scroll, makes meta editing easier on Android
+* :apple: Pulldown negative scroll accounted for with menu (#98)
+
 ## 0.4.6 - 2016-02-29
 
 * Space first, last, and subsequent media blocks with empty paragraphs (#94)
