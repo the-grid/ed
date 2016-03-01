@@ -11,7 +11,8 @@ describe('PluginWidget', function () {
       id: '0000',
       type: 'placeholder',
       metadata: {status: 'Status'}
-    }
+    },
+    {type: 'text', html: '<p>Text</p>'}
   ]
 
   beforeEach(function (done) {
@@ -33,13 +34,15 @@ describe('PluginWidget', function () {
   describe('Content mounting and merging', function () {
     it('has expected pm document', function () {
       const content = ed.pm.doc.content.content
-      expect(content.length).to.equal(2)
+      expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
       expect(content[1].attrs.id).to.equal('0000')
       expect(content[1].attrs.type).to.equal('placeholder')
+      expect(content[2].textContent).to.equal('Text')
+      expect(content[2].type.name).to.equal('paragraph')
     })
 
     it('has mounted widget', function () {

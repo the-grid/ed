@@ -1,6 +1,12 @@
 ## dev
 
-## 0.4.5 - 2016-02-27
+## 0.4.6 - 2016-02-29
+
+* Space first, last, and subsequent media blocks with empty paragraphs (#94)
+* Tap editable bottom padding focuses end... works better than tap-add-text plugin
+* Tests and logic to convert irregular Grid types `quote` and `text` (#93)
+
+## 0.4.5 - 2016-02-29
 
 * :apple: Smoother "fixed" menu hack
 

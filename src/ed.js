@@ -24,7 +24,6 @@ import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 import ShareUrl from './plugins/share-url'
-import TapAddText from './plugins/tap-add-text'
 import FixedMenuBarHack from './plugins/fixed-hack'
 
 function noop () { /* noop */ }
@@ -103,7 +102,7 @@ export default class Ed {
     this.pluginContainer.className = 'EdPlugins'
     this.container.appendChild(this.pluginContainer)
 
-    let plugins = [PluginWidget, ShareUrl, TapAddText, FixedMenuBarHack]
+    let plugins = [PluginWidget, ShareUrl, FixedMenuBarHack]
     this.plugins = plugins.map((Plugin) => new Plugin(this))
   }
   teardown () {
@@ -147,33 +146,17 @@ export default class Ed {
     let content = this.getContent()
     // MUTATION
     content.splice(index, 1, block)
-    this._content = content
     // Render
-    this.setContent(content, false)
+    this._setMergedContent(content)
   }
   insertBlocks (index, blocks) {
     const content = this.getContent()
     // MUTATION
     const newContent = arrayInsertAll(content, index, blocks)
-    this._content = newContent
     // Render
-    this.setContent(newContent, false)
+    this._setMergedContent(newContent)
     // Signal
     this.onChange()
-  }
-  setContent (content, needsMerge = true) {
-    if (needsMerge) {
-      this._content = mergeContent(this.getContent(), content)
-    } else {
-      this._content = content
-    }
-    let doc = GridToDoc(this._content)
-    // Cache selection to restore after DOM update
-    let selection = fixSelection(this.pm.selection, doc)
-    // Populate ProseMirror
-    this.pm.setDoc(doc, selection)
-    // Let widgets know to update
-    this.pm.signal('ed.content.changed')
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -202,6 +185,20 @@ export default class Ed {
     let dom = this.pm.content.children
     let doc = this.pm.getContent()
     return DocToGrid(dom, doc, this._content)
+  }
+  setContent (content) {
+    const merged = mergeContent(this.getContent(), content)
+    this._setMergedContent(merged)
+  }
+  _setMergedContent (content) {
+    this._content = content
+    let doc = GridToDoc(this._content)
+    // Cache selection to restore after DOM update
+    let selection = fixSelection(this.pm.selection, doc)
+    // Populate ProseMirror
+    this.pm.setDoc(doc, selection)
+    // Let widgets know to update
+    this.pm.signal('ed.content.changed')
   }
 }
 
