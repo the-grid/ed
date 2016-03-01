@@ -29,7 +29,7 @@
     "@the-grid/ced": "^0.1.0",
     "bean": "^1.0.15",
     "imgflo-url": "^1.1.0",
-    "lodash.debounce": "^4.0.3",
+    "lodash": "^4.5.1",
     "material-ui": "^0.14.4",
     "prosemirror": "^0.4.0",
     "react": "^0.14.7",
