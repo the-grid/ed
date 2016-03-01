@@ -66,6 +66,8 @@ class CreditEditor extends React.Component {
           open: this.state.open,
           anchorEl: this.state.anchorEl,
           onRequestClose: this.handleRequestClose,
+          autoCloseWhenOffScreen: false,
+          canAutoPosition: true,
           zDepth: 2
         },
         el(
