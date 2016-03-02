@@ -1,3 +1,5 @@
+import {expect} from 'chai'
+
 import {Node} from 'prosemirror/src/model/node'
 
 import DocToGrid from '../../src/convert/doc-to-grid'
@@ -103,7 +105,7 @@ describe('DocToGrid', function () {
       expect(contentOut).to.deep.equal(content)
     })
   })
-  
+
   describe('with fold schema', function () {
     const content = [
       {type: 'text', html: '<p>paragraph 1</p>'},
@@ -136,9 +138,9 @@ describe('DocToGrid', function () {
                       'text': 'List Item 1'
                     }
                   ]
-                },
+                }
               ]
-            },
+            }
           ]
         },
         {

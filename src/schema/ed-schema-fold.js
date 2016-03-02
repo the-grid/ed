@@ -1,6 +1,4 @@
-import {defaultSchema, Schema,
-  Doc, Heading, BlockQuote, Paragraph,
-  BulletList, OrderedList, ListItem} from 'prosemirror/src/model'
+import {defaultSchema, Schema} from 'prosemirror/src/model'
 import {EdDoc,
   EdBlockQuote, EdParagraph,
   EdBulletList, EdOrderedList, EdListItem} from './ed-nodes.js'

@@ -1,4 +1,4 @@
-import {Doc, 
+import {Doc,
   Heading, BlockQuote, Paragraph,
   BulletList, OrderedList, ListItem} from 'prosemirror/src/model'
 import {NodeKind} from 'prosemirror/src/model/schema'
