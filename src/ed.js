@@ -31,6 +31,9 @@ function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
+    if (!options) {
+      throw new Error('Missing options')
+    }
     if (!options.initialContent) {
       throw new Error('Missing options.initialContent array')
     }

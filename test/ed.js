@@ -20,6 +20,12 @@ describe('Ed', function () {
       mount.parentNode.removeChild(mount)
     })
 
+    it('throws without options', function () {
+      function no_onChange () {
+        ed = new Ed()
+      }
+      expect(no_onChange).to.throw('Missing options')
+    })
     it('throws without options.onChange', function () {
       function no_onChange () {
         ed = new Ed({
