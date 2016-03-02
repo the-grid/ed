@@ -25,7 +25,7 @@ import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
 import PluginWidget from './plugins/widget.js'
 import ShareUrl from './plugins/share-url'
-import FixedMenuBarHack from './plugins/fixed-hack'
+import FixedMenuBarHack from './plugins/fixed-menu-hack'
 
 function noop () { /* noop */ }
 
