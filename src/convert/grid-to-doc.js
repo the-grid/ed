@@ -6,7 +6,9 @@ import {isMediaType, isHTMLType} from './types'
 
 
 export default function (items, useFullSchema = true) {
-  items = spaceContentWithEmptyText(items)
+  if (useFullSchema) {
+    items = spaceContentWithEmptyText(items)
+  }
   let elements = itemsToEls(items)
   var container = document.createElement('div')
   elements.forEach((el) => {
