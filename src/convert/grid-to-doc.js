@@ -1,17 +1,19 @@
 import {fromDOM} from 'prosemirror/src/format'
 
-import GridSchema from '../schema/'
+import EdSchemaFull from '../schema/ed-schema-full'
+import EdSchemaFold from '../schema/ed-schema-fold'
 import {isMediaType, isHTMLType} from './types'
 
 
-export default function (items) {
+export default function (items, useFullSchema = true) {
   items = spaceContentWithEmptyText(items)
   let elements = itemsToEls(items)
   var container = document.createElement('div')
   elements.forEach((el) => {
     if (el) container.appendChild(el)
   })
-  return fromDOM(GridSchema, container)
+  const schema = (useFullSchema ? EdSchemaFull : EdSchemaFold)
+  return fromDOM(schema, container)
 }
 
 

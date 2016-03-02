@@ -13,7 +13,7 @@ import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
 // import 'prosemirror/src/collab'
 
-import GridSchema from './schema'
+import EdSchemaFull from './schema/ed-schema-full'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
@@ -46,7 +46,7 @@ export default class Ed {
     let pmOptions = {
       place: this.container,
       autoInput: true,
-      schema: GridSchema,
+      schema: EdSchemaFull,
       commands: commands,
       label: 'the-grid-ed'
     }

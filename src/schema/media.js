@@ -1,7 +1,7 @@
 require('./media.css')
 
 import {Block, Attribute} from 'prosemirror/src/model'
-import {NodeKindTop} from './index'
+import {NodeKindTop} from './ed-nodes'
 
 export class Media extends Block {
   get kind () { return NodeKindTop }
