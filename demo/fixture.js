@@ -562,13 +562,6 @@ let post = {
   },
   published: false,
   content: [
-
-    {
-      "id": "abc-00000000-h1",
-      "type": "h1",
-      "html": `<h1>${getHappyLittlePhrase()}</h1>`,
-      "metadata": {"starred": true}
-    },
     {
       "id": "abc-00000000-p",
       "type": "text",
@@ -577,20 +570,26 @@ let post = {
     },
     imageCole,
     {
+      "id": "abc-00000000-h1",
+      "type": "h1",
+      "html": `<h1>${getHappyLittlePhrase()}</h1>`,
+      "metadata": {}
+    },
+    {
       "id": "abc-00000000-blockquote",
       "type": "blockquote",
       "html": `<blockquote>${getHappyLittlePhrase()}</blockquote>`,
       "metadata": {}
-    },
-    {
-      "id": "uuid-broken-00",
-      "type": undefined
     },
     code,
     {
       "id": "abc-00000000-p2",
       "type": "p",
       "html": `<p>${getHappyLittlePhrase()}</p>`
+    },
+    {
+      "id": "uuid-broken-00",
+      "type": undefined
     },
     imageRaphael,
     videoTurtle,

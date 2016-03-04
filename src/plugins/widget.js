@@ -22,7 +22,7 @@ const WidgetTypes = {
 // Should use debounced version
 function onDOMChanged () {
   // Mount or move widget overlays
-  const els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+  const els = this.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
@@ -76,7 +76,7 @@ function onDOMChanged () {
   // Signal widgets initialized if first
   if (!this.initialized) {
     this.initialized = true
-    this.ed.pm.signal('ed.plugin.widget.initialized')
+    this.pm.signal('ed.plugin.widget.initialized')
   }
 }
 
@@ -106,12 +106,12 @@ function initializeWidget (id, type, rectangle) {
     ed: this.ed,
     id,
     type,
+    initialBlock,
     widgetContainer: this.el,
-    initialRectangle: rectangle,
-    initialBlock: initialBlock
+    initialRectangle: rectangle
   })
 
-  this.ed.pm.signal('ed.plugin.widget.one.initialized', id)
+  this.pm.signal('ed.plugin.widget.one.initialized', id)
 }
 
 function onIframeMessage (message) {
@@ -156,7 +156,7 @@ function updatePlaceholders () {
 // The plugin
 
 export default class PluginWidget {
-  constructor (ed) {
+  constructor (options) {
     this.onDOMChanged = onDOMChanged.bind(this)
     this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
     this.checkWidget = checkWidget.bind(this)
@@ -165,22 +165,24 @@ export default class PluginWidget {
     this.updatePlaceholders = updatePlaceholders.bind(this)
 
     this.initialized = false
+    
+    this.ed = options.ed
+    this.pm = options.pm
 
-    this.ed = ed
     this.widgets = {}
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
-    this.ed.pluginContainer.appendChild(this.el)
+    options.container.appendChild(this.el)
 
-    this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
+    this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
-    this.ed.pm.on('ed.content.changed', this.updatePlaceholders)
+    this.pm.on('ed.content.changed', this.updatePlaceholders)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
     this.updater.detach()
-    this.ed.pm.off('ed.content.changed', this.updatePlaceholders)
+    this.pm.off('ed.content.changed', this.updatePlaceholders)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 

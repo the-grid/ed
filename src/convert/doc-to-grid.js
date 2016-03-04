@@ -10,7 +10,7 @@ function clone (obj) {
 let apiContentMap = {}
 
 
-export default function (domChildren, doc, lastAPI) {
+export default function (doc, lastAPI) {
   const cloneLast = clone(lastAPI)
   for (let i = 0, len = cloneLast.length; i < len; i++) {
     const block = cloneLast[i]

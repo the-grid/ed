@@ -1,0 +1,15 @@
+.FoldTitle {
+  font-family: San Francisco, Roboto, Avenir Next, sans-serif;
+  padding: 0 1rem;
+  font-size: 2rem;
+}
+
+.FoldTitle textarea {
+  text-align: center;
+}
+
+@media screen and (min-width:550px) {
+  .FoldTitle {
+    font-size: 3rem;
+  }
+}

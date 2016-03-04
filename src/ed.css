@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
 }
 body {
   font-family: Georgia, Times, Times New Roman, serif;
@@ -9,6 +7,7 @@ body {
   height: 100%;
   padding: 0;
 }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: San Francisco, Roboto, Avenir Next, sans-serif;
   font-weight: normal;
@@ -21,84 +20,18 @@ img {
   max-width: 100%;
 }
 
-.w100 {
-  width: 100%;
-}
-.mb1 {
-  margin-bottom: 0.5em;
-}
-
-[contenteditable]:focus { outline: 0px solid transparent; }
-
-.ProseMirror {
-  border: none;
-}
-
-.ProseMirror-content {
-  border: none;
-  margin: 0 auto;
-  padding: 3rem 1rem 10rem;
-  white-space: pre-wrap;
-  max-width: 800px;
-
-  font-size: 1.5rem;
-}
-.ProseMirror-content > * {
-  margin: 2rem 0px;
-  padding: 0px;
-}
-.ProseMirror-content > h1 {
+h1 {
   font-size: 250%;
 }
-.ProseMirror-content > h2 {
+h2 {
   font-size: 175%;
 }
-.ProseMirror-content > h3 {
+h3 {
   font-size: 125%;
 }
-.ProseMirror-content > p {
+p {
   font-size: 100%;
 }
-
-.ProseMirror-content > blockquote {
+blockquote {
   font-size: 110%;
-
-  color: hsl(0,0%,30%);
-  position: relative;
-  padding-left: 1.5em;
-  border-left: none;
-  margin-left: 0;
-  margin-right: 0;
-}
-.ProseMirror-content > blockquote:before {
-  font-size: 250%;
-  line-height: 100%;
-
-  content: '“';
-  font-family: Georgia;
-  position: absolute;
-  margin-top: 0;
-  left: 0em;
-  opacity: 0.3;
-}
-blockquote > * {
-  padding: 1rem 0px;
-}
-
-.ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
-  margin-top: .3em;
-  padding-top: 0px;
-}
-
-.ProseMirror-menubar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-@media screen and (max-width:550px) {
-  .ProseMirror-content {
-    font-size: 1.2rem;
-  }
 }

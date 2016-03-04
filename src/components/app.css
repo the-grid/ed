@@ -1,0 +1,11 @@
+.Ed-FoldContent .ProseMirror-content {
+}
+
+.Ed-FullContent .ProseMirror-content {
+  padding-bottom: 10rem;
+}
+
+.Ed-FoldAdd {
+  text-align: right;
+  padding-right: 1rem;
+}

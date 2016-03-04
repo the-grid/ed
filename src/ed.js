@@ -1,31 +1,18 @@
 require('./ed.css')
 require('./menu/menu.css')
 
-import {ProseMirror} from 'prosemirror/src/edit/main'
+import ReactDOM from 'react-dom'
 import _ from './util/lodash'
 import './util/react-tap-hack'
 import uuid from 'uuid'
-
-import commands from './commands/index'
-
-import 'prosemirror/src/inputrules/autoinput'
-import 'prosemirror/src/menu/tooltipmenu'
-import 'prosemirror/src/menu/menubar'
-// import 'prosemirror/src/collab'
 
 import EdSchemaFull from './schema/ed-schema-full'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
-// import './inputrules/autoinput'
-// import './edit/schema-commands'
-
 import {isMediaType} from './convert/types'
-import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
 
-import PluginWidget from './plugins/widget.js'
-import ShareUrl from './plugins/share-url'
-import FixedMenuBarHack from './plugins/fixed-menu-hack'
+import App from './components/app'
 
 function noop () { /* noop */ }
 
@@ -41,42 +28,10 @@ export default class Ed {
       throw new Error('Missing options.onChange')
     }
 
-    if (!options.container) options.container = document.body
+    if (!options.container) {
+      options.container = document.body
+    }
     this.container = options.container
-
-    // PM setup
-
-    let pmOptions = {
-      place: this.container,
-      autoInput: true,
-      schema: EdSchemaFull,
-      commands: commands,
-      label: 'the-grid-ed'
-    }
-    this._content = options.initialContent
-    pmOptions.doc = GridToDoc(this._content)
-
-    this.pm = new ProseMirror(pmOptions)
-
-    if (options.menubar) {
-      this.pm.setOption('menuBar', {
-        content: barMenu
-      })
-    }
-    if (options.menutip) {
-      this.pm.setOption('tooltipMenu', {
-        showLinks: true,
-        emptyBlockMenu: true,
-        selectedBlockMenu: true,
-        inlineContent: inlineMenu,
-        selectedBlockContent: inlineMenu,
-        blockContent: blockMenu
-      })
-    }
-
-    if (options.imgfloConfig) {
-      this.imgfloConfig = options.imgfloConfig
-    }
 
     // Change / autosave events setup
     let debouncedAutosave
@@ -92,59 +47,23 @@ export default class Ed {
         debouncedAutosave()
       }
     }
-    this.pm.on('change', this.onChange)
+    
+    this._content = options.initialContent
 
-    // Share events setup
-    this.onShareFile = options.onShareFile || noop
-    this.pm.on('ed.menu.file', this.onShareFile)
-
-    this.onShareUrl = options.onShareUrl || noop
-    this.pm.on('ed.plugin.url', this.onShareUrl)
-
-    // Plugins setup
-    this.pluginContainer = document.createElement('div')
-    this.pluginContainer.className = 'EdPlugins'
-    this.container.appendChild(this.pluginContainer)
-
-    let plugins = [PluginWidget, ShareUrl, FixedMenuBarHack]
-    this.plugins = plugins.map((Plugin) => new Plugin(this))
+    // Setup main DOM structure
+    this.app = ReactDOM.render(App({
+      initialContent: this._content,
+      onChange: this.onChange,
+      menubar: options.menubar,
+      menutip: options.menutip,
+      imgfloConfig: options.imgfloConfig
+    }), this.container)
   }
   teardown () {
-    this.plugins.forEach((plugin) => plugin.teardown())
-    this.pm.off('change')
-    this.pm.off('ed.menu.file')
-    this.pm.off('ed.plugin.url')
-    this.pluginContainer.parentNode.removeChild(this.pluginContainer)
     this.container.innerHTML = ''
   }
   getBlock (id) {
     return getItemWithId(this._content, id)
-  }
-  updateMediaBlock (block) {
-    // Widget plugin calls this to update a block in the content array
-    // Only media blocks can use this.
-    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
-      throw new Error('Cant update this block')
-    }
-    let index = getIndexWithId(this._content, block.id)
-    if (index === -1) return
-
-    // MUTATION
-    this._content.splice(index, 1, block)
-    this.onChange()
-
-    // Trigger remeasure
-    this.pm.signal('draw')
-  }
-  updatePlaceholderHeights (changes) {
-    // Do this in a batch, with one widget remeasure/move
-    for (let i = 0, len = changes.length; i < len; i++) {
-      const change = changes[i]
-      // TODO do this with standard pm.tr interface, not direct DOM
-      const placeholder = document.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
-      placeholder.style.height = change.height + 'px'
-    }
-    this.pm.signal('draw')
   }
   replaceBlock (index, block) {
     let content = this.getContent()
@@ -186,9 +105,8 @@ export default class Ed {
     this.pm.signal('ed.content.changed')
   }
   getContent () {
-    let dom = this.pm.content.children
     let doc = this.pm.getContent()
-    return DocToGrid(dom, doc, this._content)
+    return DocToGrid(doc, this._content)
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)

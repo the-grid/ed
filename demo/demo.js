@@ -15,7 +15,7 @@ function setup (options) {
     ed = null
   }
   ed = new Ed({
-    container: document.querySelector('#mirror'),
+    container: document.querySelector('#app'),
     initialContent: content,
     menutip: (options.menu === 'tip'),
     menubar: (options.menu === 'bar'),

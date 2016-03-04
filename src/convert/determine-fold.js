@@ -1,4 +1,4 @@
-import {isMediaType, isHeadType, isFoldType} from '../convert/types'
+import {isMediaType, isHeadType, isFoldType} from './types'
 
 export default function determineFold (items) {
   let title = null

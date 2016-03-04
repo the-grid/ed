@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import determineFold from '../../src/util/determine-fold'
+import determineFold from '../../src/convert/determine-fold'
 
 describe('determineFold', function () {
   describe('with basic content', function () {
