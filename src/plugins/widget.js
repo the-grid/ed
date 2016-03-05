@@ -32,12 +32,11 @@ function onDOMChanged () {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    const rect = el.getBoundingClientRect()
     const rectangle = {
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
-      width: rect.width,
-      height: rect.height
+      top: el.offsetTop,
+      left: el.offsetLeft,
+      width: el.offsetWidth,
+      height: el.offsetHeight
     }
     this.checkWidget(id, type, rectangle)
   }

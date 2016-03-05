@@ -1,3 +1,8 @@
+.Editable {
+  /* So widget can position self */
+  position: relative;
+}
+
 .ProseMirror-menubar {
   display: none;
 }

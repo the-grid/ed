@@ -4,7 +4,6 @@
   left: 0;
 }
 .EdPlugins-Widgets > div {
-  overflow: hidden;
   border: 1px #DDDDDD solid;
 }
 .EdPlugins-Widgets iframe {
