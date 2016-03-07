@@ -20,7 +20,7 @@ describe('DocToGrid', function () {
     const doc =
       { 'type': 'doc'
       , 'content':
-        [
+      [
           { 'type': 'heading'
           , 'attrs': {'level': 1}
           , 'content': [{'type': 'text', 'text': 'heading 1'}]
@@ -52,13 +52,13 @@ describe('DocToGrid', function () {
           }
         , { 'type': 'blockquote'
           , 'content':
-            [
+          [
               { 'type': 'paragraph'
               , 'content': [{'type': 'text', 'text': 'bq'}]
               }
-            ]
+          ]
           }
-        ]
+      ]
       }
 
     it('correctly converts full Doc to Grid content', function () {

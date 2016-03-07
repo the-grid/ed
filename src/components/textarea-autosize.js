@@ -1,8 +1,13 @@
 import React, {createElement as el} from 'react'
 import {systemStack} from './rebass-theme'
 
-const style =
+const containerStyle =
   { fontFamily: systemStack
+  , marginBottom: '1rem'
+  }
+
+const areaStyle =
+  { fontFamily: 'inherit'
   , fontSize: 'inherit'
   , lineHeight: 1.5
   , minHeight: 'none'
@@ -18,7 +23,7 @@ const style =
   , outline: 'none'
   , overflow: 'hidden'
   }
-
+  
 function resize () {
   const { textarea } = this.refs
   textarea.style.height = 'auto'
@@ -33,7 +38,7 @@ class TextareaAutosize extends React.Component {
   }
   componentDidMount () {
     this.resize()
-    if (this.props.defaultValue === '') {
+    if (this.props.defaultFocus === true) {
       this.refs.textarea.focus()
     }
   }
@@ -43,24 +48,38 @@ class TextareaAutosize extends React.Component {
   render () {
     const {label, placeholder, defaultValue} = this.props
 
-    return el('label'
+    return el('div'
     , { className: 'TextareaAutosize'
-      , style: {fontFamily: systemStack}
+      , style: containerStyle
       }
-    , label
-    , el('textarea'
-      , { ref: 'textarea'
-        , style
-        , defaultValue
-        , placeholder
-        , onChange: this.resize
-        , rows: 1
-        }
+    , el('label'
+      , {}
+      , label
+      , el('textarea'
+        , { ref: 'textarea'
+          , style: areaStyle
+          , defaultValue
+          , placeholder
+          , onChange: this.onChange.bind(this)
+          , rows: 1
+          }
+        )
       )
     )
+  }
+  onChange (event) {
+    this.props.onChange(event)
+    this.resize()
   }
 }
 TextareaAutosize.contextTypes = {
   rebass: React.PropTypes.object
 }
+TextareaAutosize.propTypes =
+  { defaultValue: React.PropTypes.string
+  , defaultFocus: React.PropTypes.bool
+  , label: React.PropTypes.string
+  , placeholder: React.PropTypes.string
+  , onChange: React.PropTypes.func
+  }
 export default React.createFactory(TextareaAutosize)

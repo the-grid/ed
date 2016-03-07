@@ -55,8 +55,7 @@ class App extends React.Component {
   renderMediaAdd () {
     const {media} = this.state
     if (media) return
-    return el('button'
-    , {}
+    return el('button', {}
     , 'Add Media'
     )
   }
@@ -78,15 +77,15 @@ class App extends React.Component {
     )
   }
 }
-App.childContextTypes = {
-  imgfloConfig: React.PropTypes.object
+App.childContextTypes =
+  { imgfloConfig: React.PropTypes.object
   , rebass: React.PropTypes.object
-}
-App.propTypes = {
-  initialContent: React.PropTypes.array.isRequired
+  }
+App.propTypes =
+  { initialContent: React.PropTypes.array.isRequired
   , onChange: React.PropTypes.func.isRequired
-  , menubar: React.PropTypes.bool
-  , menutip: React.PropTypes.bool
+  , menuBar: React.PropTypes.bool
+  , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
-}
+  }
 export default React.createFactory(App)

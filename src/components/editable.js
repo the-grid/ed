@@ -23,7 +23,7 @@ function noop () { /* noop */ }
 class Editable extends React.Component {
   constructor (props) {
     super(props)
-    
+
     const {initialContent} = this.props
     this.contentHash = {}
     for (let i = 0, len = initialContent.length; i < len; i++) {

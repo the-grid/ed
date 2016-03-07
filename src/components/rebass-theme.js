@@ -6,6 +6,9 @@ const theme = {
   , Button: {
     fontFamily: systemStack
   }
+  , ButtonOutline: {
+    fontFamily: systemStack
+  }
 }
 
 export default theme
