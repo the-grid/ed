@@ -6,8 +6,8 @@ import Image from './image'
 import CreditEditor from './credit-editor'
 // import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
-
 import blockMetaSchema from '../schema/block-meta'
+import rebassTheme from './rebass-theme'
 
 
 class AttributionEditor extends React.Component {
@@ -19,7 +19,8 @@ class AttributionEditor extends React.Component {
   }
   getChildContext () {
     return {
-      imgfloConfig: this.props.imgfloConfig
+      imgfloConfig: this.props.imgfloConfig,
+      rebass: this.context.rebass || rebassTheme
     }
   }
   render () {
@@ -46,14 +47,15 @@ class AttributionEditor extends React.Component {
     )
   }
 }
-AttributionEditor.childContextTypes = {
-  imgfloConfig: React.PropTypes.object
-}
-AttributionEditor.propTypes = {
-  initialBlock: React.PropTypes.object.isRequired
+AttributionEditor.childContextTypes = 
+  { imgfloConfig: React.PropTypes.object
+  , rebass: React.PropTypes.object
+  }
+AttributionEditor.propTypes =
+  { initialBlock: React.PropTypes.object.isRequired
   , imgfloConfig: React.PropTypes.object
   , onChange: React.PropTypes.func.isRequired
-}
+  }
 export default React.createFactory(AttributionEditor)
 
 
