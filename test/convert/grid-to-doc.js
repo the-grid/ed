@@ -2,6 +2,7 @@ import {expect} from 'chai'
 
 import GridToDoc from '../../src/convert/grid-to-doc'
 
+
 describe('GridToDoc', function () {
   describe('with full schema', function () {
     const fixture =
@@ -38,11 +39,10 @@ describe('GridToDoc', function () {
           }
         , { 'type': 'blockquote'
           , 'content':
-          [
-              { 'type': 'paragraph'
+            [ { 'type': 'paragraph'
               , 'content': [{'type': 'text', 'text': 'bq'}]
               }
-          ]
+            ]
           }
         , { 'type': 'media'
           , 'attrs':
@@ -59,49 +59,6 @@ describe('GridToDoc', function () {
 
     it('correctly converts Grid content to Doc', function () {
       const doc = GridToDoc(fixture)
-      expect(doc.toJSON()).to.deep.equal(expected)
-    })
-  })
-  describe('with fold schema', function () {
-    const fixture =
-      [ {type: 'h1', html: '<h1>heading 1</h1>'}
-      , {type: 'h2', html: '<h2>heading 2</h2>'}
-      , {type: 'h3', html: '<h3>heading 3</h3>'}
-      , {id: 'image-0000', type: 'image'}
-      , {type: 'quote', html: '<blockquote>bq</blockquote>'}
-      , {id: 'video-0000', type: 'video'}
-      , {type: 'text', html: '<p>paragraph 1</p>'}
-      ]
-
-    const expected =
-      { 'type': 'doc'
-      , 'content':
-      [
-          { 'type': 'paragraph'
-          , 'content': [{'type': 'text', 'text': 'heading 1'}]
-          }
-        , { 'type': 'paragraph'
-          , 'content': [{'type': 'text', 'text': 'heading 2'}]
-          }
-        , { 'type': 'paragraph'
-          , 'content': [{'type': 'text', 'text': 'heading 3'}]
-          }
-        , { 'type': 'blockquote'
-          , 'content':
-          [
-              { 'type': 'paragraph'
-              , 'content': [{'type': 'text', 'text': 'bq'}]
-              }
-          ]
-          }
-        , { 'type': 'paragraph'
-          , 'content': [{'type': 'text', 'text': 'paragraph 1'}]
-          }
-      ]
-      }
-
-    it('headings rendered as paragraphs and media omitted', function () {
-      const doc = GridToDoc(fixture, false)
       expect(doc.toJSON()).to.deep.equal(expected)
     })
   })

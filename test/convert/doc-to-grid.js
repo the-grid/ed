@@ -4,7 +4,6 @@ import {Node} from 'prosemirror/src/model/node'
 
 import DocToGrid from '../../src/convert/doc-to-grid'
 import EdSchemaFull from '../../src/schema/ed-schema-full'
-import EdSchemaFold from '../../src/schema/ed-schema-fold'
 
 
 describe('DocToGrid', function () {
@@ -21,7 +20,7 @@ describe('DocToGrid', function () {
     const doc =
       { 'type': 'doc'
       , 'content':
-      [
+        [
           { 'type': 'heading'
           , 'attrs': {'level': 1}
           , 'content': [{'type': 'text', 'text': 'heading 1'}]
@@ -53,62 +52,18 @@ describe('DocToGrid', function () {
           }
         , { 'type': 'blockquote'
           , 'content':
-          [
+            [
               { 'type': 'paragraph'
               , 'content': [{'type': 'text', 'text': 'bq'}]
               }
-          ]
+            ]
           }
-      ]
+        ]
       }
 
     it('correctly converts full Doc to Grid content', function () {
       const node = Node.fromJSON(EdSchemaFull, doc)
-      const contentOut = DocToGrid(null, node, content)
-      expect(contentOut).to.deep.equal(content)
-    })
-  })
-
-  describe('with fold schema', function () {
-    const content =
-      [ {type: 'text', html: '<p>paragraph 1</p>'}
-      , {type: 'ol', html: '<ol><li><p>List Item 1</p></li></ol>'}
-      , {type: 'quote', html: '<blockquote><p>bq</p></blockquote>'}
-      ]
-    const doc =
-      { 'type': 'doc'
-      , 'content':
-      [
-          { 'type': 'paragraph'
-          , 'content': [{'type': 'text', 'text': 'paragraph 1'}]
-          }
-        , { 'type': 'ordered_list'
-          , 'content':
-          [
-              { 'type': 'list_item'
-              , 'content':
-              [
-                  { 'type': 'paragraph'
-                  , 'content': [{'type': 'text', 'text': 'List Item 1'}]
-                  }
-              ]
-              }
-          ]
-          }
-        , { 'type': 'blockquote'
-          , 'content':
-          [
-              { 'type': 'paragraph'
-              , 'content': [{'type': 'text', 'text': 'bq'}]
-              }
-          ]
-          }
-      ]
-      }
-
-    it('correctly converts fold Doc to Grid content', function () {
-      const node = Node.fromJSON(EdSchemaFold, doc)
-      const contentOut = DocToGrid(null, node, content)
+      const contentOut = DocToGrid(node, content)
       expect(contentOut).to.deep.equal(content)
     })
   })

@@ -21,10 +21,10 @@ describe('Ed', function () {
     })
 
     it('throws without options', function () {
-      function no_onChange () {
+      function no_options () {
         ed = new Ed()
       }
-      expect(no_onChange).to.throw('Missing options')
+      expect(no_options).to.throw('Missing options')
     })
     it('throws without options.onChange', function () {
       function no_onChange () {

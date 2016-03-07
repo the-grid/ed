@@ -3,7 +3,10 @@ import {fromDOM} from 'prosemirror/src/format'
 import {isMediaType, isHTMLType} from './types'
 import spaceContentWithEmptyText from './space-content'
 
-export default function (items, schema) {
+import EdSchemaFull from '../schema/ed-schema-full'
+
+
+export default function (items, schema = EdSchemaFull) {
   items = spaceContentWithEmptyText(items)
   let elements = itemsToEls(items)
   var container = document.createElement('div')

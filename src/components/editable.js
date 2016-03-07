@@ -11,7 +11,6 @@ import {isMediaType} from '../convert/types'
 import commands from '../commands/index'
 import {inlineMenu, blockMenu, barMenu,
   foldBarMenu, foldBlockMenu, foldInlineMenu} from '../menu/ed-menu'
-import EdSchemaFold from '../schema/ed-schema-fold'
 import EdSchemaFull from '../schema/ed-schema-full'
 
 import PluginWidget from '../plugins/widget.js'
@@ -51,26 +50,25 @@ class Editable extends React.Component {
     const containerEl = this.refs.mirror
     const pluginsEl = this.refs.plugins
 
-    const {initialContent, isFold,
-      menubar, menutip,
-      onChange, onShareUrl, onShareFile} = this.props
-
-    const schema = (isFold ? EdSchemaFold : EdSchemaFull)
+    const {initialContent, isFold
+      , menubar, menutip
+      , onChange, onShareUrl, onShareFile
+      , onEditableInit} = this.props
 
     // PM setup
     let pmOptions =
       { place: containerEl
       , autoInput: true
       , commands: commands
-      , doc: GridToDoc(initialContent, schema)
-      , schema
+      , doc: GridToDoc(initialContent, EdSchemaFull)
+      , schema: EdSchemaFull
       }
 
     this.pm = new ProseMirror(pmOptions)
 
     if (menubar) {
       this.pm.setOption('menuBar'
-      , {content: (isFold ? foldBarMenu : barMenu)}
+      , { content: (isFold ? foldBarMenu : barMenu) }
       )
     }
     if (menutip) {
@@ -104,6 +102,8 @@ class Editable extends React.Component {
       }
 
     this.plugins = plugins.map((Plugin) => new Plugin(pluginOptions))
+
+    onEditableInit(this.pm)
   }
   componentWillUnmount () {
     this.pm.off('change')
@@ -147,6 +147,9 @@ Editable.propTypes =
   { initialContent: React.PropTypes.array.isRequired
   , isFold: React.PropTypes.bool.isRequired
   , onChange: React.PropTypes.func.isRequired
+  , onShareFile: React.PropTypes.func
+  , onShareUrl: React.PropTypes.func
+  , onEditableInit: React.PropTypes.func
   , menubar: React.PropTypes.bool
   , menutip: React.PropTypes.bool
   }

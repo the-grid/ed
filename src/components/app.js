@@ -52,43 +52,18 @@ class App extends React.Component {
       }
     )
   }
-  renderTitle () {
-    const {onChange} = this.props
-    const {title} = this.state
-    if (!title) return
-    return el(FoldTitle
-    , { initialBlock: title
-      , onChange
-      }
-    )
-  }
   renderMediaAdd () {
     const {media} = this.state
     if (media) return
-    return el('button', {}, 'Add Media')
-  }
-  renderTitleAdd () {
-    const {title} = this.state
-    if (title) return
     return el('button'
-    , { children: 'Add Title'
-      , onClick: this.addTitle.bind(this)
-      }
-    )
-  }
-  addTitle () {
-    this.setState(
-      { title:
-        { type: 'h1'
-        , html: '<h1></h1>'
-        , metadata: {starred: true}
-        }
-      }
+    , {}
+    , 'Add Media'
     )
   }
   renderContent () {
-    const {menuBar, menuTip,
-      onChange, onShareFile, onShareUrl} = this.props
+    const {menuBar, menuTip
+      , onChange, onShareFile, onShareUrl
+      , onEditableInit} = this.props
     const {content} = this.state
     return el(Editable
     , { initialContent: content
@@ -98,6 +73,7 @@ class App extends React.Component {
       , onChange
       , onShareFile
       , onShareUrl
+      , onEditableInit
       }
     )
   }

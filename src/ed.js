@@ -22,11 +22,16 @@ export default class Ed {
     if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
+    this.container = options.container
+    options.onEditableInit = this.onEditableInit.bind(this)
     // Setup main DOM structure
     this.app = ReactDOM.render(App(options), options.container)
   }
+  onEditableInit (pm) {
+    this.pm = pm
+  }
   teardown () {
-    this.container.innerHTML = ''
+    ReactDOM.unmountComponentAtNode(this.container)
   }
   getBlock (id) {
     return getItemWithId(this._content, id)
