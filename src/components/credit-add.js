@@ -10,20 +10,17 @@ export default function CreditAdd (props) {
   const {schema, metadata} = props
   const links = makeLinks(schema, metadata)
   if (links.length > 0) {
-    return el(
-      IconMenu,
-      {
-        iconButtonElement: el(
-          IconButton,
-          {
-            touch: true,
-            tooltip: 'Add Credit',
-            tooltipPosition: 'top-left'
-          },
-          el(AddIcon)
-        ),
-        anchorOrigin: {horizontal: 'right', vertical: 'top'},
-        targetOrigin: {horizontal: 'right', vertical: 'top'}
+    return el(IconMenu
+    , { iconButtonElement:
+          el(IconButton
+          , { touch: true
+            , tooltip: 'Add Credit'
+            , tooltipPosition: 'top-left'
+            }
+          , el(AddIcon)
+          )
+        , anchorOrigin: {horizontal: 'right', vertical: 'top'}
+        , targetOrigin: {horizontal: 'right', vertical: 'top'}
       },
       links
     )

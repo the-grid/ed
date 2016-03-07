@@ -12,10 +12,10 @@ import {UpdateScheduler} from 'prosemirror/src/ui/update'
 import WidgetCode from './widget-code'
 import WidgetReact from './widget-react'
 
-const WidgetTypes = {
-  code: WidgetCode,
-  react: WidgetReact
-}
+const WidgetTypes =
+  { code: WidgetCode
+  , react: WidgetReact
+  }
 
 // Functions to bind in class constructor
 
@@ -32,12 +32,12 @@ function onDOMChanged () {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    const rectangle = {
-      top: el.offsetTop,
-      left: el.offsetLeft,
-      width: el.offsetWidth,
-      height: el.offsetHeight
-    }
+    const rectangle =
+      { top: el.offsetTop
+      , left: el.offsetLeft
+      , width: el.offsetWidth
+      , height: el.offsetHeight
+      }
     this.checkWidget(id, type, rectangle)
   }
 
@@ -61,10 +61,11 @@ function onDOMChanged () {
     if (!widget.shown) continue
     const innerHeight = widget.getHeight()
     if (innerHeight !== widget.height) {
-      heightChanges.push({
-        id: id,
-        height: innerHeight
-      })
+      heightChanges.push(
+        { id: id
+        , height: innerHeight
+        }
+      )
     }
   }
   if (heightChanges.length) {
@@ -101,14 +102,15 @@ function initializeWidget (id, type, rectangle) {
 
   let initialBlock = this.ed.getBlock(id)
 
-  this.widgets[id] = new Widget({
-    ed: this.ed,
-    id,
-    type,
-    initialBlock,
-    widgetContainer: this.el,
-    initialRectangle: rectangle
-  })
+  this.widgets[id] = new Widget(
+    { ed: this.ed
+    , id
+    , type
+    , initialBlock
+    , widgetContainer: this.el
+    , initialRectangle: rectangle
+    }
+  )
 
   this.pm.signal('ed.plugin.widget.one.initialized', id)
 }
@@ -128,10 +130,11 @@ function onIframeMessage (message) {
       break
     case 'height':
       if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.ed.updatePlaceholderHeights([{
-        id: message.data.id,
-        height: message.data.payload
-      }])
+      this.ed.updatePlaceholderHeights([
+        { id: message.data.id
+        , height: message.data.payload
+        }
+      ])
       break
     case 'cursor':
     default:
@@ -164,7 +167,7 @@ export default class PluginWidget {
     this.updatePlaceholders = updatePlaceholders.bind(this)
 
     this.initialized = false
-    
+
     this.ed = options.ed
     this.pm = options.pm
 

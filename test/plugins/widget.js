@@ -5,24 +5,24 @@ import Ed from '../../src/ed'
 
 describe('PluginWidget', function () {
   let mount, ed, PluginWidget
-  const fixture = [
-    {type: 'h1', html: '<h1>Title</h1>'},
-    {
-      id: '0000',
-      type: 'placeholder',
-      metadata: {status: 'Status'}
-    },
-    {type: 'text', html: '<p>Text</p>'}
-  ]
+  const fixture =
+    [ {type: 'h1', html: '<h1>Title</h1>'}
+    , { id: '0000'
+      , type: 'placeholder'
+      , metadata: {status: 'Status'}
+      }
+    , {type: 'text', html: '<p>Text</p>'}
+    ]
 
   beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    ed = new Ed({
-      container: mount,
-      initialContent: fixture,
-      onChange: function () {}
-    })
+    ed = new Ed(
+      { container: mount
+      , initialContent: fixture
+      , onChange: function () {}
+      }
+    )
     PluginWidget = ed.plugins[0]
     ed.pm.on('ed.plugin.widget.initialized', done)
   })
@@ -60,13 +60,12 @@ describe('PluginWidget', function () {
         expect(widget.el.textContent).to.equal('Status changed')
         done()
       })
-      ed.setContent([{
-        id: '0000',
-        type: 'placeholder',
-        metadata: {
-          status: 'Status changed'
+      ed.setContent([
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {status: 'Status changed'}
         }
-      }])
+      ])
     })
 
     it('updates widget props via setContent', function (done) {
@@ -76,13 +75,12 @@ describe('PluginWidget', function () {
         expect(widget.el.textContent).to.equal('Status changed')
         done()
       })
-      ed.setContent([{
-        id: '0000',
-        type: 'placeholder',
-        metadata: {
-          status: 'Status changed'
+      ed.setContent([
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {status: 'Status changed'}
         }
-      }])
+      ])
     })
 
     it('updates widget props via updatePlaceholder', function (done) {
@@ -107,10 +105,11 @@ describe('PluginWidget', function () {
         done()
       })
 
-      ed.setContent([{
-        id: '0000',
-        type: 'image'
-      }])
+      ed.setContent([
+        { id: '0000'
+        , type: 'image'
+        }
+      ])
 
       // PM placeholder change is sync
       const content = ed.pm.doc.content.content

@@ -22,14 +22,9 @@ function noop () { /* noop */ }
 
 
 class Editable extends React.Component {
-  render () {
-    return el('div', {className: 'Editable'},
-      el('div', {className:'Editable-Mirror', ref: 'mirror'}),
-      el('div', {className:'Editable-Plugins', ref: 'plugins'})
-    )
-  }
   constructor (props) {
     super(props)
+    
     const {initialContent} = this.props
     this.contentHash = {}
     for (let i = 0, len = initialContent.length; i < len; i++) {
@@ -40,60 +35,73 @@ class Editable extends React.Component {
       this.contentHash[block.id] = block
     }
   }
+  setState () {
+    throw new Error('Can not setState of Editable')
+  }
+  render () {
+    return el('div'
+    , { className: 'Editable'
+      , style: {position: 'relative'} /* So widgets can position selves */
+      }
+    , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
+    , el('div', {className: 'Editable-Plugins', ref: 'plugins'})
+    )
+  }
   componentDidMount () {
     const containerEl = this.refs.mirror
     const pluginsEl = this.refs.plugins
-    
+
     const {initialContent, isFold,
       menubar, menutip,
       onChange, onShareUrl, onShareFile} = this.props
-            
+
     const schema = (isFold ? EdSchemaFold : EdSchemaFull)
-    
+
     // PM setup
-    let pmOptions = {
-      place: containerEl,
-      autoInput: true,
-      commands: commands,
-      doc: GridToDoc(initialContent, schema),
-      schema
-    }
+    let pmOptions =
+      { place: containerEl
+      , autoInput: true
+      , commands: commands
+      , doc: GridToDoc(initialContent, schema)
+      , schema
+      }
 
     this.pm = new ProseMirror(pmOptions)
 
     if (menubar) {
-      this.pm.setOption('menuBar', {
-        content: (isFold ? foldBarMenu : barMenu)
-      })
+      this.pm.setOption('menuBar'
+      , {content: (isFold ? foldBarMenu : barMenu)}
+      )
     }
     if (menutip) {
-      this.pm.setOption('tooltipMenu', {
-        showLinks: true,
-        emptyBlockMenu: true,
-        selectedBlockMenu: true,
-        inlineContent: (isFold ? foldInlineMenu : inlineMenu),
-        selectedBlockContent: (isFold ? foldInlineMenu : inlineMenu),
-        blockContent: (isFold ? foldBlockMenu : blockMenu)
-      })
+      this.pm.setOption('tooltipMenu'
+      , { showLinks: true
+        , emptyBlockMenu: true
+        , selectedBlockMenu: true
+        , inlineContent: (isFold ? foldInlineMenu : inlineMenu)
+        , selectedBlockContent: (isFold ? foldInlineMenu : inlineMenu)
+        , blockContent: (isFold ? foldBlockMenu : blockMenu)
+        }
+      )
     }
 
     this.pm.on('change', onChange)
-    
-    // Setup plugins    
+
+    // Setup plugins
     let plugins = [FixedMenuBarHack]
-    
+
     if (!isFold) {
       plugins.push(PluginWidget)
       plugins.push(ShareUrl)
       this.pm.on('ed.plugin.url', (onShareUrl || noop))
       this.pm.on('ed.menu.file', (onShareFile || noop))
     }
-    
-    const pluginOptions = {
-      ed: this,
-      pm: this.pm,
-      container: pluginsEl
-    }
+
+    const pluginOptions =
+      { ed: this
+      , pm: this.pm
+      , container: pluginsEl
+      }
 
     this.plugins = plugins.map((Plugin) => new Plugin(pluginOptions))
   }
@@ -135,11 +143,11 @@ class Editable extends React.Component {
     this.pm.signal('draw')
   }
 }
-Editable.propTypes = {
-  initialContent: React.PropTypes.array.isRequired,
-  isFold: React.PropTypes.bool.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  menubar: React.PropTypes.bool,
-  menutip: React.PropTypes.bool
-}
+Editable.propTypes =
+  { initialContent: React.PropTypes.array.isRequired
+  , isFold: React.PropTypes.bool.isRequired
+  , onChange: React.PropTypes.func.isRequired
+  , menubar: React.PropTypes.bool
+  , menutip: React.PropTypes.bool
+  }
 export default React.createFactory(Editable)

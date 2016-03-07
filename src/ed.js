@@ -2,19 +2,14 @@ require('./ed.css')
 require('./menu/menu.css')
 
 import ReactDOM from 'react-dom'
-import _ from './util/lodash'
 import './util/react-tap-hack'
 import uuid from 'uuid'
 
-import EdSchemaFull from './schema/ed-schema-full'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
-import {isMediaType} from './convert/types'
-
 import App from './components/app'
 
-function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
@@ -27,37 +22,8 @@ export default class Ed {
     if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
-
-    if (!options.container) {
-      options.container = document.body
-    }
-    this.container = options.container
-
-    // Change / autosave events setup
-    let debouncedAutosave
-    if (options.onAutosave) {
-      const autosaveInterval = options.autosaveInterval || 100
-      debouncedAutosave = _.debounce(function () {
-        options.onAutosave()
-      }, autosaveInterval)
-    }
-    this.onChange = function () {
-      options.onChange()
-      if (debouncedAutosave) {
-        debouncedAutosave()
-      }
-    }
-    
-    this._content = options.initialContent
-
     // Setup main DOM structure
-    this.app = ReactDOM.render(App({
-      initialContent: this._content,
-      onChange: this.onChange,
-      menubar: options.menubar,
-      menutip: options.menutip,
-      imgfloConfig: options.imgfloConfig
-    }), this.container)
+    this.app = ReactDOM.render(App(options), options.container)
   }
   teardown () {
     this.container.innerHTML = ''
@@ -87,11 +53,12 @@ export default class Ed {
     for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
-      toInsert.push({
-        id,
-        type: 'placeholder',
-        metadata: {}
-      })
+      toInsert.push(
+        { id
+        , type: 'placeholder'
+        , metadata: {}
+        }
+      )
     }
     this.insertBlocks(index, toInsert)
     return ids

@@ -14,18 +14,19 @@ function setup (options) {
     ed.teardown()
     ed = null
   }
-  ed = new Ed({
-    container: document.querySelector('#app'),
-    initialContent: content,
-    menutip: (options.menu === 'tip'),
-    menubar: (options.menu === 'bar'),
-    onChange: () => { console.log('change') },
-    onAutosave: () => { console.log('autosave') },
-    autosaveInterval: 1000,
-    onShareFile: onShareFileDemo,
-    onShareUrl: onShareUrlDemo,
-    imgfloConfig: null
-  })
+  ed = new Ed(
+    { container: document.querySelector('#app')
+    , initialContent: content
+    , menuTip: (options.menu === 'tip')
+    , menuBar: (options.menu === 'bar')
+    , onChange: () => { console.log('change') }
+    , onAutosave: () => { console.log('autosave') }
+    , autosaveInterval: 1000
+    , onShareFile: onShareFileDemo
+    , onShareUrl: onShareUrlDemo
+    , imgfloConfig: null
+    }
+  )
   console.log(ed)
   window.ed = ed
 }
@@ -73,18 +74,17 @@ function makeInputOnChange (index) {
       },
       function () {
         const updatedBlocks = ids.map(function (id, index) {
-          return {
-            id,
-            type: 'image',
-            metadata: {
-              title: names[index]
-            },
-            cover: {
-              src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-              width: 400,
-              height: 474
+          return (
+            { id
+            , type: 'image'
+            , metadata: {title: names[index]}
+            , cover:
+              { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+              , width: 400
+              , height: 474
+              }
             }
-          }
+          )
         })
         ed.setContent(updatedBlocks)
       }
@@ -109,19 +109,20 @@ function onShareUrlDemo (share) {
       ed.updatePlaceholder(block, status, percent)
     },
     function () {
-      ed.setContent([{
-        id: block,
-        type: 'article',
-        metadata: {
-          title: 'Shared article title',
-          description: `Simulated share from ${url}`
-        },
-        cover: {
-          src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-          width: 400,
-          height: 474
+      ed.setContent([
+        { id: block
+        , type: 'article'
+        , metadata:
+          { title: 'Shared article title'
+          , description: `Simulated share from ${url}`
+          }
+        , cover:
+          { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+          , width: 400
+          , height: 474
+          }
         }
-      }])
+      ])
     }
   )
 }

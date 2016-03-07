@@ -16,14 +16,14 @@ function testPrevUrl () {
   const prevText = prevBlock.textContent.trim()
   if (prevText && checkUrl(prevText)) {
     const id = uuid.v4()
-    const block = {
-      id,
-      type: 'placeholder',
-      metadata: {
-        status: `Sharing... ${prevText}`,
-        percent: 0
+    const block =
+      { id
+      , type: 'placeholder'
+      , metadata:
+        { status: `Sharing... ${prevText}`
+        , percent: 0
+        }
       }
-    }
     this.ed.replaceBlock(prevIndex, block)
     this.ed.pm.signal('ed.plugin.url', {block: id, url: prevText})
   }

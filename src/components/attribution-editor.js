@@ -5,13 +5,9 @@ import React, {createElement as el} from 'react'
 import Image from './image'
 import CreditEditor from './credit-editor'
 // import CreditAdd from './credit-add'
-
-import TextField from 'material-ui/lib/text-field'
+import TextareaAutosize from './textarea-autosize'
 
 import blockMetaSchema from '../schema/block-meta'
-
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import MaterialTheme from './material-theme'
 
 
 class AttributionEditor extends React.Component {
@@ -23,8 +19,7 @@ class AttributionEditor extends React.Component {
   }
   getChildContext () {
     return {
-      imgfloConfig: this.props.imgfloConfig,
-      muiTheme: ThemeManager.getMuiTheme(MaterialTheme)
+      imgfloConfig: this.props.imgfloConfig
     }
   }
   render () {
@@ -33,33 +28,38 @@ class AttributionEditor extends React.Component {
     const {type, cover, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    return el('div', {className: 'AttributionEditor'},
-      renderCover(cover),
-      el('div', {className: 'AttributionEditor-metadata'},
-        renderFields(schema, metadata, onChange)
-      ),
-      el('div', {className: 'AttributionEditor-links'},
-        renderLinks(schema, metadata, onChange)
-        // CreditAdd({schema, metadata})
+    return el(
+      'div'
+      , {className: 'AttributionEditor'}
+      , renderCover(cover)
+      , el(
+        'div'
+        , {className: 'AttributionEditor-metadata'}
+        , renderFields(schema, metadata, onChange)
+      )
+      , el(
+        'div'
+        , {className: 'AttributionEditor-links'}
+        , renderLinks(schema, metadata, onChange)
+        // , CreditAdd({schema, metadata})
       )
     )
   }
 }
 AttributionEditor.childContextTypes = {
-  imgfloConfig: React.PropTypes.object,
-  muiTheme: React.PropTypes.object
+  imgfloConfig: React.PropTypes.object
 }
 AttributionEditor.propTypes = {
-  initialBlock: React.PropTypes.object.isRequired,
-  imgfloConfig: React.PropTypes.object,
-  onChange: React.PropTypes.func.isRequired
+  initialBlock: React.PropTypes.object.isRequired
+  , imgfloConfig: React.PropTypes.object
+  , onChange: React.PropTypes.func.isRequired
 }
 export default React.createFactory(AttributionEditor)
 
 
-function preventDefault (event) {
-  event.preventDefault()
-}
+// function preventDefault (event) {
+//   event.preventDefault()
+// }
 
 function makeChange (path, callback) {
   return function (event) {
@@ -73,9 +73,9 @@ function renderCover (cover) {
   if (!src) return
   let props = {src, width, height}
   return el(
-    'div',
-    {className: 'AttributionEditor-cover'},
-    el(Image, props)
+    'div'
+    , {className: 'AttributionEditor-cover'}
+    , el(Image, props)
   )
 }
 
@@ -91,16 +91,13 @@ function renderFields (schema, metadata = {}, onChange) {
 }
 
 function renderTextField (key, label, value, onChange) {
-  return el(TextField, {
-    className: `AttributionEditor-${key}`,
-    floatingLabelText: label,
-    defaultValue: value,
-    key: key,
-    multiLine: true,
-    rowsMax: 7,
-    onEnterKeyDown: preventDefault,
-    onChange: makeChange([key], onChange),
-    style: {width: '100%'}
+  return el(TextareaAutosize, {
+    className: `AttributionEditor-${key}`
+    , label
+    , defaultValue: value
+    , key: key
+    , onChange: makeChange([key], onChange)
+    , style: {width: '100%'}
   })
 }
 
@@ -126,14 +123,14 @@ function renderLinks (schema, metadata = {}, onChange) {
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   return el(CreditEditor, {
-    className: `AttributionEditor-${key}`,
-    key: key,
-    label: label,
-    name: item.name,
-    url: item.url,
-    avatar: item.avatar,
-    path: path || [key],
-    onChange,
-    onlyUrl
+    className: `AttributionEditor-${key}`
+    , key: key
+    , label: label
+    , name: item.name
+    , url: item.url
+    , avatar: item.avatar
+    , path: path || [key]
+    , onChange
+    , onlyUrl
   })
 }

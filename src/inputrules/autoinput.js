@@ -7,10 +7,7 @@ import uuid from 'uuid'
 
 Media.register('autoInput', 'replaceWithCodeWidget',
   new InputRule(/^```$/, '`', function (pm, _, pos) {
-    setAs(pm, pos, this, {
-      id: uuid.v4(),
-      type: 'code'
-    })
+    setAs(pm, pos, this, {id: uuid.v4(), type: 'code'})
   })
 )
 

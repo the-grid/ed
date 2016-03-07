@@ -28,8 +28,5 @@ export default function spaceContent (items) {
 
 
 function makeEmptyTextBlock () {
-  return {
-    type: 'text',
-    html: '<p></p>'
-  }
+  return {type: 'text', html: '<p></p>'}
 }

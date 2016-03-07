@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom'
 import Placeholder from '../components/placeholder'
 import AttributionEditor from '../components/attribution-editor'
 
-const Components = {
-  placeholder: Placeholder,
-  attribution: AttributionEditor
-}
+const Components =
+  { placeholder: Placeholder
+  , attribution: AttributionEditor
+  }
 
 
 export default class WidgetReact extends WidgetBase {
@@ -19,11 +19,11 @@ export default class WidgetReact extends WidgetBase {
     this.mount()
   }
   mount () {
-    const props = {
-      initialBlock: this.initialBlock,
-      onChange: this.onChange,
-      imgfloConfig: this.ed.imgfloConfig
-    }
+    const props =
+      { initialBlock: this.initialBlock
+      , onChange: this.onChange
+      , imgfloConfig: this.ed.imgfloConfig
+      }
 
     const {type} = this.initialBlock
     let Component = Components[type] || Components.attribution

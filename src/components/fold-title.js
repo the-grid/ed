@@ -1,16 +1,17 @@
 require('./fold-title.css')
 
 import {createElement as el} from 'react'
-import TextArea from './text-area'
+import TextareaAutosize from './textarea-autosize'
 
 export default function FoldTitle (props) {
-  const {initialBlock, onChange} = props
+  const {initialBlock} = props
   const title = getText(initialBlock)
   return el('div', {className: 'FoldTitle'},
-    el(TextArea, {
-      placeholder: 'Post Title',
-      defaultValue: title
-    })
+    el(TextareaAutosize
+    , { placeholder: 'Post Title'
+      , defaultValue: title
+      }
+    )
   )
 }
 
