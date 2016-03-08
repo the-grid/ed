@@ -23,7 +23,7 @@ const areaStyle =
   , outline: 'none'
   , overflow: 'hidden'
   }
-  
+
 function resize () {
   const { textarea } = this.refs
   textarea.style.height = 'auto'

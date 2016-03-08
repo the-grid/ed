@@ -18,10 +18,11 @@ class AttributionEditor extends React.Component {
     }
   }
   getChildContext () {
-    return {
-      imgfloConfig: this.props.imgfloConfig,
-      rebass: this.context.rebass || rebassTheme
-    }
+    return (
+      { imgfloConfig: this.props.imgfloConfig
+      , rebass: this.context.rebass || rebassTheme
+      }
+    )
   }
   render () {
     const {onChange} = this.props
@@ -47,7 +48,7 @@ class AttributionEditor extends React.Component {
     )
   }
 }
-AttributionEditor.childContextTypes = 
+AttributionEditor.childContextTypes =
   { imgfloConfig: React.PropTypes.object
   , rebass: React.PropTypes.object
   }

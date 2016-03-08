@@ -6,7 +6,6 @@ import determineFold from '../convert/determine-fold'
 
 import rebassTheme from './rebass-theme'
 import Editable from './editable'
-import FoldTitle from './fold-title'
 import FoldMedia from './fold-media'
 
 class App extends React.Component {

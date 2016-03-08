@@ -2,15 +2,14 @@ import React, {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 import imgflo from 'imgflo-url'
 
-// import FlatButton from 'material-ui/lib/flat-button'
-// import Avatar from 'material-ui/lib/avatar'
-// import Popover from 'material-ui/lib/popover/popover'
-// import TextField from 'material-ui/lib/text-field'
-
-import {Dropdown, DropdownMenu, Panel, PanelHeader
-  , ButtonOutline, Arrow, Avatar} from 'rebass'
-
 import TextareaAutosize from './textarea-autosize'
+
+import DropdownMenu from 'rebass/dist/DropdownMenu'
+import Dropdown from 'rebass/dist/Dropdown'
+import Panel from 'rebass/dist/Panel'
+import ButtonOutline from 'rebass/dist/ButtonOutline'
+import Arrow from 'rebass/dist/Arrow'
+import Avatar from 'rebass/dist/Avatar'
 
 
 class CreditEditor extends React.Component {
@@ -46,9 +45,9 @@ class CreditEditor extends React.Component {
     const {name, label, url, avatar, onChange, onlyUrl, path} = this.props
 
     return el(Dropdown
-      , {
-        style: {display: 'inline-block'}
-      }
+      , { style:
+          { display: 'inline-block' }
+        }
       , el(ButtonOutline
         , { onClick: this.openMenu
           , theme: 'secondary'
@@ -56,9 +55,20 @@ class CreditEditor extends React.Component {
           , title: label
           , style: {marginLeft: -1}
           }
-        , (name || label)
+        , el('span'
+          , { style:
+              { maxWidth: '15rem'
+              , verticalAlign: 'middle'
+              , display: 'inline-block'
+              , whiteSpace: 'pre'
+              , overflow: 'hidden'
+              , textOverflow: 'ellipsis'
+              }
+            }
+          , (name || label)
+          )
         , el(Arrow, {direction: 'down'})
-      )
+        )
       , el(DropdownMenu
         , { open: this.state.open
           , right: true
@@ -77,10 +87,10 @@ class CreditEditor extends React.Component {
             onlyUrl
             ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
             : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
+            )
           )
         )
       )
-    )
   }
   renderAvatar () {
     const {avatar} = this.props
