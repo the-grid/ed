@@ -1,14 +1,24 @@
-export const systemStack = '-apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif'
+import rebassDefaults from 'rebass/dist/config'
 
-const theme = {
-  name: 'Ed Theme'
-  , fontFamily: systemStack
-  , Button: {
-    fontFamily: systemStack
+export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif'
+const serif = 'Georgia, Times, serif'
+
+const theme =
+  { name: 'Ed Theme'
+  , fontFamily: sans
+  , colors: rebassDefaults.colors
+  , Base:
+    { fontFamily: sans
+    }
+  , Button:
+    { fontFamily: sans
+    }
+  , ButtonOutline:
+    { fontFamily: sans
+    }
+  , NavItem:
+    { fontFamily: sans
+    }
   }
-  , ButtonOutline: {
-    fontFamily: systemStack
-  }
-}
 
 export default theme

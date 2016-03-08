@@ -4,123 +4,50 @@ import imgflo from 'imgflo-url'
 
 import TextareaAutosize from './textarea-autosize'
 
-import DropdownMenu from 'rebass/dist/DropdownMenu'
-import Dropdown from 'rebass/dist/Dropdown'
-import Panel from 'rebass/dist/Panel'
-import ButtonOutline from 'rebass/dist/ButtonOutline'
+import DropdownWrap from './dropdown-wrap'
 import Arrow from 'rebass/dist/Arrow'
 import Avatar from 'rebass/dist/Avatar'
 
 
-class CreditEditor extends React.Component {
+export default function CreditEditor (props, context) {
+  const {name, label, url, avatar, onChange, onlyUrl, path} = props
 
-  constructor (props) {
-    super(props)
-    this.state = {
-      open: false
-    }
-    this.openMenu = () => {
-      this.setState({
-        open: true
-      })
-    }
-    this.closeMenu = () => {
-      this.setState({
-        open: false
-      })
-    }
-  }
-
-  componentDidUpdate (_, prevState) {
-    // Focus on open
-    if (!prevState.open && this.state.open) {
-      const el = ReactDOM.findDOMNode(this).querySelector('textarea')
-      if (el) {
-        el.focus()
-      }
-    }
-  }
-
-  render () {
-    const {name, label, url, avatar, onChange, onlyUrl, path} = this.props
-
-    return el(Dropdown
+  return el(DropdownWrap
+  , { buttonText: (name || label)
+    , menuIcon: el(Arrow, {direction: 'down'})
+    , menuKids: el('div'
       , { style:
-          { display: 'inline-block' }
+          { padding: '1rem 1rem 0 1rem' }
         }
-      , el(ButtonOutline
-        , { onClick: this.openMenu
-          , theme: 'secondary'
-          , inverted: false
-          , title: label
-          , style: {marginLeft: -1}
-          }
-        , el('span'
-          , { style:
-              { maxWidth: '15rem'
-              , verticalAlign: 'middle'
-              , display: 'inline-block'
-              , whiteSpace: 'pre'
-              , overflow: 'hidden'
-              , textOverflow: 'ellipsis'
-              }
-            }
-          , (name || label)
-          )
-        , el(Arrow, {direction: 'down'})
-        )
-      , el(DropdownMenu
-        , { open: this.state.open
-          , right: true
-          , onDismiss: this.closeMenu
-        }
-        , el(Panel
-          , { theme: 'secondary'
-            , style:
-              { textAlign: 'left'
-              , marginBottom: 0
-              , width: 360
-              }
-            }
-          , this.renderAvatar()
-          , (
-            onlyUrl
-            ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
-            : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
-            )
-          )
+      , renderAvatar(avatar, context.imgfloConfig)
+      , ( onlyUrl
+        ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
+        : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
         )
       )
-  }
-  renderAvatar () {
-    const {avatar} = this.props
-    const {imgfloConfig} = this.context
-    if (!avatar || !avatar.src) return
-    let {src} = avatar
-    if (imgfloConfig) {
-      const params =
-        { input: src
-        , width: 72
-        }
-      src = imgflo(imgfloConfig, 'passthrough', params)
     }
-    return el(Avatar,
-      { style: {float: 'right'}
-      , src
-      }
-    )
-  }
+  )
 }
-CreditEditor.contextTypes =
-  { imgfloConfig: React.PropTypes.object
-  }
-CreditEditor.propTypes =
-  { path: React.PropTypes.array.isRequired
-  , onChange: React.PropTypes.func.isRequired
-  , onlyUrl: React.PropTypes.bool.isRequired
-  }
-export default React.createFactory(CreditEditor)
+CreditEditor.contextTypes = {imgfloConfig: React.PropTypes.object}
 
+
+function renderAvatar (avatar, imgfloConfig) {
+  if (!avatar || !avatar.src) return
+  let {src} = avatar
+  if (imgfloConfig) {
+    const params =
+      { input: src
+      , width: 72
+      }
+    src = imgflo(imgfloConfig, 'passthrough', params)
+  }
+  return el(Avatar,
+    { key: 'avatar'
+    , style: {float: 'right'}
+    , src
+    }
+  )
+}
 
 function renderFields (name, label, url, avatar, onChange, path, onEnterKeyDown) {
   return (

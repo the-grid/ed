@@ -1,8 +1,8 @@
 import React, {createElement as el} from 'react'
-import {systemStack} from './rebass-theme'
+import {sans} from './rebass-theme'
 
 const containerStyle =
-  { fontFamily: systemStack
+  { fontFamily: sans
   , marginBottom: '1rem'
   }
 
@@ -10,7 +10,7 @@ const areaStyle =
   { fontFamily: 'inherit'
   , fontSize: 'inherit'
   , lineHeight: 1.5
-  , minHeight: 'none'
+  , minHeight: '1.5rem'
   , display: 'block'
   , width: '100%'
   , padding: 0
@@ -47,6 +47,8 @@ class TextareaAutosize extends React.Component {
   }
   render () {
     const {label, placeholder, defaultValue} = this.props
+    
+    console.log(this.context)
 
     return el('div'
     , { className: 'TextareaAutosize'
