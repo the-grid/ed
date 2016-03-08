@@ -1,7 +1,6 @@
 require('./placeholder.css')
 
 import {createElement as el} from 'react'
-import LinearProgress from 'material-ui/lib/linear-progress'
 
 
 export default function Placeholder (props) {
@@ -10,8 +9,8 @@ export default function Placeholder (props) {
     return el('div', {className: 'Placeholder'})
   }
   const status = metadata.status || ''
-  const value = metadata.progress
-  const mode = metadata.progress != null ? 'determinate' : 'indeterminate'
+  // const value = metadata.progress
+  // const mode = metadata.progress != null ? 'determinate' : 'indeterminate'
 
   return el(
     'div',
@@ -20,10 +19,6 @@ export default function Placeholder (props) {
       'h4',
       {className: 'Placeholder-status'},
       status
-    ),
-    el(
-      LinearProgress,
-      {mode, value}
     )
   )
 }
