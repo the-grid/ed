@@ -20,8 +20,8 @@ export default function CreditEditor (props, context) {
         }
       , renderAvatar(avatar, context.imgfloConfig)
       , (onlyUrl
-        ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
-        : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
+        ? renderBasedOnUrl(url, onChange, path)
+        : renderFields(name, label, url, avatar, onChange, path)
         )
       )
     }
@@ -48,19 +48,19 @@ function renderAvatar (avatar, imgfloConfig) {
   )
 }
 
-function renderFields (name, label, url, avatar, onChange, path, onEnterKeyDown) {
+function renderFields (name, label, url, avatar, onChange, path) {
   return (
-    [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), onEnterKeyDown)
-    , renderTextField('url', 'Link', url, onChange, path.concat(['url']), onEnterKeyDown)
+    [ renderTextField('name', 'Name', name, onChange, path.concat(['name']))
+    , renderTextField('url', 'Link', url, onChange, path.concat(['url']))
     ]
   )
 }
 
-function renderBasedOnUrl (value, onChange, path, onEnterKeyDown) {
-  return renderTextField('url', 'Link', value, onChange, path, onEnterKeyDown)
+function renderBasedOnUrl (value, onChange, path) {
+  return renderTextField('url', 'Link', value, onChange, path)
 }
 
-function renderTextField (key, label, value, onChange, path, onEnterKeyDown) {
+function renderTextField (key, label, value, onChange, path) {
   return el(TextareaAutosize
   , { className: `AttributionEditor-${key}`
     , label
@@ -70,7 +70,6 @@ function renderTextField (key, label, value, onChange, path, onEnterKeyDown) {
     , multiLine: true
     , style: {width: '100%'}
     , onChange: makeChange(path, onChange)
-    , onEnterKeyDown
     }
   )
 }

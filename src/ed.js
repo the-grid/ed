@@ -19,19 +19,44 @@ export default class Ed {
     if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
+    if (!options.container) {
+      throw new Error('Missing options.container')
+    }
     this.container = options.container
-    options.onEditableInit = this.onEditableInit.bind(this)
+    this.onChange = options.onChange
+    options.onChange = this.routeChange
     // Setup main DOM structure
     this.app = ReactDOM.render(App(options), options.container)
-  }
-  onEditableInit (pm) {
-    this.pm = pm
   }
   teardown () {
     ReactDOM.unmountComponentAtNode(this.container)
   }
+  routeChange (type, payload) {
+    switch (type) {
+      case 'MEDIA_BLOCK_UPDATE':
+        this.updateMediaBlock(payload)
+        break
+      default:
+        break
+    }
+  }
+  updateMediaBlock (block) {
+    // Widget plugin calls this to update a block in the content array
+    // Only media blocks can use this.
+    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
+      throw new Error('Can not update this block')
+    }
+    const currentBlock = this.getBlock(block.id)
+    if (!currentBlock) {
+      throw new Error('Can not find this block')
+    }
+
+    // MUTATION
+    this.contentHash[block.id] = block
+    this.onChange()
+  }
   getBlock (id) {
-    return getItemWithId(this._content, id)
+    return this.app.getBlock(id)
   }
   replaceBlock (index, block) {
     let content = this.getContent()
@@ -74,8 +99,9 @@ export default class Ed {
     this.pm.signal('ed.content.changed')
   }
   getContent () {
-    let doc = this.pm.getContent()
-    return DocToGrid(doc, this._content)
+    // let doc = this.pm.getContent()
+    // return DocToGrid(doc, this._content)
+    return this.app.getContent()
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)

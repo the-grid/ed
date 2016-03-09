@@ -60,20 +60,25 @@ class App extends React.Component {
   }
   renderContent () {
     const {menuBar, menuTip
-      , onChange, onShareFile, onShareUrl
-      , onEditableInit} = this.props
+      , onChange, onShareFile, onShareUrl} = this.props
     const {content} = this.state
+
     return el(Editable
     , { initialContent: content
-      , isFold: false
       , menuBar
       , menuTip
       , onChange
       , onShareFile
       , onShareUrl
-      , onEditableInit
       }
     )
+  }
+  getContent () {
+    const fold = {}
+    const content = this.refs.editable.getContent()
+    // let doc = this.pm.getContent()
+    // return DocToGrid(doc, this._content)
+    return content
   }
 }
 App.childContextTypes =

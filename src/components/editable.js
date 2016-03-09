@@ -52,8 +52,7 @@ class Editable extends React.Component {
 
     const {initialContent
       , menuBar, menuTip
-      , onChange, onShareUrl, onShareFile
-      , onEditableInit} = this.props
+      , onChange, onShareUrl, onShareFile} = this.props
 
     // PM setup
     let pmOptions =
@@ -102,8 +101,6 @@ class Editable extends React.Component {
       }
 
     this.plugins = plugins.map((Plugin) => new Plugin(pluginOptions))
-
-    onEditableInit(this.pm)
   }
   componentWillUnmount () {
     this.pm.off('change')
@@ -137,7 +134,7 @@ class Editable extends React.Component {
 
     // MUTATION
     this.contentHash[block.id] = block
-    this.props.onChange()
+    this.props.onChange('MEDIA_BLOCK_UPDATE', block)
 
     // Trigger remeasure
     this.pm.signal('draw')
@@ -145,7 +142,6 @@ class Editable extends React.Component {
 }
 Editable.propTypes =
   { initialContent: React.PropTypes.array.isRequired
-  , isFold: React.PropTypes.bool.isRequired
   , onChange: React.PropTypes.func.isRequired
   , onShareFile: React.PropTypes.func
   , onShareUrl: React.PropTypes.func
