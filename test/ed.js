@@ -48,6 +48,17 @@ describe('Ed', function () {
       }
       expect(no_initialContent).to.throw('Missing options.initialContent')
     })
+    it('throws without options.container', function () {
+      function no_container () {
+        ed = new Ed(
+          { container: null
+          , initialContent: []
+          , onChange: function () {}
+          }
+        )
+      }
+      expect(no_container).to.throw('Missing options.container')
+    })
   })
 
   describe('Content mounting and merging', function () {
@@ -64,11 +75,10 @@ describe('Ed', function () {
     })
     afterEach(function () {
       ed.teardown()
-      mount.parentNode.removeChild(mount)
     })
 
     it('on mount it has expected editable html structure', function () {
-      const children = ed.pm.content.children
+      const children = ed.editableView.pm.content.children
       expect(children.length).to.equal(3)
       expect(children[0].textContent).to.equal('Title')
       expect(children[0].nodeName).to.equal('H1')
@@ -79,7 +89,7 @@ describe('Ed', function () {
     })
 
     it('it has expected pm document', function () {
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -98,7 +108,7 @@ describe('Ed', function () {
         , {type: 'text', html: '<p>Text 2</p>'}
         ]
       )
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(6)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -124,7 +134,7 @@ describe('Ed', function () {
         , {id: '0001', type: 'placeholder'}
         ]
       )
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(6)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -147,7 +157,7 @@ describe('Ed', function () {
     it('inject placeholder blocks via insertPlaceholders', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(6)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -169,7 +179,7 @@ describe('Ed', function () {
 
     it('replace text with placeholder block', function () {
       ed.replaceBlock(1, {id: '0000', type: 'placeholder'})
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -184,7 +194,7 @@ describe('Ed', function () {
       ed.replaceBlock(1, {id: '0000', type: 'placeholder'})
       ed.setContent([{id: '0000', type: 'image'}])
 
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -203,7 +213,7 @@ describe('Ed', function () {
         , {id: '0000', type: 'image'}
         ]
       )
-      const content = ed.pm.doc.content.content
+      const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')

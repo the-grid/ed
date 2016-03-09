@@ -1,9 +1,12 @@
+import {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 import './util/react-tap-hack'
 import uuid from 'uuid'
 
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
+import {isMediaType} from './convert/types'
+import determineFold from './convert/determine-fold'
 
 import App from './components/app'
 
@@ -22,22 +25,83 @@ export default class Ed {
     if (!options.container) {
       throw new Error('Missing options.container')
     }
-    this.container = options.container
-    this.onChange = options.onChange
-    options.onChange = this.routeChange
+
+    // Initialize store
+    this._events = {}
+    this._content = {}
+    this._initializeContent(options.initialContent)
+    const {media, content} = determineFold(options.initialContent)
+    options.initialMedia = media
+    options.initialContent = content
+    options.store = this
+
+    // Events
+    this.on('change', options.onChange)
+    options.onChange = this.routeChange.bind(this)
+
     // Setup main DOM structure
-    this.app = ReactDOM.render(App(options), options.container)
+    this.container = options.container
+    this.app = el(App, options)
+    ReactDOM.render(this.app, options.container)
   }
   teardown () {
     ReactDOM.unmountComponentAtNode(this.container)
   }
   routeChange (type, payload) {
     switch (type) {
+      case 'EDITABLE_INITIALIZE':
+        this._editableInitialize(payload)
+        break
       case 'MEDIA_BLOCK_UPDATE':
         this.updateMediaBlock(payload)
         break
+      case 'EDITABLE_CHANGE':
+        this.trigger('change')
+        break
       default:
         break
+    }
+  }
+  _editableInitialize (editableView) {
+    if (this.editableView) {
+      throw new Error('Ed._editableInitialize should only be called once')
+    }
+    this.editableView = editableView
+    this.pm = editableView.pm
+  }
+  _initializeContent (content) {
+    for (let i = 0, len = content.length; i < len; i++) {
+      const block = content[i]
+      if (!block || !block.id) {
+        continue
+      }
+      this._content[block.id] = block
+    }
+  }
+  on (eventName, func) {
+    let events = this._events[eventName]
+    if (!events) {
+      events = this._events[eventName] = []
+    }
+    events.push(func)
+  }
+  off (eventName, func) {
+    const events = this._events[eventName]
+    if (!events) {
+      return
+    }
+    const index = events.indexOf(func)
+    if (index > -1) {
+      events.splice(index, 1)
+    }
+  }
+  trigger (eventName, payload) {
+    const events = this._events[eventName]
+    if (!events) {
+      return
+    }
+    for (let i = 0, len = events.length; i < len; i++) {
+      events[i](payload)
     }
   }
   updateMediaBlock (block) {
@@ -52,11 +116,11 @@ export default class Ed {
     }
 
     // MUTATION
-    this.contentHash[block.id] = block
-    this.onChange()
+    this._content[block.id] = block
+    this.trigger('change')
   }
   getBlock (id) {
-    return this.app.getBlock(id)
+    return this._content[id]
   }
   replaceBlock (index, block) {
     let content = this.getContent()
@@ -71,8 +135,6 @@ export default class Ed {
     const newContent = arrayInsertAll(content, index, blocks)
     // Render
     this._setMergedContent(newContent)
-    // Signal
-    this.onChange()
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -96,12 +158,12 @@ export default class Ed {
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
     // Let widgets know to update
-    this.pm.signal('ed.content.changed')
+    this.trigger('media.update')
+    // this.pm.signal('ed.content.changed')
   }
   getContent () {
-    // let doc = this.pm.getContent()
-    // return DocToGrid(doc, this._content)
-    return this.app.getContent()
+    let doc = this.pm.getContent()
+    return DocToGrid(doc, this._content)
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)
@@ -115,7 +177,7 @@ export default class Ed {
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
     // Let widgets know to update
-    this.pm.signal('ed.content.changed')
+    this.pm.signal('media.update')
   }
 }
 
@@ -131,11 +193,11 @@ function getIndexWithId (array, id) {
   return -1
 }
 
-function getItemWithId (array, id) {
-  let index = getIndexWithId(array, id)
-  if (index === -1) return
-  return array[index]
-}
+// function getItemWithId (array, id) {
+//   let index = getIndexWithId(array, id)
+//   if (index === -1) return
+//   return array[index]
+// }
 
 function arrayInsertAll (array, index, arrayToInsert) {
   let before = array.slice(0, index)

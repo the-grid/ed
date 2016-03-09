@@ -11,7 +11,10 @@ export default function FoldMedia (props) {
       , maxWidth: 800
       }
     }
-  , el(AttributionEditor, {initialBlock, onChange})
+  , (initialBlock
+    ? el(AttributionEditor, {initialBlock, onChange})
+    : '(TODO add media ui / signal here)'
+    )
   , renderHelp()
   )
 }

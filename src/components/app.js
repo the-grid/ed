@@ -2,26 +2,20 @@ require('./app.css')
 
 import React, {createElement as el} from 'react'
 
-import determineFold from '../convert/determine-fold'
-
 import rebassTheme from './rebass-theme'
 import Editable from './editable'
 import FoldMedia from './fold-media'
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    const {initialContent} = this.props
-    const {media, content} = determineFold(initialContent)
-    this.state = {media, content}
-  }
   setState () {
     throw new Error('Can not setState of App')
   }
   getChildContext () {
+    const {store, imgfloConfig} = this.props
     return {
-      imgfloConfig: this.props.imgfloConfig
+      imgfloConfig: imgfloConfig
       , rebass: rebassTheme
+      , store: store
     }
   }
   render () {
@@ -42,29 +36,20 @@ class App extends React.Component {
     )
   }
   renderMedia () {
-    const {onChange} = this.props
-    const {media} = this.state
-    if (!media) return
+    const {initialMedia, onChange} = this.props
     return el(FoldMedia
-    , { initialBlock: media
+    , { initialBlock: initialMedia
       , onChange
       }
     )
   }
-  renderMediaAdd () {
-    const {media} = this.state
-    if (media) return
-    return el('button', {}
-    , 'Add Media'
-    )
-  }
   renderContent () {
-    const {menuBar, menuTip
+    const { initialContent
+      , menuBar, menuTip
       , onChange, onShareFile, onShareUrl} = this.props
-    const {content} = this.state
 
     return el(Editable
-    , { initialContent: content
+    , { initialContent
       , menuBar
       , menuTip
       , onChange
@@ -73,23 +58,19 @@ class App extends React.Component {
       }
     )
   }
-  getContent () {
-    const fold = {}
-    const content = this.refs.editable.getContent()
-    // let doc = this.pm.getContent()
-    // return DocToGrid(doc, this._content)
-    return content
-  }
 }
 App.childContextTypes =
   { imgfloConfig: React.PropTypes.object
+  , store: React.PropTypes.object
   , rebass: React.PropTypes.object
   }
 App.propTypes =
   { initialContent: React.PropTypes.array.isRequired
+  , initialMedia: React.PropTypes.object
   , onChange: React.PropTypes.func.isRequired
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
+  , store: React.PropTypes.object.isRequired
   }
 export default React.createFactory(App)

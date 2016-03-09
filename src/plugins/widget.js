@@ -70,7 +70,7 @@ function onDOMChanged () {
   }
   if (heightChanges.length) {
     // Will trigger a redraw / this onDOMChanged again
-    this.ed.updatePlaceholderHeights(heightChanges)
+    this.editableView.updatePlaceholderHeights(heightChanges)
   }
 
   // Signal widgets initialized if first
@@ -130,7 +130,7 @@ function onIframeMessage (message) {
       break
     case 'height':
       if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.ed.updatePlaceholderHeights([
+      this.editableView.updatePlaceholderHeights([
         { id: message.data.id
         , height: message.data.payload
         }
@@ -169,6 +169,7 @@ export default class PluginWidget {
     this.initialized = false
 
     this.ed = options.ed
+    this.editableView = options.editableView
     this.pm = options.pm
 
     this.widgets = {}
@@ -178,13 +179,13 @@ export default class PluginWidget {
 
     this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
-    this.pm.on('ed.content.changed', this.updatePlaceholders)
+    this.ed.on('media.update', this.updatePlaceholders)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
     this.updater.detach()
-    this.pm.off('ed.content.changed', this.updatePlaceholders)
+    this.ed.off('media.update', this.updatePlaceholders)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 

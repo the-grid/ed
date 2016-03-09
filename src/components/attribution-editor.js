@@ -20,7 +20,7 @@ class AttributionEditor extends React.Component {
   getChildContext () {
     return (
       { imgfloConfig: this.props.imgfloConfig
-      , rebass: this.context.rebass || rebassTheme
+      , rebass: rebassTheme
       }
     )
   }
@@ -66,9 +66,10 @@ export default React.createFactory(AttributionEditor)
 //   event.preventDefault()
 // }
 
-function makeChange (path, callback) {
+function makeChange (path, onChange) {
   return function (event) {
-    callback(path, event.target.value)
+    const {value} = event.target
+    onChange('MEDIA_BLOCK_CHANGE', {path, value})
   }
 }
 

@@ -8,7 +8,6 @@ import 'prosemirror/src/menu/tooltipmenu'
 import 'prosemirror/src/menu/menubar'
 
 import GridToDoc from '../convert/grid-to-doc'
-import {isMediaType} from '../convert/types'
 import commands from '../commands/index'
 import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
@@ -21,19 +20,6 @@ function noop () { /* noop */ }
 
 
 class Editable extends React.Component {
-  constructor (props) {
-    super(props)
-
-    const {initialContent} = this.props
-    this.contentHash = {}
-    for (let i = 0, len = initialContent.length; i < len; i++) {
-      const block = initialContent[i]
-      if (!block || !block.id) {
-        continue
-      }
-      this.contentHash[block.id] = block
-    }
-  }
   setState () {
     throw new Error('Can not setState of Editable')
   }
@@ -47,16 +33,15 @@ class Editable extends React.Component {
     )
   }
   componentDidMount () {
-    const containerEl = this.refs.mirror
-    const pluginsEl = this.refs.plugins
-
+    const {mirror, plugins} = this.refs
     const {initialContent
       , menuBar, menuTip
       , onChange, onShareUrl, onShareFile} = this.props
+    const {store} = this.context
 
     // PM setup
     let pmOptions =
-      { place: containerEl
+      { place: mirror
       , autoInput: true
       , commands: commands
       , doc: GridToDoc(initialContent, EdSchemaFull)
@@ -82,34 +67,34 @@ class Editable extends React.Component {
       )
     }
 
-    this.pm.on('change', onChange)
+    this.pm.on('change', () => {
+      onChange('EDITABLE_CHANGE', this.pm)
+    })
 
     // Setup plugins
-    let plugins = []
+    let pluginsToInit = [PluginWidget, ShareUrl]
     if (menuBar) {
-      plugins.push(FixedMenuBarHack)
+      pluginsToInit.push(FixedMenuBarHack)
     }
-    plugins.push(PluginWidget)
-    plugins.push(ShareUrl)
     this.pm.on('ed.plugin.url', (onShareUrl || noop))
     this.pm.on('ed.menu.file', (onShareFile || noop))
 
     const pluginOptions =
-      { ed: this
+      { ed: store
+      , editableView: this
       , pm: this.pm
-      , container: pluginsEl
+      , container: plugins
       }
 
-    this.plugins = plugins.map((Plugin) => new Plugin(pluginOptions))
+    this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
+
+    onChange('EDITABLE_INITIALIZE', this)
   }
   componentWillUnmount () {
     this.pm.off('change')
     this.pm.off('ed.plugin.url')
     this.pm.off('ed.menu.file')
     this.plugins.forEach((plugin) => plugin.teardown())
-  }
-  getBlock (id) {
-    return this.contentHash[id]
   }
   updatePlaceholderHeights (changes) {
     // Do this in a batch, with one widget remeasure/move
@@ -121,25 +106,8 @@ class Editable extends React.Component {
     }
     this.pm.signal('draw')
   }
-  updateMediaBlock (block) {
-    // Widget plugin calls this to update a block in the content array
-    // Only media blocks can use this.
-    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
-      throw new Error('Can not update this block')
-    }
-    const currentBlock = this.getBlock(block.id)
-    if (!currentBlock) {
-      throw new Error('Can not find this block')
-    }
-
-    // MUTATION
-    this.contentHash[block.id] = block
-    this.props.onChange('MEDIA_BLOCK_UPDATE', block)
-
-    // Trigger remeasure
-    this.pm.signal('draw')
-  }
 }
+Editable.contextTypes = {store: React.PropTypes.object}
 Editable.propTypes =
   { initialContent: React.PropTypes.array.isRequired
   , onChange: React.PropTypes.func.isRequired

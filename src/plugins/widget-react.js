@@ -31,7 +31,8 @@ export default class WidgetReact extends WidgetBase {
   }
 }
 
-function onChange (path, value) {
+function onChange (event, payload) {
+  const {path, value} = payload
   // Mutate block
   let block = this.initialBlock
   let parent = this.initialBlock.metadata

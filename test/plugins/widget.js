@@ -54,7 +54,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates widget props via setContent', function (done) {
-      ed.pm.on('ed.content.changed', function () {
+      ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         expect(widget.type).to.equal('placeholder')
         expect(widget.el.textContent).to.equal('Status changed')
@@ -69,7 +69,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates widget props via setContent', function (done) {
-      ed.pm.on('ed.content.changed', function () {
+      ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         expect(widget.type).to.equal('placeholder')
         expect(widget.el.textContent).to.equal('Status changed')
@@ -84,7 +84,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates widget props via updatePlaceholder', function (done) {
-      ed.pm.on('ed.content.changed', function () {
+      ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         expect(widget.type).to.equal('placeholder')
         expect(widget.el.textContent).to.equal('Status changed')
