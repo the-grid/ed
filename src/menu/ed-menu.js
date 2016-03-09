@@ -34,18 +34,3 @@ export const barMenu =
   , edMenuGroup
   , historyGroup
   ]
-
-export const foldInlineMenu =
-  [ inlineGroup
-  , blockGroup
-  ]
-
-export const foldBlockMenu =
-  [ blockGroup
-  ]
-
-export const foldBarMenu =
-  [ inlineGroup
-  , blockGroup
-  , historyGroup
-  ]

@@ -1,9 +1,11 @@
+/*
 .ProseMirror-menubar {
   display: none;
 }
 .ProseMirror-focused .ProseMirror-menubar {
   display: block;
 }
+*/
 
 [contenteditable]:focus { outline: 0px solid transparent; }
 

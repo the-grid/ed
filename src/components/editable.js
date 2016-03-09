@@ -9,8 +9,7 @@ import 'prosemirror/src/menu/menubar'
 import GridToDoc from '../convert/grid-to-doc'
 import {isMediaType} from '../convert/types'
 import commands from '../commands/index'
-import {inlineMenu, blockMenu, barMenu,
-  foldBarMenu, foldBlockMenu, foldInlineMenu} from '../menu/ed-menu'
+import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
 
 import PluginWidget from '../plugins/widget.js'
@@ -50,8 +49,8 @@ class Editable extends React.Component {
     const containerEl = this.refs.mirror
     const pluginsEl = this.refs.plugins
 
-    const {initialContent, isFold
-      , menubar, menutip
+    const {initialContent
+      , menuBar, menuTip
       , onChange, onShareUrl, onShareFile
       , onEditableInit} = this.props
 
@@ -66,19 +65,19 @@ class Editable extends React.Component {
 
     this.pm = new ProseMirror(pmOptions)
 
-    if (menubar) {
+    if (menuBar) {
       this.pm.setOption('menuBar'
-      , { content: (isFold ? foldBarMenu : barMenu) }
+      , { content: barMenu }
       )
     }
-    if (menutip) {
+    if (menuTip) {
       this.pm.setOption('tooltipMenu'
       , { showLinks: true
         , emptyBlockMenu: true
         , selectedBlockMenu: true
-        , inlineContent: (isFold ? foldInlineMenu : inlineMenu)
-        , selectedBlockContent: (isFold ? foldInlineMenu : inlineMenu)
-        , blockContent: (isFold ? foldBlockMenu : blockMenu)
+        , inlineContent: inlineMenu
+        , selectedBlockContent: inlineMenu
+        , blockContent: blockMenu
         }
       )
     }
@@ -86,14 +85,14 @@ class Editable extends React.Component {
     this.pm.on('change', onChange)
 
     // Setup plugins
-    let plugins = [FixedMenuBarHack]
-
-    if (!isFold) {
-      plugins.push(PluginWidget)
-      plugins.push(ShareUrl)
-      this.pm.on('ed.plugin.url', (onShareUrl || noop))
-      this.pm.on('ed.menu.file', (onShareFile || noop))
+    let plugins = []
+    if (menuBar) {
+      plugins.push(FixedMenuBarHack)
     }
+    plugins.push(PluginWidget)
+    plugins.push(ShareUrl)
+    this.pm.on('ed.plugin.url', (onShareUrl || noop))
+    this.pm.on('ed.menu.file', (onShareFile || noop))
 
     const pluginOptions =
       { ed: this
