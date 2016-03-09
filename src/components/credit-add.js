@@ -2,18 +2,12 @@ import {createElement as el} from 'react'
 
 import DropdownWrap from './dropdown-wrap'
 import NavItem from 'rebass/dist/NavItem'
-import Arrow from 'rebass/dist/Arrow'
 
 
 export default function CreditAdd (props) {
   const {schema, metadata} = props
   return el(DropdownWrap
   , { buttonText: '...'
-    // , buttonIcon: el(Arrow
-    //   , { direction: 'down'
-    //     , style: { marginLeft: 0 }
-    //     }
-    //   )
     , menuKids: makeLinks(schema, metadata)
     , menuWidth: 180
     }

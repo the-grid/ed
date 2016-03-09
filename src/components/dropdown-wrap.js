@@ -1,14 +1,9 @@
 import React, {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
-import imgflo from 'imgflo-url'
-
-import TextareaAutosize from './textarea-autosize'
 
 import DropdownMenu from 'rebass/dist/DropdownMenu'
 import Dropdown from 'rebass/dist/Dropdown'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
-import Arrow from 'rebass/dist/Arrow'
-import Avatar from 'rebass/dist/Avatar'
 
 
 class DropdownWrap extends React.Component {

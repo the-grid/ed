@@ -1,5 +1,4 @@
 import React, {createElement as el} from 'react'
-import ReactDOM from 'react-dom'
 import imgflo from 'imgflo-url'
 
 import TextareaAutosize from './textarea-autosize'
