@@ -47,8 +47,6 @@ class TextareaAutosize extends React.Component {
   }
   render () {
     const {label, placeholder, defaultValue} = this.props
-    
-    console.log(this.context)
 
     return el('div'
     , { className: 'TextareaAutosize'
@@ -73,9 +71,6 @@ class TextareaAutosize extends React.Component {
     this.props.onChange(event)
     this.resize()
   }
-}
-TextareaAutosize.contextTypes = {
-  rebass: React.PropTypes.object
 }
 TextareaAutosize.propTypes =
   { defaultValue: React.PropTypes.string

@@ -20,7 +20,7 @@ export default function CreditEditor (props, context) {
           { padding: '1rem 1rem 0 1rem' }
         }
       , renderAvatar(avatar, context.imgfloConfig)
-      , ( onlyUrl
+      , (onlyUrl
         ? renderBasedOnUrl(url, onChange, path, this.fieldOnEnterKeyDown)
         : renderFields(name, label, url, avatar, onChange, path, this.fieldOnEnterKeyDown)
         )

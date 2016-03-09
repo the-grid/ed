@@ -1,6 +1,3 @@
-require('./ed.css')
-require('./menu/menu.css')
-
 import ReactDOM from 'react-dom'
 import './util/react-tap-hack'
 import uuid from 'uuid'

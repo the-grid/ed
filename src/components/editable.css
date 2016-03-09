@@ -7,22 +7,55 @@
 }
 */
 
-[contenteditable]:focus { outline: 0px solid transparent; }
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}
 
 .ProseMirror {
   border: none;
 }
 
 .ProseMirror-content {
+  font-family: Georgia, Times, serif;
   border: none;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 1rem 10rem 1rem;
   white-space: pre-wrap;
   max-width: 800px;
 }
 .ProseMirror-content > * {
   margin: 2rem 0px;
   padding: 0px;
+}
+
+.ProseMirror-content h1, 
+.ProseMirror-content h2, 
+.ProseMirror-content h3, 
+.ProseMirror-content h4, 
+.ProseMirror-content h5, 
+.ProseMirror-content h6 {
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+  font-weight: normal;
+}
+
+.ProseMirror-content img {
+  max-width: 100%;
+}
+
+.ProseMirror-content h1 {
+  font-size: 250%;
+}
+.ProseMirror-content h2 {
+  font-size: 175%;
+}
+.ProseMirror-content h3 {
+  font-size: 125%;
+}
+.ProseMirror-content p {
+  font-size: 100%;
+}
+.ProseMirror-content blockquote {
+  font-size: 110%;
 }
 
 .ProseMirror-content > blockquote {
@@ -59,6 +92,8 @@
   left: 0;
   width: 100%;
 }
+
+/* Responsive font size magic, small screen first */
 
 .ProseMirror-content {
   font-size: 1.1rem;

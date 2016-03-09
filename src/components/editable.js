@@ -1,4 +1,5 @@
 require('./editable.css')
+require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/src/edit/main'
