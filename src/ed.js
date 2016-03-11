@@ -159,7 +159,6 @@ export default class Ed {
     if (progress != null) block.metadata.progress = progress
     // Let widgets know to update
     this.trigger('media.update')
-    // this.pm.signal('ed.content.changed')
   }
   getContent () {
     let doc = this.pm.getContent()
@@ -170,14 +169,14 @@ export default class Ed {
     this._setMergedContent(merged)
   }
   _setMergedContent (content) {
-    this._content = content
-    let doc = GridToDoc(this._content)
+    this._initializeContent(content)
+    let doc = GridToDoc(content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
     // Let widgets know to update
-    this.pm.signal('media.update')
+    this.trigger('media.update')
   }
 }
 

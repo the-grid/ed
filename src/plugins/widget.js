@@ -76,7 +76,7 @@ function onDOMChanged () {
   // Signal widgets initialized if first
   if (!this.initialized) {
     this.initialized = true
-    this.pm.signal('ed.plugin.widget.initialized')
+    this.ed.trigger('plugin.widget.initialized')
   }
 }
 

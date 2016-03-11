@@ -23,8 +23,8 @@ describe('PluginWidget', function () {
       , onChange: function () {}
       }
     )
-    PluginWidget = ed.plugins[0]
-    ed.pm.on('ed.plugin.widget.initialized', done)
+    PluginWidget = ed.editableView.plugins[0]
+    ed.on('plugin.widget.initialized', done)
   })
   afterEach(function () {
     ed.teardown()

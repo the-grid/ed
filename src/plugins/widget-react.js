@@ -14,6 +14,9 @@ export default class WidgetReact extends WidgetBase {
   static type () { return 'react' }
   constructor (options) {
     super(options)
+    if (!this.initialBlock) {
+      throw new Error('WidgetReact needs to be mounted with initialBlock')
+    }
     this.onChange = onChange.bind(this)
 
     this.mount()
