@@ -36,7 +36,7 @@ class Editable extends React.Component {
     const {mirror, plugins} = this.refs
     const {initialContent
       , menuBar, menuTip
-      , onChange, onShareUrl, onShareFile} = this.props
+      , onChange, onShareFile} = this.props
     const {store} = this.context
 
     // PM setup
@@ -76,7 +76,6 @@ class Editable extends React.Component {
     if (menuBar) {
       pluginsToInit.push(FixedMenuBarHack)
     }
-    this.pm.on('ed.plugin.url', (onShareUrl || noop))
     this.pm.on('ed.menu.file', (onShareFile || noop))
 
     const pluginOptions =

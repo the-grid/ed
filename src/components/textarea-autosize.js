@@ -62,6 +62,7 @@ class TextareaAutosize extends React.Component {
           , placeholder
           , onChange: this.onChange.bind(this)
           , rows: 1
+          , onFocus: this.resize
           }
         )
       )

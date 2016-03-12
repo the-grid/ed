@@ -38,6 +38,7 @@ export default class Ed {
     // Events
     this.on('change', options.onChange)
     options.onChange = this.routeChange.bind(this)
+    this.onShareUrl = options.onShareUrl
 
     // Setup main DOM structure
     this.container = options.container
@@ -55,6 +56,10 @@ export default class Ed {
       case 'MEDIA_BLOCK_UPDATE':
         this.updateMediaBlock(payload)
         break
+      case 'PLUGIN_URL':
+        const {index, id, block, url} = payload
+        this.replaceBlock(index, block)
+        this.onShareUrl({block: id, url})
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break
