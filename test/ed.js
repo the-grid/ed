@@ -5,11 +5,6 @@ import Ed from '../src/ed'
 
 describe('Ed', function () {
   let mount, ed
-  const fixture =
-    [ {type: 'h1', html: '<h1>Title</h1>'}
-    , {type: 'text', html: '<p>Text 1</p>'}
-    , {type: 'text', html: '<p>Text 2</p>'}
-    ]
 
   describe('Required mounting options', function () {
     beforeEach(function () {
@@ -30,7 +25,7 @@ describe('Ed', function () {
       function no_onChange () {
         ed = new Ed(
           { container: mount
-          , initialContent: fixture
+          , initialContent: []
           , onChange: null
           }
         )
@@ -62,6 +57,12 @@ describe('Ed', function () {
   })
 
   describe('Content mounting and merging', function () {
+    const fixture =
+      [ {type: 'h1', html: '<h1>Title</h1>'}
+      , {type: 'text', html: '<p>Text 1</p>'}
+      , {type: 'text', html: '<p>Text 2</p>'}
+      ]
+
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
@@ -251,6 +252,47 @@ describe('Ed', function () {
           , {id: '0001', type: 'image'}
           , {type: 'text', html: '<p>Text 1</p>'}
           , {type: 'text', html: '<p>Text 2</p>'}
+          ]
+        expect(content).to.deep.equal(expected)
+      })
+    })
+  })
+  
+  describe('The Fold', function () {
+    const fixture =
+      [ {id: '0000', type: 'image', cover: {src: 'http://fo.co/j.jpg'}}
+      , {type: 'text', html: '<p>Text 1</p>'}
+      ]
+
+    beforeEach(function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+      ed = new Ed(
+        { container: mount
+        , initialContent: fixture
+        , onChange: function () {}
+        }
+      )
+      done()
+    })
+    afterEach(function () {
+      ed.teardown()
+    })  
+
+    describe('Mounting', function () {
+      it('splits content correctly', function () {
+        const {initialMedia, initialContent} = ed.app.props
+        expect(initialMedia).to.deep.equal(fixture[0])
+        expect(initialContent).to.deep.equal([fixture[1]])
+      })
+    })
+
+    describe('Getting content', function () {
+      it('outputs expected content', function () {
+        const content = ed.getContent()
+        const expected =
+          [ {id: '0000', type: 'image', cover: {src: 'http://fo.co/j.jpg'}}
+          , {type: 'text', html: '<p>Text 1</p>'}
           ]
         expect(content).to.deep.equal(expected)
       })
