@@ -14,6 +14,7 @@ const ed_upload_image =
   , menu:
     { group: 'ed_block'
     , rank: 100
+    , class: 'EdMenuText'
     , display:
       { type: 'label'
       , label: 'Upload Image'
