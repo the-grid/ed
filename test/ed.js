@@ -257,7 +257,7 @@ describe('Ed', function () {
       })
     })
   })
-  
+
   describe('The Fold', function () {
     const fixture =
       [ {id: '0000', type: 'image', cover: {src: 'http://fo.co/j.jpg'}}
@@ -277,7 +277,7 @@ describe('Ed', function () {
     })
     afterEach(function () {
       ed.teardown()
-    })  
+    })
 
     describe('Mounting', function () {
       it('splits content correctly', function () {

@@ -167,8 +167,13 @@ export default class Ed {
     this.trigger('media.update')
   }
   getContent () {
-    let doc = this.pm.getContent()
-    return DocToGrid(doc, this._content)
+    const doc = this.pm.getContent()
+    const content = DocToGrid(doc, this._content)
+    const fold = this.app.props.initialMedia
+    if (fold) {
+      content.unshift(this.getBlock(fold.id))
+    }
+    return content
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)
