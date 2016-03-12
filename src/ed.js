@@ -60,6 +60,7 @@ export default class Ed {
         const {index, id, block, url} = payload
         this.replaceBlock(index, block)
         this.onShareUrl({block: id, url})
+        break
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break

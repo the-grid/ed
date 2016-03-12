@@ -4,7 +4,6 @@ import _ from '../util/lodash'
 function onScroll (event) {
   const contentTop = this.pm.wrapper.getBoundingClientRect().top
   const scroll = Math.max(window.scrollY, 0)
-  console.log(contentTop, scroll)
   if (contentTop > 0) {
     this.menuEl.style.top = '0px'
     return
@@ -24,7 +23,7 @@ export default class FixedMenuBarHack {
   constructor (options) {
     const {pm} = options
     this.pm = pm
-    
+
     this.menuEl = pm.wrapper.querySelector('.ProseMirror-menubar')
     if (!this.menuEl) {
       return
@@ -39,7 +38,6 @@ export default class FixedMenuBarHack {
     // Fake fixed
     this.menuEl.style.position = 'absolute'
     this.onScroll = onScroll.bind(this)
-    console.log(options.editableView)
     window.addEventListener('scroll', this.onScroll)
   }
   teardown () {
