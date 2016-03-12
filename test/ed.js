@@ -230,7 +230,7 @@ describe('Ed', function () {
       expect(content[4].textContent).to.equal('')
       expect(content[4].type.name).to.equal('paragraph')
     })
-    
+
     describe('Getting content', function () {
       it('outputs expected content', function () {
         ed.insertBlocks(1
