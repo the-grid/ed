@@ -1,7 +1,7 @@
 import {nodeAboveSelection, onBlankLine} from '../util/pm'
 
 const ed_upload_image =
-  { label: 'Choose an image file to upload to your post'
+  { label: 'On new line, choose an image to upload to your post'
   , run (pm) {
     let pos = nodeAboveSelection(pm)
     if (!pos || pos.offset == null) return false
@@ -15,6 +15,7 @@ const ed_upload_image =
     { group: 'ed_block'
     , rank: 100
     , class: 'EdMenuText'
+    , select: 'disable'
     , display:
       { type: 'label'
       , label: 'Upload Image'
