@@ -230,5 +230,30 @@ describe('Ed', function () {
       expect(content[4].textContent).to.equal('')
       expect(content[4].type.name).to.equal('paragraph')
     })
+    
+    describe('Getting content', function () {
+      it('outputs expected content', function () {
+        ed.insertBlocks(1
+        , [ {id: '0000', type: 'placeholder'}
+          , {id: '0001', type: 'placeholder'}
+          ]
+        )
+        ed.setContent(
+          [ {id: '0001', type: 'image'}
+          , {id: '0000', type: 'image'}
+          ]
+        )
+        const content = ed.getContent()
+        const expected =
+          [ {type: 'h1', html: '<h1>Title</h1>'}
+          , {id: '0000', type: 'image'}
+          , {type: 'text', html: '<p></p>'}
+          , {id: '0001', type: 'image'}
+          , {type: 'text', html: '<p>Text 1</p>'}
+          , {type: 'text', html: '<p>Text 2</p>'}
+          ]
+        expect(content).to.deep.equal(expected)
+      })
+    })
   })
 })
