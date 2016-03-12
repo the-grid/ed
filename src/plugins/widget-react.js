@@ -17,36 +17,20 @@ export default class WidgetReact extends WidgetBase {
     if (!this.initialBlock) {
       throw new Error('WidgetReact needs to be mounted with initialBlock')
     }
-    this.onChange = onChange.bind(this)
 
     this.mount()
   }
   mount () {
     const props =
       { initialBlock: this.initialBlock
+      , id: this.initialBlock.id
       , onChange: this.onChange
       , imgfloConfig: this.ed.imgfloConfig
+      , store: this.ed
       }
 
     const {type} = this.initialBlock
     let Component = Components[type] || Components.attribution
     this.mounted = ReactDOM.render(new Component(props), this.el)
   }
-}
-
-function onChange (event, payload) {
-  const {path, value} = payload
-  // Mutate block
-  let block = this.initialBlock
-  let parent = this.initialBlock.metadata
-  for (let i = 0, length = path.length; i < length - 1; i++) {
-    parent = parent[path[i]]
-  }
-  parent[path[path.length - 1]] = value
-
-  // Send change up
-  this.ed.updateMediaBlock(block)
-
-  // Send change down
-  this.mounted.setState({block})
 }

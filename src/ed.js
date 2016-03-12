@@ -117,6 +117,21 @@ export default class Ed {
       events[i](payload)
     }
   }
+  updateMetaByPath (id, path, value) {
+    let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not update this block')
+    }
+    // MUTATION
+    let parent = block.metadata
+    for (let i = 0, length = path.length; i < length - 1; i++) {
+      parent = parent[path[i]]
+    }
+    parent[path[path.length - 1]] = value
+
+    this.trigger('change')
+    return block
+  }
   updateMediaBlock (block) {
     // Widget plugin calls this to update a block in the content array
     // Only media blocks can use this.

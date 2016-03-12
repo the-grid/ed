@@ -2,7 +2,11 @@ import {createElement as el} from 'react'
 import AttributionEditor from './attribution-editor'
 
 export default function FoldMedia (props) {
-  const {initialBlock, onChange} = props
+  const {initialBlock} = props
+  let id
+  if (initialBlock) {
+    id = initialBlock.id
+  }
   return el('div'
   , { className: 'FoldMedia'
     , style:
@@ -12,7 +16,7 @@ export default function FoldMedia (props) {
       }
     }
   , (initialBlock
-    ? el(AttributionEditor, {initialBlock, onChange})
+    ? el(AttributionEditor, {initialBlock, id})
     : '(TODO add media ui / signal here)'
     )
   , renderHelp()

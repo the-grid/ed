@@ -77,6 +77,6 @@ function renderTextField (key, label, value, onChange, path) {
 function makeChange (path, onChange) {
   return function (event) {
     const {value} = event.target
-    onChange('MEDIA_BLOCK_CHANGE', {path, value})
+    onChange(path, value)
   }
 }

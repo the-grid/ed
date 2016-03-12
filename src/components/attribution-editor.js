@@ -16,16 +16,17 @@ class AttributionEditor extends React.Component {
     this.state = {
       block: this.props.initialBlock
     }
+    this.onChange = onChange.bind(this)
   }
   getChildContext () {
     return (
       { imgfloConfig: this.props.imgfloConfig
+      , store: (this.context.store || this.props.store)
       , rebass: rebassTheme
       }
     )
   }
   render () {
-    const {onChange} = this.props
     const {block} = this.state
     const {type, cover, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
@@ -37,12 +38,12 @@ class AttributionEditor extends React.Component {
       , el(
         'div'
         , {className: 'AttributionEditor-metadata'}
-        , renderFields(schema, metadata, onChange)
+        , renderFields(schema, metadata, this.onChange)
       )
       , el(
         'div'
         , {className: 'AttributionEditor-links'}
-        , renderLinks(schema, metadata, onChange)
+        , renderLinks(schema, metadata, this.onChange)
         , el(CreditAdd
           , {schema, metadata}
           )
@@ -50,26 +51,35 @@ class AttributionEditor extends React.Component {
     )
   }
 }
+AttributionEditor.contextTypes =
+  { store: React.PropTypes.object }
 AttributionEditor.childContextTypes =
   { imgfloConfig: React.PropTypes.object
   , rebass: React.PropTypes.object
+  , store: React.PropTypes.object
   }
 AttributionEditor.propTypes =
   { initialBlock: React.PropTypes.object.isRequired
+  , id: React.PropTypes.string.isRequired
   , imgfloConfig: React.PropTypes.object
-  , onChange: React.PropTypes.func.isRequired
+  , store: React.PropTypes.object
   }
 export default React.createFactory(AttributionEditor)
 
 
-// function preventDefault (event) {
-//   event.preventDefault()
-// }
+function onChange (path, value) {
+  const store = (this.context.store || this.props.store)
+  const {id} = this.props
+  // Send change up to store
+  const block = store.updateMetaByPath(id, path, value)
+  // Send change to view
+  this.setState({block})
+}
 
 function makeChange (path, onChange) {
   return function (event) {
     const {value} = event.target
-    onChange('MEDIA_BLOCK_CHANGE', {path, value})
+    onChange(path, value)
   }
 }
 
