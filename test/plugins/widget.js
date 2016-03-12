@@ -21,6 +21,8 @@ describe('PluginWidget', function () {
       { container: mount
       , initialContent: fixture
       , onChange: function () {}
+      , onShareUrl: function () {}
+      , onShareFile: function () {}
       }
     )
     PluginWidget = ed.editableView.plugins[0]

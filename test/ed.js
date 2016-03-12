@@ -21,27 +21,57 @@ describe('Ed', function () {
       }
       expect(no_options).to.throw('Missing options')
     })
-    it('throws without options.onChange', function () {
-      function no_onChange () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: []
-          , onChange: null
-          }
-        )
-      }
-      expect(no_onChange).to.throw('Missing options.onChange')
-    })
     it('throws without options.initialContent', function () {
       function no_initialContent () {
         ed = new Ed(
           { container: mount
           , initialContent: null
           , onChange: function () {}
+          , onShareUrl: function () {}
+          , onShareFile: function () {}
           }
         )
       }
       expect(no_initialContent).to.throw('Missing options.initialContent')
+    })
+    it('throws without options.onChange', function () {
+      function no_onChange () {
+        ed = new Ed(
+          { container: mount
+          , initialContent: []
+          , onChange: null
+          , onShareUrl: function () {}
+          , onShareFile: function () {}
+          }
+        )
+      }
+      expect(no_onChange).to.throw('Missing options.onChange')
+    })
+    it('throws without options.onShareUrl', function () {
+      function no_onShareUrl () {
+        ed = new Ed(
+          { container: mount
+          , initialContent: []
+          , onChange: function () {}
+          , onShareUrl: null
+          , onShareFile: function () {}
+          }
+        )
+      }
+      expect(no_onShareUrl).to.throw('Missing options.onShareUrl')
+    })
+    it('throws without options.onShareFile', function () {
+      function no_onShareFile () {
+        ed = new Ed(
+          { container: mount
+          , initialContent: []
+          , onChange: function () {}
+          , onShareUrl: function () {}
+          , onShareFile: null
+          }
+        )
+      }
+      expect(no_onShareFile).to.throw('Missing options.onShareFile')
     })
     it('throws without options.container', function () {
       function no_container () {
@@ -49,6 +79,8 @@ describe('Ed', function () {
           { container: null
           , initialContent: []
           , onChange: function () {}
+          , onShareUrl: function () {}
+          , onShareFile: function () {}
           }
         )
       }
@@ -70,6 +102,8 @@ describe('Ed', function () {
         { container: mount
         , initialContent: fixture
         , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile: function () {}
         }
       )
       done()
@@ -271,6 +305,8 @@ describe('Ed', function () {
         { container: mount
         , initialContent: fixture
         , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile: function () {}
         }
       )
       done()

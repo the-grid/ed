@@ -23,6 +23,12 @@ export default class Ed {
     if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
+    if (!options.onShareUrl) {
+      throw new Error('Missing options.onShareUrl')
+    }
+    if (!options.onShareFile) {
+      throw new Error('Missing options.onShareFile')
+    }
     if (!options.container) {
       throw new Error('Missing options.container')
     }
