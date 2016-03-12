@@ -22,15 +22,19 @@ class App extends React.Component {
     return el('div'
     , {className: 'Ed'}
     , el('div'
-      , {className: 'Ed-Media'}
+      , { className: 'Ed-Media'
+        , style: { zIndex: 2 }
+        }
       , this.renderMedia()
       )
     , el('div'
-      , {className: 'Ed-FoldSeparator'}
+      , { className: 'Ed-FoldSeparator' }
       , el('hr')
       )
     , el('div'
-      , {className: 'Ed-Content'}
+      , { className: 'Ed-Content'
+        , style: { zIndex: 1 }
+        }
       , this.renderContent()
       )
     )
