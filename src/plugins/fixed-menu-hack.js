@@ -3,7 +3,6 @@ import _ from '../util/lodash'
 
 function onScroll (event) {
   const contentTop = this.pm.wrapper.getBoundingClientRect().top
-  const scroll = Math.max(window.scrollY, 0)
   if (contentTop > 0) {
     this.menuEl.style.top = '0px'
     return
