@@ -34,7 +34,7 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-tap-event-plugin": "^0.2.2",
-    "rebass": "^0.2.1",
+    "rebass": "^0.2.3",
     "uuid": "^2.0.1"
   },
   "widgets": {
