@@ -4,7 +4,7 @@ import Ed from '../src/ed'
 import fixture from './fixture'
 
 let ed
-const content = fixture.content
+const fixtureContent = fixture.content
 const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
@@ -14,9 +14,12 @@ function setup (options) {
     ed.teardown()
     ed = null
   }
+  if (options.initialContent) {
+    apiJSON.value = JSON.stringify(options.initialContent, null, 2)
+  }
   ed = new Ed(
     { container: document.querySelector('#app')
-    , initialContent: content
+    , initialContent: (options.initialContent || [])
     , menuTip: (options.menu === 'tip')
     , menuBar: (options.menu === 'bar')
     , onChange: () => { console.log('change') }
@@ -174,7 +177,7 @@ toggleMenu.onclick = function (event) {
 
 // Hydrate
 let apiJSON = document.querySelector('#debug-api')
-apiJSON.value = JSON.stringify(content, null, 2)
+apiJSON.value = '[]'
 function APIToEditor () {
   let json
   try {
@@ -219,3 +222,10 @@ let toggleUpdates = function () {
   }
 }
 document.querySelector('#sim').onclick = toggleUpdates
+
+// Load full post
+function loadFixture () {
+  setup({menu, initialContent: fixtureContent})
+}
+document.querySelector('#fixture').onclick = loadFixture
+
