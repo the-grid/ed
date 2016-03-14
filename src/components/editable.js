@@ -86,6 +86,8 @@ class Editable extends React.Component {
       }
 
     this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
+    
+    this.pm.focus()
 
     onChange('EDITABLE_INITIALIZE', this)
   }
