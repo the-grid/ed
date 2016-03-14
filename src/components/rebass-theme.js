@@ -24,6 +24,9 @@ const theme =
   , NavItem:
     { fontFamily: sans
     }
+  , Panel:
+    { fontFamily: sans
+    }
   }
 
 export default theme

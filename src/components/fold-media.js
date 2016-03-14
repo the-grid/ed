@@ -1,17 +1,16 @@
 import React, {createElement as el} from 'react'
 import Media from './media'
-import Button from 'rebass/dist/Button'
+import ButtonOutline from 'rebass/dist/ButtonOutline'
+import Panel from 'rebass/dist/Panel'
 import uuid from 'uuid'
 
 class FoldMedia extends React.Component {
   constructor (props, context) {
     super(props)
-    this.state = {}
+    this.state = {helpOpen: false}
     if (props.initialBlock) {
-      this.state =
-        { block: props.initialBlock
-        , id: props.initialBlock.id
-        }
+      this.state.block = props.initialBlock
+      this.state.id = props.initialBlock.id
     }
     const {store} = context
     store.on('fold.media.change', (block) => {
@@ -35,22 +34,45 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddMedia () {
-    return (
-      [ el(Button
-        , { key: 'title'
-          , onClick: this.addTitle.bind(this)
+    const {helpOpen} = this.state
+
+    return el('div'
+    , {}
+    , el(ButtonOutline
+      , { style: { marginRight: -1 }
+        , onClick: this.addTitle.bind(this)
+        }
+      , 'Add title'
+      )
+    , el(ButtonOutline
+      , { style: { marginRight: -1 }
+        , onClick: this.addTitle.bind(this)
+        }
+      , 'Share link'
+      )
+    , el(ButtonOutline
+      , { style: { marginRight: -1 }
+        , onClick: this.addTitle.bind(this)
+        }
+      , 'Upload photo'
+      )
+    , el(ButtonOutline
+      , { onClick: this.toggleHelp.bind(this)
+        }
+      , '?'
+      )
+    , el(Panel
+      , { style:
+          { display: (helpOpen ? 'block' : 'none')
+          , marginTop: -1
           }
-        , 'Add title'
-        )
-      , el(Button
-        , { key: 'share' }
-        , 'Share link'
-        )
-      , el(Button
-        , { key: 'upload' }
-        , 'Upload photo'
-        )
-      ]
+        , theme: 'info'
+        }
+      , 'Welcome to your post editor. ' +
+        'Above the line is the primary representation ' +
+        'of your post. Below the line is the rest of ' +
+        'the post that will show on the post page.'
+      )
     )
   }
   addTitle () {
@@ -62,6 +84,10 @@ class FoldMedia extends React.Component {
       , html: '<h1></h1>'
       }
     )
+  }
+  toggleHelp () {
+    const helpOpen = !this.state.helpOpen
+    this.setState({helpOpen})
   }
 }
 FoldMedia.contextTypes = { store: React.PropTypes.object }
