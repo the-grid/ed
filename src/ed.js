@@ -5,7 +5,6 @@ import uuid from 'uuid'
 
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
-import {isMediaType} from './convert/types'
 import determineFold from './convert/determine-fold'
 
 import App from './components/app'

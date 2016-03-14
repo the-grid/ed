@@ -3,12 +3,13 @@ import {sans} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
+  , fontSize: '50%'
   , marginBottom: '1rem'
   }
 
 const areaStyle =
   { fontFamily: 'inherit'
-  , fontSize: 'inherit'
+  , fontSize: '200%'
   , lineHeight: 1.5
   , minHeight: '1.5rem'
   , display: 'block'

@@ -1,35 +1,69 @@
-import {createElement as el} from 'react'
-import AttributionEditor from './attribution-editor'
+import React, {createElement as el} from 'react'
+import Media from './media'
+import Button from 'rebass/dist/Button'
+import uuid from 'uuid'
 
-export default function FoldMedia (props) {
-  const {initialBlock} = props
-  let id
-  if (initialBlock) {
-    id = initialBlock.id
+class FoldMedia extends React.Component {
+  constructor (props, context) {
+    super(props)
+    this.state = {}
+    if (props.initialBlock) {
+      this.state =
+        { block: props.initialBlock
+        , id: props.initialBlock.id
+        }
+    }
+    const {store} = context
+    store.on('fold.media.change', (block) => {
+      this.setState({block, id: block.id})
+    })
   }
-  return el('div'
-  , { className: 'FoldMedia'
-    , style:
-      { margin: '0 auto'
-      , padding: '1rem'
-      , maxWidth: 800
+  render () {
+    const {block, id} = this.state
+    return el('div'
+    , { className: 'FoldMedia'
+      , style:
+        { margin: '0 auto'
+        , padding: '1rem'
+        , maxWidth: 800
+        }
       }
-    }
-  , (initialBlock
-    ? el(AttributionEditor, {initialBlock, id})
-    : '(TODO add media ui / signal here)'
+    , (block
+      ? el(Media, {initialBlock: block, id})
+      : this.renderAddMedia()
+      )
     )
-  , renderHelp()
-  )
+  }
+  renderAddMedia () {
+    return (
+      [ el(Button
+        , { key: 'title'
+          , onClick: this.addTitle.bind(this)
+          }
+        , 'Add title'
+        )
+      , el(Button
+        , { key: 'share' }
+        , 'Share link'
+        )
+      , el(Button
+        , { key: 'upload' }
+        , 'Upload photo'
+        )
+      ]
+    )
+  }
+  addTitle () {
+    const {store} = this.context
+    store.routeChange('FOLD_MEDIA_INIT'
+    , { id: uuid.v4()
+      , type: 'h1'
+      , metadata: {starred: true}
+      , html: '<h1></h1>'
+      }
+    )
+  }
 }
-
-function renderHelp () {
-  return el('button'
-  , { className: 'Ed-Help'
-    , title: 'Welcome to your post editor.\n' +
-      'Everything above the "fold" line will show in your main page feed, ' +
-      'while everything below the line will show in the post\'s page.'
-    , children: '?'
-    }
-  )
-}
+FoldMedia.contextTypes = { store: React.PropTypes.object }
+FoldMedia.propTypes = { initialBlock: React.PropTypes.object }
+export default React.createFactory(FoldMedia)
