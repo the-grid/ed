@@ -37,6 +37,7 @@ export default class Ed {
     this._content = {}
     this._initializeContent(options.initialContent)
     const {media, content} = determineFold(options.initialContent)
+    this._foldMedia = media
     options.initialMedia = media
     options.initialContent = content
     options.store = this
@@ -60,7 +61,8 @@ export default class Ed {
         this._editableInitialize(payload)
         break
       case 'MEDIA_BLOCK_UPDATE':
-        this.updateMediaBlock(payload)
+        this._updateMediaBlock(payload)
+        this.trigger('change')
         break
       case 'PLUGIN_URL':
         const {index, id, block, url} = payload
@@ -68,6 +70,17 @@ export default class Ed {
         this.onShareUrl({block: id, url})
         break
       case 'EDITABLE_CHANGE':
+        this.trigger('change')
+        break
+      case 'FOLD_MEDIA_INIT':
+        this._foldMedia = payload
+        this._initializeContent([payload])
+        this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
+      case 'FOLD_MEDIA_CHANGE':
+        this._updateMediaBlock(payload)
+        this.trigger('fold.media.change', payload)
         this.trigger('change')
         break
       default:
@@ -131,10 +144,9 @@ export default class Ed {
     this.trigger('change')
     return block
   }
-  updateMediaBlock (block) {
-    // Widget plugin calls this to update a block in the content array
-    // Only media blocks can use this.
-    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
+  _updateMediaBlock (block) {
+    // Widgets and components route here
+    if (!block || !block.id) {
       throw new Error('Can not update this block')
     }
     const currentBlock = this.getBlock(block.id)
@@ -144,7 +156,6 @@ export default class Ed {
 
     // MUTATION
     this._content[block.id] = block
-    this.trigger('change')
   }
   getBlock (id) {
     return this._content[id]
@@ -190,7 +201,7 @@ export default class Ed {
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
-    const fold = this.app.props.initialMedia
+    const fold = this._foldMedia
     if (fold) {
       content.unshift(this.getBlock(fold.id))
     }

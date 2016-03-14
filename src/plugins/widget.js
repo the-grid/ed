@@ -126,7 +126,7 @@ function onIframeMessage (message) {
     case 'changed':
       let block = message.data.payload
       if (fromId !== block.id) throw new Error('Iframe block id does not match frame id')
-      this.ed.updateMediaBlock(block)
+      this.ed.routeChange('MEDIA_BLOCK_UPDATE', block)
       break
     case 'height':
       if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
