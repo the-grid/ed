@@ -27,6 +27,9 @@ const theme =
   , Panel:
     { fontFamily: sans
     }
+  , Message:
+    { fontFamily: sans
+    }
   }
 
 export default theme

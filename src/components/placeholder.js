@@ -1,5 +1,6 @@
 import {createElement as el} from 'react'
 import {sans} from './rebass-theme'
+import Message from 'rebass/dist/Message'
 
 export default function Placeholder (props) {
   const {metadata} = props.initialBlock
@@ -12,14 +13,11 @@ export default function Placeholder (props) {
 
   return el('div'
   , {className: 'Placeholder'}
-  , el('div'
+  , el(Message
     , { className: 'Placeholder-status'
-      , style:
-        { fontFamily: sans
-        , textAlign: 'center'
-        }
+      , theme: 'info'
       }
-      , status
+    , status
     )
   )
 }
