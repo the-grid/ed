@@ -32,9 +32,10 @@ function resize () {
 
 
 class TextareaAutosize extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.resize = resize.bind(this)
+    this.state = {value: props.defaultValue}
   }
   componentDidMount () {
     this.resize()
@@ -46,7 +47,8 @@ class TextareaAutosize extends React.Component {
     this.resize()
   }
   render () {
-    const {label, placeholder, defaultValue} = this.props
+    const {label, placeholder} = this.props
+    const {value} = this.state
 
     return el('div'
     , { className: 'TextareaAutosize'
@@ -58,18 +60,33 @@ class TextareaAutosize extends React.Component {
       , el('textarea'
         , { ref: 'textarea'
           , style: areaStyle
-          , defaultValue
+          , value
           , placeholder
           , onChange: this.onChange.bind(this)
           , rows: 1
           , onFocus: this.resize
+          , onKeyDown: this.onKeyDown.bind(this)
           }
         )
       )
     )
   }
+  onKeyDown (event) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(event)
+    }
+  }
   onChange (event) {
-    this.props.onChange(event)
+    let {value} = event.target
+    if (this.props.onChange) {
+      this.props.onChange(event)
+    }
+    if (!this.props.multiline) {
+      value = value
+        .replace(/\r\n/g, ' ')
+        .replace(/[\r\n]/g, ' ')
+    }
+    this.setState({value})
     this.resize()
   }
 }
@@ -79,5 +96,9 @@ TextareaAutosize.propTypes =
   , label: React.PropTypes.string
   , placeholder: React.PropTypes.string
   , onChange: React.PropTypes.func
+  , multiline: React.PropTypes.bool
+  }
+TextareaAutosize.defaultProps =
+  { multiline: false
   }
 export default React.createFactory(TextareaAutosize)
