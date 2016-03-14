@@ -33,16 +33,16 @@ class AttributionEditor extends React.Component {
 
     return el(
       'div'
-      , {className: 'AttributionEditor'}
+      , { className: 'AttributionEditor' }
       , renderCover(cover)
       , el(
         'div'
-        , {className: 'AttributionEditor-metadata'}
+        , { className: 'AttributionEditor-metadata' }
         , renderFields(schema, metadata, this.onChange)
       )
       , el(
         'div'
-        , {className: 'AttributionEditor-links'}
+        , { className: 'AttributionEditor-links' }
         , renderLinks(schema, metadata, this.onChange)
         , el(CreditAdd
           , {schema, metadata}

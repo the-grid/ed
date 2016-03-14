@@ -5,6 +5,7 @@
 }
 .EdPlugins-Widgets > div {
   border: 1px #DDDDDD solid;
+  background-color: white;
 }
 .EdPlugins-Widgets iframe {
   border: none;

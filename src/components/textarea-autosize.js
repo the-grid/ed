@@ -1,5 +1,5 @@
 import React, {createElement as el} from 'react'
-import {sans} from './rebass-theme'
+import {sans, colors} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
@@ -17,9 +17,8 @@ const areaStyle =
   , padding: 0
   , resize: 'none'
   , color: 'inherit'
-  , backgroundColor: 'transparent'
+  , backgroundColor: colors.highlight
   , border: 0
-  , borderBottom: '1px gray solid'
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'

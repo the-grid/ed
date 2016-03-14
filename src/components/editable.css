@@ -1,12 +1,3 @@
-/*
-.ProseMirror-menubar {
-  display: none;
-}
-.ProseMirror-focused .ProseMirror-menubar {
-  display: block;
-}
-*/
-
 [contenteditable]:focus {
   outline: 0px solid transparent;
 }
@@ -23,6 +14,17 @@
   white-space: pre-wrap;
   max-width: 800px;
 }
+
+/* Show where to click when not focused */
+.ProseMirror-content {
+  background-color: lightgoldenrodyellow;
+}
+.ProseMirror-focused .ProseMirror-content {
+  background-color: transparent;
+}
+
+/* Font junk */
+
 .ProseMirror-content > * {
   margin: 2rem 0px;
   padding: 0px;
