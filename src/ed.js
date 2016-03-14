@@ -1,7 +1,6 @@
 import {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 import './util/react-tap-hack'
-import './util/polyfill-object-assign'
 import uuid from 'uuid'
 
 import GridToDoc from './convert/grid-to-doc'
