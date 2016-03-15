@@ -5,8 +5,12 @@ export default function determineFold (items) {
   let content = []
   for (let i = 0, len = items.length; i < len; i++) {
     const item = items[i]
-    const {type, cover} = item
+    const {type, cover, metadata} = item
     if (!media && isMediaType(type) && cover && cover.src) {
+      media = item
+      continue
+    }
+    if (!media && type === 'h1' && metadata && metadata.starred) {
       media = item
       continue
     }
