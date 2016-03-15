@@ -19,6 +19,7 @@ export default class WidgetIframe extends WidgetBase {
     super(options)
     this.postInitialBlock = postInitialBlock.bind(this)
     this.postMessage = postMessage.bind(this)
+    this.height = 1
 
     this.frame = document.createElement('iframe')
     this.frame.setAttribute('grid-id', options.id)
@@ -27,9 +28,10 @@ export default class WidgetIframe extends WidgetBase {
       this.frame.addEventListener('load', this.postInitialBlock)
     }
     this.frame.src = this.src()
+    this.frame.style.border = 'none'
+    this.frame.style.width = '100%'
+    this.setHeight(240)
     this.el.appendChild(this.frame)
-
-    this.height = 100
   }
   teardown () {
     if (this.initialBlock) {
@@ -40,5 +42,11 @@ export default class WidgetIframe extends WidgetBase {
   getHeight () {
     // Don't measure from outside: iframes report own height
     return this.height
+  }
+  setHeight (height) {
+    if (this.height !== height) {
+      this.height = height
+      this.frame.style.height = height + 'px'
+    }
   }
 }

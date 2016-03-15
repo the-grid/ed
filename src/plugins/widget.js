@@ -32,14 +32,7 @@ function onDOMChanged () {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    const rect = el.getBoundingClientRect()
-    const rectangle = {
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
-      width: rect.width,
-      height: rect.height
-    }
-    this.checkWidget(id, type, rectangle)
+    this.checkWidget(id, type, el)
   }
 
   // Hide or show widgets
@@ -54,25 +47,6 @@ function onDOMChanged () {
     }
   }
 
-  // Measure inner heights of widgets
-  let heightChanges = []
-  for (let i = 0, len = inDOM.length; i < len; i++) {
-    const id = inDOM[i]
-    const widget = this.widgets[id]
-    if (!widget.shown) continue
-    const innerHeight = widget.getHeight()
-    if (innerHeight !== widget.height) {
-      heightChanges.push({
-        id: id,
-        height: innerHeight
-      })
-    }
-  }
-  if (heightChanges.length) {
-    // Will trigger a redraw / this onDOMChanged again
-    this.ed.updatePlaceholderHeights(heightChanges)
-  }
-
   // Signal widgets initialized if first
   if (!this.initialized) {
     this.initialized = true
@@ -80,7 +54,7 @@ function onDOMChanged () {
   }
 }
 
-function checkWidget (id, type, rectangle) {
+function checkWidget (id, type, el) {
   let widget = this.widgets[id]
   if (widget && widget.type !== type) {
     // Remove it
@@ -89,15 +63,16 @@ function checkWidget (id, type, rectangle) {
     widget = null
   }
   if (widget) {
-    // Move it
-    widget.move(rectangle)
+    // Check that widget container is still parent
+    // For cut and paste, delete and undo
+    widget.checkMounted(el)
   } else {
     // Make it
-    this.initializeWidget(id, type, rectangle)
+    this.initializeWidget(id, type, el)
   }
 }
 
-function initializeWidget (id, type, rectangle) {
+function initializeWidget (id, type, el) {
   let Widget = WidgetTypes[type] || WidgetTypes.react
 
   let initialBlock = this.ed.getBlock(id)
@@ -106,8 +81,7 @@ function initializeWidget (id, type, rectangle) {
     ed: this.ed,
     id,
     type,
-    widgetContainer: this.el,
-    initialRectangle: rectangle,
+    widgetContainer: el,
     initialBlock: initialBlock
   })
 
@@ -128,11 +102,9 @@ function onIframeMessage (message) {
       this.ed.updateMediaBlock(block)
       break
     case 'height':
-      if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.ed.updatePlaceholderHeights([{
-        id: message.data.id,
-        height: message.data.payload
-      }])
+      const {id, payload} = message.data
+      if (isNaN(payload)) throw new Error('Iframe height message with non-numeric payload')
+      this.widgets[id].setHeight(payload)
       break
     case 'cursor':
     default:
