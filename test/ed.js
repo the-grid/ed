@@ -163,8 +163,8 @@ describe('Ed', function () {
       expect(content[5].type.name).to.equal('paragraph')
     })
 
-    it('inject placeholder blocks via insertBlocks', function () {
-      ed.insertBlocks(1
+    it('inject placeholder blocks via _insertBlocks', function () {
+      ed._insertBlocks(1
       , [ {id: '0000', type: 'placeholder'}
         , {id: '0001', type: 'placeholder'}
         ]
@@ -213,7 +213,7 @@ describe('Ed', function () {
     })
 
     it('replace text with placeholder block', function () {
-      ed.replaceBlock(1, {id: '0000', type: 'placeholder'})
+      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
       const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
@@ -226,7 +226,7 @@ describe('Ed', function () {
     })
 
     it('replace placeholder with image block, should correctly merge', function () {
-      ed.replaceBlock(1, {id: '0000', type: 'placeholder'})
+      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
       ed.setContent([{id: '0000', type: 'image'}])
 
       const content = ed.editableView.pm.doc.content.content
@@ -241,8 +241,8 @@ describe('Ed', function () {
     })
 
     it('replace multiple placeholders, should correctly merge', function () {
-      ed.replaceBlock(1, {id: '0000', type: 'placeholder'})
-      ed.replaceBlock(2, {id: '0001', type: 'placeholder'})
+      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
+      ed._replaceBlock(2, {id: '0001', type: 'placeholder'})
       ed.setContent(
         [ {id: '0001', type: 'image'}
         , {id: '0000', type: 'image'}
@@ -268,7 +268,7 @@ describe('Ed', function () {
 
     describe('Getting content', function () {
       it('outputs expected content', function () {
-        ed.insertBlocks(1
+        ed._insertBlocks(1
         , [ {id: '0000', type: 'placeholder'}
           , {id: '0001', type: 'placeholder'}
           ]
@@ -327,7 +327,11 @@ describe('Ed', function () {
       it('outputs expected content', function () {
         const content = ed.getContent()
         const expected =
-          [ {id: '0000', type: 'image', cover: {src: 'http://fo.co/j.jpg'}}
+          [ { id: '0000'
+            , type: 'image'
+            , cover: {src: 'http://fo.co/j.jpg'}
+            , metadata: {starred: true}
+            }
           , {type: 'text', html: '<p>Text 1</p>'}
           ]
         expect(content).to.deep.equal(expected)

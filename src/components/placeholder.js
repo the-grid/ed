@@ -16,6 +16,7 @@ export default function Placeholder (props) {
   , el(Message
     , { className: 'Placeholder-status'
       , theme: 'info'
+      , style: {marginBottom: 0}
       }
     , status
     )

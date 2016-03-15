@@ -1,5 +1,7 @@
 import React, {createElement as el} from 'react'
 import Media from './media'
+import TextareaAutosize from './textarea-autosize'
+import Button from 'rebass/dist/Button'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 import Panel from 'rebass/dist/Panel'
 import uuid from 'uuid'
@@ -7,7 +9,10 @@ import uuid from 'uuid'
 class FoldMedia extends React.Component {
   constructor (props, context) {
     super(props)
-    this.state = {helpOpen: false}
+    this.state =
+      { helpOpen: false
+      , linkOpen: false
+      }
     if (props.initialBlock) {
       this.state.block = props.initialBlock
       this.state.id = props.initialBlock.id
@@ -34,7 +39,7 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddMedia () {
-    const {helpOpen} = this.state
+    const {helpOpen, linkOpen} = this.state
 
     return el('div'
     , {}
@@ -46,7 +51,7 @@ class FoldMedia extends React.Component {
       )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
-        , onClick: this.addTitle.bind(this)
+        , onClick: this.toggleLink.bind(this)
         }
       , 'Share link'
       )
@@ -63,6 +68,15 @@ class FoldMedia extends React.Component {
       )
     , el(Panel
       , { style:
+          { display: (linkOpen ? 'block' : 'none')
+          , marginTop: -1
+          }
+        , theme: 'info'
+        }
+      , this.renderShareLink()
+      )
+    , el(Panel
+      , { style:
           { display: (helpOpen ? 'block' : 'none')
           , marginTop: -1
           }
@@ -74,6 +88,47 @@ class FoldMedia extends React.Component {
         'the post that will show on the post page.'
       )
     )
+  }
+  renderShareLink () {
+    const {linkOpen} = this.state
+    if (!linkOpen) return
+    
+    return el('form'
+    , { onSubmit: this.shareLink.bind(this) }
+    , el(TextareaAutosize
+      , { label: 'URL'
+        , defaultFocus: true
+        , placeholder: 'https://...'
+        , onKeyDown: this.shareKeyDown.bind(this)
+        }
+      )
+    , el(Button
+      , { type: 'submit' }
+      , 'Share')
+    )
+  }
+  shareKeyDown (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      this.shareLink(event)
+    }
+  }
+  shareLink (event) {
+    event.preventDefault()
+    
+    let value
+    if (event.type === 'keydown') {
+      value = event.target.value
+    }
+    if (event.type === 'submit') {
+      const el = event.target.querySelector('textarea')
+      value = el.value
+    }
+    value = value.trim()
+    if (!value) return
+    
+    const {store} = this.context
+    store.routeChange('FOLD_MEDIA_SHARE', value)
   }
   addTitle () {
     const {store} = this.context
@@ -88,6 +143,10 @@ class FoldMedia extends React.Component {
   toggleHelp () {
     const helpOpen = !this.state.helpOpen
     this.setState({helpOpen})
+  }
+  toggleLink () {
+    const linkOpen = !this.state.linkOpen
+    this.setState({linkOpen})
   }
 }
 FoldMedia.contextTypes = { store: React.PropTypes.object }

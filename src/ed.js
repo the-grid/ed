@@ -65,11 +65,26 @@ export default class Ed {
         break
       case 'PLUGIN_URL':
         const {index, id, block, url} = payload
-        this.replaceBlock(index, block)
+        this._replaceBlock(index, block)
         this.onShareUrl({block: id, url})
         break
       case 'EDITABLE_CHANGE':
         this.trigger('change')
+        break
+      case 'FOLD_MEDIA_SHARE':
+        const newId = uuid.v4()
+        const share = 
+          { id: newId
+          , type: 'placeholder'
+          , metadata:
+            { starred: true
+            , status: `Sharing... ${payload}`
+            }
+          }
+        this._foldMedia = share
+        this._initializeContent([share])
+        this.trigger('fold.media.change', share)
+        this.onShareUrl({block: newId, url: payload})
         break
       case 'FOLD_MEDIA_INIT':
         this._foldMedia = payload
@@ -159,15 +174,21 @@ export default class Ed {
   getBlock (id) {
     return this._content[id]
   }
-  replaceBlock (index, block) {
+  _replaceBlock (index, block) {
     let content = this.getContent()
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia.id) {
+      index += 1
+    }
     // MUTATION
     content.splice(index, 1, block)
     // Render
     this._setMergedContent(content)
   }
-  insertBlocks (index, blocks) {
+  _insertBlocks (index, blocks) {
     const content = this.getContent()
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia.id) {
+      index += 1
+    }
     // MUTATION
     const newContent = arrayInsertAll(content, index, blocks)
     // Render
@@ -186,22 +207,36 @@ export default class Ed {
         }
       )
     }
-    this.insertBlocks(index, toInsert)
+    this._insertBlocks(index, toInsert)
     return ids
   }
   updatePlaceholder (id, status, progress) {
     let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not update this placeholder block')
+    }
+    if (block.type !== 'placeholder') {
+      throw new Error('Block is not a placeholder block')
+    }
     // Mutation
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
-    // Let widgets know to update
+    // Let content widgets know to update
     this.trigger('media.update')
+    // Let fold media know to update
+    if (this._foldMedia && this._foldMedia.id === id) {
+      this.trigger('fold.media.change', block)
+    }
   }
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
     const fold = this._foldMedia
     if (fold) {
+      if (!fold.metadata) {
+        fold.metadata = {}
+      }
+      fold.metadata.starred = true
       content.unshift(this.getBlock(fold.id))
     }
     return content
@@ -210,8 +245,13 @@ export default class Ed {
     const merged = mergeContent(this.getContent(), content)
     this._setMergedContent(merged)
   }
-  _setMergedContent (content) {
-    this._initializeContent(content)
+  _setMergedContent (mergedContent) {
+    this._initializeContent(mergedContent)
+    const {media, content} = determineFold(mergedContent)
+    if (media) {
+      this._foldMedia = media
+      this.trigger('fold.media.change', media)
+    }
     let doc = GridToDoc(content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)

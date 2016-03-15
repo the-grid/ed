@@ -44,9 +44,9 @@ class AttributionEditor extends React.Component {
         'div'
         , { className: 'AttributionEditor-links' }
         , renderLinks(schema, metadata, this.onChange)
-        , el(CreditAdd
-          , {schema, metadata}
-          )
+        // , el(CreditAdd
+        //   , {schema, metadata}
+        //   )
       )
     )
   }

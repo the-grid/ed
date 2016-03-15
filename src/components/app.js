@@ -29,7 +29,7 @@ class App extends React.Component {
       )
     , el('div'
       , { className: 'Ed-FoldSeparator' }
-      , el('hr')
+      , el('hr', {style: {clear: 'both'}})
       )
     , el('div'
       , { className: 'Ed-Content'

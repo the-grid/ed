@@ -18,10 +18,10 @@ export default function Title (props, context) {
       , defaultValue: title
       , defaultFocus: true
       , onChange: function (event) {
-        const block = initialBlock
-        block.html = `<h1>${event.target.value}</h1>`
-        store.routeChange('FOLD_MEDIA_CHANGE', block)
-      }
+          const block = initialBlock
+          block.html = `<h1>${event.target.value}</h1>`
+          store.routeChange('FOLD_MEDIA_CHANGE', block)
+        }
       }
     )
   )
