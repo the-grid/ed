@@ -1,5 +1,18 @@
 ## dev
 
+## 0.5.0 - The Fold - 2016-03-15
+
+* **The Fold** view above main editable for sharing and editing one primary media block
+* Didn't change the interface, so these should work as before:
+  * `ed.setContent(content)`
+  * `ed.insertPlaceholders(index, count)`
+  * `ed.updatePlaceholder(id, status, progress)`
+* Prepended some "internal" method names with `_` ... don't use those
+* Main html structure now defined and initialized with React: [App](./src/components/app.js)
+* Refactor internal dataflow
+  * (React but not Flux, mainly because [Editable](./src/components/editable.js) should only be initialized once)
+* BREAKING -- `options.[menuBar|menuTip]` made camelCase
+
 ## 0.4.7 - 2016-03-01
 
 * Popovers don't autohide on scroll, makes meta editing easier on Android
