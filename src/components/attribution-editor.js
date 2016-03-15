@@ -48,6 +48,10 @@ class AttributionEditor extends React.Component {
         //   , {schema, metadata}
         //   )
       )
+      , el(
+        'div'
+        , { style: {clear: 'both'} }
+      )
     )
   }
 }
@@ -138,8 +142,8 @@ function renderLinks (schema, metadata = {}, onChange) {
 }
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
-  return el(CreditEditor, {
-    className: `AttributionEditor-${key}`
+  return el(CreditEditor
+  , { className: `AttributionEditor-${key}`
     , key: key
     , label: label
     , name: item.name
@@ -148,5 +152,6 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
     , path: path || [key]
     , onChange
     , onlyUrl
-  })
+    }
+  )
 }

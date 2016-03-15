@@ -75,18 +75,21 @@ class TextareaAutosize extends React.Component {
     if (this.props.onKeyDown) {
       this.props.onKeyDown(event)
     }
+    if (!this.props.multiline && event.key === 'Enter') {
+      event.preventDefault()
+    }
   }
   onChange (event) {
     let {value} = event.target
-    if (this.props.onChange) {
-      this.props.onChange(event)
-    }
     if (!this.props.multiline) {
-      value = value
+      value = event.target.value = value
         .replace(/\r\n/g, ' ')
         .replace(/[\r\n]/g, ' ')
     }
     this.setState({value})
+    if (this.props.onChange) {
+      this.props.onChange(event)
+    }
     this.resize()
   }
 }
