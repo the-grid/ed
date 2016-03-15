@@ -92,7 +92,7 @@ class FoldMedia extends React.Component {
   renderShareLink () {
     const {linkOpen} = this.state
     if (!linkOpen) return
-    
+
     return el('form'
     , { onSubmit: this.shareLink.bind(this) }
     , el(TextareaAutosize
@@ -115,7 +115,7 @@ class FoldMedia extends React.Component {
   }
   shareLink (event) {
     event.preventDefault()
-    
+
     let value
     if (event.type === 'keydown') {
       value = event.target.value
@@ -126,7 +126,7 @@ class FoldMedia extends React.Component {
     }
     value = value.trim()
     if (!value) return
-    
+
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_SHARE', value)
   }

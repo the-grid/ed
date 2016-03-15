@@ -4,7 +4,7 @@ require('./attribution-editor.css')
 import React, {createElement as el} from 'react'
 import Image from './image'
 import CreditEditor from './credit-editor'
-import CreditAdd from './credit-add'
+// import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 import blockMetaSchema from '../schema/block-meta'
 import rebassTheme from './rebass-theme'

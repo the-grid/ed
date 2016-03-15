@@ -1,5 +1,4 @@
 import {createElement as el} from 'react'
-import {sans} from './rebass-theme'
 import Message from 'rebass/dist/Message'
 
 export default function Placeholder (props) {

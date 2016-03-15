@@ -73,7 +73,7 @@ export default class Ed {
         break
       case 'FOLD_MEDIA_SHARE':
         const newId = uuid.v4()
-        const share = 
+        const share =
           { id: newId
           , type: 'placeholder'
           , metadata:
