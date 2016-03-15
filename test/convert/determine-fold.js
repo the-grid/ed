@@ -74,7 +74,30 @@ describe('determineFold', function () {
         ]
       }
 
-    it('correctly finds media', function () {
+    it('correctly finds heading', function () {
+      const folded = determineFold(fixture)
+      expect(folded).to.deep.equal(expected)
+    })
+  })
+
+  describe('with placeholder fold', function () {
+    const fixture =
+      [ { id: '000', type: 'placeholder' }
+      , { type: 'h1', html: '<h1>heading 1</h1>' }
+      , { type: 'text', html: '<p>paragraph 0</p>' }
+      , { type: 'text', html: '<p>paragraph 1</p>' }
+      ]
+    const expected =
+      { media:
+        { id: '000', type: 'placeholder' }
+      , content:
+        [ { type: 'h1', html: '<h1>heading 1</h1>' }
+        , { type: 'text', html: '<p>paragraph 0</p>' }
+        , { type: 'text', html: '<p>paragraph 1</p>' }
+        ]
+      }
+
+    it('correctly finds heading', function () {
       const folded = determineFold(fixture)
       expect(folded).to.deep.equal(expected)
     })

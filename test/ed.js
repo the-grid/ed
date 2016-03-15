@@ -143,149 +143,116 @@ describe('Ed', function () {
         , {type: 'text', html: '<p>Text 2</p>'}
         ]
       )
+      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(6)
+      expect(content.length).to.equal(4)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.id).to.equal('0000')
+      expect(content[1].attrs.id).to.equal('0001')
       expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('')
+      expect(content[2].textContent).to.equal('Text 1')
       expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('')
-      expect(content[3].type.name).to.equal('media')
-      expect(content[3].attrs.id).to.equal('0001')
-      expect(content[3].attrs.type).to.equal('placeholder')
-      expect(content[4].textContent).to.equal('Text 1')
-      expect(content[4].type.name).to.equal('paragraph')
-      expect(content[5].textContent).to.equal('Text 2')
-      expect(content[5].type.name).to.equal('paragraph')
-    })
-
-    it('inject placeholder blocks via _insertBlocks', function () {
-      ed._insertBlocks(1
-      , [ {id: '0000', type: 'placeholder'}
-        , {id: '0001', type: 'placeholder'}
-        ]
-      )
-      const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(6)
-      expect(content[0].textContent).to.equal('Title')
-      expect(content[0].type.name).to.equal('heading')
-      expect(content[1].textContent).to.equal('')
-      expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.id).to.equal('0000')
-      expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('')
-      expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('')
-      expect(content[3].type.name).to.equal('media')
-      expect(content[3].attrs.id).to.equal('0001')
-      expect(content[3].attrs.type).to.equal('placeholder')
-      expect(content[4].textContent).to.equal('Text 1')
-      expect(content[4].type.name).to.equal('paragraph')
-      expect(content[5].textContent).to.equal('Text 2')
-      expect(content[5].type.name).to.equal('paragraph')
+      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[3].type.name).to.equal('paragraph')
     })
 
     it('inject placeholder blocks via insertPlaceholders', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)
+
+      expect(ed._foldMedia).to.equal(ids[0])
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(6)
+      expect(content.length).to.equal(4)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.id.length).to.equal(36)
+      expect(content[1].attrs.id).to.equal(ids[1])
       expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('')
+      expect(content[2].textContent).to.equal('Text 1')
       expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('')
-      expect(content[3].type.name).to.equal('media')
-      expect(content[3].attrs.id.length).to.equal(36)
-      expect(content[3].attrs.type).to.equal('placeholder')
-      expect(content[4].textContent).to.equal('Text 1')
-      expect(content[4].type.name).to.equal('paragraph')
-      expect(content[5].textContent).to.equal('Text 2')
-      expect(content[5].type.name).to.equal('paragraph')
+      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[3].type.name).to.equal('paragraph')
     })
 
     it('replace text with placeholder block', function () {
       ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
+
+      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(3)
+      expect(content.length).to.equal(2)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
-      expect(content[1].textContent).to.equal('')
-      expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('Text 2')
-      expect(content[2].type.name).to.equal('paragraph')
+      expect(content[1].textContent).to.equal('Text 2')
+      expect(content[1].type.name).to.equal('paragraph')
     })
 
     it('replace placeholder with image block, should correctly merge', function () {
       ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
-      ed.setContent([{id: '0000', type: 'image'}])
+      ed.setContent([{id: '0000', type: 'image', cover: {src: '...'}}])
 
+      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(3)
+      expect(content.length).to.equal(2)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
-      expect(content[1].textContent).to.equal('')
-      expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.type).to.equal('image')
-      expect(content[2].textContent).to.equal('Text 2')
-      expect(content[2].type.name).to.equal('paragraph')
+      expect(content[1].textContent).to.equal('Text 2')
+      expect(content[1].type.name).to.equal('paragraph')
     })
 
     it('replace multiple placeholders, should correctly merge', function () {
-      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
-      ed._replaceBlock(2, {id: '0001', type: 'placeholder'})
+      const ids = ed.insertPlaceholders(1, 2)
       ed.setContent(
-        [ {id: '0001', type: 'image'}
-        , {id: '0000', type: 'image'}
+        [ {id: ids[0], type: 'image', cover: {src: '...a'}}
+        , {id: ids[1], type: 'image', cover: {src: '...b'}}
         ]
       )
+
+      expect(ed._foldMedia).to.equal(ids[0])
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(5)
+      expect(content.length).to.equal(4)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
       expect(content[1].attrs.type).to.equal('image')
-      expect(content[1].attrs.id).to.equal('0000')
-      expect(content[2].textContent).to.equal('')
+      expect(content[1].attrs.id).to.equal(ids[1])
+      expect(content[2].textContent).to.equal('Text 1')
       expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('')
-      expect(content[3].type.name).to.equal('media')
-      expect(content[3].attrs.type).to.equal('image')
-      expect(content[3].attrs.id).to.equal('0001')
-      expect(content[4].textContent).to.equal('')
-      expect(content[4].type.name).to.equal('paragraph')
+      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[3].type.name).to.equal('paragraph')
     })
 
     describe('Getting content', function () {
       it('outputs expected content', function () {
-        ed._insertBlocks(1
-        , [ {id: '0000', type: 'placeholder'}
-          , {id: '0001', type: 'placeholder'}
-          ]
-        )
+        const ids = ed.insertPlaceholders(1, 2)
         ed.setContent(
-          [ {id: '0001', type: 'image'}
-          , {id: '0000', type: 'image'}
+          [ { id: ids[0]
+            , type: 'image'
+            , cover: {src: '...a.jpg'}
+            }
+          , { id: ids[1]
+            , type: 'image'
+            , cover: {src: '...b.jpg'}
+            }
           ]
         )
         const content = ed.getContent()
         const expected =
-          [ {type: 'h1', html: '<h1>Title</h1>'}
-          , {id: '0000', type: 'image'}
-          , {type: 'text', html: '<p></p>'}
-          , {id: '0001', type: 'image'}
-          , {type: 'text', html: '<p>Text 1</p>'}
-          , {type: 'text', html: '<p>Text 2</p>'}
+          [ { id: ids[0]
+            , type: 'image'
+            , cover: {src: '...a.jpg'}
+            , metadata: {starred: true}
+            }
+          , { type: 'h1', html: '<h1>Title</h1>' }
+          , { id: ids[1]
+            , type: 'image'
+            , cover: {src: '...b.jpg'}
+            }
+          , { type: 'text', html: '<p>Text 1</p>' }
+          , { type: 'text', html: '<p>Text 2</p>' }
           ]
         expect(content).to.deep.equal(expected)
       })

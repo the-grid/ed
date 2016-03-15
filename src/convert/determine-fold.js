@@ -14,6 +14,10 @@ export default function determineFold (items) {
       media = item
       continue
     }
+    if (!media && type === 'placeholder') {
+      media = item
+      continue
+    }
     content.push(item)
   }
   return {media, content}

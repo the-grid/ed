@@ -7,6 +7,10 @@ describe('PluginWidget', function () {
   let mount, ed, PluginWidget
   const fixture =
     [ {type: 'h1', html: '<h1>Title</h1>'}
+    , { id: '0001'
+      , type: 'placeholder'
+      , metadata: {status: 'Status'}
+      }
     , { id: '0000'
       , type: 'placeholder'
       , metadata: {status: 'Status'}
@@ -35,6 +39,7 @@ describe('PluginWidget', function () {
 
   describe('Content mounting and merging', function () {
     it('has expected pm document', function () {
+      expect(ed._foldMedia).to.equal('0001')
       const content = ed.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
@@ -53,21 +58,6 @@ describe('PluginWidget', function () {
       expect(widget.type).to.equal('placeholder')
       expect(widget.el.firstChild.className).to.equal('Placeholder')
       expect(widget.el.textContent).to.equal('Status')
-    })
-
-    it('updates widget props via setContent', function (done) {
-      ed.on('media.update', function () {
-        const widget = PluginWidget.widgets['0000']
-        expect(widget.type).to.equal('placeholder')
-        expect(widget.el.textContent).to.equal('Status changed')
-        done()
-      })
-      ed.setContent([
-        { id: '0000'
-        , type: 'placeholder'
-        , metadata: {status: 'Status changed'}
-        }
-      ])
     })
 
     it('updates widget props via setContent', function (done) {
