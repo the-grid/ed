@@ -71,7 +71,7 @@ function makeInputOnChange (index) {
     simulateProgress(
       function (percent) {
         ids.forEach(function (id, index) {
-          let status = `${percent}% done uploading ${names[index]}`
+          let status = `Uploading ${names[index]}`
           ed.updatePlaceholder(id, status, percent)
         })
       },
@@ -108,7 +108,7 @@ function onShareUrlDemo (share) {
 
   simulateProgress(
     function (percent) {
-      const status = `${percent}% done sharing ${url}`
+      const status = `Sharing ${url}`
       ed.updatePlaceholder(block, status, percent)
     },
     function () {
