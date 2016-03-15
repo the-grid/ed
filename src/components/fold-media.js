@@ -57,7 +57,7 @@ class FoldMedia extends React.Component {
       )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
-        , onClick: this.addTitle.bind(this)
+        , onClick: this.addPhoto.bind(this)
         }
       , 'Upload photo'
       )
@@ -129,6 +129,10 @@ class FoldMedia extends React.Component {
 
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_SHARE', value)
+  }
+  addPhoto () {
+    const {store} = this.context
+    store.routeChange('FOLD_MEDIA_UPLOAD')
   }
   addTitle () {
     const {store} = this.context

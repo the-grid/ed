@@ -36,7 +36,7 @@ export default class Ed {
     this._content = {}
     this._initializeContent(options.initialContent)
     const {media, content} = determineFold(options.initialContent)
-    this._foldMedia = media
+    this._foldMedia = (media ? media.id : null)
     options.initialMedia = media
     options.initialContent = content
     options.store = this
@@ -45,6 +45,7 @@ export default class Ed {
     this.on('change', options.onChange)
     options.onChange = this.routeChange.bind(this)
     this.onShareUrl = options.onShareUrl
+    this.onShareFile = options.onShareFile
 
     // Setup main DOM structure
     this.container = options.container
@@ -81,13 +82,16 @@ export default class Ed {
             , status: `Sharing... ${payload}`
             }
           }
-        this._foldMedia = share
+        this._foldMedia = share.id
         this._initializeContent([share])
         this.trigger('fold.media.change', share)
         this.onShareUrl({block: newId, url: payload})
         break
+      case 'FOLD_MEDIA_UPLOAD':
+        this.onShareFile(0)
+        break
       case 'FOLD_MEDIA_INIT':
-        this._foldMedia = payload
+        this._foldMedia = payload.id
         this._initializeContent([payload])
         this.trigger('fold.media.change', payload)
         this.trigger('change')
@@ -176,7 +180,7 @@ export default class Ed {
   }
   _replaceBlock (index, block) {
     let content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia.id) {
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
       index += 1
     }
     // MUTATION
@@ -186,7 +190,7 @@ export default class Ed {
   }
   _insertBlocks (index, blocks) {
     const content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia.id) {
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
       index += 1
     }
     // MUTATION
@@ -224,20 +228,20 @@ export default class Ed {
     // Let content widgets know to update
     this.trigger('media.update')
     // Let fold media know to update
-    if (this._foldMedia && this._foldMedia.id === id) {
+    if (this._foldMedia && this._foldMedia === id) {
       this.trigger('fold.media.change', block)
     }
   }
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
-    const fold = this._foldMedia
-    if (fold) {
+    if (this._foldMedia) {
+      const fold = this.getBlock(this._foldMedia)
       if (!fold.metadata) {
         fold.metadata = {}
       }
       fold.metadata.starred = true
-      content.unshift(this.getBlock(fold.id))
+      content.unshift(fold)
     }
     return content
   }
@@ -249,7 +253,7 @@ export default class Ed {
     this._initializeContent(mergedContent)
     const {media, content} = determineFold(mergedContent)
     if (media) {
-      this._foldMedia = media
+      this._foldMedia = media.id
       this.trigger('fold.media.change', media)
     }
     let doc = GridToDoc(content)
