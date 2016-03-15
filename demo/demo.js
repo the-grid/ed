@@ -133,7 +133,7 @@ function onShareUrlDemo (share) {
 function simulateProgress (progress, complete) {
   let percent = 0
   let animate = function () {
-    percent++
+    percent += 0.5
     if (percent < 100) {
       // Loop animation
       requestAnimationFrame(animate)
