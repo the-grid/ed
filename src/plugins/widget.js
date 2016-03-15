@@ -12,17 +12,17 @@ import {UpdateScheduler} from 'prosemirror/src/ui/update'
 import WidgetCode from './widget-code'
 import WidgetReact from './widget-react'
 
-const WidgetTypes = {
-  code: WidgetCode,
-  react: WidgetReact
-}
+const WidgetTypes =
+  { code: WidgetCode
+  , react: WidgetReact
+  }
 
 // Functions to bind in class constructor
 
 // Should use debounced version
 function onDOMChanged () {
   // Mount or move widget overlays
-  const els = this.ed.pm.content.querySelectorAll('div[grid-type]')
+  const els = this.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
@@ -32,13 +32,12 @@ function onDOMChanged () {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    const rect = el.getBoundingClientRect()
-    const rectangle = {
-      top: rect.top + window.scrollY,
-      left: rect.left + window.scrollX,
-      width: rect.width,
-      height: rect.height
-    }
+    const rectangle =
+      { top: el.offsetTop
+      , left: el.offsetLeft
+      , width: el.offsetWidth
+      , height: el.offsetHeight
+      }
     this.checkWidget(id, type, rectangle)
   }
 
@@ -62,21 +61,22 @@ function onDOMChanged () {
     if (!widget.shown) continue
     const innerHeight = widget.getHeight()
     if (innerHeight !== widget.height) {
-      heightChanges.push({
-        id: id,
-        height: innerHeight
-      })
+      heightChanges.push(
+        { id: id
+        , height: innerHeight
+        }
+      )
     }
   }
   if (heightChanges.length) {
     // Will trigger a redraw / this onDOMChanged again
-    this.ed.updatePlaceholderHeights(heightChanges)
+    this.editableView.updatePlaceholderHeights(heightChanges)
   }
 
   // Signal widgets initialized if first
   if (!this.initialized) {
     this.initialized = true
-    this.ed.pm.signal('ed.plugin.widget.initialized')
+    this.ed.trigger('plugin.widget.initialized')
   }
 }
 
@@ -102,16 +102,17 @@ function initializeWidget (id, type, rectangle) {
 
   let initialBlock = this.ed.getBlock(id)
 
-  this.widgets[id] = new Widget({
-    ed: this.ed,
-    id,
-    type,
-    widgetContainer: this.el,
-    initialRectangle: rectangle,
-    initialBlock: initialBlock
-  })
+  this.widgets[id] = new Widget(
+    { ed: this.ed
+    , id
+    , type
+    , initialBlock
+    , widgetContainer: this.el
+    , initialRectangle: rectangle
+    }
+  )
 
-  this.ed.pm.signal('ed.plugin.widget.one.initialized', id)
+  this.pm.signal('ed.plugin.widget.one.initialized', id)
 }
 
 function onIframeMessage (message) {
@@ -125,14 +126,15 @@ function onIframeMessage (message) {
     case 'changed':
       let block = message.data.payload
       if (fromId !== block.id) throw new Error('Iframe block id does not match frame id')
-      this.ed.updateMediaBlock(block)
+      this.ed.routeChange('MEDIA_BLOCK_UPDATE', block)
       break
     case 'height':
       if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.ed.updatePlaceholderHeights([{
-        id: message.data.id,
-        height: message.data.payload
-      }])
+      this.editableView.updatePlaceholderHeights([
+        { id: message.data.id
+        , height: message.data.payload
+        }
+      ])
       break
     case 'cursor':
     default:
@@ -156,7 +158,7 @@ function updatePlaceholders () {
 // The plugin
 
 export default class PluginWidget {
-  constructor (ed) {
+  constructor (options) {
     this.onDOMChanged = onDOMChanged.bind(this)
     this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
     this.checkWidget = checkWidget.bind(this)
@@ -166,21 +168,24 @@ export default class PluginWidget {
 
     this.initialized = false
 
-    this.ed = ed
+    this.ed = options.ed
+    this.editableView = options.editableView
+    this.pm = options.pm
+
     this.widgets = {}
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
-    this.ed.pluginContainer.appendChild(this.el)
+    options.container.appendChild(this.el)
 
-    this.updater = new UpdateScheduler(this.ed.pm, 'draw flush', this.debouncedDOMChanged)
+    this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
-    this.ed.pm.on('ed.content.changed', this.updatePlaceholders)
+    this.ed.on('media.update', this.updatePlaceholders)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
     this.updater.detach()
-    this.ed.pm.off('ed.content.changed', this.updatePlaceholders)
+    this.ed.off('media.update', this.updatePlaceholders)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 

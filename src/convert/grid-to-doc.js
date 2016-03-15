@@ -1,17 +1,19 @@
 import {fromDOM} from 'prosemirror/src/format'
 
-import GridSchema from '../schema/'
 import {isMediaType, isHTMLType} from './types'
+import spaceContentWithEmptyText from './space-content'
+
+import EdSchemaFull from '../schema/ed-schema-full'
 
 
-export default function (items) {
+export default function (items, schema = EdSchemaFull) {
   items = spaceContentWithEmptyText(items)
   let elements = itemsToEls(items)
   var container = document.createElement('div')
   elements.forEach((el) => {
     if (el) container.appendChild(el)
   })
-  return fromDOM(GridSchema, container)
+  return fromDOM(schema, container)
 }
 
 
@@ -34,36 +36,4 @@ function itemToDOM (item) {
 
 function itemsToEls (items) {
   return items.map(itemToDOM)
-}
-
-function makeEmptyTextBlock () {
-  return {
-    type: 'text',
-    html: '<p></p>'
-  }
-}
-
-function spaceContentWithEmptyText (items) {
-  let spacedItems = []
-  for (let i = 0, len = items.length; i < len; i++) {
-    const item = items[i]
-    const currentIsMedia = isMediaType(item.type)
-    if (i === 0 && currentIsMedia) {
-      spacedItems.push(makeEmptyTextBlock())
-    }
-    spacedItems.push(item)
-    const next = items[i + 1]
-    if (currentIsMedia) {
-      if (next && isMediaType(next.type)) {
-        spacedItems.push(makeEmptyTextBlock())
-      }
-      if (!next) {
-        spacedItems.push(makeEmptyTextBlock())
-      }
-    }
-  }
-  if (spacedItems.length === 0) {
-    spacedItems.push(makeEmptyTextBlock())
-  }
-  return spacedItems
 }

@@ -6,10 +6,12 @@ function postInitialBlock () {
 }
 
 function postMessage (message) {
-  this.frame.contentWindow.postMessage({
-    topic: 'setblock',
-    payload: message
-  }, '*')
+  this.frame.contentWindow.postMessage(
+    { topic: 'setblock'
+    , payload: message
+    }
+  , '*'
+  )
 }
 
 export default class WidgetIframe extends WidgetBase {

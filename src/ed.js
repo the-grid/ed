@@ -1,163 +1,202 @@
-require('./ed.css')
-require('./menu/menu.css')
-
-import {ProseMirror} from 'prosemirror/src/edit/main'
-import _ from './util/lodash'
+import {createElement as el} from 'react'
+import ReactDOM from 'react-dom'
 import './util/react-tap-hack'
 import uuid from 'uuid'
 
-import commands from './commands/index'
-
-import 'prosemirror/src/inputrules/autoinput'
-import 'prosemirror/src/menu/tooltipmenu'
-import 'prosemirror/src/menu/menubar'
-// import 'prosemirror/src/collab'
-
-import GridSchema from './schema'
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
+import determineFold from './convert/determine-fold'
 
-// import './inputrules/autoinput'
-// import './edit/schema-commands'
+import App from './components/app'
 
-import {isMediaType} from './convert/types'
-import {inlineMenu, blockMenu, barMenu} from './menu/ed-menu'
-
-import PluginWidget from './plugins/widget.js'
-import ShareUrl from './plugins/share-url'
-import FixedMenuBarHack from './plugins/fixed-hack'
-
-function noop () { /* noop */ }
 
 export default class Ed {
   constructor (options) {
+    if (!options) {
+      throw new Error('Missing options')
+    }
     if (!options.initialContent) {
       throw new Error('Missing options.initialContent array')
     }
     if (!options.onChange) {
       throw new Error('Missing options.onChange')
     }
+    if (!options.onShareUrl) {
+      throw new Error('Missing options.onShareUrl')
+    }
+    if (!options.onShareFile) {
+      throw new Error('Missing options.onShareFile')
+    }
+    if (!options.container) {
+      throw new Error('Missing options.container')
+    }
 
-    if (!options.container) options.container = document.body
+    // Initialize store
+    this._events = {}
+    this._content = {}
+    this._initializeContent(options.initialContent)
+    const {media, content} = determineFold(options.initialContent)
+    this._foldMedia = (media ? media.id : null)
+    options.initialMedia = media
+    options.initialContent = content
+    options.store = this
+
+    // Events
+    this.on('change', options.onChange)
+    options.onChange = this.routeChange.bind(this)
+    this.onShareUrl = options.onShareUrl
+    this.onShareFile = options.onShareFile
+
+    // Setup main DOM structure
     this.container = options.container
-
-    // PM setup
-
-    let pmOptions = {
-      place: this.container,
-      autoInput: true,
-      schema: GridSchema,
-      commands: commands,
-      label: 'the-grid-ed'
-    }
-    this._content = options.initialContent
-    pmOptions.doc = GridToDoc(this._content)
-
-    this.pm = new ProseMirror(pmOptions)
-
-    if (options.menubar) {
-      this.pm.setOption('menuBar', {
-        content: barMenu
-      })
-    }
-    if (options.menutip) {
-      this.pm.setOption('tooltipMenu', {
-        showLinks: true,
-        emptyBlockMenu: true,
-        selectedBlockMenu: true,
-        inlineContent: inlineMenu,
-        selectedBlockContent: inlineMenu,
-        blockContent: blockMenu
-      })
-    }
-
-    if (options.imgfloConfig) {
-      this.imgfloConfig = options.imgfloConfig
-    }
-
-    // Change / autosave events setup
-    let debouncedAutosave
-    if (options.onAutosave) {
-      const autosaveInterval = options.autosaveInterval || 100
-      debouncedAutosave = _.debounce(function () {
-        options.onAutosave()
-      }, autosaveInterval)
-    }
-    this.onChange = function () {
-      options.onChange()
-      if (debouncedAutosave) {
-        debouncedAutosave()
-      }
-    }
-    this.pm.on('change', this.onChange)
-
-    // Share events setup
-    this.onShareFile = options.onShareFile || noop
-    this.pm.on('ed.menu.file', this.onShareFile)
-
-    this.onShareUrl = options.onShareUrl || noop
-    this.pm.on('ed.plugin.url', this.onShareUrl)
-
-    // Plugins setup
-    this.pluginContainer = document.createElement('div')
-    this.pluginContainer.className = 'EdPlugins'
-    this.container.appendChild(this.pluginContainer)
-
-    let plugins = [PluginWidget, ShareUrl, FixedMenuBarHack]
-    this.plugins = plugins.map((Plugin) => new Plugin(this))
+    this.app = el(App, options)
+    ReactDOM.render(this.app, options.container)
   }
   teardown () {
-    this.plugins.forEach((plugin) => plugin.teardown())
-    this.pm.off('change')
-    this.pm.off('ed.menu.file')
-    this.pm.off('ed.plugin.url')
-    this.pluginContainer.parentNode.removeChild(this.pluginContainer)
-    this.container.innerHTML = ''
+    ReactDOM.unmountComponentAtNode(this.container)
   }
-  getBlock (id) {
-    return getItemWithId(this._content, id)
-  }
-  updateMediaBlock (block) {
-    // Widget plugin calls this to update a block in the content array
-    // Only media blocks can use this.
-    if (!block || !block.id || !block.type || !isMediaType(block.type)) {
-      throw new Error('Cant update this block')
+  routeChange (type, payload) {
+    switch (type) {
+      case 'EDITABLE_INITIALIZE':
+        this._editableInitialize(payload)
+        break
+      case 'MEDIA_BLOCK_UPDATE':
+        this._updateMediaBlock(payload)
+        this.trigger('change')
+        break
+      case 'PLUGIN_URL':
+        const {index, id, block, url} = payload
+        this._replaceBlock(index, block)
+        this.onShareUrl({block: id, url})
+        break
+      case 'EDITABLE_CHANGE':
+        this.trigger('change')
+        break
+      case 'FOLD_MEDIA_SHARE':
+        const newId = uuid.v4()
+        const share =
+          { id: newId
+          , type: 'placeholder'
+          , metadata:
+            { starred: true
+            , status: `Sharing... ${payload}`
+            }
+          }
+        this._foldMedia = share.id
+        this._initializeContent([share])
+        this.trigger('fold.media.change', share)
+        this.onShareUrl({block: newId, url: payload})
+        break
+      case 'FOLD_MEDIA_UPLOAD':
+        this.onShareFile(0)
+        break
+      case 'FOLD_MEDIA_INIT':
+        this._foldMedia = payload.id
+        this._initializeContent([payload])
+        this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
+      case 'FOLD_MEDIA_CHANGE':
+        this._updateMediaBlock(payload)
+        this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
+      default:
+        break
     }
-    let index = getIndexWithId(this._content, block.id)
-    if (index === -1) return
+  }
+  _editableInitialize (editableView) {
+    if (this.editableView) {
+      throw new Error('Ed._editableInitialize should only be called once')
+    }
+    this.editableView = editableView
+    this.pm = editableView.pm
+  }
+  _initializeContent (content) {
+    for (let i = 0, len = content.length; i < len; i++) {
+      const block = content[i]
+      if (!block || !block.id) {
+        continue
+      }
+      this._content[block.id] = block
+    }
+  }
+  on (eventName, func) {
+    let events = this._events[eventName]
+    if (!events) {
+      events = this._events[eventName] = []
+    }
+    events.push(func)
+  }
+  off (eventName, func) {
+    const events = this._events[eventName]
+    if (!events) {
+      return
+    }
+    const index = events.indexOf(func)
+    if (index > -1) {
+      events.splice(index, 1)
+    }
+  }
+  trigger (eventName, payload) {
+    const events = this._events[eventName]
+    if (!events) {
+      return
+    }
+    for (let i = 0, len = events.length; i < len; i++) {
+      events[i](payload)
+    }
+  }
+  updateMetaByPath (id, path, value) {
+    let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not update this block')
+    }
+    // MUTATION
+    let parent = block.metadata
+    for (let i = 0, length = path.length; i < length - 1; i++) {
+      parent = parent[path[i]]
+    }
+    parent[path[path.length - 1]] = value
+
+    this.trigger('change')
+    return block
+  }
+  _updateMediaBlock (block) {
+    // Widgets and components route here
+    if (!block || !block.id) {
+      throw new Error('Can not update this block')
+    }
+    const currentBlock = this.getBlock(block.id)
+    if (!currentBlock) {
+      throw new Error('Can not find this block')
+    }
 
     // MUTATION
-    this._content.splice(index, 1, block)
-    this.onChange()
-
-    // Trigger remeasure
-    this.pm.signal('draw')
+    this._content[block.id] = block
   }
-  updatePlaceholderHeights (changes) {
-    // Do this in a batch, with one widget remeasure/move
-    for (let i = 0, len = changes.length; i < len; i++) {
-      const change = changes[i]
-      // TODO do this with standard pm.tr interface, not direct DOM
-      const placeholder = document.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
-      placeholder.style.height = change.height + 'px'
-    }
-    this.pm.signal('draw')
+  getBlock (id) {
+    return this._content[id]
   }
-  replaceBlock (index, block) {
+  _replaceBlock (index, block) {
     let content = this.getContent()
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
+      index += 1
+    }
     // MUTATION
     content.splice(index, 1, block)
     // Render
     this._setMergedContent(content)
   }
-  insertBlocks (index, blocks) {
+  _insertBlocks (index, blocks) {
     const content = this.getContent()
+    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
+      index += 1
+    }
     // MUTATION
     const newContent = arrayInsertAll(content, index, blocks)
     // Render
     this._setMergedContent(newContent)
-    // Signal
-    this.onChange()
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -165,41 +204,65 @@ export default class Ed {
     for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
-      toInsert.push({
-        id,
-        type: 'placeholder',
-        metadata: {}
-      })
+      toInsert.push(
+        { id
+        , type: 'placeholder'
+        , metadata: {}
+        }
+      )
     }
-    this.insertBlocks(index, toInsert)
+    this._insertBlocks(index, toInsert)
     return ids
   }
   updatePlaceholder (id, status, progress) {
     let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not update this placeholder block')
+    }
+    if (block.type !== 'placeholder') {
+      throw new Error('Block is not a placeholder block')
+    }
     // Mutation
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
-    // Let widgets know to update
-    this.pm.signal('ed.content.changed')
+    // Let content widgets know to update
+    this.trigger('media.update')
+    // Let fold media know to update
+    if (this._foldMedia && this._foldMedia === id) {
+      this.trigger('fold.media.change', block)
+    }
   }
   getContent () {
-    let dom = this.pm.content.children
-    let doc = this.pm.getContent()
-    return DocToGrid(dom, doc, this._content)
+    const doc = this.pm.getContent()
+    const content = DocToGrid(doc, this._content)
+    if (this._foldMedia) {
+      const fold = this.getBlock(this._foldMedia)
+      if (!fold.metadata) {
+        fold.metadata = {}
+      }
+      fold.metadata.starred = true
+      content.unshift(fold)
+    }
+    return content
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)
     this._setMergedContent(merged)
   }
-  _setMergedContent (content) {
-    this._content = content
-    let doc = GridToDoc(this._content)
+  _setMergedContent (mergedContent) {
+    this._initializeContent(mergedContent)
+    const {media, content} = determineFold(mergedContent)
+    if (media) {
+      this._foldMedia = media.id
+      this.trigger('fold.media.change', media)
+    }
+    let doc = GridToDoc(content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
     // Let widgets know to update
-    this.pm.signal('ed.content.changed')
+    this.trigger('media.update')
   }
 }
 
@@ -215,11 +278,11 @@ function getIndexWithId (array, id) {
   return -1
 }
 
-function getItemWithId (array, id) {
-  let index = getIndexWithId(array, id)
-  if (index === -1) return
-  return array[index]
-}
+// function getItemWithId (array, id) {
+//   let index = getIndexWithId(array, id)
+//   if (index === -1) return
+//   return array[index]
+// }
 
 function arrayInsertAll (array, index, arrayToInsert) {
   let before = array.slice(0, index)

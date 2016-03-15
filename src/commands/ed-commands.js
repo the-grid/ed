@@ -1,25 +1,27 @@
 import {nodeAboveSelection, onBlankLine} from '../util/pm'
 
-const ed_upload_image = {
-  label: 'Choose an image file to upload to your post',
-  run (pm) {
+const ed_upload_image =
+  { label: 'On new line, choose an image to upload to your post'
+  , run (pm) {
     let pos = nodeAboveSelection(pm)
     if (!pos || pos.offset == null) return false
     const index = pos.offset
     pm.signal('ed.menu.file', index)
-  },
-  select (pm) {
+  }
+  , select (pm) {
     return onBlankLine(pm)
-  },
-  menu: {
-    group: 'ed_block',
-    rank: 100,
-    display: {
-      type: 'label',
-      label: 'Upload Image'
+  }
+  , menu:
+    { group: 'ed_block'
+    , rank: 100
+    , class: 'EdMenuText'
+    , select: 'disable'
+    , display:
+      { type: 'label'
+      , label: 'Upload Image'
+      }
     }
   }
-}
 
 /*
 let widgetStoreDom = document.getElementById('widget-store')

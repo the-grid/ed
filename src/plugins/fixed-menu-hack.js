@@ -2,8 +2,12 @@ import {UpdateScheduler} from 'prosemirror/src/ui/update'
 import _ from '../util/lodash'
 
 function onScroll (event) {
-  const scroll = Math.max(window.scrollY, 0)
-  this.menuEl.style.top = scroll + 'px'
+  const contentTop = this.pm.wrapper.getBoundingClientRect().top
+  if (contentTop > 0) {
+    this.menuEl.style.top = '0px'
+    return
+  }
+  this.menuEl.style.top = (0 - contentTop) + 'px'
 }
 
 function spaceContent () {
@@ -15,26 +19,24 @@ function spaceContent () {
 }
 
 export default class FixedMenuBarHack {
-  constructor (ed) {
-    this.menuEl = document.querySelector('.ProseMirror-menubar')
+  constructor (options) {
+    const {pm} = options
+    this.pm = pm
+
+    this.menuEl = pm.wrapper.querySelector('.ProseMirror-menubar')
     if (!this.menuEl) {
       return
     }
-    this.contentEl = document.querySelector('.ProseMirror-content')
+    this.contentEl = pm.content
 
     // Padding for all
     this.spaceContent = _.debounce(spaceContent, 250).bind(this)
-    this.updater = new UpdateScheduler(ed.pm, 'selectionChange activeMarkChange commandsChanged', this.spaceContent)
+    this.updater = new UpdateScheduler(pm, 'selectionChange activeMarkChange commandsChanged', this.spaceContent)
     this.updater.force()
 
-    // Fake fixed for iOS
-    const isIOS = /iP(ad|hone|od)/.test(navigator.userAgent)
-    if (!isIOS) {
-      return
-    }
+    // Fake fixed
     this.menuEl.style.position = 'absolute'
     this.onScroll = onScroll.bind(this)
-    this.ed = ed
     window.addEventListener('scroll', this.onScroll)
   }
   teardown () {

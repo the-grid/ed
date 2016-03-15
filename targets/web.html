@@ -2,6 +2,13 @@
 <head>
   <meta charset="utf-8"/>
   <title>The Grid Post Editor</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100%;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
   <div id="ed"></div>
@@ -12,8 +19,8 @@
       window.ed = new TheGridEd.default({
         container: document.getElementById('ed'),
         initialContent: options.initialContent,
-        menutip: (options.menu === 'tip'),
-        menubar: (options.menu === 'bar'),
+        menuTip: (options.menu === 'tip'),
+        menuBar: (options.menu === 'bar'),
         onChange: options.onChange || function () {
           console.log('change!')
         },
@@ -23,6 +30,9 @@
         },
         onShareFile: options.onShareFile || function (index) {
           console.log('onShareFile index:', index)
+        },
+        onShareUrl: options.onShareUrl || function (payload) {
+          console.log('onShareUrl:', payload)
         }
       })
     }

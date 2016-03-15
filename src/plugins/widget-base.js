@@ -14,6 +14,7 @@ export default class WidgetBase {
     // Base div container
     this.el = document.createElement('div')
     this.el.setAttribute('grid-id', options.id)
+    this.id = options.id
     this.initialBlock = options.initialBlock
     this.el.style.position = 'absolute'
     this.move(options.initialRectangle)

@@ -1,8 +1,5 @@
-require('./placeholder.css')
-
 import {createElement as el} from 'react'
-import LinearProgress from 'material-ui/lib/linear-progress'
-
+import Message from 'rebass/dist/Message'
 
 export default function Placeholder (props) {
   const {metadata} = props.initialBlock
@@ -10,20 +7,17 @@ export default function Placeholder (props) {
     return el('div', {className: 'Placeholder'})
   }
   const status = metadata.status || ''
-  const value = metadata.progress
-  const mode = metadata.progress != null ? 'determinate' : 'indeterminate'
+  // const value = metadata.progress
+  // const mode = metadata.progress != null ? 'determinate' : 'indeterminate'
 
-  return el(
-    'div',
-    {className: 'Placeholder'},
-    el(
-      'h4',
-      {className: 'Placeholder-status'},
-      status
-    ),
-    el(
-      LinearProgress,
-      {mode, value}
+  return el('div'
+  , {className: 'Placeholder'}
+  , el(Message
+    , { className: 'Placeholder-status'
+      , theme: 'info'
+      , style: {marginBottom: 0}
+      }
+    , status
     )
   )
 }

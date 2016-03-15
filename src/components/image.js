@@ -13,15 +13,13 @@ export default function Image (props, context) {
   let {src} = props
   const {width, height} = props
   if (context && context.imgfloConfig) {
-    const params = {
-      input: src,
-      width: getSize(width, height)
-    }
+    const params =
+      { input: src
+      , width: getSize(width, height)
+      }
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
-  const style = {
-    backgroundImage: `url(${src})`
-  }
+  const style = {backgroundImage: `url(${src})`}
   return el('div', {className: 'Image', style})
 }
 Image.contextTypes = {

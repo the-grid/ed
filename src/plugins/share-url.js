@@ -10,32 +10,32 @@ function testPrevUrl () {
   const currentPos = nodeAboveSelection(this.ed.pm)
   // Only test top-level blocks
   if (!currentPos || (currentPos.path.length !== 0) || (currentPos.offset < 1)) return
-  const prevIndex = currentPos.offset - 1
-  const prevBlock = this.ed.pm.doc.child(prevIndex)
+  const index = currentPos.offset - 1
+  const prevBlock = this.ed.pm.doc.child(index)
   if (!prevBlock) return
-  const prevText = prevBlock.textContent.trim()
-  if (prevText && checkUrl(prevText)) {
-    const id = uuid.v4()
-    const block = {
-      id,
-      type: 'placeholder',
-      metadata: {
-        status: `Sharing... ${prevText}`,
-        percent: 0
+  const url = prevBlock.textContent.trim()
+  if (!url || !checkUrl(url)) return
+  const id = uuid.v4()
+  const block =
+    { id
+    , type: 'placeholder'
+    , metadata:
+      { status: `Sharing... ${url}`
+      , percent: 0
       }
     }
-    this.ed.replaceBlock(prevIndex, block)
-    this.ed.pm.signal('ed.plugin.url', {block: id, url: prevText})
-  }
+  this.ed.routeChange('PLUGIN_URL', {index, id, block, url})
 }
 
 export default class ShareUrl {
-  constructor (ed) {
+  constructor (options) {
     this.testPrevUrl = testPrevUrl.bind(this)
+    const {pm, ed} = options
     this.ed = ed
-    this.ed.pm.on('change', this.testPrevUrl)
+    this.pm = pm
+    this.pm.on('change', this.testPrevUrl)
   }
   teardown () {
-    this.ed.pm.off('change', this.testPrevUrl)
+    this.pm.off('change', this.testPrevUrl)
   }
 }

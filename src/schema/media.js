@@ -1,7 +1,7 @@
 require('./media.css')
 
 import {Block, Attribute} from 'prosemirror/src/model'
-import {NodeKindTop} from './index'
+import {NodeKindTop} from './ed-nodes'
 
 export class Media extends Block {
   get kind () { return NodeKindTop }
@@ -11,28 +11,27 @@ export class Media extends Block {
   get canBeEmpty () { return true }
   get draggable () { return true }
   get attrs () {
-    return {
-      id: new Attribute(),
-      type: new Attribute(),
-      height: new Attribute({default: 50})
-    }
+    return (
+      { id: new Attribute()
+      , type: new Attribute()
+      , height: new Attribute({default: 50})
+      }
+    )
   }
 }
-Media.register('parseDOM', 'div', {
-  tag: 'div',
-  rank: 9999,
-  parse: function (dom, state) {
+Media.register('parseDOM', 'div'
+, { tag: 'div'
+  , rank: 9999
+  , parse: function (dom, state) {
     const id = dom.getAttribute('grid-id')
     const type = dom.getAttribute('grid-type')
     if (!id || !type) {
       return false
     }
-    state.insert(this, {
-      id,
-      type
-    })
+    state.insert(this, {id, type})
   }
-})
+  }
+)
 Media.prototype.serializeDOM = (node, s) => {
   const {id, type, height} = node.attrs
   if (!id) {
@@ -41,13 +40,12 @@ Media.prototype.serializeDOM = (node, s) => {
   if (!type) {
     throw new Error('Can not serialize Media div without type')
   }
-  return s.elt('div',
-    {
-      class: 'EdSchemaMedia',
-      'grid-id': id,
-      'grid-type': type,
-      style: `height: ${height};`,
-      contenteditable: 'false'
+  return s.elt('div'
+  , { class: 'EdSchemaMedia'
+    , 'grid-id': id
+    , 'grid-type': type
+    , style: `height: ${height};`
+    , contenteditable: 'false'
     }
   )
 }

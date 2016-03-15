@@ -1,22 +1,7 @@
 import {toDOM} from 'prosemirror/src/format'
 import {isMediaType} from './types'
 
-// Dumb clone, don't mutate old
-function clone (obj) {
-  return JSON.parse(JSON.stringify(obj))
-}
-
-// Singleton so cut / paste keeps meta
-let apiContentMap = {}
-
-
-export default function (domChildren, doc, lastAPI) {
-  const cloneLast = clone(lastAPI)
-  for (let i = 0, len = cloneLast.length; i < len; i++) {
-    const block = cloneLast[i]
-    apiContentMap[block.id] = block
-  }
-
+export default function (doc, apiContentMap) {
   const dom = toDOM(doc)
   let currentContent = []
   for (let i = 0, len = dom.children.length; i < len; i++) {

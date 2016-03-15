@@ -4,7 +4,7 @@ import Ed from '../src/ed'
 import fixture from './fixture'
 
 let ed
-const content = fixture.content
+const fixtureContent = fixture.content
 const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
@@ -14,18 +14,22 @@ function setup (options) {
     ed.teardown()
     ed = null
   }
-  ed = new Ed({
-    container: document.querySelector('#mirror'),
-    initialContent: content,
-    menutip: (options.menu === 'tip'),
-    menubar: (options.menu === 'bar'),
-    onChange: () => { console.log('change') },
-    onAutosave: () => { console.log('autosave') },
-    autosaveInterval: 1000,
-    onShareFile: onShareFileDemo,
-    onShareUrl: onShareUrlDemo,
-    imgfloConfig: null
-  })
+  if (options.initialContent) {
+    apiJSON.value = JSON.stringify(options.initialContent, null, 2)
+  }
+  ed = new Ed(
+    { container: document.querySelector('#app')
+    , initialContent: (options.initialContent || [])
+    , menuTip: (options.menu === 'tip')
+    , menuBar: (options.menu === 'bar')
+    , onChange: () => { console.log('change') }
+    , onAutosave: () => { console.log('autosave') }
+    , autosaveInterval: 1000
+    , onShareFile: onShareFileDemo
+    , onShareUrl: onShareUrlDemo
+    , imgfloConfig: null
+    }
+  )
   console.log(ed)
   window.ed = ed
 }
@@ -73,18 +77,17 @@ function makeInputOnChange (index) {
       },
       function () {
         const updatedBlocks = ids.map(function (id, index) {
-          return {
-            id,
-            type: 'image',
-            metadata: {
-              title: names[index]
-            },
-            cover: {
-              src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-              width: 400,
-              height: 474
+          return (
+            { id
+            , type: 'image'
+            , metadata: {title: names[index]}
+            , cover:
+              { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+              , width: 400
+              , height: 474
+              }
             }
-          }
+          )
         })
         ed.setContent(updatedBlocks)
       }
@@ -109,19 +112,20 @@ function onShareUrlDemo (share) {
       ed.updatePlaceholder(block, status, percent)
     },
     function () {
-      ed.setContent([{
-        id: block,
-        type: 'article',
-        metadata: {
-          title: 'Shared article title',
-          description: `Simulated share from ${url}`
-        },
-        cover: {
-          src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
-          width: 400,
-          height: 474
+      ed.setContent([
+        { id: block
+        , type: 'article'
+        , metadata:
+          { title: 'Shared article title'
+          , description: `Simulated share from ${url}`
+          }
+        , cover:
+          { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+          , width: 400
+          , height: 474
+          }
         }
-      }])
+      ])
     }
   )
 }
@@ -173,7 +177,7 @@ toggleMenu.onclick = function (event) {
 
 // Hydrate
 let apiJSON = document.querySelector('#debug-api')
-apiJSON.value = JSON.stringify(content, null, 2)
+apiJSON.value = '[]'
 function APIToEditor () {
   let json
   try {
@@ -218,3 +222,10 @@ let toggleUpdates = function () {
   }
 }
 document.querySelector('#sim').onclick = toggleUpdates
+
+// Load full post
+function loadFixture () {
+  setup({menu, initialContent: fixtureContent})
+}
+document.querySelector('#fixture').onclick = loadFixture
+
