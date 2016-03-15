@@ -12,6 +12,7 @@
 * Refactor internal dataflow
   * (React but not Flux, mainly because [Editable](./src/components/editable.js) should only be initialized once)
 * BREAKING -- `options.[menuBar|menuTip]` made camelCase
+* BREAKING -- no more `options.onAutosave`: apps will do that logic
 
 ## 0.4.7 - 2016-03-01
 
