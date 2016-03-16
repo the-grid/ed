@@ -9,6 +9,8 @@ import determineFold from './convert/determine-fold'
 
 import App from './components/app'
 
+function noop () {}
+
 
 export default class Ed {
   constructor (options) {
@@ -46,6 +48,7 @@ export default class Ed {
     options.onChange = this.routeChange.bind(this)
     this.onShareUrl = options.onShareUrl
     this.onShareFile = options.onShareFile
+    this.onPlaceholderCancel = options.onPlaceholderCancel || noop
 
     // Setup main DOM structure
     this.container = options.container
@@ -101,8 +104,11 @@ export default class Ed {
         this.trigger('fold.media.change', payload)
         this.trigger('change')
         break
-      default:
+      case 'PLACEHOLDER_CANCEL':
+        this._placeholderCancel(payload)
         break
+      default:
+        throw new Error(`ed.routeChange '${type}' does not exist`)
     }
   }
   _editableInitialize (editableView) {
@@ -232,6 +238,23 @@ export default class Ed {
       this.trigger('fold.media.change', block)
     }
   }
+  _placeholderCancel (id) {
+    let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not cancel this placeholder block')
+    }
+    if (block.type !== 'placeholder') {
+      throw new Error('Block is not a placeholder block')
+    }
+    const content = this.getContent()
+    const index = getIndexWithId(content, id)
+    // MUTATION
+    content.splice(index, 1)
+    // Render
+    this._setMergedContent(content)
+    // Event
+    this.onPlaceholderCancel(id)
+  }
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
@@ -252,10 +275,8 @@ export default class Ed {
   _setMergedContent (mergedContent) {
     this._initializeContent(mergedContent)
     const {media, content} = determineFold(mergedContent)
-    if (media) {
-      this._foldMedia = media.id
-      this.trigger('fold.media.change', media)
-    }
+    this._foldMedia = (media ? media.id : null)
+    this.trigger('fold.media.change', media)
     let doc = GridToDoc(content)
     // Cache selection to restore after DOM update
     let selection = fixSelection(this.pm.selection, doc)

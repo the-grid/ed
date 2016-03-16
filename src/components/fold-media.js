@@ -19,11 +19,11 @@ class FoldMedia extends React.Component {
     }
     const {store} = context
     store.on('fold.media.change', (block) => {
-      this.setState({block, id: block.id})
+      this.setState({block})
     })
   }
   render () {
-    const {block, id} = this.state
+    const {block} = this.state
     return el('div'
     , { className: 'FoldMedia'
       , style:
@@ -33,7 +33,7 @@ class FoldMedia extends React.Component {
         }
       }
     , (block
-      ? el(Media, {initialBlock: block, id})
+      ? el(Media, {initialBlock: block, id: block.id})
       : this.renderAddMedia()
       )
     )

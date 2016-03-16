@@ -27,6 +27,7 @@ function setup (options) {
     , autosaveInterval: 1000
     , onShareFile: onShareFileDemo
     , onShareUrl: onShareUrlDemo
+    , onPlaceholderCancel: onPlaceholderCancelDemo
     , imgfloConfig: null
     }
   )
@@ -71,7 +72,7 @@ function makeInputOnChange (index) {
     simulateProgress(
       function (percent) {
         ids.forEach(function (id, index) {
-          let status = `${percent}% done uploading ${names[index]}`
+          let status = `Uploading ${names[index]}`
           ed.updatePlaceholder(id, status, percent)
         })
       },
@@ -108,7 +109,7 @@ function onShareUrlDemo (share) {
 
   simulateProgress(
     function (percent) {
-      const status = `${percent}% done sharing ${url}`
+      const status = `Sharing ${url}`
       ed.updatePlaceholder(block, status, percent)
     },
     function () {
@@ -133,7 +134,7 @@ function onShareUrlDemo (share) {
 function simulateProgress (progress, complete) {
   let percent = 0
   let animate = function () {
-    percent++
+    percent += 0.5
     if (percent < 100) {
       // Loop animation
       requestAnimationFrame(animate)
@@ -229,3 +230,7 @@ function loadFixture () {
 }
 document.querySelector('#fixture').onclick = loadFixture
 
+
+function onPlaceholderCancelDemo (id) {
+  console.log(`App would cancel the share or upload with id: ${id}`)
+}

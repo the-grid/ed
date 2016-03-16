@@ -1,5 +1,11 @@
 ## dev
 
+* Placeholder progress bar
+  * `progress` 0-100 with `ed.updatePlaceholder(id, status, progress)` or `ed.setContent([{id, metadata: {status, progress}}])`
+* NEW -- **X** button on the Placeholder component triggers `options.onPlaceholderCancel(id)`
+  * When that is hit, `ed.getContent()` will already have removed the cancelled placeholder block
+* Delete from under media block ignored
+
 ## 0.5.0 - The Fold - 2016-03-15
 
 * **The Fold** view above main editable for sharing and editing one primary media block

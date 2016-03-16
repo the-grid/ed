@@ -1,5 +1,73 @@
-// import {Media} from '../schema/media'
+// Disable backspace from under media block to delete
+// Modified from prosemirror/src/edit/base_commands.js
+import {findSelectionFrom} from 'prosemirror/src/edit/selection'
+/*eslint-disable */
+export const joinBackward = {
+  label: 'Join with the block above',
+  run (pm) {
+    let {head, empty} = pm.selection
+    if (!empty || head.offset > 0) return false
 
+    // Find the node before this one
+    let before, cut
+    for (let i = head.path.length - 1; !before && i >= 0; i--) if (head.path[i] > 0) {
+      cut = head.shorten(i)
+      before = pm.doc.path(cut.path).child(cut.offset - 1)
+    }
+
+    // If there is no node before this, try to lift
+    if (!before)
+      return pm.tr.lift(head).apply(pm.apply.scroll)
+
+    // If the node below has no content and the node above is
+    // selectable, delete the node below and select the one above.
+    if (before.type.contains == null && before.type.selectable && pm.doc.path(head.path).size == 0) {
+      let tr = pm.tr.delete(cut, cut.move(1)).apply(pm.apply.scroll)
+      pm.setNodeSelection(cut.move(-1))
+      return tr
+    }
+
+    // ADDED If the node is media, suppress delete
+    if (before.type.name === 'media')
+      return
+
+    // If the node doesn't allow children, delete it
+    if (before.type.contains == null)
+      return pm.tr.delete(cut.move(-1), cut).apply(pm.apply.scroll)
+
+    // Apply the joining algorithm
+    return deleteBarrier(pm, cut)
+  },
+  keys: ['Backspace(30)', 'Mod-Backspace(30)']
+}
+function deleteBarrier (pm, cut) {
+  let around = pm.doc.path(cut.path)
+  let before = around.child(cut.offset - 1), after = around.child(cut.offset)
+  if (before.type.canContainContent(after.type)) {
+    let tr = pm.tr.join(cut)
+    if (tr.steps.length && before.size == 0 && !before.sameMarkup(after))
+      tr.setNodeType(cut.move(-1), after.type, after.attrs)
+    if (tr.apply(pm.apply.scroll) !== false)
+      return
+  }
+
+  let conn
+  if (after.isTextblock && (conn = before.type.findConnection(after.type))) {
+    let tr = pm.tr, end = cut.move(1)
+    tr.step('ancestor', cut, end, null, {types: [before.type, ...conn],
+                                         attrs: [before.attrs, ...conn.map(() => null)]})
+    tr.join(end)
+    tr.join(cut)
+    if (tr.apply(pm.apply.scroll) !== false) return
+  }
+
+  let selAfter = findSelectionFrom(pm.doc, cut, 1)
+  return pm.tr.lift(selAfter.from, selAfter.to).apply(pm.apply.scroll)
+}
+/*eslint-enable */
+
+
+// import {Media} from '../schema/media'
 
 // // Copied from https://github.com/ProseMirror/prosemirror/blob/1ce4ad1f8f9028e1efa8af5d48ecb28cdca1f800/src/edit/base_commands.js#L485
 // function nodeAboveSelection (pm) {

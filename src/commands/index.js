@@ -1,5 +1,6 @@
 import {CommandSet} from 'prosemirror/src/edit'
 import edCommands from './ed-commands'
+import {joinBackward} from './schema-commands'
 
 let commands = CommandSet.default
   .add(edCommands)
@@ -7,6 +8,7 @@ let commands = CommandSet.default
     { 'code:toggle': {menu: null}
     , joinUp: {menu: null}
     , selectParentNode: {menu: null}
+    , joinBackward
     }
   )
 
