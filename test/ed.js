@@ -225,6 +225,21 @@ describe('Ed', function () {
       expect(content[3].type.name).to.equal('paragraph')
     })
 
+    it('cancels placeholder', function () {
+      const ids = ed.insertPlaceholders(1, 1)
+      ed._placeholderCancel(ids[0])
+
+      expect(ed._foldMedia).to.be.null
+      const content = ed.editableView.pm.doc.content.content
+      expect(content.length).to.equal(3)
+      expect(content[0].textContent).to.equal('Title')
+      expect(content[0].type.name).to.equal('heading')
+      expect(content[1].textContent).to.equal('Text 1')
+      expect(content[1].type.name).to.equal('paragraph')
+      expect(content[2].textContent).to.equal('Text 2')
+      expect(content[2].type.name).to.equal('paragraph')
+    })
+
     describe('Getting content', function () {
       it('outputs expected content', function () {
         const ids = ed.insertPlaceholders(1, 2)
@@ -251,6 +266,18 @@ describe('Ed', function () {
             , type: 'image'
             , cover: {src: '...b.jpg'}
             }
+          , { type: 'text', html: '<p>Text 1</p>' }
+          , { type: 'text', html: '<p>Text 2</p>' }
+          ]
+        expect(content).to.deep.equal(expected)
+      })
+      
+      it('does not have cancelled placeholder', function () {
+        const ids = ed.insertPlaceholders(1, 1)
+        ed._placeholderCancel(ids[0])
+        const content = ed.getContent()
+        const expected =
+          [ { type: 'h1', html: '<h1>Title</h1>' }
           , { type: 'text', html: '<p>Text 1</p>' }
           , { type: 'text', html: '<p>Text 2</p>' }
           ]
