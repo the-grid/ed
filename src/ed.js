@@ -108,7 +108,7 @@ export default class Ed {
         this._placeholderCancel(payload)
         break
       default:
-        throw new Error(`ed.routeChange ${type} does not exist`)
+        throw new Error(`ed.routeChange '${type}' does not exist`)
     }
   }
   _editableInitialize (editableView) {

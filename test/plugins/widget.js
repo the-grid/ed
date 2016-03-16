@@ -54,17 +54,19 @@ describe('PluginWidget', function () {
 
     it('has mounted widget', function () {
       const widget = PluginWidget.widgets['0000']
+      const status = widget.el.querySelector('.Placeholder-status')
       expect(widget).to.exist
       expect(widget.type).to.equal('placeholder')
       expect(widget.el.firstChild.className).to.equal('Placeholder')
-      expect(widget.el.textContent).to.equal('Status')
+      expect(status.textContent).to.equal('Status')
     })
 
     it('updates widget props via setContent', function (done) {
       ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
+        const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
-        expect(widget.el.textContent).to.equal('Status changed')
+        expect(status.textContent).to.equal('Status changed')
         done()
       })
       ed.setContent([
@@ -78,8 +80,9 @@ describe('PluginWidget', function () {
     it('updates widget props via updatePlaceholder', function (done) {
       ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
+        const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
-        expect(widget.el.textContent).to.equal('Status changed')
+        expect(status.textContent).to.equal('Status changed')
         done()
       })
       ed.updatePlaceholder('0000', 'Status changed')

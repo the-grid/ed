@@ -15,11 +15,10 @@ export default function Placeholder (props, context) {
   return el('div'
   , {className: 'Placeholder'}
   , el(Message
-    , { className: 'Placeholder-status'
-      , theme: 'info'
+    , { theme: 'info'
       , style: {marginBottom: 0}
       }
-    , status
+    , el('span', {className: 'Placeholder-status'}, status)
     , el(Space
       , {auto: true, x: 1}
       )
