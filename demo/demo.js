@@ -8,6 +8,8 @@ const fixtureContent = fixture.content
 const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
 
+let apiJSON = document.querySelector('#debug-api')
+
 // ProseMirror setup
 function setup (options) {
   if (ed) {
@@ -34,7 +36,8 @@ function setup (options) {
   console.log(ed)
   window.ed = ed
 }
-setup({menu})
+const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
+setup({menu, initialContent})
 
 // onShareFile upload demo
 let input
@@ -177,8 +180,6 @@ toggleMenu.onclick = function (event) {
 }
 
 // Hydrate
-let apiJSON = document.querySelector('#debug-api')
-apiJSON.value = '[]'
 function APIToEditor () {
   let json
   try {
@@ -226,6 +227,7 @@ document.querySelector('#sim').onclick = toggleUpdates
 
 // Load full post
 function loadFixture () {
+  window.location.hash = '#fixture'
   setup({menu, initialContent: fixtureContent})
 }
 document.querySelector('#fixture').onclick = loadFixture
