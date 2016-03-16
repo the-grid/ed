@@ -1,5 +1,7 @@
 ## dev
 
+## 0.6.0 - 2016-03-16
+
 * Placeholder progress bar
   * `progress` 0-100 with `ed.updatePlaceholder(id, status, progress)` or `ed.setContent([{id, metadata: {status, progress}}])`
 * NEW -- **X** button on the Placeholder component triggers `options.onPlaceholderCancel(id)`
