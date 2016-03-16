@@ -15,7 +15,6 @@ const ed_upload_image =
     { group: 'ed_block'
     , rank: 100
     , class: 'EdMenuText'
-    , select: 'disable'
     , display:
       { type: 'label'
       , label: 'Upload Image'
