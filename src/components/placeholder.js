@@ -36,7 +36,7 @@ Placeholder.contextTypes =
 function makeProgress (progress) {
   if (progress == null) return
   return el(Progress
-  , { value: progress/100
+  , { value: progress / 100
     , theme: 'info'
     , style: {marginTop: 16}
     }

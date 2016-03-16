@@ -32,7 +32,7 @@ class FoldMedia extends React.Component {
         , maxWidth: 800
         }
       }
-    , ( block
+    , (block
       ? el(Media, {initialBlock: block, id: block.id})
       : this.renderAddMedia()
       )

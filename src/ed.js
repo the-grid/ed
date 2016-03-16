@@ -109,7 +109,6 @@ export default class Ed {
         break
       default:
         throw new Error(`ed.routeChange ${type} does not exist`)
-        break
     }
   }
   _editableInitialize (editableView) {
