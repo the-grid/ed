@@ -27,6 +27,7 @@ function setup (options) {
     , autosaveInterval: 1000
     , onShareFile: onShareFileDemo
     , onShareUrl: onShareUrlDemo
+    , onPlaceholderCancel: onPlaceholderCancelDemo
     , imgfloConfig: null
     }
   )
@@ -229,3 +230,7 @@ function loadFixture () {
 }
 document.querySelector('#fixture').onclick = loadFixture
 
+
+function onPlaceholderCancelDemo (id) {
+  console.log(`App would cancel the share or upload with id: ${id}`)
+} 

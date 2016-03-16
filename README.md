@@ -63,6 +63,10 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       /* Ed made the placeholder with block id */
       /* App shares url with given block id */
       /* On share / measurement finishing, app replaces placeholder blocks with ed.setContent */
+    },
+    onPlaceholderCancel: function (id) {
+      /* Ed removed the placeholder if you call ed.getContent() now */
+      /* App should cancel the share or upload */
     }
   })  
 ```
