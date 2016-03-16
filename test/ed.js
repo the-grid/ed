@@ -271,7 +271,7 @@ describe('Ed', function () {
           ]
         expect(content).to.deep.equal(expected)
       })
-      
+
       it('does not have cancelled placeholder', function () {
         const ids = ed.insertPlaceholders(1, 1)
         ed._placeholderCancel(ids[0])
