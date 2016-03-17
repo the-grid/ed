@@ -1,5 +1,9 @@
 ## dev
 
+* Demo starts blank to test the initial flow
+* Demo [/#fixture](https://the-grid.github.io/ed/#fixture) loads the fixture: useful for reloading and debugging
+* Made [DropdownGroup](./src/components/dropdown-group.js) to be more responsive (#126)
+
 ## 0.6.0 - 2016-03-16
 
 * Placeholder progress bar

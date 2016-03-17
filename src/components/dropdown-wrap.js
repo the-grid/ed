@@ -7,7 +7,6 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 
 class DropdownWrap extends React.Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -39,44 +38,44 @@ class DropdownWrap extends React.Component {
     const {buttonText, buttonIcon, menuKids, menuWidth} = this.props
 
     return el(Dropdown
-      , { style:
-          { display: 'inline-block' }
+    , { style:
+        { display: 'inline-block' }
+      }
+    , el(ButtonOutline
+      , { onClick: this.openMenu
+        , theme: 'secondary'
+        , inverted: false
+        , style: {marginLeft: -1}
         }
-      , el(ButtonOutline
-        , { onClick: this.openMenu
-          , theme: 'secondary'
-          , inverted: false
-          , style: {marginLeft: -1}
+      , el('span'
+        , { style:
+            { maxWidth: '15rem'
+            , verticalAlign: 'middle'
+            , display: 'inline-block'
+            , whiteSpace: 'pre'
+            , overflow: 'hidden'
+            , textOverflow: 'ellipsis'
+            }
           }
-        , el('span'
-          , { style:
-              { maxWidth: '15rem'
-              , verticalAlign: 'middle'
-              , display: 'inline-block'
-              , whiteSpace: 'pre'
-              , overflow: 'hidden'
-              , textOverflow: 'ellipsis'
-              }
-            }
-          , buttonText
-          )
-        , buttonIcon
+        , buttonText
         )
-      , el(DropdownMenu
-        , { open: this.state.open
-          , right: true
-          , onDismiss: this.closeMenu
-        }
-        , el('div'
-          , { style:
-              { textAlign: 'left'
-              , width: menuWidth
-              }
+      , buttonIcon
+      )
+    , el(DropdownMenu
+      , { open: this.state.open
+        , right: true
+        , onDismiss: this.closeMenu
+      }
+      , el('div'
+        , { style:
+            { textAlign: 'left'
+            , width: menuWidth
             }
-          , menuKids
-          )
+          }
+        , menuKids
         )
       )
+    )
   }
 }
 DropdownWrap.propTypes =

@@ -3,8 +3,9 @@ require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
 import Image from './image'
+import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
-// import CreditAdd from './credit-add'
+import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 import blockMetaSchema from '../schema/block-meta'
 import rebassTheme from './rebass-theme'
@@ -43,10 +44,9 @@ class AttributionEditor extends React.Component {
       , el(
         'div'
         , { className: 'AttributionEditor-links' }
-        , renderLinks(schema, metadata, this.onChange)
-        // , el(CreditAdd
-        //   , {schema, metadata}
-        //   )
+        , el(DropdownGroup
+          , { menus: renderLinks(schema, metadata, this.onChange) }
+          )
       )
       , el(
         'div'
@@ -138,12 +138,15 @@ function renderLinks (schema, metadata = {}, onChange) {
       renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
     )
   }
+  links.push(
+    el(CreditAdd, {schema, metadata, label: '...'})
+  )
   return links
 }
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
-  return el(CreditEditor
-  , { className: `AttributionEditor-${key}`
+  return el(CreditEditor,
+    { className: `AttributionEditor-${key}`
     , key: key
     , label: label
     , name: item.name
