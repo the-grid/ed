@@ -1,41 +1,45 @@
 import {createElement as el} from 'react'
 
-import DropdownWrap from './dropdown-wrap'
 import NavItem from 'rebass/dist/NavItem'
 
 
 export default function CreditAdd (props) {
-  const {schema, metadata} = props
-  return el(DropdownWrap
-  , { buttonText: '...'
-    , menuKids: makeLinks(schema, metadata)
-    , menuWidth: 180
-    }
+  const {schema, metadata, onClick} = props
+  return el('div'
+  , { style: {} }
+  , makeLinks(schema, metadata, onClick)
   )
 }
 
 
-function makeLinks (schema, metadata = {}) {
+function makeLinks (schema, metadata = {}, onClick) {
   let links = []
-  if (schema.isBasedOnUrl && !metadata.isBasedOnUrl) {
-    links.push(makeLink('link', 'Add Source Link'))
+  if (schema.isBasedOnUrl && metadata.isBasedOnUrl == null) {
+    links.push(makeLink('isBasedOnUrl', 'Add Source Link', onClick))
   }
   // TODO allow multiple authors?
   if (schema.author && (!metadata.author || !metadata.author[0])) {
-    links.push(makeLink('author', 'Add Author'))
+    links.push(makeLink('author', 'Add Author', onClick))
   }
   if (schema.publisher && !metadata.publisher) {
-    links.push(makeLink('publisher', 'Add Publisher'))
+    links.push(makeLink('publisher', 'Add Publisher', onClick))
   }
-  links.push(makeLink('delete', 'Remove Block', 'warning'))
+  links.push(makeLink('delete', 'Remove Block', onClick, 'warning'))
   return links
 }
 
-function makeLink (key, label, theme = 'primary') {
+function makeLink (key, label, onClick, theme = 'primary') {
   return el(NavItem
   , { key
     , children: label
     , theme
+    , onClick: makeClick(key, onClick)
     }
   )
+}
+
+function makeClick (key, onClick) {
+  return function () {
+    onClick(key)
+  }
 }

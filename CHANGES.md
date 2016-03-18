@@ -1,5 +1,10 @@
 ## dev
 
+* Demo starts blank to test the initial flow
+* Demo [/#fixture](https://the-grid.github.io/ed/#fixture) loads the fixture: useful for reloading and debugging
+* Made [DropdownGroup](./src/components/dropdown-group.js) to make meta editors more responsive (#126)
+* [Credit Add](./src/components/credit-add.js) "..." menu on media blocks to add attribution (and remove block)
+
 ## 0.6.0 - 2016-03-16
 
 * Placeholder progress bar
