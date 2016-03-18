@@ -67,6 +67,14 @@ export default class Ed {
         this._updateMediaBlock(payload)
         this.trigger('change')
         break
+      case 'MEDIA_BLOCK_UPDATE_META':
+        const mutatedBlock = this._updateMetaByPath(payload)
+        this.trigger('change')
+        return mutatedBlock
+      case 'MEDIA_BLOCK_REMOVE':
+        this._removeMediaBlock(payload)
+        this.trigger('change')
+        break
       case 'PLUGIN_URL':
         const {index, id, block, url} = payload
         this._replaceBlock(index, block)
@@ -153,7 +161,7 @@ export default class Ed {
       events[i](payload)
     }
   }
-  updateMetaByPath (id, path, value) {
+  _updateMetaByPath ({id, path, value}) {
     let block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not update this block')
@@ -165,7 +173,6 @@ export default class Ed {
     }
     parent[path[path.length - 1]] = value
 
-    this.trigger('change')
     return block
   }
   _updateMediaBlock (block) {
@@ -180,6 +187,21 @@ export default class Ed {
 
     // MUTATION
     this._content[block.id] = block
+  }
+  _removeMediaBlock (id) {
+    let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not find this block id')
+    }
+    const content = this.getContent()
+    const index = getIndexWithId(content, id)
+    // MUTATION
+    content.splice(index, 1)
+    if (this._foldMedia === id) {
+      this._foldMedia = null
+    }
+    // Render
+    this._setMergedContent(content)
   }
   getBlock (id) {
     return this._content[id]

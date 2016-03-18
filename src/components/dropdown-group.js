@@ -12,6 +12,22 @@ class DropdownGroup extends React.Component {
       openMenu: null
     }
   }
+  componentWillReceiveProps (nextProps) {
+    if (this.state.openMenu == null) {
+      return
+    }
+    // Find and open new menu
+    if (nextProps.menus.length !== this.props.menus.length) {
+      for (let i = 0, len = nextProps.menus.length; i < len; i++) {
+        const menu = this.props.menus[i]
+        const nextMenu = nextProps.menus[i]
+        if (menu && nextMenu && menu.key !== nextMenu.key) {
+          this.setState({openMenu: i})
+          return
+        }
+      }
+    }
+  }
   componentDidUpdate (_, prevState) {
     // Focus on open
     if (!prevState.open && this.state.open) {

@@ -275,7 +275,6 @@ let imageCole = {
     'description': getHappyLittlePhrase(5),
     '@context': 'http://schema.org',
     '@type': 'Article',
-    'isBasedOnUrl': 'http://the-grid-user-content.s3-us-west-2.amazonaws.com/b1dd2ebd-7461-4960-a3be-05f22c649a63.jpg',
     'publisher': {
       'domain': 'the-grid-user-content.s3-us-west-2.amazonaws.com',
       'name': 'The Grid'

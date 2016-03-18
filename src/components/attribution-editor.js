@@ -17,7 +17,6 @@ class AttributionEditor extends React.Component {
     this.state = {
       block: this.props.initialBlock
     }
-    this.onChange = onChange.bind(this)
   }
   getChildContext () {
     return (
@@ -32,6 +31,8 @@ class AttributionEditor extends React.Component {
     const {type, cover, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
+    const menus = renderMenus(schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this))
+
     return el(
       'div'
       , { className: 'AttributionEditor' }
@@ -39,20 +40,65 @@ class AttributionEditor extends React.Component {
       , el(
         'div'
         , { className: 'AttributionEditor-metadata' }
-        , renderFields(schema, metadata, this.onChange)
+        , renderFields(schema, metadata, this.onChange.bind(this))
       )
       , el(
         'div'
         , { className: 'AttributionEditor-links' }
-        , el(DropdownGroup
-          , { menus: renderLinks(schema, metadata, this.onChange) }
-          )
+        , el(DropdownGroup, {menus})
       )
       , el(
         'div'
         , { style: {clear: 'both'} }
       )
     )
+  }
+  onChange (path, value) {
+    const store = (this.context.store || this.props.store)
+    const {id} = this.props
+    // Send change up to store
+    const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+    // Send change to view
+    // TODO do this with an ed event / listener in constructor?
+    this.setState({block})
+  }
+  onMoreClick (key) {
+    const store = (this.context.store || this.props.store)
+    const {id} = this.props
+
+    let block, path, value
+
+    switch (key) {
+      case 'delete':
+        // TODO pretty UI
+        if (!confirm('Are you sure?')) {
+          return
+        }
+        store.routeChange('MEDIA_BLOCK_REMOVE', id)
+        return
+      case 'isBasedOnUrl':
+        path = [key]
+        value = ''
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
+      case 'author':
+        path = [key]
+        // TODO smarter when we support multiple
+        value = [{}]
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
+      case 'publisher':
+        path = [key]
+        value = {}
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
+      default:
+        return
+    }
+    // Send change to view
+    if (block) {
+      this.setState({block})
+    }
   }
 }
 AttributionEditor.contextTypes =
@@ -70,15 +116,6 @@ AttributionEditor.propTypes =
   }
 export default React.createFactory(AttributionEditor)
 
-
-function onChange (path, value) {
-  const store = (this.context.store || this.props.store)
-  const {id} = this.props
-  // Send change up to store
-  const block = store.updateMetaByPath(id, path, value)
-  // Send change to view
-  this.setState({block})
-}
 
 function makeChange (path, onChange) {
   return function (event) {
@@ -121,27 +158,33 @@ function renderTextField (key, label, value, onChange) {
   })
 }
 
-function renderLinks (schema, metadata = {}, onChange) {
-  let links = []
-  if (schema.isBasedOnUrl && metadata.isBasedOnUrl) {
-    links.push(
+function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
+  let menus = []
+  if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
+    menus.push(
       renderCreditEditor(true, 'isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}, onChange, ['isBasedOnUrl'])
     )
   }
   if (schema.author && metadata.author && metadata.author[0]) {
-    links.push(
+    menus.push(
       renderCreditEditor(false, 'author.0', 'Author', metadata.author[0], onChange, ['author', 0])
     )
   }
   if (schema.publisher && metadata.publisher) {
-    links.push(
+    menus.push(
       renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
     )
   }
-  links.push(
-    el(CreditAdd, {schema, metadata, label: '...'})
+  menus.push(
+    el(CreditAdd
+    , { schema
+      , metadata
+      , label: '...'
+      , onClick: onMoreClick
+      }
+    )
   )
-  return links
+  return menus
 }
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {

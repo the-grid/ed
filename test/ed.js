@@ -241,7 +241,26 @@ describe('Ed', function () {
     })
 
     describe('Getting content', function () {
-      it('outputs expected content', function () {
+      it('outputs content with placeholders', function () {
+        const ids = ed.insertPlaceholders(1, 2)
+        const content = ed.getContent()
+        const expected =
+          [ { id: ids[0]
+            , type: 'placeholder'
+            , metadata: {starred: true}
+            }
+          , { type: 'h1', html: '<h1>Title</h1>' }
+          , { id: ids[1]
+            , type: 'placeholder'
+            , metadata: {}
+            }
+          , { type: 'text', html: '<p>Text 1</p>' }
+          , { type: 'text', html: '<p>Text 2</p>' }
+          ]
+        expect(content).to.deep.equal(expected)
+      })
+
+      it('outputs content with replaced placeholders', function () {
         const ids = ed.insertPlaceholders(1, 2)
         ed.setContent(
           [ { id: ids[0]
@@ -275,6 +294,18 @@ describe('Ed', function () {
       it('does not have cancelled placeholder', function () {
         const ids = ed.insertPlaceholders(1, 1)
         ed._placeholderCancel(ids[0])
+        const content = ed.getContent()
+        const expected =
+          [ { type: 'h1', html: '<h1>Title</h1>' }
+          , { type: 'text', html: '<p>Text 1</p>' }
+          , { type: 'text', html: '<p>Text 2</p>' }
+          ]
+        expect(content).to.deep.equal(expected)
+      })
+
+      it('does not have removed block', function () {
+        const ids = ed.insertPlaceholders(1, 1)
+        ed._removeMediaBlock(ids[0])
         const content = ed.getContent()
         const expected =
           [ { type: 'h1', html: '<h1>Title</h1>' }
