@@ -1,5 +1,7 @@
 ## dev
 
+## 0.6.1 - 2016-03-18
+
 * Demo starts blank to test the initial flow
 * Demo [/#fixture](https://the-grid.github.io/ed/#fixture) loads the fixture: useful for reloading and debugging
 * Made [DropdownGroup](./src/components/dropdown-group.js) to make meta editors more responsive (#126)
