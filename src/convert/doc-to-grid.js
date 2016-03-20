@@ -2,7 +2,9 @@ import {toDOM} from 'prosemirror/src/format'
 import {isMediaType} from './types'
 
 export default function (doc, apiContentMap) {
-  const dom = toDOM(doc)
+  const fragment = toDOM(doc)
+  const dom = document.createElement('div')
+  dom.appendChild(fragment)
   let currentContent = []
   for (let i = 0, len = dom.children.length; i < len; i++) {
     const child = dom.children[i]

@@ -1,5 +1,9 @@
 ## dev
 
+## 0.6.2 - 2016-03-20
+
+* Hotfix `ed.getContent()` on :iphone: (#105)
+
 ## 0.6.1 - 2016-03-18
 
 * Demo starts blank to test the initial flow
