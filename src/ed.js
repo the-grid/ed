@@ -242,7 +242,7 @@ export default class Ed {
     this._insertBlocks(index, toInsert)
     return ids
   }
-  updatePlaceholder (id, {status, progress, errored}) {
+  updatePlaceholder (id, metadata) {
     let block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not update this placeholder block')
@@ -251,6 +251,7 @@ export default class Ed {
       throw new Error('Block is not a placeholder block')
     }
     // Mutation
+    const {status, progress, errored} = metadata
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
     if (errored != null) block.metadata.errored = errored
