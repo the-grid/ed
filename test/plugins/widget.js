@@ -61,7 +61,7 @@ describe('PluginWidget', function () {
       expect(status.textContent).to.equal('Status')
     })
 
-    it('updates widget props via setContent', function (done) {
+    it('updates placeholder widget status via setContent', function (done) {
       ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
@@ -73,6 +73,22 @@ describe('PluginWidget', function () {
         { id: '0000'
         , type: 'placeholder'
         , metadata: {status: 'Status changed'}
+        }
+      ])
+    })
+
+    it('updates placeholder widget errored via setContent', function (done) {
+      const widget = PluginWidget.widgets['0000']
+      const el = widget.el.querySelector('.Placeholder')
+      ed.on('media.update', function () {
+        expect(el.classList.contains('Placeholder-error')).to.be.true
+        done()
+      })
+      expect(el.classList.contains('Placeholder-error')).to.be.false
+      ed.setContent([
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {errored: true}
         }
       ])
     })
@@ -89,23 +105,14 @@ describe('PluginWidget', function () {
     })
 
     it('updates placeholder widget errored true via updatePlaceholder', function (done) {
+      const widget = PluginWidget.widgets['0000']
+      const el = widget.el.querySelector('.Placeholder')
       ed.on('media.update', function () {
-        const widget = PluginWidget.widgets['0000']
-        const el = widget.el.querySelector('.Placeholder')
         expect(el.classList.contains('Placeholder-error')).to.be.true
         done()
       })
+      expect(el.classList.contains('Placeholder-error')).to.be.false
       ed.updatePlaceholder('0000', {errored: true})
-    })
-
-    it('updates placeholder widget errored false via updatePlaceholder', function (done) {
-      ed.on('media.update', function () {
-        const widget = PluginWidget.widgets['0000']
-        const el = widget.el.querySelector('.Placeholder')
-        expect(el.classList.contains('Placeholder-error')).to.be.false
-        done()
-      })
-      ed.updatePlaceholder('0000', {errored: false})
     })
 
     it('changes widget type via setContent', function (done) {
