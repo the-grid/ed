@@ -11,7 +11,7 @@ export default function Placeholder (props, context) {
     return el('div', {className: 'Placeholder'})
   }
   const {status, progress, errored} = metadata
-  
+
   const theme = (errored === true ? 'error' : 'info')
 
   return el('div'

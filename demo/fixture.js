@@ -604,7 +604,7 @@ let post = {
     { id: '0000-failed'
     , type: 'placeholder'
     , metadata:
-      { status: 'Hmmm...' 
+      { status: 'Hmmm...'
       , errored: true
       }
     },
