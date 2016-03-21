@@ -242,7 +242,7 @@ export default class Ed {
     this._insertBlocks(index, toInsert)
     return ids
   }
-  updatePlaceholder (id, status, progress) {
+  updatePlaceholder (id, {status, progress, errored}) {
     let block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not update this placeholder block')
@@ -253,6 +253,7 @@ export default class Ed {
     // Mutation
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
+    if (errored != null) block.metadata.errored = errored
     // Let content widgets know to update
     this.trigger('media.update')
     // Let fold media know to update
