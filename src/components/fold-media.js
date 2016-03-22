@@ -49,18 +49,34 @@ class FoldMedia extends React.Component {
         }
       , 'Add title'
       )
+    , el('span'
+      , { style: { 
+        margin: '0 12px', color: '#aaa',
+        fontSize: '.8em'
+      }
+        }
+      , 'or'
+      )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
         , onClick: this.toggleLink.bind(this)
         }
-      , 'Share link'
+      , 'Add a link'
       )
+    , el('span'
+      , { style: { 
+        margin: '0 12px', color: '#aaa',
+        fontSize: '.8em'
+      }
+      }
+    , 'or')
     , el(ButtonOutline
       , { style: { marginRight: -1 }
         , onClick: this.addPhoto.bind(this)
         }
-      , 'Upload photo'
+      , 'Add a photo'
       )
+    , ' '
     , el(ButtonOutline
       , { onClick: this.toggleHelp.bind(this)
         }
@@ -78,7 +94,7 @@ class FoldMedia extends React.Component {
     , el(Panel
       , { style:
           { display: (helpOpen ? 'block' : 'none')
-          , marginTop: -1
+          , marginTop: 10
           }
         , theme: 'info'
         }
@@ -100,6 +116,9 @@ class FoldMedia extends React.Component {
         , defaultFocus: true
         , placeholder: 'https://...'
         , onKeyDown: this.shareKeyDown.bind(this)
+        , style: {
+          borderBottom: '1px solid'
+        }
         }
       )
     , el(Button
