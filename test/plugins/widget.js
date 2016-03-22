@@ -57,11 +57,11 @@ describe('PluginWidget', function () {
       const status = widget.el.querySelector('.Placeholder-status')
       expect(widget).to.exist
       expect(widget.type).to.equal('placeholder')
-      expect(widget.el.firstChild.className).to.equal('Placeholder')
+      expect(widget.el.firstChild.classList.contains('Placeholder')).to.be.true
       expect(status.textContent).to.equal('Status')
     })
 
-    it('updates widget props via setContent', function (done) {
+    it('updates placeholder widget status via setContent', function (done) {
       ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
@@ -77,7 +77,23 @@ describe('PluginWidget', function () {
       ])
     })
 
-    it('updates widget props via updatePlaceholder', function (done) {
+    it('updates placeholder widget failed via setContent', function (done) {
+      const widget = PluginWidget.widgets['0000']
+      const el = widget.el.querySelector('.Placeholder')
+      ed.on('media.update', function () {
+        expect(el.classList.contains('Placeholder-error')).to.be.true
+        done()
+      })
+      expect(el.classList.contains('Placeholder-error')).to.be.false
+      ed.setContent([
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {failed: true}
+        }
+      ])
+    })
+
+    it('updates placeholder widget status via updatePlaceholder', function (done) {
       ed.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
@@ -85,7 +101,18 @@ describe('PluginWidget', function () {
         expect(status.textContent).to.equal('Status changed')
         done()
       })
-      ed.updatePlaceholder('0000', 'Status changed')
+      ed.updatePlaceholder('0000', {status: 'Status changed'})
+    })
+
+    it('updates placeholder widget failed true via updatePlaceholder', function (done) {
+      const widget = PluginWidget.widgets['0000']
+      const el = widget.el.querySelector('.Placeholder')
+      ed.on('media.update', function () {
+        expect(el.classList.contains('Placeholder-error')).to.be.true
+        done()
+      })
+      expect(el.classList.contains('Placeholder-error')).to.be.false
+      ed.updatePlaceholder('0000', {failed: true})
     })
 
     it('changes widget type via setContent', function (done) {

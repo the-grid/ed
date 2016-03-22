@@ -544,7 +544,8 @@ let sharing = {
   id: 'uuid-share-00',
   type: 'placeholder',
   metadata: {
-    status: 'Sharing... https://thegrid.io/#8'
+    status: 'Sharing... https://thegrid.io/#8',
+    progress: 67
   }
 }
 
@@ -600,6 +601,13 @@ let post = {
     article,
     tweet,
     sharing,
+    { id: '0000-failed'
+    , type: 'placeholder'
+    , metadata:
+      { status: 'Hmmm...'
+      , failed: true
+      }
+    },
     {
       'id': 'abc-00000000-h3',
       'type': 'h3',
