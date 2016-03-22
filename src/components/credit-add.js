@@ -33,6 +33,7 @@ function makeLink (key, label, onClick, theme = 'primary') {
   , { key
     , children: label
     , theme
+    , style: { display: 'block' }
     , onClick: makeClick(key, onClick)
     }
   )

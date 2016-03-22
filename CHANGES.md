@@ -1,5 +1,9 @@
 ## dev
 
+## 0.7.2 - 2016-03-22
+
+* Hotfix demo fix for 0.7.0 change to `ed.updatePlaceholder` arguments
+
 ## 0.7.1 - 2016-03-22
 
 * Update to [ProseMirror 0.5.0](https://discuss.prosemirror.net/t/release-0-5-0/246)
