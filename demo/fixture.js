@@ -605,7 +605,7 @@ let post = {
     , type: 'placeholder'
     , metadata:
       { status: 'Hmmm...'
-      , errored: true
+      , failed: true
       }
     },
     {

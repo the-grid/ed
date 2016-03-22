@@ -251,10 +251,10 @@ export default class Ed {
       throw new Error('Block is not a placeholder block')
     }
     // Mutation
-    const {status, progress, errored} = metadata
+    const {status, progress, failed} = metadata
     if (status != null) block.metadata.status = status
     if (progress != null) block.metadata.progress = progress
-    if (errored != null) block.metadata.errored = errored
+    if (failed != null) block.metadata.failed = failed
     // Let content widgets know to update
     this.trigger('media.update')
     // Let fold media know to update

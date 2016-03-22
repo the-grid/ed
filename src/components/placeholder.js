@@ -10,9 +10,9 @@ export default function Placeholder (props, context) {
   if (!metadata) {
     return el('div', {className: 'Placeholder'})
   }
-  const {status, progress, errored} = metadata
+  const {status, progress, failed} = metadata
 
-  const theme = (errored === true ? 'error' : 'info')
+  const theme = (failed === true ? 'error' : 'info')
 
   return el('div'
   , {className: `Placeholder Placeholder-${theme}`}

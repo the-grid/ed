@@ -77,7 +77,7 @@ describe('PluginWidget', function () {
       ])
     })
 
-    it('updates placeholder widget errored via setContent', function (done) {
+    it('updates placeholder widget failed via setContent', function (done) {
       const widget = PluginWidget.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
       ed.on('media.update', function () {
@@ -88,7 +88,7 @@ describe('PluginWidget', function () {
       ed.setContent([
         { id: '0000'
         , type: 'placeholder'
-        , metadata: {errored: true}
+        , metadata: {failed: true}
         }
       ])
     })
@@ -104,7 +104,7 @@ describe('PluginWidget', function () {
       ed.updatePlaceholder('0000', {status: 'Status changed'})
     })
 
-    it('updates placeholder widget errored true via updatePlaceholder', function (done) {
+    it('updates placeholder widget failed true via updatePlaceholder', function (done) {
       const widget = PluginWidget.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
       ed.on('media.update', function () {
@@ -112,7 +112,7 @@ describe('PluginWidget', function () {
         done()
       })
       expect(el.classList.contains('Placeholder-error')).to.be.false
-      ed.updatePlaceholder('0000', {errored: true})
+      ed.updatePlaceholder('0000', {failed: true})
     })
 
     it('changes widget type via setContent', function (done) {
