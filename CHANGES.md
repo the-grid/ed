@@ -1,6 +1,6 @@
 ## dev
 
-## 0.7.0
+## 0.7.0 - 2016-03-22
 
 * BREAKING - changed arguments for `ed.updatePlaceholder` to `id, {status, progress, failed}`
   * Placholder block `metadata.failed` will show in red and have an "×" button to remove
