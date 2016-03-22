@@ -1,5 +1,10 @@
 ## dev
 
+## 0.7.0
+
+* BREAKING - changed arguments for `ed.updatePlaceholder` to `id, {status, progress, failed}`
+  * Placholder block `metadata.failed` will show in red and have an "×" button to remove
+
 ## 0.6.2 - 2016-03-20
 
 * Hotfix `ed.getContent()` on :iphone: (#105)
