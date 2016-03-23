@@ -10,12 +10,14 @@ export default function Placeholder (props, context) {
   if (!metadata) {
     return el('div', {className: 'Placeholder'})
   }
-  const {status, progress} = metadata
+  const {status, progress, failed} = metadata
+
+  const theme = (failed === true ? 'error' : 'info')
 
   return el('div'
-  , {className: 'Placeholder'}
+  , {className: `Placeholder Placeholder-${theme}`}
   , el(Message
-    , { theme: 'info'
+    , { theme
       , style: {marginBottom: 0}
       }
     , el('span', {className: 'Placeholder-status'}, status)
@@ -26,18 +28,18 @@ export default function Placeholder (props, context) {
       , {onClick: makeCancel(store, id)}
       )
     )
-  , makeProgress(progress)
+  , makeProgress(progress, theme)
   )
 }
 Placeholder.contextTypes =
   { store: React.PropTypes.object }
 
-function makeProgress (progress) {
+function makeProgress (progress, theme) {
   if (progress == null) return
   return el(Progress
   , { value: progress / 100
-    , theme: 'info'
     , style: {marginTop: 16}
+    , theme
     }
   )
 }

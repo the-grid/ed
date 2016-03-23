@@ -73,10 +73,10 @@ function makeInputOnChange (index) {
     console.log('app uploads files now and calls ed.updatePlaceholder with updates')
 
     simulateProgress(
-      function (percent) {
+      function (progress) {
         ids.forEach(function (id, index) {
           let status = `Uploading ${names[index]}`
-          ed.updatePlaceholder(id, status, percent)
+          ed.updatePlaceholder(id, {status, progress})
         })
       },
       function () {
@@ -111,9 +111,9 @@ function onShareUrlDemo (share) {
   console.log('app shares url now and calls ed.setContent() with updates')
 
   simulateProgress(
-    function (percent) {
+    function (progress) {
       const status = `Sharing ${url}`
-      ed.updatePlaceholder(block, status, percent)
+      ed.updatePlaceholder(block, {status, progress})
     },
     function () {
       ed.setContent([
