@@ -52,18 +52,20 @@ module.exports = function (config) {
       accessKey: process.env.BROWSERSTACK_ACCESSKEY
     }
     if (!cfg.customLaunchers) cfg.customLaunchers = {}
-    cfg.customLaunchers.iOS8 = {
-      base: 'BrowserStack',
-      os: 'ios',
-      os_version: '8.0'
-    }
-
+    cfg.customLaunchers.iOS8 =
+      { base: 'BrowserStack'
+      , device: 'iPhone 6'
+      , os: 'ios'
+      , os_version: '8.3'
+      }
     cfg.browsers.push('iOS8')
-    cfg.customLaunchers.iOS9 = {
-      base: 'BrowserStack',
-      os: 'ios',
-      os_version: '9.0'
-    }
+    
+    cfg.customLaunchers.iOS9 =
+      { base: 'BrowserStack'
+      , device: 'iPhone 6S'
+      , os: 'ios'
+      , os_version: '9.0'
+      }
     cfg.browsers.push('iOS9')
 
     cfg.customLaunchers.Android4 =
