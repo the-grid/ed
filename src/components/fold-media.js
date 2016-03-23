@@ -77,11 +77,6 @@ class FoldMedia extends React.Component {
       , 'Add a photo'
       )
     , ' '
-    , el(ButtonOutline
-      , { onClick: this.toggleHelp.bind(this)
-        }
-      , '?'
-      )
     , el(Panel
       , { style:
           { display: (linkOpen ? 'block' : 'none')
@@ -90,18 +85,6 @@ class FoldMedia extends React.Component {
         , theme: 'info'
         }
       , this.renderShareLink()
-      )
-    , el(Panel
-      , { style:
-          { display: (helpOpen ? 'block' : 'none')
-          , marginTop: 10
-          }
-        , theme: 'info'
-        }
-      , 'Welcome to your post editor. ' +
-        'Above the line is the primary representation ' +
-        'of your post. Below the line is the rest of ' +
-        'the post that will show on the post page.'
       )
     )
   }
