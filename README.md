@@ -134,6 +134,15 @@ Feross [standard](https://github.com/feross/standard#rules) checked by ESLint wi
 
 `npm test`
 
+[Karma is set up](./karma.conf.js) to run tests in local Chrome and Firefox.
+
+Tests will also run in mobile platforms via [BrowserStack](https://www.browserstack.com/), if you have these environment variables set up:
+
+```
+BROWSERSTACK_USERNAME
+BROWSERSTACK_ACCESSKEY
+```
+
 ## build
 
 `npm run build`
