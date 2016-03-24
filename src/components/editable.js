@@ -100,10 +100,10 @@ class Editable extends React.Component {
   updatePlaceholderHeights (changes) {
     // Do this in a batch, with one widget remeasure/move
     for (let i = 0, len = changes.length; i < len; i++) {
-      const change = changes[i]
+      const {id, height} = changes[i]
       // TODO do this with standard pm.tr interface, not direct DOM
-      const placeholder = this.refs.mirror.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
-      placeholder.style.height = change.height + 'px'
+      const placeholder = this.refs.mirror.querySelector(`.EdSchemaMedia[grid-id="${id}"]`)
+      placeholder.style.height = height + 'px'
     }
     this.pm.signal('draw')
   }

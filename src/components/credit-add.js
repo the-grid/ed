@@ -40,7 +40,7 @@ function makeLink (key, label, onClick, theme = 'primary') {
 }
 
 function makeClick (key, onClick) {
-  return function () {
+  return function (event) {
     onClick(key)
   }
 }

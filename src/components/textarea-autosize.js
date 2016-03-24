@@ -3,13 +3,13 @@ import {sans} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
-  , fontSize: '50%'
+  , fontSize: 12
   , marginBottom: '1rem'
   }
 
 const areaStyle =
   { fontFamily: 'inherit'
-  , fontSize: '200%'
+  , fontSize: 18
   , lineHeight: 1.5
   , minHeight: '1.5rem'
   , display: 'block'
@@ -30,6 +30,9 @@ function resize () {
   textarea.style.height = textarea.scrollHeight + 'px'
 }
 
+function stopPropagation (event) {
+  event.stopPropagation()
+}
 
 class TextareaAutosize extends React.Component {
   constructor (props) {
@@ -55,7 +58,13 @@ class TextareaAutosize extends React.Component {
       , style: containerStyle
       }
     , el('label'
-      , {}
+      , { onClick: stopPropagation
+        , onMouseDown: stopPropagation
+        , onMouseUp: stopPropagation
+        , onKeyDown: stopPropagation
+        , onKeyUp: stopPropagation
+        , onKeyPress: stopPropagation
+        }
       , label
       , el('textarea'
         , { ref: 'textarea'
