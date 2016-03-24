@@ -28,10 +28,11 @@ export default class WidgetIframe extends WidgetBase {
       this.initialBlock = options.initialBlock
       this.frame.addEventListener('load', this.postInitialBlock)
     }
+    this.frame.style.width = '100%'
     this.frame.src = this.src()
     this.el.appendChild(this.frame)
 
-    this.height = 100
+    this.setHeight(100)
   }
   teardown () {
     if (this.initialBlock) {
@@ -39,8 +40,13 @@ export default class WidgetIframe extends WidgetBase {
     }
     super.teardown()
   }
+  setHeight (height) {
+    if (this.height !== height) {
+      this.frame.style.height = `${height}px`
+      this.height = height
+    }
+  }
   getHeight () {
-    // Don't measure from outside: iframes report own height
     return this.height
   }
 }

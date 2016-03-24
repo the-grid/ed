@@ -30,6 +30,9 @@ function resize () {
   textarea.style.height = textarea.scrollHeight + 'px'
 }
 
+function stopPropagation (event) {
+  event.stopPropagation()
+}
 
 class TextareaAutosize extends React.Component {
   constructor (props) {
@@ -55,7 +58,13 @@ class TextareaAutosize extends React.Component {
       , style: containerStyle
       }
     , el('label'
-      , {}
+      , { onClick: stopPropagation
+        , onMouseDown: stopPropagation
+        , onMouseUp: stopPropagation
+        , onKeyDown: stopPropagation
+        , onKeyUp: stopPropagation
+        , onKeyPress: stopPropagation
+        }
       , label
       , el('textarea'
         , { ref: 'textarea'

@@ -6,40 +6,23 @@ export default class WidgetBase {
 
     // Cache these so we don't hit DOM unless needed
     this.shown = true
-    this.top = 0
-    this.left = 0
-    this.width = 1
-    this.height = 50
 
     // Base div container
     this.el = document.createElement('div')
-    this.el.setAttribute('grid-id', options.id)
     this.id = options.id
     this.initialBlock = options.initialBlock
-    this.el.style.position = 'absolute'
-    this.move(options.initialRectangle)
     options.widgetContainer.appendChild(this.el)
+    
+    // Don't let contenteditable flow get events
+    this.el.addEventListener('mousedown', stopPropagation)
+    this.el.addEventListener('mouseup', stopPropagation)
+    this.el.addEventListener('click', stopPropagation)
+    this.el.addEventListener('keydown', stopPropagation)
+    this.el.addEventListener('keyup', stopPropagation)
+    this.el.addEventListener('keypress', stopPropagation)
   }
   teardown () {
     this.el.parentNode.removeChild(this.el)
-  }
-  move (rectangle) {
-    if (this.top !== rectangle.top) {
-      this.el.style.top = rectangle.top + 'px'
-      this.top = rectangle.top
-    }
-    if (this.left !== rectangle.left) {
-      this.el.style.left = rectangle.left + 'px'
-      this.left = rectangle.left
-    }
-    if (this.width !== rectangle.width) {
-      this.el.style.width = rectangle.width + 'px'
-      this.width = rectangle.width
-    }
-    if (this.height !== rectangle.height) {
-      this.el.style.height = rectangle.height + 'px'
-      this.height = rectangle.height
-    }
   }
   show () {
     if (!this.shown) {
@@ -53,10 +36,9 @@ export default class WidgetBase {
       this.shown = false
     }
   }
-  getHeight () {
-    if (this.el && this.el.firstChild) {
-      return this.el.firstChild.scrollHeight
-    }
-    return this.height
-  }
+}
+
+
+function stopPropagation (event) {
+  event.stopPropagation()
 }

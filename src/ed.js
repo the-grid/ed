@@ -365,6 +365,9 @@ function mergeContent (oldContent, newContent) {
 
 // Can't restore selection to a non-focuable (Media) div
 function fixSelection (selection, doc) {
+  if (!selection || !selection.anchor) {
+    return selection
+  }
   let index = selection.anchor.path[0]
   if (doc.content.content[index] && doc.content.content[index].type.contains !== null) {
     return selection

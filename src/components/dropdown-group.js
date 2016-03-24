@@ -104,10 +104,11 @@ class DropdownGroup extends React.Component {
     )
   }
   makeOpenMenu (index) {
-    return () => {
+    return (event) => {
       const {openMenu} = this.state
       const toggleOrOpen = (openMenu === index ? null : index)
       this.setState({openMenu: toggleOrOpen})
+      event.stopPropagation()
     }
   }
 }

@@ -32,13 +32,7 @@ function onDOMChanged () {
       throw new Error('Bad placeholder!')
     }
     inDoc.push(id)
-    const rectangle =
-      { top: el.offsetTop
-      , left: el.offsetLeft
-      , width: el.offsetWidth
-      , height: el.offsetHeight
-      }
-    this.checkWidget(id, type, rectangle)
+    this.checkWidget(id, type, el)
   }
 
   // Hide or show widgets
@@ -53,26 +47,6 @@ function onDOMChanged () {
     }
   }
 
-  // Measure inner heights of widgets
-  let heightChanges = []
-  for (let i = 0, len = inDOM.length; i < len; i++) {
-    const id = inDOM[i]
-    const widget = this.widgets[id]
-    if (!widget.shown) continue
-    const innerHeight = widget.getHeight()
-    if (innerHeight !== widget.height) {
-      heightChanges.push(
-        { id: id
-        , height: innerHeight
-        }
-      )
-    }
-  }
-  if (heightChanges.length) {
-    // Will trigger a redraw / this onDOMChanged again
-    this.editableView.updatePlaceholderHeights(heightChanges)
-  }
-
   // Signal widgets initialized if first
   if (!this.initialized) {
     this.initialized = true
@@ -80,7 +54,7 @@ function onDOMChanged () {
   }
 }
 
-function checkWidget (id, type, rectangle) {
+function checkWidget (id, type, el) {
   let widget = this.widgets[id]
   if (widget && widget.type !== type) {
     // Remove it
@@ -90,14 +64,14 @@ function checkWidget (id, type, rectangle) {
   }
   if (widget) {
     // Move it
-    widget.move(rectangle)
+    // widget.move(rectangle)
   } else {
     // Make it
-    this.initializeWidget(id, type, rectangle)
+    this.initializeWidget(id, type, el)
   }
 }
 
-function initializeWidget (id, type, rectangle) {
+function initializeWidget (id, type, containerEl) {
   let Widget = WidgetTypes[type] || WidgetTypes.react
 
   let initialBlock = this.ed.getBlock(id)
@@ -107,8 +81,7 @@ function initializeWidget (id, type, rectangle) {
     , id
     , type
     , initialBlock
-    , widgetContainer: this.el
-    , initialRectangle: rectangle
+    , widgetContainer: containerEl
     }
   )
 
@@ -129,12 +102,9 @@ function onIframeMessage (message) {
       this.ed.routeChange('MEDIA_BLOCK_UPDATE', block)
       break
     case 'height':
-      if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.editableView.updatePlaceholderHeights([
-        { id: message.data.id
-        , height: message.data.payload
-        }
-      ])
+      const height = message.data.payload
+      if (isNaN(height)) throw new Error('Iframe height message with non-numeric payload')
+      this.widgets[fromId].setHeight(height)
       break
     case 'cursor':
     default:
