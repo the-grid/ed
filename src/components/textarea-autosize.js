@@ -1,5 +1,5 @@
 import React, {createElement as el} from 'react'
-import {sans, colors} from './rebass-theme'
+import {sans} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
