@@ -11,17 +11,37 @@ export default function Title (props, context) {
 
   return el('div'
   , { className: 'Title'
-    , style: {fontSize: '250%'}
+    , style: { fontSize: '250%' }
     }
+  , el('div'
+      , { style:
+          { float: 'right'
+          , top: 9
+          , position: 'relative'
+          , color: '#ccc'
+          , lineHeight: 0.5
+          , fontWeight: '100'
+          , fontSize: '.5em'
+          , cursor: 'pointer'
+          }
+        , onClick:
+            function () {
+              const {id} = initialBlock
+              store.routeChange('MEDIA_BLOCK_REMOVE', id)
+            }
+        }
+      , '✕'
+    )
   , el(TextareaAutosize
     , { label: 'Title'
       , defaultValue: title
       , defaultFocus: true
-      , onChange: function (event) {
-        const block = initialBlock
-        block.html = `<h1>${event.target.value}</h1>`
-        store.routeChange('FOLD_MEDIA_CHANGE', block)
-      }
+      , onChange:
+          function (event) {
+            const block = initialBlock
+            block.html = `<h1>${event.target.value}</h1>`
+            store.routeChange('FOLD_MEDIA_CHANGE', block)
+          }
       }
     )
   )

@@ -2,6 +2,20 @@
   outline: 0px solid transparent;
 }
 
+.Ed {
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+}
+
+.Ed button {
+  border-radius: 4px !important;
+  text-transform: uppercase !important;
+  padding: 10px 16px !important;
+}
+
+.Ed button:hover{
+  color: #222 !important;
+}
+
 .ProseMirror {
   border: none;
 }
@@ -9,7 +23,7 @@
 .ProseMirror-content {
   font-family: Georgia, Times, serif;
   border: none;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 1rem 1rem 10rem 1rem;
   white-space: pre-wrap;
   max-width: 800px;
@@ -17,10 +31,35 @@
 
 /* Show where to click when not focused */
 .ProseMirror-content {
-  background-color: lightgoldenrodyellow;
+  border: 1px dashed #ccc;
+  border-radius: 7px;
 }
+
+.ProseMirror-content:before {
+  content: '+';
+  color: #ccc;
+  border-radius: 5px;
+  padding: 0px 12px 3px;
+  margin: 0 -2px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  position: absolute;
+  bottom: 15px;
+  cursor: pointer;
+}
+
+.ProseMirror-content:after {
+  content: 'Link to an image, add a title, upload a video...';
+  position: absolute;
+  bottom: 18px;
+  margin-left: 50px;
+  color: #ddd;
+  pointer-events: none;
+}
+
 .ProseMirror-focused .ProseMirror-content {
   background-color: transparent;
+  border: 1px solid #fff;
 }
 
 /* Font junk */
@@ -96,6 +135,26 @@
   z-index: 3;
 }
 
+.ProseMirror-menuseparator {
+  margin-right: 12px;
+}
+
+.ProseMirror-menuitem {
+  margin-right: 6px;
+}
+
+.ProseMirror-menuitem:hover {
+  color: #000;
+}
+
+.ProseMirror-tooltip {
+  height: auto;
+  padding: 10px 15px 7px;
+  border-color: #ddd;
+}
+.ProseMirror-tooltip-pointer {
+  border-top-color: #ccc;
+}
 /* Responsive font size magic, small screen first */
 
 .ProseMirror-content {

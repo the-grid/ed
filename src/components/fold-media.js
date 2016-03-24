@@ -10,9 +10,7 @@ class FoldMedia extends React.Component {
   constructor (props, context) {
     super(props)
     this.state =
-      { helpOpen: false
-      , linkOpen: false
-      }
+      { linkOpen: false }
     if (props.initialBlock) {
       this.state.block = props.initialBlock
       this.state.id = props.initialBlock.id
@@ -39,7 +37,7 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddMedia () {
-    const {helpOpen, linkOpen} = this.state
+    const {linkOpen} = this.state
 
     return el('div'
     , {}
@@ -49,23 +47,37 @@ class FoldMedia extends React.Component {
         }
       , 'Add title'
       )
+    , el('span'
+      , { style:
+          { margin: '0 12px'
+          , color: '#aaa'
+          , fontSize: '.8em'
+          }
+        }
+      , 'or'
+      )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
         , onClick: this.toggleLink.bind(this)
         }
-      , 'Share link'
+      , 'Add a link'
+      )
+    , el('span'
+      , { style:
+          { margin: '0 12px'
+          , color: '#aaa'
+          , fontSize: '.8em'
+          }
+        }
+      , 'or'
       )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
         , onClick: this.addPhoto.bind(this)
         }
-      , 'Upload photo'
+      , 'Add a photo'
       )
-    , el(ButtonOutline
-      , { onClick: this.toggleHelp.bind(this)
-        }
-      , '?'
-      )
+    , ' '
     , el(Panel
       , { style:
           { display: (linkOpen ? 'block' : 'none')
@@ -74,18 +86,6 @@ class FoldMedia extends React.Component {
         , theme: 'info'
         }
       , this.renderShareLink()
-      )
-    , el(Panel
-      , { style:
-          { display: (helpOpen ? 'block' : 'none')
-          , marginTop: -1
-          }
-        , theme: 'info'
-        }
-      , 'Welcome to your post editor. ' +
-        'Above the line is the primary representation ' +
-        'of your post. Below the line is the rest of ' +
-        'the post that will show on the post page.'
       )
     )
   }
@@ -100,6 +100,7 @@ class FoldMedia extends React.Component {
         , defaultFocus: true
         , placeholder: 'https://...'
         , onKeyDown: this.shareKeyDown.bind(this)
+        , style: { borderBottom: '1px solid' }
         }
       )
     , el(Button
