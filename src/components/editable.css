@@ -110,21 +110,23 @@
 .ProseMirror-content > blockquote:before {
   font-size: 250%;
   line-height: 100%;
+  
+  color: hsl(0, 0%, 70%);
 
   content: '“';
   font-family: Georgia;
   position: absolute;
   margin-top: 0;
-  left: 0em;
-  opacity: 0.3;
-}
-.ProseMirror-content blockquote > * {
-  padding: 1rem 0px;
+  left: 0;
 }
 
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
-  margin-top: .3em;
+  margin-top: 0.3em;
   padding-top: 0px;
+}
+
+.ProseMirror-content li > p {
+  margin-bottom: 0.3em
 }
 
 .ProseMirror-menubar {

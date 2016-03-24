@@ -45,7 +45,6 @@ Media.prototype.serializeDOM = (node, s) => {
     , 'grid-id': id
     , 'grid-type': type
     , style: `height: ${height};`
-    // , contenteditable: 'false'
     }
   )
 }
