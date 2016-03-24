@@ -2,21 +2,21 @@
   outline: 0px solid transparent;
 }
 
-body{
+.Ed {
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
-button {
+.Ed button {
   border-radius: 4px !important;
   text-transform: uppercase !important;
   padding: 10px 16px !important;
 }
 
-button:hover{
+.Ed button:hover{
   color: #222 !important;
 }
 
-textarea {
+.Ed textarea {
   background: transparent !important;
   border-bottom: 1px solid #08e !important;
 }
@@ -64,7 +64,7 @@ textarea {
 
 .ProseMirror-focused .ProseMirror-content {
   background-color: transparent;
-  border: none;
+  border: 1px solid #fff;
 }
 
 /* Font junk */
