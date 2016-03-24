@@ -10,9 +10,7 @@ class FoldMedia extends React.Component {
   constructor (props, context) {
     super(props)
     this.state =
-      { helpOpen: false
-      , linkOpen: false
-      }
+      { linkOpen: false }
     if (props.initialBlock) {
       this.state.block = props.initialBlock
       this.state.id = props.initialBlock.id
@@ -39,7 +37,7 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddMedia () {
-    const {helpOpen, linkOpen} = this.state
+    const {linkOpen} = this.state
 
     return el('div'
     , {}
@@ -50,10 +48,11 @@ class FoldMedia extends React.Component {
       , 'Add title'
       )
     , el('span'
-      , { style: { 
-        margin: '0 12px', color: '#aaa',
-        fontSize: '.8em'
-      }
+      , { style:
+          { margin: '0 12px'
+          , color: '#aaa'
+          , fontSize: '.8em'
+          }
         }
       , 'or'
       )
@@ -64,12 +63,14 @@ class FoldMedia extends React.Component {
       , 'Add a link'
       )
     , el('span'
-      , { style: { 
-        margin: '0 12px', color: '#aaa',
-        fontSize: '.8em'
-      }
-      }
-    , 'or')
+      , { style:
+          { margin: '0 12px'
+          , color: '#aaa'
+          , fontSize: '.8em'
+          }
+        }
+      , 'or'
+      )
     , el(ButtonOutline
       , { style: { marginRight: -1 }
         , onClick: this.addPhoto.bind(this)
@@ -99,9 +100,7 @@ class FoldMedia extends React.Component {
         , defaultFocus: true
         , placeholder: 'https://...'
         , onKeyDown: this.shareKeyDown.bind(this)
-        , style: {
-          borderBottom: '1px solid'
-        }
+        , style: { borderBottom: '1px solid' }
         }
       )
     , el(Button

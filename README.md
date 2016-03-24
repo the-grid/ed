@@ -130,6 +130,8 @@ Feross [standard](https://github.com/feross/standard#rules) checked by ESLint wi
 * no trailing spaces
 * single quotes
 
+To automatically fix easy stuff like trailing whitespace: `npm run lintfix`
+
 ## test
 
 `npm test`
