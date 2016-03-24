@@ -24,6 +24,11 @@ export default function Title (props, context) {
           , fontSize: '.5em'
           , cursor: 'pointer'
           }
+        , onClick:
+            function () {
+              const {id} = initialBlock
+              store.routeChange('MEDIA_BLOCK_REMOVE', id)
+            }
         }
       , '✕'
     )
