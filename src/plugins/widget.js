@@ -24,6 +24,7 @@ function onDOMChanged () {
   // Mount or move widget overlays
   const els = this.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
+  let heightChanges = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
     const id = el.getAttribute('grid-id')
@@ -38,6 +39,14 @@ function onDOMChanged () {
       , width: el.offsetWidth
       , height: el.offsetHeight
       }
+    // HACK paste iframe, queue cached height for placeholder
+    if (rectangle.height === 0 && this.widgets[id] && this.widgets[id].height) {
+      heightChanges.push(
+        { id: id
+        , height: this.widgets[id].height
+        }
+      )
+    }
     this.checkWidget(id, type, rectangle)
   }
 
@@ -54,7 +63,6 @@ function onDOMChanged () {
   }
 
   // Measure inner heights of widgets
-  let heightChanges = []
   for (let i = 0, len = inDOM.length; i < len; i++) {
     const id = inDOM[i]
     const widget = this.widgets[id]
