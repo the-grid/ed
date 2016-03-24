@@ -16,11 +16,6 @@
   color: #222 !important;
 }
 
-.Ed textarea {
-  background: transparent !important;
-  border-bottom: 1px solid #08e !important;
-}
-
 .ProseMirror {
   border: none;
 }

@@ -17,8 +17,8 @@ const areaStyle =
   , padding: 0
   , resize: 'none'
   , color: 'inherit'
-  , backgroundColor: colors.highlight
   , border: 0
+  , borderBottom: '1px solid #08e'
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'

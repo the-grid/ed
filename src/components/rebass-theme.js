@@ -4,8 +4,7 @@ export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Robot
 // const serif = 'Georgia, Times, serif'
 
 export const colors =
-  { highlight: 'lightgoldenrodyellow'
-  , background: 'white'
+  { background: 'white'
   }
 
 const theme =
