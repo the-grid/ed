@@ -87,9 +87,8 @@ function onDOMChanged () {
 
   // Copy & pasted
   if (idDuplicates.length) {
-    setTimeout(() => {
-      this.ed.routeChange('DEDUPE_IDS')
-    }, 0)
+    this.ed.routeChange('DEDUPE_IDS')
+    return
   }
 
   // Signal widgets initialized if first
