@@ -24,12 +24,17 @@ function onDOMChanged () {
   // Mount or move widget overlays
   const els = this.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
+  let heightChanges = []
+  let idDuplicates = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
     const id = el.getAttribute('grid-id')
     const type = el.getAttribute('grid-type')
     if (!id || !type) {
       throw new Error('Bad placeholder!')
+    }
+    if (inDoc.indexOf(id) !== -1) {
+      idDuplicates.push(id)
     }
     inDoc.push(id)
     const rectangle =
@@ -38,6 +43,14 @@ function onDOMChanged () {
       , width: el.offsetWidth
       , height: el.offsetHeight
       }
+    // HACK paste iframe, queue cached height for placeholder
+    if (rectangle.height === 0 && this.widgets[id] && this.widgets[id].height) {
+      heightChanges.push(
+        { id: id
+        , height: this.widgets[id].height
+        }
+      )
+    }
     this.checkWidget(id, type, rectangle)
   }
 
@@ -54,7 +67,6 @@ function onDOMChanged () {
   }
 
   // Measure inner heights of widgets
-  let heightChanges = []
   for (let i = 0, len = inDOM.length; i < len; i++) {
     const id = inDOM[i]
     const widget = this.widgets[id]
@@ -71,6 +83,12 @@ function onDOMChanged () {
   if (heightChanges.length) {
     // Will trigger a redraw / this onDOMChanged again
     this.editableView.updatePlaceholderHeights(heightChanges)
+  }
+
+  // Copy & pasted
+  if (idDuplicates.length) {
+    this.ed.routeChange('DEDUPE_IDS')
+    return
   }
 
   // Signal widgets initialized if first

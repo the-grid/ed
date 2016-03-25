@@ -1,6 +1,7 @@
 import {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 import './util/react-tap-hack'
+import _ from './util/lodash'
 import uuid from 'uuid'
 
 import GridToDoc from './convert/grid-to-doc'
@@ -73,6 +74,10 @@ export default class Ed {
         return mutatedBlock
       case 'MEDIA_BLOCK_REMOVE':
         this._removeMediaBlock(payload)
+        this.trigger('change')
+        break
+      case 'DEDUPE_IDS':
+        this._dedupeIds()
         this.trigger('change')
         break
       case 'PLUGIN_URL':
@@ -199,6 +204,28 @@ export default class Ed {
     content.splice(index, 1)
     if (this._foldMedia === id) {
       this._foldMedia = null
+    }
+    // Render
+    this._setMergedContent(content)
+  }
+  _dedupeIds () {
+    // Triggered by copy & pasted
+    let content = this.getContent()
+    let ids = []
+    for (let i = 0, len = content.length; i < len; i++) {
+      let block = content[i]
+      let {id} = block
+      if (!id) {
+        continue
+      }
+      if (ids.indexOf(id) !== -1) {
+        // MUTATION
+        block = _.cloneDeep(block)
+        id = uuid.v4()
+        block.id = id
+        content[i] = block
+      }
+      ids.push(id)
     }
     // Render
     this._setMergedContent(content)

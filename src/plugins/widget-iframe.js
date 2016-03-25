@@ -31,7 +31,7 @@ export default class WidgetIframe extends WidgetBase {
     this.frame.src = this.src()
     this.el.appendChild(this.frame)
 
-    this.height = 100
+    this.height = 250
   }
   teardown () {
     if (this.initialBlock) {
