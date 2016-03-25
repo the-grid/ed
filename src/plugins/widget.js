@@ -25,12 +25,16 @@ function onDOMChanged () {
   const els = this.pm.content.querySelectorAll('div[grid-type]')
   let inDoc = []
   let heightChanges = []
+  let idDuplicates = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
     const id = el.getAttribute('grid-id')
     const type = el.getAttribute('grid-type')
     if (!id || !type) {
       throw new Error('Bad placeholder!')
+    }
+    if (inDoc.indexOf(id) !== -1) {
+      idDuplicates.push(id)
     }
     inDoc.push(id)
     const rectangle =
@@ -79,6 +83,13 @@ function onDOMChanged () {
   if (heightChanges.length) {
     // Will trigger a redraw / this onDOMChanged again
     this.editableView.updatePlaceholderHeights(heightChanges)
+  }
+
+  // Copy & pasted
+  if (idDuplicates.length) {
+    setTimeout(() => {
+      this.ed.routeChange('DEDUPE_IDS')
+    }, 0)
   }
 
   // Signal widgets initialized if first

@@ -4,6 +4,8 @@
 
 * @narrowdesign 1st style/ux pass (#139)
 * ProseMirror 0.5.1
+* FIX -- iframe cut / paste works (#19)
+* FIX -- all media copy / paste works (#140)
 
 ## 0.7.2 - 2016-03-22
 
