@@ -10,9 +10,7 @@ class NavItemConfirm extends React.Component {
   render () {
     const {confirm, label, theme, style, onClick} = this.props
     const {open} = this.state
-    
-    console.log(label)
-    
+
     return el(NavItem
     , { children: (open ? confirm : label)
       , onClick: (open ? onClick : this.onConfirm.bind(this))
