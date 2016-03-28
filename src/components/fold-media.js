@@ -35,7 +35,12 @@ class FoldMedia extends React.Component {
         }
       }
     , (block
-      ? el(Media, {initialBlock: block, id: block.id})
+      ? el(Media
+        , { initialBlock: block
+          , id: block.id
+          , key: block.id
+          }
+        )
       : this.renderAddMedia()
       )
     )

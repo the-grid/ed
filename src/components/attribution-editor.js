@@ -18,11 +18,6 @@ class AttributionEditor extends React.Component {
       block: props.initialBlock
     }
   }
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      block: nextProps.initialBlock
-    })
-  }
   getChildContext () {
     return (
       { imgfloConfig: this.props.imgfloConfig

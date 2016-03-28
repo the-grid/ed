@@ -37,11 +37,6 @@ class TextareaAutosize extends React.Component {
     this.resize = resize.bind(this)
     this.state = {value: props.defaultValue}
   }
-  componentWillReceiveProps (nextProps) {
-    this.setState({
-      value: nextProps.defaultValue
-    })
-  }
   componentDidMount () {
     this.resize()
     if (this.props.defaultFocus === true) {
