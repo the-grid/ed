@@ -6,12 +6,6 @@
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
 
-.Ed button {
-  border-radius: 4px !important;
-  text-transform: uppercase !important;
-  padding: 10px 16px !important;
-}
-
 .Ed button:hover{
   color: #222 !important;
 }

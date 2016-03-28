@@ -6,6 +6,12 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 import Panel from 'rebass/dist/Panel'
 import uuid from 'uuid'
 
+const buttonStyle =
+  { textTransform: 'uppercase'
+  , borderRadius: 4
+  , padding: '10px 16px'
+  }
+
 class FoldMedia extends React.Component {
   constructor (props, context) {
     super(props)
@@ -17,7 +23,11 @@ class FoldMedia extends React.Component {
     }
     const {store} = context
     store.on('fold.media.change', (block) => {
-      this.setState({block})
+      let id
+      if (block) {
+        id = block.id
+      }
+      this.setState({block, id})
     })
   }
   render () {
@@ -31,7 +41,12 @@ class FoldMedia extends React.Component {
         }
       }
     , (block
-      ? el(Media, {initialBlock: block, id: block.id})
+      ? el(Media
+        , { initialBlock: block
+          , id: block.id
+          , key: block.id
+          }
+        )
       : this.renderAddMedia()
       )
     )
@@ -42,8 +57,9 @@ class FoldMedia extends React.Component {
     return el('div'
     , {}
     , el(ButtonOutline
-      , { style: { marginRight: -1 }
+      , { style: buttonStyle
         , onClick: this.addTitle.bind(this)
+        , rounded: true
         }
       , 'Add title'
       )
@@ -57,8 +73,9 @@ class FoldMedia extends React.Component {
       , 'or'
       )
     , el(ButtonOutline
-      , { style: { marginRight: -1 }
+      , { style: buttonStyle
         , onClick: this.toggleLink.bind(this)
+        , rounded: true
         }
       , 'Add a link'
       )
@@ -72,8 +89,9 @@ class FoldMedia extends React.Component {
       , 'or'
       )
     , el(ButtonOutline
-      , { style: { marginRight: -1 }
+      , { style: buttonStyle
         , onClick: this.addPhoto.bind(this)
+        , rounded: true
         }
       , 'Add a photo'
       )
@@ -81,7 +99,7 @@ class FoldMedia extends React.Component {
     , el(Panel
       , { style:
           { display: (linkOpen ? 'block' : 'none')
-          , marginTop: -1
+          , marginTop: 16
           }
         , theme: 'info'
         }

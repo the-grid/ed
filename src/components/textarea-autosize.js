@@ -60,7 +60,7 @@ class TextareaAutosize extends React.Component {
       , el('textarea'
         , { ref: 'textarea'
           , style: areaStyle
-          , value
+          , value: value || ''
           , placeholder
           , onChange: this.onChange.bind(this)
           , rows: 1

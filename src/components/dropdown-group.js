@@ -60,6 +60,7 @@ class DropdownGroup extends React.Component {
           , theme: (openMenu === i ? 'primary' : theme)
           , inverted: false
           , style: { marginLeft: -1 }
+          , rounded: false
           , title: `Edit ${label}`
           }
         , el('span'

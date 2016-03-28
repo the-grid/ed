@@ -1,6 +1,7 @@
 import {createElement as el} from 'react'
 
 import NavItem from 'rebass/dist/NavItem'
+import NavItemConfirm from './nav-item-confirm'
 
 
 export default function CreditAdd (props) {
@@ -24,15 +25,18 @@ function makeLinks (schema, metadata = {}, onClick) {
   if (schema.publisher && !metadata.publisher) {
     links.push(makeLink('publisher', 'Add Publisher', onClick))
   }
-  links.push(makeLink('delete', 'Remove Block', onClick, 'warning'))
+  links.push(makeLink('delete', 'Remove Block', onClick, true))
   return links
 }
 
-function makeLink (key, label, onClick, theme = 'primary') {
-  return el(NavItem
+function makeLink (key, label, onClick, confirm = false) {
+  const Component = (confirm ? NavItemConfirm : NavItem)
+  return el(Component
   , { key
     , children: label
-    , theme
+    , label
+    , confirm: (confirm ? 'Are you sure?' : null)
+    , theme: (confirm ? 'warning' : 'primary')
     , style: { display: 'block' }
     , onClick: makeClick(key, onClick)
     }
