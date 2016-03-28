@@ -71,10 +71,9 @@ class AttributionEditor extends React.Component {
     }
     if (!src) return
     let props = {src, width, height}
-    return el(
-      'div'
-      , {className: 'AttributionEditor-cover'}
-      , el(Image, props)
+    return el('div'
+    , {className: 'AttributionEditor-cover'}
+    , el(Image, props)
     )
   }
   onChange (path, value) {
