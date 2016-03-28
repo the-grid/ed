@@ -1,5 +1,6 @@
 ## dev
 
+* New UI component: NavItemConfirm
 * "Remove block" in block "..." dropdown now asks for confirmation
 * FIX -- removing fold media fixed
 
