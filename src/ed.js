@@ -37,8 +37,9 @@ export default class Ed {
     // Initialize store
     this._events = {}
     this._content = {}
+    this._coverPreviews = {}
     this._initializeContent(options.initialContent)
-    const {media, content} = determineFold(options.initialContent)
+    const {media, content} = determineFold(options.initialContent, this._coverPreviews)
     this._foldMedia = (media ? media.id : null)
     options.initialMedia = media
     options.initialContent = content
@@ -306,6 +307,17 @@ export default class Ed {
     // Event
     this.onPlaceholderCancel(id)
   }
+  setCoverPreview (id, src) {
+    const block = this._content[id]
+    if (!block) {
+      throw new Error('Can not set image preview for block id that does not exist')
+    }
+    this._coverPreviews[id] = src
+    this.trigger('fold.media.change', block)
+  }
+  getCoverPreview (id) {
+    return this._coverPreviews[id]
+  }
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
@@ -325,7 +337,7 @@ export default class Ed {
   }
   _setMergedContent (mergedContent) {
     this._initializeContent(mergedContent)
-    const {media, content} = determineFold(mergedContent)
+    const {media, content} = determineFold(mergedContent, this._coverPreviews)
     this._foldMedia = (media ? media.id : null)
     this.trigger('fold.media.change', media)
     let doc = GridToDoc(content)

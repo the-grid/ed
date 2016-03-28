@@ -28,7 +28,7 @@ class AttributionEditor extends React.Component {
   }
   render () {
     const {block} = this.state
-    const {type, cover, metadata} = block
+    const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
     const menus = renderMenus(schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this))
@@ -36,7 +36,7 @@ class AttributionEditor extends React.Component {
     return el(
       'div'
       , { className: 'AttributionEditor' }
-      , renderCover(cover)
+      , this.renderCover()
       , el(
         'div'
         , { className: 'AttributionEditor-metadata' }
@@ -51,6 +51,29 @@ class AttributionEditor extends React.Component {
         'div'
         , { style: {clear: 'both'} }
       )
+    )
+  }
+  renderCover () {
+    const {block} = this.state
+    if (!block) return
+    const {id, cover} = block
+    const store = (this.context.store || this.props.store)
+    const preview = store.getCoverPreview(id)
+    if (!cover && !preview) return
+    let src, width, height
+    if (cover) {
+      src = cover.src
+      width = cover.width
+      height = cover.height
+    }
+    if (preview) {
+      src = preview
+    }
+    if (!src) return
+    let props = {src, width, height}
+    return el('div'
+    , {className: 'AttributionEditor-cover'}
+    , el(Image, props)
     )
   }
   onChange (path, value) {
@@ -118,18 +141,6 @@ function makeChange (path, onChange) {
     const {value} = event.target
     onChange(path, value)
   }
-}
-
-function renderCover (cover) {
-  if (!cover) return
-  let {src, width, height} = cover
-  if (!src) return
-  let props = {src, width, height}
-  return el(
-    'div'
-    , {className: 'AttributionEditor-cover'}
-    , el(Image, props)
-  )
 }
 
 function renderFields (schema, metadata = {}, onChange) {

@@ -102,4 +102,28 @@ describe('determineFold', function () {
       expect(folded).to.deep.equal(expected)
     })
   })
+
+  describe('with local (blob/data) image preview', function () {
+    const fixture =
+      [ { id: '0000', type: 'image' }
+      , { type: 'h1', html: '<h1>heading 1</h1>' }
+      , { type: 'text', html: '<p>paragraph 0</p>' }
+      , { type: 'text', html: '<p>paragraph 1</p>' }
+      ]
+    const previews = {'0000': 'blob://...'}
+    const expected =
+      { media:
+        { id: '0000', type: 'image' }
+      , content:
+        [ { type: 'h1', html: '<h1>heading 1</h1>' }
+        , { type: 'text', html: '<p>paragraph 0</p>' }
+        , { type: 'text', html: '<p>paragraph 1</p>' }
+        ]
+      }
+
+    it('correctly finds fold media', function () {
+      const folded = determineFold(fixture, previews)
+      expect(folded).to.deep.equal(expected)
+    })
+  })
 })
