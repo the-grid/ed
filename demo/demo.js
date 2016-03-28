@@ -63,12 +63,18 @@ function makeInputOnChange (index) {
     const input = event.target
     let names = []
     for (let i = 0, len = input.files.length; i < len; i++) {
-      let file = input.files[i]
+      const file = input.files[i]
       names.push(file.name)
     }
 
     // Insert placeholder blocks into content
     const ids = ed.insertPlaceholders(index, names.length)
+
+    for (let i = 0, len = input.files.length; i < len; i++) {
+      const file = input.files[i]
+      const url = URL.createObjectURL(file)
+      ed.setCoverPreview(ids[i], url)
+    }
 
     console.log('app uploads files now and calls ed.updatePlaceholder with updates')
 
@@ -85,11 +91,6 @@ function makeInputOnChange (index) {
             { id
             , type: 'image'
             , metadata: {title: names[index]}
-            , cover:
-              { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
-              , width: 400
-              , height: 474
-              }
             }
           )
         })
