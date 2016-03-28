@@ -17,7 +17,11 @@ class FoldMedia extends React.Component {
     }
     const {store} = context
     store.on('fold.media.change', (block) => {
-      this.setState({block})
+      let id
+      if (block) {
+        id = block.id
+      }
+      this.setState({block, id})
     })
   }
   render () {

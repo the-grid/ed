@@ -35,7 +35,7 @@ function makeLink (key, label, onClick, confirm = false) {
   , { key
     , children: label
     , label
-    , confirm: (confirm ? 'Remove now?' : null)
+    , confirm: (confirm ? 'Are you sure?' : null)
     , theme: (confirm ? 'warning' : 'primary')
     , style: { display: 'block' }
     , onClick: makeClick(key, onClick)

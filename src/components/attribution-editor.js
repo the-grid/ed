@@ -15,8 +15,13 @@ class AttributionEditor extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      block: this.props.initialBlock
+      block: props.initialBlock
     }
+  }
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      block: nextProps.initialBlock
+    })
   }
   getChildContext () {
     return (
@@ -59,7 +64,6 @@ class AttributionEditor extends React.Component {
     // Send change up to store
     const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
     // Send change to view
-    // TODO do this with an ed event / listener in constructor?
     this.setState({block})
   }
   onMoreClick (key) {
@@ -68,6 +72,7 @@ class AttributionEditor extends React.Component {
 
     let block, path, value
 
+    // Send change up to store
     switch (key) {
       case 'delete':
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
