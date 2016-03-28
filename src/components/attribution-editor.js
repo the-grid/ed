@@ -70,10 +70,6 @@ class AttributionEditor extends React.Component {
 
     switch (key) {
       case 'delete':
-        // TODO pretty UI
-        if (!confirm('Are you sure?')) {
-          return
-        }
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
         return
       case 'isBasedOnUrl':
