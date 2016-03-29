@@ -151,6 +151,19 @@
 .ProseMirror-tooltip-pointer {
   border-top-color: #ccc;
 }
+
+.ProseMirror-prompt {
+  padding: 1em;
+}
+
+.ProseMirror-prompt input[type='text']{
+  padding: .5em 1em;
+}
+
+.ProseMirror-prompt .ProseMirror-prompt-close {
+  left: auto;
+  right: 5px;
+}
 /* Responsive font size magic, small screen first */
 
 .ProseMirror-content {

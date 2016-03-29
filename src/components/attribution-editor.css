@@ -1,18 +1,6 @@
 .AttributionEditor {
 }
 
-.AttributionEditor-cover {
-  width: 50%;
-  max-width: 300px;
-  height: 200px;
-  float: left;
-}
-
-.AttributionEditor-metadata {
-  padding: 1rem;
-  margin-left: calc(300px + 1rem); /* FIXME make me smarter and responsive */
-}
-
 .AttributionEditor-title {
   font-size: 20px !important;
   line-height: 24px !important;
@@ -25,15 +13,4 @@
 
 .AttributionEditor-links > * {
   vertical-align: middle;
-}
-
-@media screen and (max-width:550px) {
-  .AttributionEditor-cover {
-    float: none;
-    width: 100%;
-    max-width: 100%;
-  }
-  .AttributionEditor-metadata {
-    margin-left: 0;
-  }
 }

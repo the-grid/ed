@@ -39,12 +39,23 @@ class AttributionEditor extends React.Component {
       , renderCover(cover)
       , el(
         'div'
-        , { className: 'AttributionEditor-metadata' }
+        , { className: 'AttributionEditor-metadata'
+          , style: {
+            maxWidth: 800,
+            margin: '20px auto',
+            padding: '0em'
+          }
+        }
         , renderFields(schema, metadata, this.onChange.bind(this))
       )
       , el(
         'div'
-        , { className: 'AttributionEditor-links' }
+        , { className: 'AttributionEditor-links' 
+          , style: {
+            maxWidth: 800,
+            margin: '0px auto'
+          }
+        }
         , el(DropdownGroup, {menus})
       )
       , el(
@@ -127,7 +138,14 @@ function renderCover (cover) {
   let props = {src, width, height}
   return el(
     'div'
-    , {className: 'AttributionEditor-cover'}
+    , {
+      className: 'AttributionEditor-cover'
+      , style: {
+        width: '100%',
+        height: 300,
+        backgroundColor: '#ddd'
+      }
+    }
     , el(Image, props)
   )
 }
