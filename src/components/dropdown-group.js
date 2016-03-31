@@ -59,8 +59,8 @@ class DropdownGroup extends React.Component {
           , onClick: this.makeOpenMenu(i)
           , theme: (openMenu === i ? 'primary' : theme)
           , inverted: false
-          , style: { 
-            marginLeft: -1,
+          , style:
+          { marginLeft: -1
           }
           , rounded: false
           , title: `Edit ${label}`

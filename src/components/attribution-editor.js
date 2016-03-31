@@ -40,7 +40,7 @@ class AttributionEditor extends React.Component {
       , el(
         'div'
         , { className: 'AttributionEditor-metadata'
-          , style: 
+          , style:
             { maxWidth: 800
             , margin: '0px auto'
             , padding: '2em 3em'
@@ -53,7 +53,7 @@ class AttributionEditor extends React.Component {
       )
       , el(
         'div'
-        , { className: 'AttributionEditor-links' 
+        , { className: 'AttributionEditor-links'
           , style:
             { maxWidth: 800
             , margin: '0px auto'

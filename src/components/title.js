@@ -11,11 +11,11 @@ export default function Title (props, context) {
 
   return el('div'
   , { className: 'Title'
-    , style: { 
-      fontSize: '250%',
-      padding: '1em',
-      maxWidth: 800,
-      margin: 'auto'
+    , style:
+    { fontSize: '250%'
+    , padding: '1em'
+    , maxWidth: 800
+    , margin: 'auto'
     }
     }
   , el('div'
@@ -27,7 +27,7 @@ export default function Title (props, context) {
           , lineHeight: 0.5
           , fontWeight: '100'
           , fontSize: '.5em'
-          , cursor: 'pointer',
+          , cursor: 'pointer'
           }
         , onClick:
             function () {
