@@ -41,7 +41,7 @@ function makePreview (id, store) {
   if (!preview) return
   return el('div'
   , { style:
-      { width: 72
+      { width: 96
       , height: 72
       , display: 'inline-block'
       , margin: '0px 16px'

@@ -1,5 +1,9 @@
 ## dev
 
+## 0.8.1 - 2016-03-31
+
+* FIX -- setCoverPreview was trigging fold block change when it shouldn't have (#150)
+
 ## 0.8.0 - 2016-03-28
 
 * New UI component: NavItemConfirm
