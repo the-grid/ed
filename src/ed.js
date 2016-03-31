@@ -313,7 +313,10 @@ export default class Ed {
       throw new Error('Can not set image preview for block id that does not exist')
     }
     this._coverPreviews[id] = src
-    this.trigger('fold.media.change', block)
+    // Let fold media know to update
+    if (this._foldMedia && this._foldMedia === id) {
+      this.trigger('fold.media.change', block)
+    }
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
