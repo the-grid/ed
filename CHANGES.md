@@ -1,8 +1,14 @@
 ## dev
 
+## 0.8.0 - 2016-03-28
+
 * New UI component: NavItemConfirm
 * "Remove block" in block "..." dropdown now asks for confirmation
 * FIX -- removing fold media fixed
+* NEW -- `ed.setCoverPreview(id, src)` (#92)
+  * `src` is a `blob:` or `data:` url for the local image to show while uploading / measuring
+  * Preview takes precedence over content array version of `cover.src`
+  * Setting src `null` will show real cover
 
 ## 0.7.3 - 2016-03-24
 

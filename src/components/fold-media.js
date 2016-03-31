@@ -1,3 +1,5 @@
+require('./fold-media.css')
+
 import React, {createElement as el} from 'react'
 import Media from './media'
 import TextareaAutosize from './textarea-autosize'

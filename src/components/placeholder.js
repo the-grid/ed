@@ -1,4 +1,5 @@
 import React, {createElement as el} from 'react'
+import Image from './image'
 import Message from 'rebass/dist/Message'
 import Progress from 'rebass/dist/Progress'
 import Space from 'rebass/dist/Space'
@@ -21,6 +22,7 @@ export default function Placeholder (props, context) {
       , style: {marginBottom: 0}
       }
     , el('span', {className: 'Placeholder-status'}, status)
+    , makePreview(id, store)
     , el(Space
       , {auto: true, x: 1}
       )
@@ -33,6 +35,21 @@ export default function Placeholder (props, context) {
 }
 Placeholder.contextTypes =
   { store: React.PropTypes.object }
+
+function makePreview (id, store) {
+  const preview = store.getCoverPreview(id)
+  if (!preview) return
+  return el('div'
+  , { style:
+      { width: 72
+      , height: 72
+      , display: 'inline-block'
+      , margin: '0px 16px'
+      }
+    }
+  , el(Image, {src: preview})
+  )
+}
 
 function makeProgress (progress, theme) {
   if (progress == null) return

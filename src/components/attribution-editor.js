@@ -28,7 +28,7 @@ class AttributionEditor extends React.Component {
   }
   render () {
     const {block} = this.state
-    const {type, cover, metadata} = block
+    const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
     const menus = renderMenus(schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this))
@@ -36,14 +36,17 @@ class AttributionEditor extends React.Component {
     return el(
       'div'
       , { className: 'AttributionEditor' }
-      , renderCover(cover)
+      , this.renderCover()
       , el(
         'div'
         , { className: 'AttributionEditor-metadata'
-          , style: {
-            maxWidth: 800,
-            margin: '20px auto',
-            padding: '0em'
+          , style: 
+            { maxWidth: 800
+            , margin: '0px auto'
+            , padding: '2em 3em'
+            , background: '#fff'
+            , position: 'relative'
+            , border: '1px solid #ddd'
           }
         }
         , renderFields(schema, metadata, this.onChange.bind(this))
@@ -51,9 +54,9 @@ class AttributionEditor extends React.Component {
       , el(
         'div'
         , { className: 'AttributionEditor-links' 
-          , style: {
-            maxWidth: 800,
-            margin: '0px auto'
+          , style:
+            { maxWidth: 800
+            , margin: '0px auto'
           }
         }
         , el(DropdownGroup, {menus})
@@ -62,6 +65,35 @@ class AttributionEditor extends React.Component {
         'div'
         , { style: {clear: 'both'} }
       )
+    )
+  }
+  renderCover () {
+    const {block} = this.state
+    if (!block) return
+    const {id, cover} = block
+    const store = (this.context.store || this.props.store)
+    const preview = store.getCoverPreview(id)
+    if (!cover && !preview) return
+    let src, width, height
+    if (cover) {
+      src = cover.src
+      width = cover.width
+      height = cover.height
+    }
+    if (preview) {
+      src = preview
+    }
+    if (!src) return
+    let props = {src, width, height}
+    return el('div'
+    , {className: 'AttributionEditor-cover'
+      , style:
+        { width: '100%'
+        , height: 400
+        , backgroundColor: '#ddd'
+        }
+      }
+    , el(Image, props)
     )
   }
   onChange (path, value) {
@@ -131,32 +163,13 @@ function makeChange (path, onChange) {
   }
 }
 
-function renderCover (cover) {
-  if (!cover) return
-  let {src, width, height} = cover
-  if (!src) return
-  let props = {src, width, height}
-  return el(
-    'div'
-    , {
-      className: 'AttributionEditor-cover'
-      , style: {
-        width: '100%',
-        height: 300,
-        backgroundColor: '#ddd'
-      }
-    }
-    , el(Image, props)
-  )
-}
-
 function renderFields (schema, metadata = {}, onChange) {
   let fields = []
   if (schema.title) {
-    fields.push(renderTextField('title', 'Title', metadata.title, onChange))
+    fields.push(renderTextField('title', 'TITLE', metadata.title, onChange))
   }
   if (schema.description) {
-    fields.push(renderTextField('description', 'Description', metadata.description, onChange))
+    fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))
   }
   return fields
 }

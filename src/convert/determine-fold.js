@@ -1,12 +1,16 @@
 import {isMediaType} from './types'
 
-export default function determineFold (items) {
+export default function determineFold (items, previews) {
   let media = null
   let content = []
   for (let i = 0, len = items.length; i < len; i++) {
     const item = items[i]
-    const {type, cover, metadata} = item
+    const {id, type, cover, metadata} = item
     if (!media && isMediaType(type) && cover && cover.src) {
+      media = item
+      continue
+    }
+    if (!media && isMediaType(type) && previews && previews[id]) {
       media = item
       continue
     }

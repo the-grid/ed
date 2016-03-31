@@ -4,9 +4,7 @@
   left: 0;
 }
 .EdPlugins-Widgets > div {
-  border: 1px #ddd solid;
   background-color: white;
-  padding: 2em;
 }
 .EdPlugins-Widgets iframe {
   border: none;
