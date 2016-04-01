@@ -1,10 +1,12 @@
+require('./textarea-autosize.css')
+
 import React, {createElement as el} from 'react'
 import {sans} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
   , fontSize: 12
-  , marginBottom: '1rem'
+  , marginBottom: '2rem'
   }
 
 const areaStyle =
@@ -22,6 +24,7 @@ const areaStyle =
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'
+  , marginTop: '1em'
   }
 
 function resize () {

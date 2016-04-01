@@ -43,7 +43,8 @@ module.exports = function (config) {
         flags: ['--no-sandbox']
       }
     }
-    cfg.browsers = ['Chrome_travis_ci', 'Firefox']
+    // cfg.browsers = ['Chrome_travis_ci', 'Firefox']
+    cfg.browsers = ['Chrome_travis_ci']
   }
 
   if (process.env.BROWSERSTACK_USERNAME && process.env.BROWSERSTACK_ACCESSKEY) {
