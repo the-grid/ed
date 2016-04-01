@@ -26,12 +26,12 @@
   },
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
-    "@the-grid/ced": "^0.1.0",
+    "@the-grid/ced": "^0.1.2",
     "imgflo-url": "^1.1.0",
     "lodash": "^4.7.0",
     "prosemirror": "^0.5.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.8",
     "react-tap-event-plugin": "^0.2.2",
     "rebass": "^0.2.4",
     "uuid": "^2.0.1"

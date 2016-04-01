@@ -1,5 +1,10 @@
 ## dev
 
+## 0.8.2 - 2016-04-01
+
+* Dependencies (react, babel, lodash)
+* ced 0.1.2 -- fixes firefox not showing language dropdown, and overzealous encoding
+
 ## 0.8.1 - 2016-03-31
 
 * FIX -- setCoverPreview was trigging fold block change when it shouldn't have (#150)
