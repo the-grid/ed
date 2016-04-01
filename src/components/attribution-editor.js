@@ -55,7 +55,7 @@ class AttributionEditor extends React.Component {
           , { className: 'AttributionEditor-links'
             , style:
               { maxWidth: 800
-              , margin: '2em auto 0'
+              , margin: '2em -3em 0'
               , position: 'relative'
               , top: 1
             }

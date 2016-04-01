@@ -60,8 +60,9 @@ class DropdownGroup extends React.Component {
           , theme: (openMenu === i ? 'primary' : theme)
           , inverted: false
           , style:
-          { marginLeft: -1
-          }
+            { borderWidth: 0
+            , boxShadow: 'none'
+            }
           , rounded: false
           , title: `Edit ${label}`
           }
@@ -73,6 +74,7 @@ class DropdownGroup extends React.Component {
               , whiteSpace: 'pre'
               , overflow: 'hidden'
               , textOverflow: 'ellipsis'
+              , textTransform: 'uppercase'
               }
             }
           , (name || label)
@@ -98,7 +100,7 @@ class DropdownGroup extends React.Component {
           { textAlign: 'left'
           , position: 'absolute'
           , top: -1
-          , right: 0
+          , right: -1
           , zIndex: 100
           }
         }
