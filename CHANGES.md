@@ -1,5 +1,9 @@
 ## dev
 
+## 0.8.3 - 2016-04-01
+
+* Style above and below fold media @narrowdesign
+
 ## 0.8.2 - 2016-04-01
 
 * Dependencies (react, babel, lodash)
