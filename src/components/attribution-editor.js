@@ -43,7 +43,7 @@ class AttributionEditor extends React.Component {
           , style:
             { maxWidth: 800
             , margin: '0px auto'
-            , padding: '2em 3em'
+            , padding: '2em 3em 0'
             , background: '#fff'
             , position: 'relative'
             , border: '1px solid #ddd'
@@ -55,12 +55,9 @@ class AttributionEditor extends React.Component {
           , { className: 'AttributionEditor-links'
             , style:
               { maxWidth: 800
-              , margin: '0px auto'
-              , position: 'absolute'
-              , left: 'auto'
-              , top: 'auto'
-              , right: -1
-              , bottom: -1
+              , margin: '2em auto 0'
+              , position: 'relative'
+              , top: 1
             }
           }
           , el(DropdownGroup, {menus})
