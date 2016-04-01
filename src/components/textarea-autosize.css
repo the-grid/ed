@@ -1,0 +1,6 @@
+.TextareaAutosize label span{
+  letter-spacing: .1rem;
+  color: #aaa;
+  font-size: 10px;
+  text-transform: uppercase;
+}

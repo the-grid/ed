@@ -1,3 +1,5 @@
+require('./fold-media.css')
+
 import React, {createElement as el} from 'react'
 import Media from './media'
 import TextareaAutosize from './textarea-autosize'
@@ -36,8 +38,6 @@ class FoldMedia extends React.Component {
     , { className: 'FoldMedia'
       , style:
         { margin: '0 auto'
-        , padding: '1rem'
-        , maxWidth: 800
         }
       }
     , (block
@@ -55,7 +55,11 @@ class FoldMedia extends React.Component {
     const {linkOpen} = this.state
 
     return el('div'
-    , {}
+    , { style:
+        { textAlign: 'center'
+        , padding: '1em'
+        }
+      }
     , el(ButtonOutline
       , { style: buttonStyle
         , onClick: this.addTitle.bind(this)
@@ -100,6 +104,10 @@ class FoldMedia extends React.Component {
       , { style:
           { display: (linkOpen ? 'block' : 'none')
           , marginTop: 16
+          , padding: '1em'
+          , maxWidth: 800
+          , margin: '1em auto'
+          , textAlign: 'left'
           }
         , theme: 'info'
         }
