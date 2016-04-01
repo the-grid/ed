@@ -6,7 +6,6 @@ export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Robot
 export const colors =
   { background: 'white'
   }
-console.log(rebassDefaults.colors)
 const theme =
   { name: 'Ed Theme'
   , fontFamily: sans
