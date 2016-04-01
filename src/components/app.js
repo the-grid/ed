@@ -2,9 +2,10 @@ require('./app.css')
 
 import React, {createElement as el} from 'react'
 
-import rebassTheme from './rebass-theme'
-import Editable from './editable'
 import FoldMedia from './fold-media'
+import HrLabel from './hr-label'
+import Editable from './editable'
+import rebassTheme from './rebass-theme'
 
 class App extends React.Component {
   setState () {
@@ -27,35 +28,9 @@ class App extends React.Component {
           }
         , this.renderMedia()
         )
-      , el('div'
-        , { style:
-            { width: '100vw'
-            , borderBottom: '1px solid #ddd'
-            , margin: '20px 0 20px'
-            , clear: 'both'
-            , height: 1
-            , textAlign: 'center'
-            , fontSize: '.8em'
-            }
-          }
-        , el('div'
-          , { style:
-              { width: 'auto'
-              , display: 'inline-block'
-              , padding: '0 10px'
-              , left: 0
-              , right: 0
-              , position: 'relative'
-              , margin: 'auto'
-              , color: '#bbb'
-              , top: -10
-              , textAlign: 'center'
-              , background: '#fff'
-              }
-            }
-          , 'Above this line goes on your home page. Below this line gets its own page.'
+      , el(HrLabel
+        , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
         )
-      )
       , el('div'
         , { className: 'Ed-Content'
           , style: { zIndex: 1 }
