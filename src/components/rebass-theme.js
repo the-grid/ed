@@ -6,7 +6,7 @@ export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Robot
 export const colors =
   { background: 'white'
   }
-
+console.log(rebassDefaults.colors)
 const theme =
   { name: 'Ed Theme'
   , fontFamily: sans
@@ -19,6 +19,7 @@ const theme =
     }
   , ButtonOutline:
     { fontFamily: sans
+    , boxShadow: 'inset 0 0 0 1px #ddd'
     }
   , NavItem:
     { fontFamily: sans

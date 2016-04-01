@@ -2,6 +2,8 @@
   top: -75px;
 }
 .FoldMedia .AttributionEditor-links {
-  top: -76px;
-  position: relative;
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  top: auto;
 }

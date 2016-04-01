@@ -50,16 +50,21 @@ class AttributionEditor extends React.Component {
           }
         }
         , renderFields(schema, metadata, this.onChange.bind(this))
-      )
-      , el(
-        'div'
-        , { className: 'AttributionEditor-links'
-          , style:
-            { maxWidth: 800
-            , margin: '0px auto'
+        , el(
+          'div'
+          , { className: 'AttributionEditor-links'
+            , style:
+              { maxWidth: 800
+              , margin: '0px auto'
+              , position: 'absolute'
+              , left: 'auto'
+              , top: 'auto'
+              , right: -1
+              , bottom: -1
+            }
           }
-        }
-        , el(DropdownGroup, {menus})
+          , el(DropdownGroup, {menus})
+        )
       )
       , el(
         'div'
