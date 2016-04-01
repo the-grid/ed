@@ -55,13 +55,11 @@ class FoldMedia extends React.Component {
     const {linkOpen} = this.state
 
     return el('div'
-    , {
-
-      style:
+    , { style:
         { textAlign: 'center'
         , padding: '1em'
+        }
       }
-    }
     , el(ButtonOutline
       , { style: buttonStyle
         , onClick: this.addTitle.bind(this)

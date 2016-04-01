@@ -12,11 +12,11 @@ export default function Title (props, context) {
   return el('div'
   , { className: 'Title'
     , style:
-    { fontSize: '250%'
-    , padding: '1em'
-    , maxWidth: 800
-    , margin: 'auto'
-    }
+      { fontSize: '250%'
+      , padding: '1em'
+      , maxWidth: 800
+      , margin: 'auto'
+      }
     }
   , el('div'
       , { style:

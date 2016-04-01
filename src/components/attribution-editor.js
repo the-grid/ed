@@ -47,8 +47,8 @@ class AttributionEditor extends React.Component {
             , background: '#fff'
             , position: 'relative'
             , border: '1px solid #ddd'
+            }
           }
-        }
         , renderFields(schema, metadata, this.onChange.bind(this))
         , el(
           'div'
@@ -58,8 +58,8 @@ class AttributionEditor extends React.Component {
               , margin: '2em -3em 0'
               , position: 'relative'
               , top: 1
+              }
             }
-          }
           , el(DropdownGroup, {menus})
         )
       )
@@ -88,7 +88,7 @@ class AttributionEditor extends React.Component {
     if (!src) return
     let props = {src, width, height}
     return el('div'
-    , {className: 'AttributionEditor-cover'
+    , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
         , height: 400
@@ -177,14 +177,15 @@ function renderFields (schema, metadata = {}, onChange) {
 }
 
 function renderTextField (key, label, value, onChange) {
-  return el(TextareaAutosize, {
-    className: `AttributionEditor-${key}`
+  return el(TextareaAutosize
+  , { className: `AttributionEditor-${key}`
     , label
     , defaultValue: value
     , key: key
     , onChange: makeChange([key], onChange)
     , style: {width: '100%'}
-  })
+    }
+  )
 }
 
 function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
@@ -217,8 +218,8 @@ function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
 }
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
-  return el(CreditEditor,
-    { className: `AttributionEditor-${key}`
+  return el(CreditEditor
+  , { className: `AttributionEditor-${key}`
     , key: key
     , label: label
     , name: item.name
