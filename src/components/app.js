@@ -16,9 +16,9 @@ function isEditableShown (media, content) {
 class App extends React.Component {
   constructor (props) {
     super(props)
-    
+
     const {initialMedia, initialContent} = props
-    this.state = 
+    this.state =
       { media: initialMedia
       , editableShown: isEditableShown(initialMedia, initialContent)
       }
@@ -66,7 +66,7 @@ class App extends React.Component {
   }
   renderDivider () {
     const {editableShown} = this.state
-    
+
     return el('div'
     , { className: 'Ed-Divider'
       , style:
@@ -88,7 +88,7 @@ class App extends React.Component {
     return el('div'
     , { className: 'Ed-Content'
       , style:
-        { zIndex: 1 
+        { zIndex: 1
         , display: (editableShown ? 'block' : 'none')
         }
       }
