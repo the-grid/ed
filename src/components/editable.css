@@ -29,24 +29,10 @@
   border-radius: 7px;
 }
 
-.ProseMirror-content:before {
-  content: '+';
-  color: #ccc;
-  border-radius: 5px;
-  padding: 0px 12px 3px;
-  margin: 0 -2px;
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  position: absolute;
-  bottom: 15px;
-  cursor: pointer;
-}
-
 .ProseMirror-content:after {
-  content: 'Link to an image, add a title, upload a video...';
+  content: 'Link to image, video, other media...';
   position: absolute;
   bottom: 18px;
-  margin-left: 50px;
   color: #ddd;
   pointer-events: none;
 }
