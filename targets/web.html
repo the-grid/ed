@@ -16,25 +16,25 @@
   <script>
     
     window.edMount = function (options) {
-      window.ed = new TheGridEd.default({
-        container: document.getElementById('ed'),
-        initialContent: options.initialContent,
-        menuTip: (options.menu === 'tip'),
-        menuBar: (options.menu === 'bar'),
-        onChange: options.onChange || function () {
-          console.log('change!')
-        },
-        autosaveInterval: options.autosaveInterval || 100,
-        onAutosave: options.onAutosave || function () {
-          console.log('save!')
-        },
-        onShareFile: options.onShareFile || function (index) {
-          console.log('onShareFile index:', index)
-        },
-        onShareUrl: options.onShareUrl || function (payload) {
-          console.log('onShareUrl:', payload)
+      window.ed = new TheGridEd.default(
+        { container: document.getElementById('ed')
+        , initialContent: options.initialContent
+        , menuTip: (options.menu === 'tip')
+        , menuBar: (options.menu === 'bar')
+        , onChange: options.onChange || function () {
+            console.log('change!')
+          }
+        , onShareFile: options.onShareFile || function (index) {
+            console.log('onShareFile index:', index)
+          }
+        , onShareUrl: options.onShareUrl || function (payload) {
+            console.log('onShareUrl:', payload.block, payload.url)
+          }
+        , onPlaceholderCancel: options.onPlaceholderCancel || function (id) {
+            console.log('onPlaceholderCancel:', id)
+          }
         }
-      })
+      )
     }
 
   </script>
