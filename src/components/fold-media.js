@@ -17,21 +17,9 @@ class FoldMedia extends React.Component {
     super(props)
     this.state =
       { linkOpen: false }
-    if (props.initialBlock) {
-      this.state.block = props.initialBlock
-      this.state.id = props.initialBlock.id
-    }
-    const {store} = context
-    store.on('fold.media.change', (block) => {
-      let id
-      if (block) {
-        id = block.id
-      }
-      this.setState({block, id})
-    })
   }
   render () {
-    const {block} = this.state
+    const {block} = this.props
     return el('div'
     , { className: 'FoldMedia'
       , style:
@@ -179,5 +167,5 @@ class FoldMedia extends React.Component {
   }
 }
 FoldMedia.contextTypes = { store: React.PropTypes.object }
-FoldMedia.propTypes = { initialBlock: React.PropTypes.object }
+FoldMedia.propTypes = { block: React.PropTypes.object }
 export default React.createFactory(FoldMedia)

@@ -8,58 +8,80 @@ import Editable from './editable'
 import rebassTheme from './rebass-theme'
 
 class App extends React.Component {
-  setState () {
-    throw new Error('Can not setState of App')
+  constructor (props) {
+    super(props)
+    
+    const {initialMedia, initialContent} = props
+    this.state = 
+      { media: initialMedia
+      , editableShown: (initialMedia || initialContent)
+      }
+
+    const {store} = props
+    store.on('fold.media.change', (block) => {
+      this.setState({media: block})
+    })
   }
   getChildContext () {
     const {store, imgfloConfig} = this.props
-    return {
-      imgfloConfig: imgfloConfig
+    return (
+      { imgfloConfig: imgfloConfig
       , rebass: rebassTheme
       , store: store
-    }
+      }
+    )
   }
   render () {
     return el('div'
-      , {className: 'Ed'}
-      , el('div'
-        , { className: 'Ed-Media'
-          , style: { zIndex: 2 }
-          }
-        , this.renderMedia()
-        )
-      , el(HrLabel
-        , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
-        )
-      , el('div'
-        , { className: 'Ed-Content'
-          , style: { zIndex: 1 }
-          }
-        , this.renderContent()
+    , {className: 'Ed'}
+    , el('div'
+      , { className: 'Ed-Media'
+        , style: { zIndex: 2 }
+        }
+      , this.renderMedia()
       )
+    , this.renderDivider()
+    , this.renderContent()
     )
   }
   renderMedia () {
-    const {initialMedia, onChange} = this.props
+    const {media} = this.state
+    const {onChange} = this.props
     return el(FoldMedia
-    , { initialBlock: initialMedia
+    , { block: media
       , onChange
       }
     )
   }
+  renderDivider () {
+    const {editableShown} = this.state
+    if (!editableShown) return
+    
+    return el(HrLabel
+    , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
+    )
+  }
   renderContent () {
+    const {editableShown} = this.state
+    if (!editableShown) return
+
     const { initialContent
       , menuBar, menuTip
       , onChange, onShareFile, onShareUrl} = this.props
 
-    return el(Editable
-    , { initialContent
-      , menuBar
-      , menuTip
-      , onChange
-      , onShareFile
-      , onShareUrl
+    return el('div'
+    , { className: 'Ed-Content'
+      , style: { zIndex: 1 }
       }
+    , el(Editable
+      , { initialContent
+        , menuBar
+        , menuTip
+        , onChange
+        , onShareFile
+        , onShareUrl
+        }
+      )
     )
   }
 }
