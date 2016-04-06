@@ -7,6 +7,12 @@ import HrLabel from './hr-label'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
 
+function isEditableShown (media, content) {
+  const emptyContent = (content && content.length === 0)
+  return (media != null || !emptyContent)
+}
+
+
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -14,12 +20,17 @@ class App extends React.Component {
     const {initialMedia, initialContent} = props
     this.state = 
       { media: initialMedia
-      , editableShown: (initialMedia || initialContent)
+      , editableShown: isEditableShown(initialMedia, initialContent)
       }
 
     const {store} = props
     store.on('fold.media.change', (block) => {
-      this.setState({media: block})
+      this.setState(
+        { media: block
+        // Funny to use initialContent here, but... state...
+        , editableShown: isEditableShown(block, initialContent)
+        }
+      )
     })
   }
   getChildContext () {
@@ -55,15 +66,20 @@ class App extends React.Component {
   }
   renderDivider () {
     const {editableShown} = this.state
-    if (!editableShown) return
     
-    return el(HrLabel
-    , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
+    return el('div'
+    , { className: 'Ed-Divider'
+      , style:
+        { display: (editableShown ? 'block' : 'none')
+        }
+      }
+    , el(HrLabel
+      , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
+      )
     )
   }
   renderContent () {
     const {editableShown} = this.state
-    if (!editableShown) return
 
     const { initialContent
       , menuBar, menuTip
@@ -71,7 +87,10 @@ class App extends React.Component {
 
     return el('div'
     , { className: 'Ed-Content'
-      , style: { zIndex: 1 }
+      , style:
+        { zIndex: 1 
+        , display: (editableShown ? 'block' : 'none')
+        }
       }
     , el(Editable
       , { initialContent

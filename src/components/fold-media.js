@@ -13,10 +13,9 @@ const buttonStyle =
   }
 
 class FoldMedia extends React.Component {
-  constructor (props, context) {
+  constructor (props) {
     super(props)
-    this.state =
-      { linkOpen: false }
+    this.state = {linkOpen: false}
   }
   render () {
     const {block} = this.props
