@@ -10,6 +10,7 @@ const buttonStyle =
   { textTransform: 'uppercase'
   , borderRadius: 4
   , padding: '10px 16px'
+  , margin: '0.25em 0'
   }
 
 class FoldMedia extends React.Component {
@@ -42,7 +43,7 @@ class FoldMedia extends React.Component {
     return el('div'
     , { style:
         { textAlign: 'center'
-        , padding: '1em'
+        , padding: '0.75em'
         }
       }
     , el(ButtonOutline

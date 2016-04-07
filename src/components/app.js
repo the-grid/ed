@@ -81,7 +81,7 @@ class App extends React.Component {
         }
       }
     , el(HrLabel
-      , { label: 'Above this line goes on your home page. Below this line gets its own page.' }
+      , { label: 'Above goes on your home page. Below gets its own page.' }
       )
     )
   }
