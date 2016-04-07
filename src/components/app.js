@@ -25,10 +25,17 @@ class App extends React.Component {
 
     const {store} = props
     store.on('fold.media.change', (block) => {
+      let {editableShown} = this.state
+      // Only show editable, don't hide it.
+      // Kinda weird, but otherwise we would need to
+      // get the current content, which isn't known
+      // here, by design.
+      if (!editableShown) {
+        editableShown = isEditableShown(block, initialContent)
+      }
       this.setState(
         { media: block
-        // Funny to use initialContent here, but... state...
-        , editableShown: isEditableShown(block, initialContent)
+        , editableShown
         }
       )
     })
