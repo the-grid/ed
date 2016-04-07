@@ -31,7 +31,7 @@
     "lodash": "^4.8.1",
     "prosemirror": "^0.5.1",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react-dom": "^15.0.0",
     "react-tap-event-plugin": "^0.2.2",
     "rebass": "^0.2.4",
     "uuid": "^2.0.1"
