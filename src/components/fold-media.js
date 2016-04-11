@@ -1,7 +1,6 @@
 import React, {createElement as el} from 'react'
 import Media from './media'
 import TextareaAutosize from './textarea-autosize'
-import Button from 'rebass/dist/Button'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 import uuid from 'uuid'
 
@@ -48,7 +47,7 @@ class FoldMedia extends React.Component {
           }
         }
       , el(TextareaAutosize
-        , { multiline: true 
+        , { multiline: true
           , placeholder: 'Text and/or link to start post...'
           }
         )
