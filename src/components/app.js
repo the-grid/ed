@@ -52,12 +52,7 @@ class App extends React.Component {
   render () {
     return el('div'
     , {className: 'Ed'}
-    , el('div'
-      , { className: 'Ed-Media'
-        , style: { zIndex: 2 }
-        }
-      , this.renderMedia()
-      )
+    , this.renderMedia()
     , this.renderDivider()
     , this.renderContent()
     )
@@ -65,10 +60,16 @@ class App extends React.Component {
   renderMedia () {
     const {media} = this.state
     const {onChange} = this.props
-    return el(FoldMedia
-    , { block: media
-      , onChange
+
+    return el('div'
+    , { className: 'Ed-Media'
+      , style: { zIndex: 2 }
       }
+    , el(FoldMedia
+      , { block: media
+        , onChange
+        }
+      )
     )
   }
   renderDivider () {
