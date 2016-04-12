@@ -90,19 +90,29 @@ export default class Ed {
         this.trigger('change')
         break
       case 'FOLD_MEDIA_SHARE':
+        // const {url, rest} = payload
         const newId = uuid.v4()
         const share =
           { id: newId
           , type: 'placeholder'
           , metadata:
             { starred: true
-            , status: `Sharing... ${payload}`
+            , status: `Sharing... ${payload.url}`
             }
           }
         this._foldMedia = share.id
         this._initializeContent([share])
         this.trigger('fold.media.change', share)
-        this.onShareUrl({block: newId, url: payload})
+        this.onShareUrl({block: newId, url: payload.url})
+        // Make a new text block with rest of above fold text
+        if (payload.rest) {
+          const belowFold =
+            { type: 'text'
+            , html: `<p>${payload.rest}</p>`
+            }
+          this._insertBlocks(0, [belowFold])
+          this.trigger('change')
+        }
         break
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
@@ -253,6 +263,10 @@ export default class Ed {
     const newContent = arrayInsertAll(content, index, blocks)
     // Render
     this._setMergedContent(newContent)
+  }
+  _foldShare (payload) {
+    const {url, rest} = payload
+    
   }
   insertPlaceholders (index, count) {
     let toInsert = []

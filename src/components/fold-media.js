@@ -1,8 +1,10 @@
 import React, {createElement as el} from 'react'
+import ReactDOM from 'react-dom'
 import Media from './media'
 import TextareaAutosize from './textarea-autosize'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 import uuid from 'uuid'
+import {extractUrl} from '../util/url'
 
 const buttonStyle =
   { textTransform: 'uppercase'
@@ -49,6 +51,7 @@ class FoldMedia extends React.Component {
         }
       , el(TextareaAutosize
         , { placeholder: 'Text or link to start post...'
+          , onKeyDown: this.shareKeyDown.bind(this)
           }
         )
       )
@@ -98,7 +101,6 @@ class FoldMedia extends React.Component {
           }
         , 'Add more'
         )
-      , ' '
       )
     )
   }
@@ -114,16 +116,19 @@ class FoldMedia extends React.Component {
     let value
     if (event.type === 'keydown') {
       value = event.target.value
-    }
-    if (event.type === 'submit') {
-      const el = event.target.querySelector('textarea')
+    } else {
+      const el = ReactDOM.findDOMNode(this).querySelector('textarea')
       value = el.value
     }
+    if (!value) return
     value = value.trim()
     if (!value) return
+    
+    const extracted = extractUrl(value)
+    if (!extracted) return
 
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_SHARE', value)
+    store.routeChange('FOLD_MEDIA_SHARE', extracted)
   }
   addPhoto () {
     const {store} = this.context
