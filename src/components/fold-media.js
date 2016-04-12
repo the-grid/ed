@@ -43,12 +43,12 @@ class FoldMedia extends React.Component {
         , style:
           { maxWidth: 800
           , margin: '0 auto -1em'
+          , padding: '0 0.5em'
           , fontSize: '200%'
           }
         }
       , el(TextareaAutosize
-        , { multiline: true
-          , placeholder: 'Text and/or link to start post...'
+        , { placeholder: 'Text or link to start post...'
           }
         )
       )
