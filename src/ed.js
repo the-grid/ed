@@ -264,10 +264,6 @@ export default class Ed {
     // Render
     this._setMergedContent(newContent)
   }
-  _foldShare (payload) {
-    const {url, rest} = payload
-    
-  }
   insertPlaceholders (index, count) {
     let toInsert = []
     let ids = []

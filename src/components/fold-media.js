@@ -123,7 +123,7 @@ class FoldMedia extends React.Component {
     if (!value) return
     value = value.trim()
     if (!value) return
-    
+
     const extracted = extractUrl(value)
     if (!extracted) return
 
