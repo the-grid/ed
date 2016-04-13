@@ -1,15 +1,14 @@
-import {nodeAboveSelection, onBlankLine} from '../util/pm'
+import {isCollapsed} from '../util/pm'
 
 const ed_upload_image =
   { label: 'On new line, choose an image to upload to your post'
   , run (pm) {
-    let pos = nodeAboveSelection(pm)
-    if (!pos || pos.offset == null) return false
-    const index = pos.offset
+    const {index} = pm.doc.childBefore(pm.selection.anchor)
+    if (index == null) return false
     pm.signal('ed.menu.file', index)
   }
   , select (pm) {
-    return onBlankLine(pm)
+    return isCollapsed(pm)
   }
   , menu:
     { group: 'ed_block'
