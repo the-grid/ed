@@ -1,39 +1,25 @@
-require('./fold-media.css')
-
 import React, {createElement as el} from 'react'
+import ReactDOM from 'react-dom'
 import Media from './media'
 import TextareaAutosize from './textarea-autosize'
-import Button from 'rebass/dist/Button'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
-import Panel from 'rebass/dist/Panel'
 import uuid from 'uuid'
+import {extractUrl} from '../util/url'
 
 const buttonStyle =
   { textTransform: 'uppercase'
   , borderRadius: 4
   , padding: '10px 16px'
+  , margin: '0.25em 0'
   }
 
 class FoldMedia extends React.Component {
-  constructor (props, context) {
+  constructor (props) {
     super(props)
-    this.state =
-      { linkOpen: false }
-    if (props.initialBlock) {
-      this.state.block = props.initialBlock
-      this.state.id = props.initialBlock.id
-    }
-    const {store} = context
-    store.on('fold.media.change', (block) => {
-      let id
-      if (block) {
-        id = block.id
-      }
-      this.setState({block, id})
-    })
+    this.state = {linkOpen: false}
   }
   render () {
-    const {block} = this.state
+    const {block} = this.props
     return el('div'
     , { className: 'FoldMedia'
       , style:
@@ -52,86 +38,71 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddMedia () {
-    const {linkOpen} = this.state
-
     return el('div'
-    , { style:
-        { textAlign: 'center'
-        , padding: '1em'
-        }
-      }
-    , el(ButtonOutline
-      , { style: buttonStyle
-        , onClick: this.addTitle.bind(this)
-        , rounded: true
-        }
-      , 'Add title'
-      )
-    , el('span'
-      , { style:
-          { margin: '0 12px'
-          , color: '#aaa'
-          , fontSize: '.8em'
+    , { className: 'FoldMedia-Add' }
+    , el('div'
+      , { className: 'FoldMedia-Text'
+        , style:
+          { maxWidth: 800
+          , margin: '0 auto -1em'
+          , padding: '0 0.5em'
+          , fontSize: '200%'
           }
         }
-      , 'or'
+      , el(TextareaAutosize
+        , { placeholder: 'Text or link to start post...'
+          , onKeyDown: this.shareKeyDown.bind(this)
+          , onChange: this.onTextChange.bind(this)
+          }
+        )
       )
-    , el(ButtonOutline
-      , { style: buttonStyle
-        , onClick: this.toggleLink.bind(this)
-        , rounded: true
-        }
-      , 'Add a link'
-      )
-    , el('span'
-      , { style:
-          { margin: '0 12px'
-          , color: '#aaa'
-          , fontSize: '.8em'
+    , el('div'
+      , { className: 'FoldMedia-Buttons'
+        , style:
+          { textAlign: 'center'
+          , padding: '0.75em'
           }
         }
-      , 'or'
-      )
-    , el(ButtonOutline
-      , { style: buttonStyle
-        , onClick: this.addPhoto.bind(this)
-        , rounded: true
-        }
-      , 'Add a photo'
-      )
-    , ' '
-    , el(Panel
-      , { style:
-          { display: (linkOpen ? 'block' : 'none')
-          , marginTop: 16
-          , padding: '1em'
-          , maxWidth: 800
-          , margin: '1em auto'
-          , textAlign: 'left'
+      , el(ButtonOutline
+        , { style: buttonStyle
+          , onClick: this.shareLink.bind(this)
+          , rounded: true
           }
-        , theme: 'info'
-        }
-      , this.renderShareLink()
+        , 'Add a link'
+        )
+      , el('span'
+        , { style:
+            { margin: '0 12px'
+            , color: '#aaa'
+            , fontSize: '.8em'
+            }
+          }
+        , 'or'
+        )
+      , el(ButtonOutline
+        , { style: buttonStyle
+          , onClick: this.addPhoto.bind(this)
+          , rounded: true
+          }
+        , 'Add a photo'
+        )
+      , el('span'
+        , { style:
+            { margin: '0 12px'
+            , color: '#aaa'
+            , fontSize: '.8em'
+            }
+          }
+        , 'or'
+        )
+      , el(ButtonOutline
+        , { style: buttonStyle
+          , onClick: this.addMore.bind(this)
+          , rounded: true
+          }
+        , 'Add more'
+        )
       )
-    )
-  }
-  renderShareLink () {
-    const {linkOpen} = this.state
-    if (!linkOpen) return
-
-    return el('form'
-    , { onSubmit: this.shareLink.bind(this) }
-    , el(TextareaAutosize
-      , { label: 'URL'
-        , defaultFocus: true
-        , placeholder: 'https://...'
-        , onKeyDown: this.shareKeyDown.bind(this)
-        , style: { borderBottom: '1px solid' }
-        }
-      )
-    , el(Button
-      , { type: 'submit' }
-      , 'Share')
     )
   }
   shareKeyDown (event) {
@@ -146,40 +117,48 @@ class FoldMedia extends React.Component {
     let value
     if (event.type === 'keydown') {
       value = event.target.value
-    }
-    if (event.type === 'submit') {
-      const el = event.target.querySelector('textarea')
+    } else {
+      const el = ReactDOM.findDOMNode(this).querySelector('textarea')
       value = el.value
     }
+    if (!value) return
     value = value.trim()
     if (!value) return
 
+    const extracted = extractUrl(value)
+    if (!extracted) return
+
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_SHARE', value)
+    store.routeChange('FOLD_MEDIA_SHARE', extracted)
   }
   addPhoto () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_UPLOAD')
+    store.routeChange('FOLD_MEDIA_UPLOAD', value)
   }
-  addTitle () {
+  onTextChange () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
+    const {store} = this.context
+    store.routeChange('FOLD_TEXT_CHANGE', value)
+  }
+  addMore () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_INIT'
     , { id: uuid.v4()
       , type: 'h1'
       , metadata: {starred: true}
-      , html: '<h1></h1>'
+      , html: `<h1>${value}</h1>`
       }
     )
   }
-  toggleHelp () {
-    const helpOpen = !this.state.helpOpen
-    this.setState({helpOpen})
-  }
-  toggleLink () {
-    const linkOpen = !this.state.linkOpen
-    this.setState({linkOpen})
-  }
 }
 FoldMedia.contextTypes = { store: React.PropTypes.object }
-FoldMedia.propTypes = { initialBlock: React.PropTypes.object }
+FoldMedia.propTypes = { block: React.PropTypes.object }
 export default React.createFactory(FoldMedia)

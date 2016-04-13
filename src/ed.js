@@ -90,32 +90,57 @@ export default class Ed {
         this.trigger('change')
         break
       case 'FOLD_MEDIA_SHARE':
+        // const {url, rest} = payload
         const newId = uuid.v4()
         const share =
           { id: newId
           , type: 'placeholder'
           , metadata:
             { starred: true
-            , status: `Sharing... ${payload}`
+            , status: `Sharing... ${payload.url}`
             }
           }
         this._foldMedia = share.id
         this._initializeContent([share])
         this.trigger('fold.media.change', share)
-        this.onShareUrl({block: newId, url: payload})
+        this.onShareUrl({block: newId, url: payload.url})
+        // Make a new text block with rest of above fold text
+        if (payload.rest) {
+          const belowFold =
+            { type: 'text'
+            , html: `<p>${payload.rest}</p>`
+            }
+          this._insertBlocks(0, [belowFold])
+          this.trigger('change')
+        }
         break
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
         break
       case 'FOLD_MEDIA_INIT':
-        this._foldMedia = payload.id
         this._initializeContent([payload])
+        this._foldMedia = payload.id
         this.trigger('fold.media.change', payload)
         this.trigger('change')
         break
       case 'FOLD_MEDIA_CHANGE':
         this._updateMediaBlock(payload)
         this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
+      case 'FOLD_TEXT_CHANGE':
+        if (!this._foldMedia) {
+          const titleBlock =
+            { id: uuid.v4()
+            , type: 'text'
+            , metadata: {starred: true}
+            }
+          this._initializeContent([titleBlock])
+          this._foldMedia = titleBlock.id
+        }
+        // MUTATION
+        const textBlock = this.getBlock(this._foldMedia)
+        textBlock.html = `<p>${payload}</p>`
         this.trigger('change')
         break
       case 'PLACEHOLDER_CANCEL':

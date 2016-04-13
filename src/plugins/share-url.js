@@ -1,9 +1,6 @@
 import {nodeAboveSelection} from '../util/pm'
 import uuid from 'uuid'
-
-function checkUrl (string) {
-  return string.match(/^https?:\/\/[^\s]+\.[^\s]+$/)
-}
+import {isUrl} from '../util/url'
 
 function testPrevUrl () {
   // Entered into a new block
@@ -14,7 +11,7 @@ function testPrevUrl () {
   const prevBlock = this.ed.pm.doc.child(index)
   if (!prevBlock) return
   const url = prevBlock.textContent.trim()
-  if (!url || !checkUrl(url)) return
+  if (!url || !isUrl(url)) return
   const id = uuid.v4()
   const block =
     { id

@@ -6,7 +6,6 @@ import {sans} from './rebass-theme'
 const containerStyle =
   { fontFamily: sans
   , fontSize: 12
-  , marginBottom: '2rem'
   }
 
 const areaStyle =
@@ -24,7 +23,7 @@ const areaStyle =
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'
-  , marginTop: '1em'
+  , margin: '1em 0 2em 0'
   }
 
 function resize () {

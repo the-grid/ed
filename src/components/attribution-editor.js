@@ -91,7 +91,7 @@ class AttributionEditor extends React.Component {
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
-        , height: 400
+        , height: (height ? Math.min(height, 400) : 400)
         , backgroundColor: '#ddd'
         }
       }
