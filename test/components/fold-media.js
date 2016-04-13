@@ -14,7 +14,7 @@ describe('FoldMedia', function () {
     return ed.container.querySelectorAll(query)
   }
 
-  describe('Content mounting and merging', function () {
+  describe('Typing above the fold, then sharing', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
@@ -37,7 +37,7 @@ describe('FoldMedia', function () {
       expect(area.value).to.equal('')
     })
 
-    it('on "add link" it has expected content', function () {
+    it('after "add link" it has expected content', function () {
       const area = $('.FoldMedia textarea')
       area.value = 'Hello http://meemoo.org/'
       const moreButton = $$('.FoldMedia-Buttons button')[0]
@@ -53,7 +53,7 @@ describe('FoldMedia', function () {
       expect(content[2].html).to.equal('<p></p>')
     })
 
-    it('on "add more" it has expected content', function () {
+    it('after "add more" it has expected content', function () {
       const area = $('.FoldMedia textarea')
       area.value = 'Hello'
       const moreButton = $$('.FoldMedia-Buttons button')[2]
