@@ -52,6 +52,7 @@ class FoldMedia extends React.Component {
       , el(TextareaAutosize
         , { placeholder: 'Text or link to start post...'
           , onKeyDown: this.shareKeyDown.bind(this)
+          , onChange: this.onTextChange.bind(this)
           }
         )
       )
@@ -137,13 +138,23 @@ class FoldMedia extends React.Component {
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_UPLOAD', value)
   }
+  onTextChange () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
+    const {store} = this.context
+    store.routeChange('FOLD_TEXT_CHANGE', value)
+  }
   addMore () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_INIT'
     , { id: uuid.v4()
       , type: 'h1'
       , metadata: {starred: true}
-      , html: '<h1></h1>'
+      , html: `<h1>${value}</h1>`
       }
     )
   }

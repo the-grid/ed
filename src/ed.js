@@ -115,26 +115,32 @@ export default class Ed {
         }
         break
       case 'FOLD_MEDIA_UPLOAD':
-        // Make a new text block with above fold text
-        if (payload) {
-          const belowFold =
-            { type: 'text'
-            , html: `<p>${payload}</p>`
-            }
-          this._insertBlocks(0, [belowFold])
-          this.trigger('change')
-        }
         this.onShareFile(0)
         break
       case 'FOLD_MEDIA_INIT':
-        this._foldMedia = payload.id
         this._initializeContent([payload])
+        this._foldMedia = payload.id
         this.trigger('fold.media.change', payload)
         this.trigger('change')
         break
       case 'FOLD_MEDIA_CHANGE':
         this._updateMediaBlock(payload)
         this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
+      case 'FOLD_TEXT_CHANGE':
+        if (!this._foldMedia) {
+          const titleBlock =
+            { id: uuid.v4()
+            , type: 'text'
+            , metadata: {starred: true}
+            }
+          this._initializeContent([titleBlock])
+          this._foldMedia = titleBlock.id
+        }
+        // MUTATION
+        const textBlock = this.getBlock(this._foldMedia)
+        textBlock.html = `<p>${payload}</p>`
         this.trigger('change')
         break
       case 'PLACEHOLDER_CANCEL':
