@@ -1,5 +1,10 @@
 ## dev
 
+* Simplify flow from an empty post
+  * Paste a URL and type some commentary: URL is shared above fold and commentary becomes a paragraph below
+  * Type above fold then share photo: photo is above fold and text becomes a paragraph below
+  * Start typing above the fold, then click "Add More" to reveal full editor
+
 ## 0.8.3 - 2016-04-01
 
 * Style above and below fold media @narrowdesign
