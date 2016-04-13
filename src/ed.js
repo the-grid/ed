@@ -115,6 +115,15 @@ export default class Ed {
         }
         break
       case 'FOLD_MEDIA_UPLOAD':
+        // Make a new text block with above fold text
+        if (payload) {
+          const belowFold =
+            { type: 'text'
+            , html: `<p>${payload}</p>`
+            }
+          this._insertBlocks(0, [belowFold])
+          this.trigger('change')
+        }
         this.onShareFile(0)
         break
       case 'FOLD_MEDIA_INIT':

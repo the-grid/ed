@@ -131,8 +131,11 @@ class FoldMedia extends React.Component {
     store.routeChange('FOLD_MEDIA_SHARE', extracted)
   }
   addPhoto () {
+    const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    const value = el.value.trim()
+
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_UPLOAD')
+    store.routeChange('FOLD_MEDIA_UPLOAD', value)
   }
   addMore () {
     const {store} = this.context
