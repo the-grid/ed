@@ -1,5 +1,7 @@
 ## dev
 
+## 0.9.0 - 2016-04-13
+
 * Simplify flow from an empty post
   * Paste a URL and type some commentary: URL is shared above fold and commentary becomes a paragraph below
   * Type above fold then share photo: photo is above fold and text becomes a paragraph below
