@@ -1,8 +1,9 @@
 import {elt} from 'prosemirror/src/dom'
 
 let lastSpace = 0
+let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 
-const commands = {
+let commands = {
   ed_upload_image: {
     label: 'upload image to post'
     , run: function () {
@@ -32,7 +33,10 @@ const commands = {
       }
     }
   }
-  , doubleSpacePeriod: {
+}
+
+if (isIOS) {
+  commands.doubleSpacePeriod = {
     keys: ['Space(1)']
     , run: function (pm) {
       var now = Date.now()
