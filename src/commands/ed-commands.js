@@ -1,41 +1,32 @@
-import {isCollapsed} from '../util/pm'
+import {elt} from 'prosemirror/src/dom'
 
 const ed_upload_image =
-  { label: 'On new line, choose an image to upload to your post'
-  , run (pm) {
-    const {index} = pm.doc.childBefore(pm.selection.anchor)
-    if (index == null) return false
-    pm.signal('ed.menu.file', index)
-  }
-  , select (pm) {
-    return isCollapsed(pm)
-  }
+  { label: 'upload image to post'
+  , run: function () {}
   , menu:
     { group: 'ed_block'
-    , rank: 100
-    , class: 'EdMenuText'
     , display:
-      { type: 'label'
-      , label: 'Upload Image'
+      { render: function (command, pm) {
+        const el = elt('div'
+          , { style:
+              { cursor: 'pointer' }
+            }
+          , 'Upload Image'
+          )
+        el.addEventListener('mousedown', function (event) {
+            // HACK around #44
+            event.stopPropagation()
+          })
+        el.addEventListener('click', function (event) {
+            event.stopPropagation()
+            const {index} = pm.doc.childBefore(pm.selection.anchor)
+            if (index == null) return false
+            pm.signal('ed.menu.file', index)
+          })
+        return el
+      }
       }
     }
   }
-
-/*
-let widgetStoreDom = document.getElementById('widget-store')
-
-baseCommands.insert_embed = {
-  label: 'insert something...',
-  run (pm) {
-    widgetStoreDom.classList.add('show')
-    // let node = nodeAboveSelection(pm)
-    // if (!node) return false
-    // pm.setNodeSelection(node)
-  },
-  menuGroup: 'block(100)',
-  display: {type: 'icon', text: 'insert', style: 'font-weight: bold; vertical-align: 20%'}
-  // keys: ["Esc"]
-}
-*/
 
 export default {ed_upload_image}
