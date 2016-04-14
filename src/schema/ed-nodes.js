@@ -4,7 +4,7 @@ import {Doc,
 import {NodeKind} from 'prosemirror/src/model/schema'
 
 export const NodeKindTop = new NodeKind('ed_toplevel')
-const NodeKindTopOrBlock = new NodeKind('ed_block', NodeKindTop)
+const NodeKindTopOrBlock = new NodeKind('ed_block', [NodeKindTop])
 
 // These schema modificaions change which nodes can go where
 export class EdDoc extends Doc {

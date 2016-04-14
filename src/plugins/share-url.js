@@ -1,17 +1,26 @@
-import {nodeAboveSelection} from '../util/pm'
 import uuid from 'uuid'
 import {isUrl} from '../util/url'
 
 function testPrevUrl () {
-  // Entered into a new block
-  const currentPos = nodeAboveSelection(this.ed.pm)
-  // Only test top-level blocks
-  if (!currentPos || (currentPos.path.length !== 0) || (currentPos.offset < 1)) return
-  const index = currentPos.offset - 1
-  const prevBlock = this.ed.pm.doc.child(index)
-  if (!prevBlock) return
-  const url = prevBlock.textContent.trim()
+  // Entered into a new block, collapsed selection
+  const selection = this.ed.pm.selection
+  if (!selection) return
+  if (!(selection.anchor === selection.head)) return
+
+  // Current position (under potential url line)
+  const currentNode = this.ed.pm.doc.childBefore(selection.anchor)
+  if (!currentNode || currentNode.index < 1) return
+
+  // Potential url line
+  const index = currentNode.index - 1
+  const prevNode = this.ed.pm.doc.child(index)
+  if (!prevNode || prevNode.type.name !== 'paragraph') return
+
+  // Test if url
+  const url = prevNode.textContent.trim()
   if (!url || !isUrl(url)) return
+
+  // Make share
   const id = uuid.v4()
   const block =
     { id

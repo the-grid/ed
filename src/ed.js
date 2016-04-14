@@ -4,6 +4,8 @@ import './util/react-tap-hack'
 import _ from './util/lodash'
 import uuid from 'uuid'
 
+import {TextSelection} from 'prosemirror/src/edit/selection'
+
 import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 import determineFold from './convert/determine-fold'
@@ -369,8 +371,8 @@ export default class Ed {
     this._foldMedia = (media ? media.id : null)
     this.trigger('fold.media.change', media)
     let doc = GridToDoc(content)
-    // Cache selection to restore after DOM update
-    let selection = fixSelection(this.pm.selection, doc)
+    // Make selection to set after DOM update
+    let selection = fixSelection(this.pm.selection, this.pm.doc, doc)
     // Populate ProseMirror
     this.pm.setDoc(doc, selection)
     // Let widgets know to update
@@ -430,20 +432,13 @@ function mergeContent (oldContent, newContent) {
   return merged
 }
 
-// Can't restore selection to a non-focuable (Media) div
-function fixSelection (selection, doc) {
-  let index = selection.anchor.path[0]
-  if (doc.content.content[index] && doc.content.content[index].type.contains !== null) {
-    return selection
+function fixSelection (selection, prevDoc, doc) {
+  if (!selection.anchor) return
+  const index = prevDoc.childBefore(selection.anchor).index
+  let offset = 0
+  for (let i = 0; i < index; i++) {
+    offset += doc.child(i).nodeSize
   }
-  while (doc.content.content[index] && doc.content.content[index].type.contains === null) {
-    index++
-  }
-  if (!doc.content.content[index]) {
-    return
-  }
-  // MUTATION
-  selection.anchor.path = [index]
-  selection.head.path = [index]
-  return selection
+  offset++
+  return new TextSelection(offset)
 }
