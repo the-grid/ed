@@ -1,5 +1,7 @@
 ## dev
 
+## 0.9.1 - 2016-04-13
+
 * [ProseMirror 0.6.0](https://discuss.prosemirror.net/t/release-0-6-0/284)
 * Upload image toolbar button doesn't need to be on blank line
 
