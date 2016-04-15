@@ -62,6 +62,9 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     onPlaceholderCancel: function (id) {
       /* Ed removed the placeholder if you call ed.getContent() now */
       /* App should cancel the share or upload */
+    },
+    onMount: function () {
+      /* Called once PM and widgets are mounted */
     }
   })
   

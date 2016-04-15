@@ -54,6 +54,9 @@ export default class Ed {
     this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
 
+    // Listen for first render
+    this.on('plugin.widget.initialized', options.onMount || noop)
+
     // Setup main DOM structure
     this.container = options.container
     this.app = el(App, options)
