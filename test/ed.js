@@ -376,4 +376,60 @@ describe('Ed', function () {
       })
     })
   })
+
+  describe('Command interface', function () {
+    let mount, ed
+    const fixture =
+      [ {type: 'h1', html: '<h1>Title</h1>'}
+      , {type: 'text', html: '<p><a href="moo">link</a></p>'}
+      ]
+
+    afterEach(function () {
+      ed.teardown()
+      mount.parentNode.removeChild(mount)
+    })
+
+    it('returns commands on mount', function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+
+      function onCommandsChanged (commands) {
+        expect(commands['heading:make1']).to.equal('disabled')
+        expect(commands['paragraph:make']).to.equal('inactive')
+        done()
+      }
+
+      ed = new Ed(
+        { container: mount
+        , initialContent: fixture
+        , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile: function () {}
+        , onCommandsChanged
+        }
+      )
+    })
+
+    it('correctly executes command', function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+
+      function onMount () {
+        ed.execCommand('paragraph:make')
+        const content = ed.getContent()
+        expect(content[0].type).to.equal('text')
+        done()
+      }
+
+      ed = new Ed(
+        { container: mount
+        , initialContent: fixture
+        , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile: function () {}
+        , onMount
+        }
+      )
+    })
+  })
 })

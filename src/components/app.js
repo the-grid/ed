@@ -91,7 +91,8 @@ class App extends React.Component {
 
     const { initialContent
       , menuBar, menuTip
-      , onChange, onShareFile, onShareUrl} = this.props
+      , onChange, onShareFile, onShareUrl
+      , onCommandsChanged } = this.props
 
     return el('div'
     , { className: 'Ed-Content'
@@ -107,6 +108,7 @@ class App extends React.Component {
         , onChange
         , onShareFile
         , onShareUrl
+        , onCommandsChanged
         }
       )
     )
