@@ -1,5 +1,7 @@
 ## dev
 
+## 0.9.3 - 2016-04-15
+
 * FIX -- Range errors around media divs 
 * NEW -- `options.onMount` called once editable and widgets are initialized
 
