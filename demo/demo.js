@@ -25,11 +25,11 @@ function setup (options) {
     , menuTip: (options.menu === 'tip')
     , menuBar: (options.menu === 'bar')
     , onChange: () => { console.log('change') }
-    , onAutosave: () => { console.log('autosave') }
-    , autosaveInterval: 1000
+    , onMount: () => { console.log('mount') }
     , onShareFile: onShareFileDemo
     , onShareUrl: onShareUrlDemo
     , onPlaceholderCancel: onPlaceholderCancelDemo
+    , onCommandsChanged: (commands) => {}
     , imgfloConfig: null
     }
   )

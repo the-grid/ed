@@ -15,6 +15,7 @@ import EdSchemaFull from '../schema/ed-schema-full'
 import PluginWidget from '../plugins/widget.js'
 import ShareUrl from '../plugins/share-url'
 import FixedMenuBarHack from '../plugins/fixed-menu-hack'
+import CommandsInterface from '../plugins/commands-interface'
 
 function noop () { /* noop */ }
 
@@ -36,7 +37,8 @@ class Editable extends React.Component {
     const {mirror, plugins} = this.refs
     const {initialContent
       , menuBar, menuTip
-      , onChange, onShareFile} = this.props
+      , onChange, onShareFile
+      , onCommandsChanged} = this.props
     const {store} = this.context
 
     // PM setup
@@ -77,6 +79,9 @@ class Editable extends React.Component {
       pluginsToInit.push(FixedMenuBarHack)
     }
     this.pm.on('ed.menu.file', (onShareFile || noop))
+    if (onCommandsChanged) {
+      pluginsToInit.push(CommandsInterface)
+    }
 
     const pluginOptions =
       { ed: store
