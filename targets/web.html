@@ -33,6 +33,9 @@
         , onPlaceholderCancel: options.onPlaceholderCancel || function (id) {
             console.log('onPlaceholderCancel:', id)
           }
+        , onMount: options.onMount || function () {
+            console.log('onMount')
+          }
         }
       )
     }

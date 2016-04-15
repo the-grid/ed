@@ -86,6 +86,17 @@ describe('Ed', function () {
       }
       expect(no_container).to.throw('Missing options.container')
     })
+    it('calls options.onMount', function (done) {
+      ed = new Ed(
+        { container: mount
+        , initialContent: []
+        , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile: function () {}
+        , onMount: function () { done() }
+        }
+      )
+    })
   })
 
   describe('Content mounting and merging', function () {

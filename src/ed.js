@@ -54,6 +54,9 @@ export default class Ed {
     this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
 
+    // Listen for first render
+    this.on('plugin.widget.initialized', options.onMount || noop)
+
     // Setup main DOM structure
     this.container = options.container
     this.app = el(App, options)
@@ -433,7 +436,7 @@ function mergeContent (oldContent, newContent) {
 }
 
 function fixSelection (selection, prevDoc, doc) {
-  if (!selection.anchor) return
+  if (!selection.anchor) return selection
   const index = prevDoc.childBefore(selection.anchor).index
   let offset = 0
   for (let i = 0; i < index; i++) {

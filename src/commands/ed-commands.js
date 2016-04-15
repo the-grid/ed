@@ -1,4 +1,5 @@
 import {elt} from 'prosemirror/src/dom'
+import {focusedIndex} from '../util/pm'
 
 const ed_upload_image =
   { label: 'upload image to post'
@@ -20,8 +21,8 @@ const ed_upload_image =
             })
             el.addEventListener('click', function (event) {
               event.stopPropagation()
-              const {index} = pm.doc.childBefore(pm.selection.anchor)
-              if (index == null) return false
+              const index = focusedIndex(pm)
+              if (index == null) return
               pm.signal('ed.menu.file', index)
             })
             return el

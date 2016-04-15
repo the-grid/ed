@@ -1,5 +1,8 @@
 ## dev
 
+* FIX -- Range errors around media divs 
+* NEW -- `options.onMount` called once editable and widgets are initialized
+
 ## 0.9.2 - 2016-04-13
 
 * FIX -- "Upload Image" button in Firefox works now
