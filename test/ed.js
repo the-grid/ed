@@ -121,6 +121,7 @@ describe('Ed', function () {
     })
     afterEach(function () {
       ed.teardown()
+      mount.parentNode.removeChild(mount)
     })
 
     it('on mount it has expected editable html structure', function () {
@@ -349,6 +350,7 @@ describe('Ed', function () {
     })
     afterEach(function () {
       ed.teardown()
+      mount.parentNode.removeChild(mount)
     })
 
     describe('Mounting', function () {
