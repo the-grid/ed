@@ -22,7 +22,7 @@ const ed_upload_image =
             el.addEventListener('click', function (event) {
               event.stopPropagation()
               const index = focusedIndex(pm)
-              if (index == null) return false
+              if (index == null) return
               pm.signal('ed.menu.file', index)
             })
             return el

@@ -433,7 +433,7 @@ function mergeContent (oldContent, newContent) {
 }
 
 function fixSelection (selection, prevDoc, doc) {
-  if (!selection.anchor) return
+  if (!selection.anchor) return selection
   const index = prevDoc.childBefore(selection.anchor).index
   let offset = 0
   for (let i = 0; i < index; i++) {
