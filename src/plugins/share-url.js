@@ -4,8 +4,7 @@ import {isUrl} from '../util/url'
 function testPrevUrl () {
   // Entered into a new block, collapsed selection
   const selection = this.ed.pm.selection
-  if (!selection) return
-  if (!(selection.anchor === selection.head)) return
+  if (!selection.empty) return
 
   // Current position (under potential url line)
   const currentNode = this.ed.pm.doc.childBefore(selection.anchor)
@@ -13,7 +12,7 @@ function testPrevUrl () {
 
   // Potential url line
   const index = currentNode.index - 1
-  const prevNode = this.ed.pm.doc.child(index)
+  const prevNode = this.ed.pm.doc.maybeChild(index)
   if (!prevNode || prevNode.type.name !== 'paragraph') return
 
   // Test if url

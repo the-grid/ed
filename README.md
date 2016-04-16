@@ -62,6 +62,12 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     onPlaceholderCancel: function (id) {
       /* Ed removed the placeholder if you call ed.getContent() now */
       /* App should cancel the share or upload */
+    },
+    onMount: function () {
+      /* Called once PM and widgets are mounted */
+    },
+    onCommandsChanged: function (commands) {
+      /* Object with commandName keys and one of inactive, active, disabled */
     }
   })
   
@@ -79,9 +85,36 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
   
   // Only inserts/updates placeholder blocks and converts placeholder blocks to media
   ed.setContent(contentArray)
+  
+  // Returns true if command applies successfully with current selection
+  ed.execCommand(commandName)
 ```
 
 Demo: [./demo/demo.js](./demo/demo.js)
+
+## commands
+
+Apps can apply formatting / editing commands with `ed.execCommand(commandName)`
+
+Supported `commandName` keys:
+
+```
+strong:toggle
+em:toggle
+link:unset
+link:set
+paragraph:make
+heading:make1
+heading:make2
+heading:make3
+bullet_list:wrap
+ordered_list:wrap
+blockquote:wrap
+lift
+ed_upload_image
+undo
+redo
+```
 
 # dev
 

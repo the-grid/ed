@@ -30,6 +30,7 @@ describe('FoldMedia', function () {
     })
     afterEach(function () {
       ed.teardown()
+      mount.parentNode.removeChild(mount)
     })
 
     it('on mount it has empty fold textarea', function () {

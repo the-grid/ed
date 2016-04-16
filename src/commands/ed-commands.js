@@ -1,43 +1,47 @@
 import {elt} from 'prosemirror/src/dom'
+import {focusedIndex} from '../util/pm'
 
-let lastSpace = 0
+let commands = {}
 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 
-let commands = {
-  ed_upload_image: {
-    label: 'upload image to post'
-    , run: function () {
-    }
-    , menu: {
-      group: 'ed_block'
-      , display: {
-        render: function (command, pm) {
-          const el = elt('div'
-            , {
-              style: {cursor: 'pointer'}
-            }
+function triggerUpload (pm) {
+  const index = focusedIndex(pm)
+  if (index == null) return
+  pm.signal('ed.menu.file', index)  
+}
+
+commands.ed_upload_image =
+  { label: 'upload image to post'
+  , run: triggerUpload
+  , menu:
+    { group: 'ed_block'
+    , display:
+      { render:
+          function (command, pm) {
+            const el = elt('div'
+            , { style:
+                { cursor: 'pointer' }
+              }
             , 'Upload Image'
-          )
-          el.addEventListener('mousedown', function (event) {
-            // HACK around #44
-            event.stopPropagation()
-          })
-          el.addEventListener('click', function (event) {
-            event.stopPropagation()
-            const {index} = pm.doc.childBefore(pm.selection.anchor)
-            if (index == null) return false
-            pm.signal('ed.menu.file', index)
-          })
-          return el
-        }
+            )
+            el.addEventListener('mousedown', function (event) {
+              // HACK around #44
+              event.stopPropagation()
+            })
+            el.addEventListener('click', function (event) {
+              event.stopPropagation()
+              triggerUpload(pm)
+            })
+            return el
+          }
       }
     }
   }
-}
 
 if (isIOS) {
-  commands.doubleSpacePeriod = {
-    keys: ['Space(1)']
+  let lastSpace = 0
+  commands.doubleSpacePeriod =
+    { keys: ['Space(1)']
     , run: function (pm) {
       var now = Date.now()
       if (now - lastSpace < 200) {
