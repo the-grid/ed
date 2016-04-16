@@ -1,5 +1,15 @@
 ## dev
 
+## 0.10.0 - 2016-04-15
+
+* NEW -- `options.onCommandsChanged` to get changing commands in a native toolbar (#173)
+* NEW -- `ed.execCommand` to apply a command from an app
+
+## 0.9.3 - 2016-04-15
+
+* FIX -- Range errors around media divs 
+* NEW -- `options.onMount` called once editable and widgets are initialized
+
 ## 0.9.2 - 2016-04-13
 
 * FIX -- "Upload Image" button in Firefox works now

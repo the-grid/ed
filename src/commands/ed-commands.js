@@ -1,4 +1,5 @@
 import {elt} from 'prosemirror/src/dom'
+import {focusedIndex} from '../util/pm'
 
 let lastSpace = 0
 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
@@ -17,19 +18,19 @@ let commands = {
               style: {cursor: 'pointer'}
             }
             , 'Upload Image'
-          )
-          el.addEventListener('mousedown', function (event) {
-            // HACK around #44
-            event.stopPropagation()
-          })
-          el.addEventListener('click', function (event) {
-            event.stopPropagation()
-            const {index} = pm.doc.childBefore(pm.selection.anchor)
-            if (index == null) return false
-            pm.signal('ed.menu.file', index)
-          })
-          return el
-        }
+            )
+            el.addEventListener('mousedown', function (event) {
+              // HACK around #44
+              event.stopPropagation()
+            })
+            el.addEventListener('click', function (event) {
+              event.stopPropagation()
+              const index = focusedIndex(pm)
+              if (index == null) return
+              pm.signal('ed.menu.file', index)
+            })
+            return el
+          }
       }
     }
   }

@@ -53,6 +53,10 @@ export default class Ed {
     this.onShareUrl = options.onShareUrl
     this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
+    this.onCommandsChanged = options.onCommandsChanged
+
+    // Listen for first render
+    this.on('plugin.widget.initialized', options.onMount || noop)
 
     // Setup main DOM structure
     this.container = options.container
@@ -167,6 +171,12 @@ export default class Ed {
       }
       this._content[block.id] = block
     }
+  }
+  execCommand (commandName) {
+    if (!this.pm || !this.pm.commands || !this.pm.commands[commandName] || !this.pm.commands[commandName].exec) {
+      throw new Error('Can not exec this commandName: ' + commandName)
+    }
+    this.pm.commands[commandName].exec(this.pm)
   }
   on (eventName, func) {
     let events = this._events[eventName]
@@ -433,7 +443,7 @@ function mergeContent (oldContent, newContent) {
 }
 
 function fixSelection (selection, prevDoc, doc) {
-  if (!selection.anchor) return
+  if (!selection.anchor) return selection
   const index = prevDoc.childBefore(selection.anchor).index
   let offset = 0
   for (let i = 0; i < index; i++) {
