@@ -173,10 +173,10 @@ export default class Ed {
     }
   }
   execCommand (commandName) {
-    if (!this.pm || !this.pm.commands || !this.pm.commands[commandName] || !this.pm.commands[commandName].exec) {
-      throw new Error('Can not exec this commandName: ' + commandName)
+    if (!this.pm) {
+      throw new Error('ProseMirror not set up yet')
     }
-    this.pm.commands[commandName].exec(this.pm)
+    this.pm.execCommand(commandName)
   }
   on (eventName, func) {
     let events = this._events[eventName]
