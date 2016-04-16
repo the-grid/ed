@@ -29,7 +29,7 @@
     "@the-grid/ced": "^0.1.2",
     "imgflo-url": "^1.1.0",
     "lodash": "^4.10.0",
-    "prosemirror": "https://github.com/ProseMirror/prosemirror.git#7b6bdd1",
+    "prosemirror": "^0.6.1",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-tap-event-plugin": "^1.0.0",
