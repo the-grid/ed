@@ -1,9 +1,18 @@
 import {elt} from 'prosemirror/src/dom'
 import {focusedIndex} from '../util/pm'
 
-const ed_upload_image =
+let commands = {}
+let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
+function triggerUpload (pm) {
+  const index = focusedIndex(pm)
+  if (index == null) return
+  pm.signal('ed.menu.file', index)
+}
+
+commands.ed_upload_image =
   { label: 'upload image to post'
-  , run: function () {}
+  , run: triggerUpload
   , menu:
     { group: 'ed_block'
     , display:
@@ -21,9 +30,7 @@ const ed_upload_image =
             })
             el.addEventListener('click', function (event) {
               event.stopPropagation()
-              const index = focusedIndex(pm)
-              if (index == null) return
-              pm.signal('ed.menu.file', index)
+              triggerUpload(pm)
             })
             return el
           }
@@ -31,4 +38,25 @@ const ed_upload_image =
     }
   }
 
-export default {ed_upload_image}
+if (isIOS) {
+  let lastSpace = 0
+  commands.doubleSpacePeriod =
+    { keys: ['Space(1)']
+    , run: function (pm) {
+      var now = Date.now()
+      if (now - lastSpace < 200) {
+        lastSpace = 0
+        var sel = pm.selection
+        if (!sel.empty) return false
+        let before = pm.doc.resolve(sel.head).nodeBefore
+        if (!before.isText || before.text.charAt(before.text.length - 1) !== ' ') return false
+        return pm.tr.replaceWith(sel.head - 1, sel.head, pm.schema.text('. ', before.marks)).apply()
+      } else {
+        lastSpace = now
+        return false
+      }
+    }
+  }
+}
+
+export default commands

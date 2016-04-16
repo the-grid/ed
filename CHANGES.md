@@ -1,5 +1,11 @@
 ## dev
 
+## 0.10.1 - 2016-04-15
+
+* [ProseMirror 0.6.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#061-2016-04-15) -- iOS and Android :heart:
+* Fixed `ed.execCommand('ed_upload_image')`
+* :apple: Double-space → period hack (#109)
+
 ## 0.10.0 - 2016-04-15
 
 * NEW -- `options.onCommandsChanged` to get changing commands in a native toolbar (#173)
