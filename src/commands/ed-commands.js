@@ -14,23 +14,23 @@ let commands = {
       , display: {
         render: function (command, pm) {
           const el = elt('div'
-            , {
-              style: {cursor: 'pointer'}
-            }
-            , 'Upload Image'
-            )
-            el.addEventListener('mousedown', function (event) {
-              // HACK around #44
-              event.stopPropagation()
-            })
-            el.addEventListener('click', function (event) {
-              event.stopPropagation()
-              const index = focusedIndex(pm)
-              if (index == null) return
-              pm.signal('ed.menu.file', index)
-            })
-            return el
+          , {
+            style: {cursor: 'pointer'}
           }
+          , 'Upload Image'
+          )
+          el.addEventListener('mousedown', function (event) {
+            // HACK around #44
+            event.stopPropagation()
+          })
+          el.addEventListener('click', function (event) {
+            event.stopPropagation()
+            const index = focusedIndex(pm)
+            if (index == null) return
+            pm.signal('ed.menu.file', index)
+          })
+          return el
+        }
       }
     }
   }
