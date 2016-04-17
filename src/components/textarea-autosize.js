@@ -84,7 +84,7 @@ class TextareaAutosize extends React.Component {
   onChange (event) {
     let {value} = event.target
     if (!this.props.multiline) {
-      value = event.target.value = value
+      value = value
         .replace(/\r\n/g, ' ')
         .replace(/[\r\n]/g, ' ')
     }
