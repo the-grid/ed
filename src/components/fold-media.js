@@ -53,6 +53,7 @@ class FoldMedia extends React.Component {
         , { placeholder: 'Text or link to start post...'
           , onKeyDown: this.shareKeyDown.bind(this)
           , onChange: this.onTextChange.bind(this)
+          , defaultFocus: true
           }
         )
       )
