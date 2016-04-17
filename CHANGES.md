@@ -1,5 +1,10 @@
 ## dev
 
+## 0.10.2 - 2016-04-17
+
+* Autofocus fold textarea
+* FIX -- React issue with fold textarea-autosize (#176)
+
 ## 0.10.1 - 2016-04-15
 
 * [ProseMirror 0.6.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#061-2016-04-15) -- iOS and Android :heart:
