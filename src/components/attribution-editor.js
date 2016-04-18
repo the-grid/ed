@@ -97,8 +97,8 @@ class AttributionEditor extends React.Component {
     return el('div'
     , { className: 'AttributionEditor-cover'
       , style:
-        { width: 768
-        , height: 768
+        { width: '100%'
+        , height: 400
         }
       }
     , el(Image, props)

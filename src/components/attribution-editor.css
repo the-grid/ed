@@ -19,3 +19,9 @@
 .AttributionEditor-metadata:hover {
   opacity: 1 !important;
 }
+
+@media screen and (min-width: 1000px){
+  .AttributionEditor-cover {
+    height: 768px !important;
+  }
+}
