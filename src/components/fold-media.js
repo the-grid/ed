@@ -53,7 +53,7 @@ class FoldMedia extends React.Component {
           }
         }
       , el(TextareaAutosize
-        , { placeholder: 'Text or link to start post...'
+        , { placeholder: 'Type something or paste a link to start post...'
           , onKeyDown: this.shareKeyDown.bind(this)
           , onChange: this.onTextChange.bind(this)
           , defaultFocus: true
