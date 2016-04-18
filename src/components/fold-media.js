@@ -46,8 +46,8 @@ class FoldMedia extends React.Component {
     , el('div'
       , { className: 'FoldMedia-Text'
         , style:
-          { maxWidth: 800
-          , margin: '0 auto -1em'
+          { maxWidth: 768
+          , margin: '0 auto 0'
           , padding: '0 0.5em'
           , fontSize: '200%'
           }

@@ -14,7 +14,7 @@ export default function Title (props, context) {
     , style:
       { fontSize: '250%'
       , padding: '1em'
-      , maxWidth: 800
+      , maxWidth: 768
       , margin: 'auto'
       }
     }

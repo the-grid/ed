@@ -37,7 +37,8 @@ class AttributionEditor extends React.Component {
       'div'
       , { className: 'AttributionEditor'
         , style:
-          { borderRadius: '3px'
+          { 
+            
           }
         }
       , this.renderCover()
@@ -46,15 +47,15 @@ class AttributionEditor extends React.Component {
         , { className: 'AttributionEditor-metadata'
           , style:
             { width: '90%'
-            , left: '5%'
-            , bottom: 0
-            , margin: '0px auto'
-            , padding: '2em 3em 0'
+            , margin: '-48px auto 36px'
+            , padding: '1.5em 3em 0'
             , background: '#fff'
-            , position: 'absolute'
             , border: '1px solid #ddd'
-            , opacity: '.9'
+            , opacity: '.96'
             , transition: '.1s all ease-out'
+            , zIndex: '2'
+            , position: 'relative'
+            , borderRadius: 2
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
@@ -98,7 +99,8 @@ class AttributionEditor extends React.Component {
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
-        , height: 400
+        , zIndex: '1'
+        , position: 'relative'
         }
       }
     , el(Image, props)
@@ -174,7 +176,7 @@ function makeChange (path, onChange) {
 function renderFields (schema, metadata = {}, onChange) {
   let fields = []
   if (schema.title) {
-    fields.push(renderTextField('title', 'TITLE', metadata.title, onChange))
+    fields.push(renderTextField('title', 'TITLE', metadata.title.substr(0,metadata.title.indexOf('.')), onChange))
   }
   if (schema.description) {
     fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))
@@ -185,7 +187,7 @@ function renderFields (schema, metadata = {}, onChange) {
 function renderTextField (key, label, value, onChange) {
   return el(TextareaAutosize
   , { className: `AttributionEditor-${key}`
-    , label
+    , placeholder: `Enter ${key}`
     , defaultValue: value
     , key: key
     , onChange: makeChange([key], onChange)

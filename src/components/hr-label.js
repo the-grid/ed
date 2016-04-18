@@ -28,6 +28,7 @@ export default function HrLabel (props) {
           , top: -10
           , textAlign: 'center'
           , background: '#fff'
+          , fontStyle: 'italic'
           }
         }
       , label
