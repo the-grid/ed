@@ -15,3 +15,7 @@
 .AttributionEditor-links > * {
   vertical-align: middle;
 }
+
+.AttributionEditor-metadata:hover {
+  opacity: 1 !important;
+}

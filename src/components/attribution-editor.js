@@ -35,18 +35,26 @@ class AttributionEditor extends React.Component {
 
     return el(
       'div'
-      , { className: 'AttributionEditor' }
+      , { className: 'AttributionEditor'
+        , style:
+          { borderRadius: '3px'
+          }
+        }
       , this.renderCover()
       , el(
         'div'
         , { className: 'AttributionEditor-metadata'
           , style:
-            { maxWidth: 800
+            { width: '90%'
+            , left: '5%'
+            , bottom: 0
             , margin: '0px auto'
             , padding: '2em 3em 0'
             , background: '#fff'
-            , position: 'relative'
+            , position: 'absolute'
             , border: '1px solid #ddd'
+            , opacity: '.9'
+            , transition: '.1s all ease-out'
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
@@ -54,8 +62,7 @@ class AttributionEditor extends React.Component {
           'div'
           , { className: 'AttributionEditor-links'
             , style:
-              { maxWidth: 800
-              , margin: '2em -3em 0'
+              { margin: '2em -3em 0'
               , position: 'relative'
               , top: 1
               }
@@ -90,9 +97,8 @@ class AttributionEditor extends React.Component {
     return el('div'
     , { className: 'AttributionEditor-cover'
       , style:
-        { width: '100%'
-        , height: (height ? Math.min(height, 400) : 400)
-        , backgroundColor: '#ddd'
+        { width: 768
+        , height: 768
         }
       }
     , el(Image, props)
