@@ -35,12 +35,7 @@ class AttributionEditor extends React.Component {
 
     return el(
       'div'
-      , { className: 'AttributionEditor'
-        , style:
-          { 
-            
-          }
-        }
+      , { className: 'AttributionEditor' }
       , this.renderCover()
       , el(
         'div'
@@ -176,7 +171,7 @@ function makeChange (path, onChange) {
 function renderFields (schema, metadata = {}, onChange) {
   let fields = []
   if (schema.title) {
-    fields.push(renderTextField('title', 'TITLE', metadata.title.substr(0,metadata.title.indexOf('.')), onChange))
+    fields.push(renderTextField('title', 'TITLE', metadata.title.substr(0, metadata.title.indexOf('.')), onChange))
   }
   if (schema.description) {
     fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))

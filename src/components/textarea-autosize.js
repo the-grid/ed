@@ -4,7 +4,7 @@ import React, {createElement as el} from 'react'
 import {sans} from './rebass-theme'
 
 const containerStyle =
-  { fontFamily: sans 
+  { fontFamily: sans
   , fontSize: 12
   }
 

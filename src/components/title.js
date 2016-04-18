@@ -1,3 +1,5 @@
+require('./title.css')
+
 import React, {createElement as el} from 'react'
 import TextareaAutosize from './textarea-autosize'
 

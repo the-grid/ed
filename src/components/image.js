@@ -19,9 +19,8 @@ export default function Image (props, context) {
       }
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
-  const style = {}
   return el('div', {className: 'Image'}
-    , el('img', {src: src})  
+    , el('img', {src: src})
   )
 }
 Image.contextTypes = {
