@@ -1,3 +1,5 @@
+require('./fold-media.css')
+
 import React, {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 import Media from './media'
@@ -24,6 +26,7 @@ class FoldMedia extends React.Component {
     , { className: 'FoldMedia'
       , style:
         { margin: '0 auto'
+        , position: 'relative'
         }
       }
     , (block
@@ -43,14 +46,14 @@ class FoldMedia extends React.Component {
     , el('div'
       , { className: 'FoldMedia-Text'
         , style:
-          { maxWidth: 800
-          , margin: '0 auto -1em'
+          { maxWidth: 768
+          , margin: '0 auto 0'
           , padding: '0 0.5em'
           , fontSize: '200%'
           }
         }
       , el(TextareaAutosize
-        , { placeholder: 'Text or link to start post...'
+        , { placeholder: 'Type something or paste a link to start post...'
           , onKeyDown: this.shareKeyDown.bind(this)
           , onChange: this.onTextChange.bind(this)
           , defaultFocus: true
@@ -69,7 +72,7 @@ class FoldMedia extends React.Component {
           , onClick: this.shareLink.bind(this)
           , rounded: true
           }
-        , 'Add a link'
+        , 'Paste a Link'
         )
       , el('span'
         , { style:
@@ -85,7 +88,7 @@ class FoldMedia extends React.Component {
           , onClick: this.addPhoto.bind(this)
           , rounded: true
           }
-        , 'Add a photo'
+        , 'Upload a Photo'
         )
       , el('span'
         , { style:
@@ -101,7 +104,7 @@ class FoldMedia extends React.Component {
           , onClick: this.addMore.bind(this)
           , rounded: true
           }
-        , 'Add more'
+        , 'Write a Post'
         )
       )
     )

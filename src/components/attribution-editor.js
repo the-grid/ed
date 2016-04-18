@@ -41,12 +41,16 @@ class AttributionEditor extends React.Component {
         'div'
         , { className: 'AttributionEditor-metadata'
           , style:
-            { maxWidth: 800
-            , margin: '0px auto'
-            , padding: '2em 3em 0'
+            { width: '90%'
+            , margin: '-48px auto 36px'
+            , padding: '1.5em 3em 0'
             , background: '#fff'
-            , position: 'relative'
             , border: '1px solid #ddd'
+            , opacity: '.96'
+            , transition: '.1s all ease-out'
+            , zIndex: '2'
+            , position: 'relative'
+            , borderRadius: 2
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
@@ -54,8 +58,7 @@ class AttributionEditor extends React.Component {
           'div'
           , { className: 'AttributionEditor-links'
             , style:
-              { maxWidth: 800
-              , margin: '2em -3em 0'
+              { margin: '2em -3em 0'
               , position: 'relative'
               , top: 1
               }
@@ -91,8 +94,8 @@ class AttributionEditor extends React.Component {
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
-        , height: (height ? Math.min(height, 400) : 400)
-        , backgroundColor: '#ddd'
+        , zIndex: '1'
+        , position: 'relative'
         }
       }
     , el(Image, props)
@@ -179,7 +182,7 @@ function renderFields (schema, metadata = {}, onChange) {
 function renderTextField (key, label, value, onChange) {
   return el(TextareaAutosize
   , { className: `AttributionEditor-${key}`
-    , label
+    , placeholder: `Enter ${key}`
     , defaultValue: value
     , key: key
     , onChange: makeChange([key], onChange)

@@ -18,19 +18,19 @@
   font-family: Georgia, Times, serif;
   border: none;
   margin: 40px auto;
-  padding: 1rem 1rem 10rem 1rem;
+  padding: 1rem 3rem 7rem 3rem;
   white-space: pre-wrap;
-  max-width: 800px;
+  max-width: 856px;
 }
 
 /* Show where to click when not focused */
 .ProseMirror-content {
-  border: 1px dashed #ccc;
+  border: 1px dashed #ddd;
   border-radius: 7px;
 }
 
 .ProseMirror-content:after {
-  content: 'Link to image, video, other media...';
+  content: 'Type words, upload images, paste articles, videos, other media...';
   position: absolute;
   bottom: 18px;
   color: #ddd;
@@ -41,6 +41,12 @@
   background-color: transparent;
   border: 1px solid #fff;
 }
+
+.ProseMirror-focused .ProseMirror-content:after {
+  content: '';
+}
+
+
 
 /* Font junk */
 
@@ -73,7 +79,7 @@
   font-size: 125%;
 }
 .ProseMirror-content p {
-  font-size: 100%;
+  font-size: 80%;
 }
 .ProseMirror-content blockquote {
   font-size: 110%;

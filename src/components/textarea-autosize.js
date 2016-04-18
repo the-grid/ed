@@ -9,9 +9,9 @@ const containerStyle =
   }
 
 const areaStyle =
-  { fontFamily: 'inherit'
-  , fontSize: 18
-  , lineHeight: 1.5
+  { fontFamily: sans
+  //, fontSize: 18
+  //, lineHeight: 1.5
   , minHeight: '1.5rem'
   , display: 'block'
   , width: '100%'
@@ -19,11 +19,11 @@ const areaStyle =
   , resize: 'none'
   , color: 'inherit'
   , border: 0
-  , borderBottom: '1px solid #08e'
+  , borderBottom: '1px dotted rgba(0, 136, 238, .2)'
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'
-  , margin: '1em 0 2em 0'
+  , margin: '1.5rem 0 .75rem 0'
   }
 
 function resize () {
@@ -53,7 +53,7 @@ class TextareaAutosize extends React.Component {
     const {value} = this.state
 
     return el('div'
-    , { className: 'TextareaAutosize'
+    , { className: `TextareaAutosize ${this.props.className}`
       , style: containerStyle
       }
     , el('label'

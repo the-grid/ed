@@ -19,8 +19,9 @@ export default function Image (props, context) {
       }
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
-  const style = {backgroundImage: `url(${src})`}
-  return el('div', {className: 'Image', style})
+  return el('div', {className: 'Image'}
+    , el('img', {src: src})
+  )
 }
 Image.contextTypes = {
   imgfloConfig: React.PropTypes.object

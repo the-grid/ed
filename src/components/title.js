@@ -1,3 +1,5 @@
+require('./title.css')
+
 import React, {createElement as el} from 'react'
 import TextareaAutosize from './textarea-autosize'
 
@@ -14,7 +16,7 @@ export default function Title (props, context) {
     , style:
       { fontSize: '250%'
       , padding: '1em'
-      , maxWidth: 800
+      , maxWidth: 768
       , margin: 'auto'
       }
     }

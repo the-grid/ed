@@ -1,9 +1,10 @@
 .AttributionEditor {
 }
 
-.AttributionEditor-title {
-  font-size: 20px !important;
-  line-height: 24px !important;
+.AttributionEditor-title textarea {
+  font-size: 64px !important;
+  margin-top: 0 !important;
+  line-height: 1.2;
 }
 
 .AttributionEditor-links {
@@ -14,4 +15,14 @@
 
 .AttributionEditor-links > * {
   vertical-align: middle;
+}
+
+.AttributionEditor-metadata:hover {
+  opacity: 1 !important;
+}
+
+@media screen and (min-width: 1000px){
+  .AttributionEditor-cover {
+    
+  }
 }

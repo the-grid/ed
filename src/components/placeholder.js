@@ -45,6 +45,7 @@ function makePreview (id, store) {
       , height: 72
       , display: 'inline-block'
       , margin: '0px 16px'
+      , overflow: 'hidden'
       }
     }
   , el(Image, {src: preview})

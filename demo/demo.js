@@ -64,7 +64,8 @@ function makeInputOnChange (index) {
     let names = []
     for (let i = 0, len = input.files.length; i < len; i++) {
       const file = input.files[i]
-      names.push(file.name)
+      const name = file.name.substr(0, file.name.indexOf('.'))
+      names.push(name)
     }
 
     // Insert placeholder blocks into content

@@ -1,0 +1,16 @@
+.FoldMedia .AttributionEditor-cover{
+  min-height: 400px;
+  background: #ddd;
+}
+
+.FoldMedia .AttributionEditor-metadata {
+  padding: 2em 3em 0;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+@media screen and (min-width: 1000px){
+  .FoldMedia .AttributionEditor-metadata{
+    max-width: 856px !important;
+  }
+}
