@@ -434,5 +434,29 @@ describe('Ed', function () {
         }
       )
     })
+
+    it('correctly triggers onShareFile', function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+
+      function onMount () {
+        ed.execCommand('ed_upload_image')
+      }
+
+      function onShareFile (index) {
+        expect(index).to.equal(0)
+        done()
+      }
+
+      ed = new Ed(
+        { container: mount
+        , initialContent: fixture
+        , onChange: function () {}
+        , onShareUrl: function () {}
+        , onShareFile
+        , onMount
+        }
+      )
+    })
   })
 })
