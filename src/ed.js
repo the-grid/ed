@@ -366,11 +366,11 @@ export default class Ed {
       if (!fold.metadata) {
         fold.metadata = {}
       }
+      fold.metadata.starred = true
       const html = metaToHtml(fold)
       if (html) {
         fold.html = html
       }
-      fold.metadata.starred = true
       content.unshift(fold)
     }
     return content
