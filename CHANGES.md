@@ -1,6 +1,9 @@
 ## dev
 
-* Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes.
+## 0.10.4 - 2016-04-19
+
+* Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes. (#182)
+* Styling meta titles for small screens (#176)
 
 ## 0.10.3 - 2016-04-18
 
