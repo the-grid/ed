@@ -13,10 +13,21 @@ describe('DocToGrid', function () {
       , {type: 'h2', html: '<h2>heading 2</h2>'}
       , {type: 'h3', html: '<h3>heading 3</h3>'}
       , {type: 'text', html: '<p>paragraph 1</p>'}
-      , {id: 'image-0000', type: 'image'}
+      , { id: 'image-0000'
+        , type: 'image'
+        , cover: {src: '..jpg'}
+        , html: '<img src="..jpg">'
+        }
       , {id: 'video-0000', type: 'video'}
       , {type: 'quote', html: '<blockquote><p>bq</p></blockquote>'}
       ]
+    const map = {}
+    for (let i = 0, len = content.length; i < len; i++) {
+      const block = content[i]
+      if (block.id) {
+        map[block.id] = block
+      }
+    }
     const doc =
       { 'type': 'doc'
       , 'content':
@@ -63,7 +74,7 @@ describe('DocToGrid', function () {
 
     it('correctly converts full Doc to Grid content', function () {
       const node = Node.fromJSON(EdSchemaFull, doc)
-      const contentOut = DocToGrid(node, content)
+      const contentOut = DocToGrid(node, map)
       expect(contentOut).to.deep.equal(content)
     })
   })
