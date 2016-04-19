@@ -16,7 +16,8 @@ export default function Placeholder (props, context) {
   const theme = (failed === true ? 'error' : 'info')
 
   return el('div'
-  , {className: `Placeholder Placeholder-${theme}`}
+  , { className: `Placeholder Placeholder-${theme}`
+    }
   , el(Message
     , { theme
       , style: {marginBottom: 0}

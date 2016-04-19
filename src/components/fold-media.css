@@ -9,6 +9,10 @@
   border: 1px solid #ddd;
 }
 
+.FoldMedia .Placeholder {
+  padding: 0 90px;
+}
+
 @media screen and (min-width: 1000px){
   .FoldMedia .AttributionEditor-metadata{
     max-width: 856px !important;
