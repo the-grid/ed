@@ -21,8 +21,8 @@
   opacity: 1 !important;
 }
 
-@media screen and (min-width: 1000px){
-  .AttributionEditor-cover {
-    
+@media screen and (max-width: 550px){
+  .AttributionEditor-title textarea {
+    font-size: 32px !important;
   }
 }
