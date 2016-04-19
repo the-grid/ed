@@ -186,5 +186,13 @@ Outputs minified dist/ed.js and copies widgets defined in [package.json](./packa
 
 ## deploying
 
-Travis will publish tags to [npm](https://www.npmjs.com/package/@the-grid/ed)
+`npm version patch` - style tweaks, hot bug fixes
+
+`npm version minor` - adding features, backwards-compatible changes
+
+`npm version major` - removing features, non-backwards-compatible changes
+
+These shortcuts will run tests, tag, change package version, and push changes and tags to GH.
+
+Travis will then publish new tags to [npm](https://www.npmjs.com/package/@the-grid/ed)
 and build the demo to publish to [gh-pages](https://the-grid.github.io/ed/).
