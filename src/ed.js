@@ -7,7 +7,7 @@ import uuid from 'uuid'
 import {TextSelection} from 'prosemirror/src/edit/selection'
 
 import GridToDoc from './convert/grid-to-doc'
-import DocToGrid from './convert/doc-to-grid'
+import DocToGrid, {metaToHtml} from './convert/doc-to-grid'
 import determineFold from './convert/determine-fold'
 
 import App from './components/app'
@@ -367,6 +367,10 @@ export default class Ed {
         fold.metadata = {}
       }
       fold.metadata.starred = true
+      const html = metaToHtml(fold)
+      if (html) {
+        fold.html = html
+      }
       content.unshift(fold)
     }
     return content

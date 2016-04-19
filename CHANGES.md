@@ -1,5 +1,7 @@
 ## dev
 
+* Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes.
+
 ## 0.10.3 - 2016-04-18
 
 * Styling covers like cards (#177)

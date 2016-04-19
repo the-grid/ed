@@ -291,11 +291,13 @@ describe('Ed', function () {
             , type: 'image'
             , cover: {src: '...a.jpg'}
             , metadata: {starred: true}
+            , html: '<img src="...a.jpg">'
             }
           , { type: 'h1', html: '<h1>Title</h1>' }
           , { id: ids[1]
             , type: 'image'
             , cover: {src: '...b.jpg'}
+            , html: '<img src="...b.jpg">'
             }
           , { type: 'text', html: '<p>Text 1</p>' }
           , { type: 'text', html: '<p>Text 2</p>' }
@@ -331,7 +333,7 @@ describe('Ed', function () {
 
   describe('The Fold', function () {
     const fixture =
-      [ {id: '0000', type: 'image', cover: {src: 'http://fo.co/j.jpg'}}
+      [ {id: '0000', type: 'image', cover: {src: '..j.jpg'}}
       , {type: 'text', html: '<p>Text 1</p>'}
       ]
 
@@ -367,8 +369,9 @@ describe('Ed', function () {
         const expected =
           [ { id: '0000'
             , type: 'image'
-            , cover: {src: 'http://fo.co/j.jpg'}
+            , cover: {src: '..j.jpg'}
             , metadata: {starred: true}
+            , html: '<img src="..j.jpg">'
             }
           , {type: 'text', html: '<p>Text 1</p>'}
           ]

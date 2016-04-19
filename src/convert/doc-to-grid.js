@@ -1,5 +1,6 @@
 import {toDOM} from 'prosemirror/src/format'
 import {isMediaType} from './types'
+import BlockMetaSchema from '../schema/block-meta'
 
 export default function (doc, apiContentMap) {
   const fragment = toDOM(doc)
@@ -21,6 +22,12 @@ export default function (doc, apiContentMap) {
     if (!isMedia) {
       apiBlock.html = child.outerHTML
     }
+    if (isMedia) {
+      const html = metaToHtml(apiBlock)
+      if (html) {
+        apiBlock.html = html
+      }
+    }
     currentContent[i] = apiBlock
   }
 
@@ -37,5 +44,14 @@ function translateIrregularGridTypes (type) {
       return 'text'
     default:
       return type
+  }
+}
+
+// Uuuugggghh.
+export function metaToHtml (block) {
+  const {type} = block
+  const schema = BlockMetaSchema[type]
+  if (schema && schema.makeHtml) {
+    return schema.makeHtml(block.metadata, block.cover)
   }
 }
