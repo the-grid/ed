@@ -1,5 +1,9 @@
 ## dev
 
+## 0.10.5 - 2016-04-19
+
+* FIX -- "Upload Image" button was triggering `onShareFile` callback twice (#179)
+
 ## 0.10.4 - 2016-04-19
 
 * Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes. (#182)
