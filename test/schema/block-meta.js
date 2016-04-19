@@ -11,7 +11,7 @@ describe('BlockMeta', function () {
       'image', 'video', 'quote', 'article', 'default'
     ])
   })
-  
+
   describe('Type image', function () {
     const image =
       { type: 'image'
@@ -27,14 +27,14 @@ describe('BlockMeta', function () {
     it('gives expected html out', function () {
       const html = BlockMeta.image.makeHtml(image.metadata, image.cover)
       expect(html).to.equal(
-        `<img src="http://....jpg" title="Title" alt="Description y&ouml;">`
+        '<img src="http://....jpg" title="Title" alt="Description y&ouml;">'
       )
     })
     it('gives html that survives html-flatten', function (done) {
       survivesHtmlFlatten(image, done)
     })
   })
-  
+
   describe('Type article', function () {
     const article =
       { type: 'article'
@@ -50,11 +50,11 @@ describe('BlockMeta', function () {
     it('gives expected html out', function () {
       const html = BlockMeta.article.makeHtml(article.metadata, article.cover)
       expect(html).to.equal(
-        `<article>` +
-          `<img src="http://....jpg">` +
-          `<h1>Title y&ouml;</h1>` +
-          `<p>Description</p>` +
-        `</article>`
+        '<article>' +
+          '<img src="http://....jpg">' +
+          '<h1>Title y&ouml;</h1>' +
+          '<p>Description</p>' +
+        '</article>'
       )
     })
     it('gives html that survives html-flatten', function (done) {

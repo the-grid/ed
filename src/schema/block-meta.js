@@ -47,7 +47,7 @@ const blockMetaSchema =
   }
 
 function makeImage (metadata, cover) {
-  let htmlString = `<img`
+  let htmlString = '<img'
   if (cover && cover.src) {
     htmlString += ` src="${cover.src}"`
   }
@@ -57,10 +57,10 @@ function makeImage (metadata, cover) {
   if (metadata && metadata.description) {
     htmlString += ` alt="${encode(metadata.description)}"`
   }
-  htmlString += `>`
+  htmlString += '>'
   return htmlString
 }
-  
+
 // function makeFigure (metadata, cover) {
 //   let htmlString = `<figure>`
 //   if (cover && cover.src) {
@@ -76,17 +76,17 @@ function makeImage (metadata, cover) {
 // }
 
 function makeArticle (metadata, cover) {
-  let htmlString = `<article>`
+  let htmlString = '<article>'
   if (cover && cover.src) {
     htmlString += `<img src="${cover.src}">`
   }
   htmlString += makeTitleDescription(null, metadata)
-  htmlString += `</article>`
+  htmlString += '</article>'
   return htmlString
 }
 
 function makeTitleDescription (tag, metadata) {
-  let htmlString = ``
+  let htmlString = ''
   if (metadata && metadata.title) {
     htmlString += `<h1>${encode(metadata.title)}</h1>`
   }
