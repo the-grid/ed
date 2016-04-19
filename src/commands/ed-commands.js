@@ -27,9 +27,9 @@ commands.ed_upload_image =
             el.addEventListener('mousedown', function (event) {
               // HACK around #44
               event.stopPropagation()
+              event.stopImmediatePropagation()
             })
             el.addEventListener('click', function (event) {
-              event.stopPropagation()
               triggerUpload(pm)
             })
             return el
