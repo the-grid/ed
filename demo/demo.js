@@ -42,6 +42,8 @@ setup({menu, initialContent})
 // onShareFile upload demo
 let input
 function onShareFileDemo (index) {
+  console.log('onShareFile: app triggers native picker', index)
+
   // Remove old input from DOM
   if (input && input.parentNode) {
     input.parentNode.removeChild(input)
@@ -109,8 +111,7 @@ document.getElementById('upload').onclick = function () {
 // onShareUrl demo
 function onShareUrlDemo (share) {
   const {block, url} = share
-  console.log(share)
-  console.log('app shares url now and calls ed.setContent() with updates')
+  console.log('onShareUrl: app shares url now and calls ed.updatePlaceholder() with updates', share)
 
   simulateProgress(
     function (progress) {

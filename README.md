@@ -51,12 +51,13 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     },
     onShareFile: function (index) {
       /* App makes placeholder block(s) and calls ed.insertPlaceholders(index, count) */
-      /* App uploads files and sets status on placeholder blocks with ed.setContent */
+      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     onShareUrl: function ({block, url}) {
       /* Ed made the placeholder with block id */
       /* App shares url with given block id */
+      /* App updates status on placeholder blocks with ed.updatePlaceholder */
       /* On share / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     onPlaceholderCancel: function (id) {
