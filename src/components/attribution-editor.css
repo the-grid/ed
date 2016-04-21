@@ -21,8 +21,12 @@
   opacity: 1 !important;
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 728px){
   .AttributionEditor-title textarea {
     font-size: 32px !important;
+  }
+
+  .AttributionEditor-metadata {
+    padding: 1.5em;
   }
 }

@@ -53,7 +53,7 @@ class FoldMedia extends React.Component {
           }
         }
       , el(TextareaAutosize
-        , { placeholder: 'Type something or paste a link to start post...'
+        , { placeholder: 'Link to a photo, video or article to start...'
           , onKeyDown: this.shareKeyDown.bind(this)
           , onChange: this.onTextChange.bind(this)
           , defaultFocus: true
@@ -67,13 +67,6 @@ class FoldMedia extends React.Component {
           , padding: '0.75em'
           }
         }
-      , el(ButtonOutline
-        , { style: buttonStyle
-          , onClick: this.shareLink.bind(this)
-          , rounded: true
-          }
-        , 'Paste a Link'
-        )
       , el('span'
         , { style:
             { margin: '0 12px'
