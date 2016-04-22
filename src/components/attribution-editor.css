@@ -103,7 +103,7 @@
 
 .AttributionEditor-cover .cover-buttons button svg {
   width: 14px;
-  margin-top: 1em;
+  margin: .5em 0 .75em;
 }
 
 .AttributionEditor-cover .cover-buttons button svg path {
@@ -123,5 +123,9 @@
   top: 0;
   left: 0;
   right: 0;
+}
+
+.AttributionEditor .Placeholder img{
+
 }
 

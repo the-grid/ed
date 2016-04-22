@@ -233,7 +233,6 @@ class AttributionEditor extends React.Component {
           , onClick: this.addPhoto.bind(this,id)
           , rounded: true
           }
-        , 'Upload Cover Photo'
         , el('div'
         ,   { style:{width:'18px !important', height:'18px !important', margin:3}
             , dangerouslySetInnerHTML:{
@@ -253,6 +252,7 @@ class AttributionEditor extends React.Component {
             }
           }
         )
+        , 'Upload Cover Photo'
       )
     )
   }
