@@ -8,7 +8,7 @@
   text-align: center;
 }
 
-@media screen and (min-width:550px) {
+@media screen and (min-width:728px) {
   .FoldTitle {
     font-size: 3rem;
   }

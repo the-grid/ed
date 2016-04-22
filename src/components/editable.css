@@ -24,7 +24,7 @@
   font-family: Georgia, Times, serif;
   border: none;
   margin: 40px auto;
-  padding: 1rem 3rem 3rem 3rem;
+  padding: 1rem;
   white-space: pre-wrap;
   max-width: 856px;
 }
@@ -160,11 +160,8 @@
 .ProseMirror-content {
   font-size: 1.2rem;
 }
-@media screen and (max-width: 728px) {
+@media screen and (min-width: 728px) {
   .ProseMirror-content {
-    padding: 1rem;
-  }
-  .ProseMirror-content p {
-    font-size: 100% !important;
+    padding: 1rem 3rem 3rem 3rem;
   }
 }
