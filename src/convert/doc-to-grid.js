@@ -30,8 +30,26 @@ export default function (doc, apiContentMap) {
     }
     currentContent[i] = apiBlock
   }
+  let results = removeEmptyTailBlocks(currentContent)
+  console.log("doc-to-grid() ==>",results)
+  return results
+}
 
-  return currentContent
+function removeEmptyTailBlocks(content) {
+  let notEmptyFound = false
+  let i = content.length
+  while (i > 0 && !notEmptyFound) {
+    i--
+    let block = content[i]
+    console.log(block,notEmptyFound)
+    if (block.type === "text" && block.html === "<p></p>" && !notEmptyFound) {
+      // mutate
+      content.splice(i,1)
+    } else {
+      notEmptyFound = true
+    }
+  }
+  return content
 }
 
 

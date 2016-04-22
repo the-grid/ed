@@ -2,6 +2,10 @@ import {isMediaType} from './types'
 
 
 export default function spaceContent (items) {
+  console.log("spaceContent() items:", items)
+  if (items.length <= 1) {
+    return items
+  }
   let spacedItems = []
   for (let i = 0, len = items.length; i < len; i++) {
     const item = items[i]

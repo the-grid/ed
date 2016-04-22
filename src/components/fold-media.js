@@ -8,6 +8,7 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 import uuid from 'uuid'
 import {extractUrl} from '../util/url'
 
+
 const buttonStyle =
   { textTransform: 'uppercase'
   , borderRadius: 4
@@ -21,6 +22,38 @@ class FoldMedia extends React.Component {
     this.state = {linkOpen: false}
   }
   render () {
+    const {store} = this.context
+    let {block} = this.props
+    console.log("render fold media", JSON.stringify(this.props))
+    //if (!block) {
+    //  store.routeChange('FOLD_MEDIA_INIT'
+    //  , { id: uuid.v4()
+    //    , type: 'image'
+    //    , metadata: {starred: true}
+    //    //, html: `<h1>${value}</h1>`
+    //    }
+    //  )
+    //  return null
+    //}
+    return el('div'
+    , { className: 'FoldMedia'
+      , style:
+        { margin: '0 auto'
+        , position: 'relative'
+        }
+      }
+    , (block
+      ? el(Media
+        , { initialBlock: block
+          , id: block.id
+          , key: block.id
+          }
+        )
+      : this.renderAddMedia()
+      )
+    )
+  }
+  renderOLD () {
     const {block} = this.props
     return el('div'
     , { className: 'FoldMedia'

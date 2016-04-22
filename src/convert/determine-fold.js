@@ -24,5 +24,6 @@ export default function determineFold (items, previews) {
     }
     content.push(item)
   }
+  console.log("determineFold() ==>",{media, content})
   return {media, content}
 }

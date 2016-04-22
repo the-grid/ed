@@ -7,6 +7,7 @@ import EdSchemaFull from '../schema/ed-schema-full'
 
 
 export default function (items, schema = EdSchemaFull) {
+  console.log('grid-to-doc() items:',items)
   items = spaceContentWithEmptyText(items)
   let elements = itemsToEls(items)
   var container = document.createElement('div')
@@ -31,6 +32,7 @@ function itemToDOM (item) {
   } else {
     return null
   }
+  console.log('grid-to-doc: itemToDom()',el)
   return el
 }
 

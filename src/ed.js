@@ -67,6 +67,9 @@ export default class Ed {
     ReactDOM.unmountComponentAtNode(this.container)
   }
   routeChange (type, payload) {
+
+    console.log("routeChange", {type, payload})
+
     switch (type) {
       case 'EDITABLE_INITIALIZE':
         this._editableInitialize(payload)
@@ -123,6 +126,12 @@ export default class Ed {
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
         break
+      case 'FOLD_MEDIA_EMPTY':
+        this._initializeContent([payload])
+        this._foldMedia = payload.id
+        this.trigger('fold.media.change', payload)
+        this.trigger('change')
+        break
       case 'FOLD_MEDIA_INIT':
         this._initializeContent([payload])
         this._foldMedia = payload.id
@@ -164,6 +173,7 @@ export default class Ed {
     this.pm = editableView.pm
   }
   _initializeContent (content) {
+    console.log("_initializeContent( content:", content)
     for (let i = 0, len = content.length; i < len; i++) {
       const block = content[i]
       if (!block || !block.id) {
