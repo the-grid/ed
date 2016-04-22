@@ -67,6 +67,13 @@ class FoldMedia extends React.Component {
           , padding: '0.75em'
           }
         }
+      , el(ButtonOutline
+        , { style: buttonStyle
+          , onClick: this.shareLink.bind(this)
+          , rounded: true
+          }
+        , 'Paste a Link'
+        )
       , el('span'
         , { style:
             { margin: '0 12px'
