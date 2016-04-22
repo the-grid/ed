@@ -18,7 +18,8 @@ const theme =
     }
   , ButtonOutline:
     { fontFamily: sans
-    , boxShadow: 'inset 0 0 0 1px #ddd'
+    , boxShadow: 'inset 0 0 0 0px'
+    , border: '1px solid'
     }
   , NavItem:
     { fontFamily: sans

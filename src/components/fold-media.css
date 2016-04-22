@@ -22,9 +22,9 @@
     max-width: 856px !important;
   }
   .FoldMedia .AttributionEditor-cover{
-    min-height: 400px;
+    min-height: 300px;
   }
-  .FoldMedia .AttributionEditor-cover img{
-    min-height: 400px;
+  .Placeholder img {
+    min-height: 100px !important;
   }
 }

@@ -2,9 +2,10 @@
 }
 .AttributionEditor-cover{
   min-height: 136px;
+  background: #ddd;
+  overflow: hidden;
 }
 .FoldMedia .AttributionEditor-cover{
-  background: #ddd;
   min-height: 240px;
 }
 
@@ -20,6 +21,7 @@
 }
 .FoldMedia .AttributionEditor-description textarea {
   font-size: 16px !important;
+  font-family: Georgia, Times, serif !important;
 }
 
 .AttributionEditor {
@@ -63,25 +65,57 @@
   }
 }
 
+.AttributionEditor-cover:hover {
+  transition: .2s;
+  background: #eee;
+}
 
 .AttributionEditor-cover .cover-buttons {
-  opacity: 0;
+  opacity: .3;
   position: absolute;
-  top: 24px;
+  top: 40%;
+  transform: scale(1.05) translateY(-50%);
   width: 100%;
-  transform: scaleY(.1) translate3d(0px,-12px,0px);
   transition: transform .2s ease-out, opacity .2s;
 }
+
+.AttributionEditor-cover img {
+  transition: .2s;
+}
+
+.AttributionEditor-cover:hover img {
+  opacity: .1;
+  transform: scale(1.05);
+}
+
 .AttributionEditor-cover:hover .cover-buttons {
   visibility: visible;
   opacity: 1;
-  transform: scaleY(1) translate3d(0px,0px,0px);
+  transform: scale(1) translateY(-50%);
 }
 
 .AttributionEditor-cover .cover-buttons button {
   margin-left: 1em;
   margin-right: 1em;
+  color: #222 !important;
+  transition: .1s;
+}
 
+.AttributionEditor-cover .cover-buttons button svg {
+  width: 14px;
+  margin-top: 1em;
+}
+
+.AttributionEditor-cover .cover-buttons button svg path {
+  fill: #222;
+}
+
+.AttributionEditor-cover .cover-buttons button:hover {
+  color: #2196EF !important;
+}
+
+.AttributionEditor-cover .cover-buttons button:hover svg path {
+  fill: #2196EF !important;
 }
 
 .AttributionEditor .Placeholder {

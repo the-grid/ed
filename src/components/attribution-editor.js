@@ -233,7 +233,27 @@ class AttributionEditor extends React.Component {
           , onClick: this.addPhoto.bind(this,id)
           , rounded: true
           }
-        , 'Upload Cover Photo' )
+        , 'Upload Cover Photo'
+        , el('div'
+        ,   { style:{width:'18px !important', height:'18px !important', margin:3}
+            , dangerouslySetInnerHTML:{
+              __html:`
+                <svg x="0px" y="0px"
+                   viewBox="30.8 -15.7 833.2 879.7" enable-background="new 30.8 -15.7 833.2 879.7" xml:space="preserve">
+                <g>
+                  <path fill="#2196EF" d="M751.6,864c59.2,0,112.4-47.3,112.4-112.4V491.2c0-35.5-29.6-59.2-59.2-59.2c-35.5,0-59.2,23.7-59.2,59.2
+                    v254.5H149.2V491.2c0-35.5-23.7-59.2-59.2-59.2c-29.6,0-59.2,23.7-59.2,59.2v260.4c0,65.1,53.3,112.4,112.4,112.4H751.6z"/>
+                  <path fill="#2196EF" d="M447.4,583.8c16.7,0,29.3-4.2,41.8-16.7c12.6-12.6,16.7-25.1,16.7-41.8l0-315l67,67
+                    c25.1,25.1,58.6,25.1,83.7,0c25.1-25.1,25.1-58.6,0-83.7c0,0-209.2-209.2-209.2-209.2L238.2,193.5c-25.1,25.1-25.1,58.6,0,83.7
+                    c25.1,25.1,58.6,25.1,83.7,0l67-67l0,315c0,16.7,4.2,29.3,16.7,41.8C418.1,579.6,430.7,583.8,447.4,583.8z"/>
+                </g>
+                <line fill="#2196EF" x1="751.6" y1="864" x2="143.3" y2="864"/>
+                </svg>
+              `
+            }
+          }
+        )
+      )
     )
   }
   removeMedia (id) {
@@ -268,16 +288,17 @@ class AttributionEditor extends React.Component {
     let props = {src, width, height, key:'image'}
     return el('div'
       , {}
+      , el(Image, props)
       , el('div'
           , {className:"cover-buttons"}
-          , el(Button
+          , el(ButtonOutline
             , { key: 'change-cover-photo'
               , style: buttonStyle
               , onClick: this.addPhoto.bind(this,id)
               , rounded: true
               }
             , 'Change Cover Photo' )
-          , el(Button
+          , el(ButtonOutline
             , { key: 'remove-cover-photo'
               , style: buttonStyle
               , onClick: this.removeMedia.bind(this,id)
@@ -285,8 +306,6 @@ class AttributionEditor extends React.Component {
               }
             , 'Remove Cover Photo' )
         )
-      , el(Image, props)
-
     )
 
   }
