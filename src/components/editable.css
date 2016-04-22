@@ -5,7 +5,10 @@
 .ProseMirror-content:not(:focus):after {
   content: 'Type here or paste links to images, articles, videos...';
   display: block; /* For Firefox */
-  opacity: .2;
+      position: relative;
+      opacity: .2;
+      bottom: 1em;
+
 }
 
 .Ed {
@@ -31,7 +34,7 @@
 
 /* Show where to click when not focused */
 .ProseMirror-content {
-  border: 1px dashed #ddd;
+  /*border: 1px dashed #ddd;*/
   border-radius: 7px;
 }
 

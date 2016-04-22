@@ -22,6 +22,10 @@ export default function determineFold (items, previews) {
       media = item
       continue
     }
+    if (id && id.indexOf('COVER_') === 0) {
+      media = item
+      continue
+    }
     content.push(item)
   }
   console.log("determineFold() ==>",{media, content})

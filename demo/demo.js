@@ -57,6 +57,7 @@ function onShareFileDemo (index) {
   document.body.appendChild(input)
   input.click()
 }
+
 function makeInputOnChange (index) {
   return function (event) {
     event.stopPropagation()
@@ -73,9 +74,11 @@ function makeInputOnChange (index) {
     // Insert placeholder blocks into content
     const ids = ed.insertPlaceholders(index, names.length)
 
+    let urls = []
     for (let i = 0, len = input.files.length; i < len; i++) {
       const file = input.files[i]
       const url = URL.createObjectURL(file)
+      urls.push(url)
       ed.setCoverPreview(ids[i], url)
     }
 
@@ -90,9 +93,12 @@ function makeInputOnChange (index) {
       },
       function () {
         const updatedBlocks = ids.map(function (id, index) {
+          // TODO!!!
+          ed.updatePlaceholder(id, {cover:{src:urls[index]}})
           return (
             { id
             , type: 'image'
+            , cover:{src:urls[index]} //!!!! TODO
             , metadata: {title: names[index]}
             }
           )
@@ -140,7 +146,7 @@ function onShareUrlDemo (share) {
 function simulateProgress (progress, complete) {
   let percent = 0
   let animate = function () {
-    percent += 0.5
+    percent += 1
     if (percent < 100) {
       // Loop animation
       requestAnimationFrame(animate)

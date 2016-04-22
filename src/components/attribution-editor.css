@@ -1,10 +1,33 @@
 .AttributionEditor {
 }
+.AttributionEditor-cover{
+  min-height: 136px;
+}
+.FoldMedia .AttributionEditor-cover{
+  background: #ddd;
+  min-height: 240px;
+}
 
-.AttributionEditor-title textarea {
+:not(.FoldMedia) > .AttributionEditor-title textarea {
+  font-size: 20px !important;
+  margin-top: 0 !important;
+  line-height: 1.2;
+}
+.FoldMedia .AttributionEditor-title textarea {
   font-size: 32px !important;
   margin-top: 0 !important;
   line-height: 1.2;
+}
+.FoldMedia .AttributionEditor-description textarea {
+  font-size: 16px !important;
+}
+
+.AttributionEditor {
+  margin-top: 0 !important;
+}
+
+:not(.FoldMedia) > .AttributionEditor {
+  background-color: hsl(0,0%,98.3%);
 }
 
 .AttributionEditor-links {
@@ -27,9 +50,44 @@
 
 @media screen and (min-width: 728px){
   .AttributionEditor-title textarea {
+    font-size: 32px !important;
+  }
+  .FoldMedia .AttributionEditor-title textarea {
     font-size: 64px !important;
+  }
+  .FoldMedia .AttributionEditor-description textarea {
+    font-size: 20px !important;
   }
   .AttributionEditor-metadata {
     padding: 2em 3em 0 !important;
   }
 }
+
+
+.AttributionEditor-cover .cover-buttons {
+  opacity: 0;
+  position: absolute;
+  top: 24px;
+  width: 100%;
+  transform: scaleY(.1) translate3d(0px,-12px,0px);
+  transition: transform .2s ease-out, opacity .2s;
+}
+.AttributionEditor-cover:hover .cover-buttons {
+  visibility: visible;
+  opacity: 1;
+  transform: scaleY(1) translate3d(0px,0px,0px);
+}
+
+.AttributionEditor-cover .cover-buttons button {
+  margin-left: 1em;
+  margin-right: 1em;
+
+}
+
+.AttributionEditor .Placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+

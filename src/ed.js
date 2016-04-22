@@ -17,6 +17,7 @@ function noop () {}
 
 export default class Ed {
   constructor (options) {
+    window.ed = this
     if (!options) {
       throw new Error('Missing options')
     }
@@ -40,6 +41,22 @@ export default class Ed {
     this._events = {}
     this._content = {}
     this._coverPreviews = {}
+
+    if (!options.initialContent.length) {
+      options.initialContent = [
+        {
+          "id": "COVER_" + uuid.v4(),
+          "type": "image",
+          "metadata": {
+            "title": "",
+            "description": "",
+            "starred": true
+          },
+          "html": "<img title=\"\">"
+        }
+      ]
+    }
+
     this._initializeContent(options.initialContent)
     const {media, content} = determineFold(options.initialContent, this._coverPreviews)
     this._foldMedia = (media ? media.id : null)
@@ -125,6 +142,15 @@ export default class Ed {
         break
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
+        break
+      case 'FOLD_MEDIA_COVER_REMOVE':
+        this._coverPreviews[payload.id] = undefined
+        this.trigger('update.block.metadata.'+payload.id, {cover:"REMOVE"})
+        break
+      case 'FOLD_MEDIA_UPLOAD_AND_REPLACE':
+        let __id = payload.id
+        if (!__id) throw new Error ('FOLD_MEDIA_UPLOAD_AND_REPLACE requires {id}')
+        this.onShareFile(__id)
         break
       case 'FOLD_MEDIA_EMPTY':
         this._initializeContent([payload])
@@ -301,20 +327,31 @@ export default class Ed {
     // Render
     this._setMergedContent(newContent)
   }
-  insertPlaceholders (index, count) {
+  insertPlaceholders (index_or_id, count) {
     let toInsert = []
     let ids = []
-    for (let i = 0, length = count; i < length; i++) {
-      const id = uuid.v4()
-      ids.push(id)
-      toInsert.push(
-        { id
-        , type: 'placeholder'
-        , metadata: {}
-        }
-      )
+
+    // WTF??? b/c otherwise we must change external API
+    let block = this.getBlock(index_or_id)
+    if (block) {
+      // TODO: handle multiple files or limit to one when updating a media block's cover
+      ids = [index_or_id]
     }
-    this._insertBlocks(index, toInsert)
+    else {
+      let index = index_or_id
+      for (let i = 0, length = count; i < length; i++) {
+        const id = uuid.v4()
+        ids.push(id)
+        toInsert.push(
+          { id
+          , type: 'placeholder'
+          , metadata: {}
+          }
+        )
+      }
+      this._insertBlocks(index, toInsert)
+    }
+
     return ids
   }
   updatePlaceholder (id, metadata) {
@@ -322,20 +359,29 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not update this placeholder block')
     }
-    if (block.type !== 'placeholder') {
-      throw new Error('Block is not a placeholder block')
-    }
-    // Mutation
+
+    //if (block.type !== 'placeholder') {
+    //  throw new Error('Block is not a placeholder block')
+    //}
+
     const {status, progress, failed} = metadata
-    if (status != null) block.metadata.status = status
-    if (progress != null) block.metadata.progress = progress
-    if (failed != null) block.metadata.failed = failed
-    // Let content widgets know to update
-    this.trigger('media.update')
-    // Let fold media know to update
-    if (this._foldMedia && this._foldMedia === id) {
-      this.trigger('fold.media.change', block)
+
+    if (block.type === 'placeholder') {
+      // Mutation
+      if (status != null) block.metadata.status = status
+      if (progress != null) block.metadata.progress = progress
+      if (failed != null) block.metadata.failed = failed
+      // Let content widgets know to update
+      this.trigger('media.update')
+      // Let fold media know to update
+      if (this._foldMedia && this._foldMedia === id) {
+        this.trigger('fold.media.change', block)
+      }
     }
+    else {
+      this.trigger('update.block.metadata.'+id, metadata)
+    }
+
   }
   _placeholderCancel (id) {
     let block = this.getBlock(id)
@@ -429,8 +475,10 @@ function arrayInsertAll (array, index, arrayToInsert) {
 }
 
 function mergeContent (oldContent, newContent) {
+
   // Only add new placeholders and update exiting placeholders
   let merged = oldContent.slice()
+
   // New placeholders
   for (let i = 0, len = newContent.length; i < len; i++) {
     const block = newContent[i]
@@ -443,6 +491,7 @@ function mergeContent (oldContent, newContent) {
       }
     }
   }
+
   // Old placeholders
   for (let i = 0, len = merged.length; i < len; i++) {
     const block = merged[i]

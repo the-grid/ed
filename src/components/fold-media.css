@@ -1,14 +1,20 @@
-.FoldMedia .AttributionEditor-cover{
-  background: #ddd;
-}
-
 .FoldMedia .AttributionEditor-metadata {
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid hsl(0, 0%, 99%) !important;
+  border-bottom: none !important;
+  box-shadow: 0px -1px 1px hsla(0,0%,0%,0.2);
 }
 
 .FoldMedia .Placeholder {
   padding: 0 90px;
+}
+
+.Ed-Divider {
+  opacity: .6;
+  transition: opacity .2s;
+}
+.Ed-Divider:hover {
+  opacity: 1;
 }
 
 @media screen and (min-width: 768px){
@@ -16,6 +22,9 @@
     max-width: 856px !important;
   }
   .FoldMedia .AttributionEditor-cover{
+    min-height: 400px;
+  }
+  .FoldMedia .AttributionEditor-cover img{
     min-height: 400px;
   }
 }

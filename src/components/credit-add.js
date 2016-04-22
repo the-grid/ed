@@ -5,15 +5,15 @@ import NavItemConfirm from './nav-item-confirm'
 
 
 export default function CreditAdd (props) {
-  const {schema, metadata, onClick} = props
+  const {schema, metadata, onClick, removable} = props
   return el('div'
   , { style: {} }
-  , makeLinks(schema, metadata, onClick)
+  , makeLinks(schema, metadata, onClick, removable)
   )
 }
 
 
-function makeLinks (schema, metadata = {}, onClick) {
+function makeLinks (schema, metadata = {}, onClick, removable=true) {
   let links = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl == null) {
     links.push(makeLink('isBasedOnUrl', 'Add Source Link', onClick))
@@ -25,7 +25,7 @@ function makeLinks (schema, metadata = {}, onClick) {
   if (schema.publisher && !metadata.publisher) {
     links.push(makeLink('publisher', 'Add Publisher', onClick))
   }
-  links.push(makeLink('delete', 'Remove Block', onClick, true))
+  if (removable) links.push(makeLink('delete', 'Delete Content', onClick, true))
   return links
 }
 

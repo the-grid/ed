@@ -47,6 +47,7 @@ class FoldMedia extends React.Component {
         , { initialBlock: block
           , id: block.id
           , key: block.id
+          , isCover: true
           }
         )
       : this.renderAddMedia()
@@ -67,7 +68,7 @@ class FoldMedia extends React.Component {
         , { initialBlock: block
           , id: block.id
           , key: block.id
-          }
+        }
         )
       : this.renderAddMedia()
       )

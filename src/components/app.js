@@ -82,7 +82,7 @@ class App extends React.Component {
         }
       }
     , el(HrLabel
-      , { label: 'Anything below this line will become an article page. Anything above will be featured on the home page.' }
+      , { label: "Anything below this fold is not guaranteed to be on your homepage" }
       )
     )
   }

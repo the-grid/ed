@@ -21,7 +21,6 @@ class Media extends React.Component {
     )
   }
   render () {
-    console.log("Media render()", this.props)
     const {type} = this.props.initialBlock
     let Component = Components[type] || Components.attribution
     return el(Component, this.props)
