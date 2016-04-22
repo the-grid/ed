@@ -2,3 +2,24 @@
   box-sizing: border-box;
   line-height: 1.5;
 }
+
+// Editor isn't small screen first so buttons and such are upsized for little 'uns
+
+@media screen and (max-width: 768px) {
+  .Ed button {
+    width: 100%;
+  }
+
+  .Ed .Ed-Divider {
+    margin: 80px 0;
+  }
+
+  .Ed .Menu {
+    width: 100%;
+  }
+
+  .Ed .NavItem {
+    font-size: 1.2em !important;
+    padding: 15px 20px !important;
+  }
+}

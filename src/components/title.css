@@ -1,4 +1,10 @@
 .Title textarea{
-  font-size: 64px;
+  font-size: 32px !important;
   margin-top: 0rem !important;
+  line-height: 1.2;
+}
+@media screen and (min-width: 728px){
+  .Title textarea {
+    font-size: 64px !important;
+  }
 }

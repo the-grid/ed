@@ -2,7 +2,7 @@
 }
 
 .AttributionEditor-title textarea {
-  font-size: 64px !important;
+  font-size: 32px !important;
   margin-top: 0 !important;
   line-height: 1.2;
 }
@@ -21,8 +21,15 @@
   opacity: 1 !important;
 }
 
-@media screen and (max-width: 550px){
+.AttributionEditor-metadata {
+  padding: 1em !important;
+}
+
+@media screen and (min-width: 728px){
   .AttributionEditor-title textarea {
-    font-size: 32px !important;
+    font-size: 64px !important;
+  }
+  .AttributionEditor-metadata {
+    padding: 2em 3em 0 !important;
   }
 }

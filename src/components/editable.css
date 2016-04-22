@@ -2,6 +2,12 @@
   outline: 0px solid transparent;
 }
 
+.ProseMirror-content:not(:focus):after {
+  content: 'Type here or paste links to images, articles, videos...';
+  display: block; /* For Firefox */
+  opacity: .2;
+}
+
 .Ed {
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
 }
@@ -18,7 +24,7 @@
   font-family: Georgia, Times, serif;
   border: none;
   margin: 40px auto;
-  padding: 1rem 3rem 7rem 3rem;
+  padding: 1rem;
   white-space: pre-wrap;
   max-width: 856px;
 }
@@ -29,13 +35,6 @@
   border-radius: 7px;
 }
 
-.ProseMirror-content:after {
-  content: 'Type words, upload images, paste articles, videos, other media...';
-  position: absolute;
-  bottom: 18px;
-  color: #ddd;
-  pointer-events: none;
-}
 
 .ProseMirror-focused .ProseMirror-content {
   background-color: transparent;
@@ -55,11 +54,11 @@
   padding: 0px;
 }
 
-.ProseMirror-content h1, 
-.ProseMirror-content h2, 
-.ProseMirror-content h3, 
-.ProseMirror-content h4, 
-.ProseMirror-content h5, 
+.ProseMirror-content h1,
+.ProseMirror-content h2,
+.ProseMirror-content h3,
+.ProseMirror-content h4,
+.ProseMirror-content h5,
 .ProseMirror-content h6 {
   font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   font-weight: normal;
@@ -79,7 +78,7 @@
   font-size: 125%;
 }
 .ProseMirror-content p {
-  font-size: 80%;
+  font-size: 100%;
 }
 .ProseMirror-content blockquote {
   font-size: 110%;
@@ -96,7 +95,7 @@
 .ProseMirror-content > blockquote:before {
   font-size: 250%;
   line-height: 100%;
-  
+
   color: hsl(0, 0%, 70%);
 
   content: '“';
@@ -159,10 +158,10 @@
 /* Responsive font size magic, small screen first */
 
 .ProseMirror-content {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
-@media screen and (min-width:550px) {
+@media screen and (min-width: 728px) {
   .ProseMirror-content {
-    font-size: 1.5rem;
+    padding: 1rem 3rem 3rem 3rem;
   }
 }
