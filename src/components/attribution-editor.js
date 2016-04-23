@@ -12,7 +12,6 @@ import rebassTheme from './rebass-theme'
 import Placeholder from './placeholder'
 
 import ButtonOutline from 'rebass/dist/ButtonOutline'
-import Button from 'rebass/dist/Button'
 
 const buttonStyle =
   { textTransform: 'uppercase'
@@ -35,35 +34,30 @@ class AttributionEditor extends React.Component {
     }
     let block = props.initialBlock
     this.state = {
-      block: block,
-      showTitle,
-      titlePlaceholder,
-      descriptionPlaceholder,
-      isLoadingURL: false,
-      showLoader: false,
+      block: block
+      , showTitle
+      , titlePlaceholder
+      , descriptionPlaceholder
+      , isLoadingURL: false
+      , showLoader: false
     }
     this.onUpdateBlockMeta = (data) => {
-
       const {store} = this.context
-
       let {
         status, progress, failed,
         cover,
-        html,
+        html
       } = data
 
       let showLoader = false
-      let didMutateBlock = false
 
       let block = this.state.block
       if (cover) {
-        if (cover === "REMOVE") {
+        if (cover === 'REMOVE') {
           delete block.cover
-          didMutateBlock = true
         } else {
           let src = cover.src
-          if (!src) throw new Error ('cover.src expected in updatePlaceholder() if cover used at all')
-          didMutateBlock = true
+          if (!src) throw new Error('cover.src expected in updatePlaceholder () if cover used at all')
           block.cover = cover
           block.html = html
         }
@@ -76,25 +70,21 @@ class AttributionEditor extends React.Component {
         block.metadata.status = status
         block.metadata.progress = progress
         block.metadata.failed = failed
-      }
-      else {
+      } else {
         delete block.metadata.status
         delete block.metadata.progress
         delete block.metadata.failed
       }
       this.setState({
-        block,
-        showLoader,
+        block
+        , showLoader
       })
-      //console.log(showLoader, progress, status, metadata)
-      console.log('update.block.metadata', block.id, data)
     }
   }
-
-  componentDidUpdate() {
+  componentDidUpdate () {
     this.deleteIfEmpty()
   }
-  deleteIfEmpty() {
+  deleteIfEmpty () {
     if (this.props.isCover) return true
     const {store} = this.context
     let block = this.state.block
@@ -104,15 +94,15 @@ class AttributionEditor extends React.Component {
     if (!cover) cover = {}
     if (!cover.src && !metadata.title && !metadata.description) return store.routeChange('MEDIA_BLOCK_REMOVE', block.id)
   }
-  componentWillMount() {
+  componentWillMount () {
     let id = this.state.block.id
     const {store} = this.context
-    store.on('update.block.metadata.'+id, this.onUpdateBlockMeta)
+    store.on('update.block.metadata.' + id, this.onUpdateBlockMeta)
   }
-  componentWillUnmount() {
+  componentWillUnmount () {
     let id = this.state.block.id
     const {store} = this.context
-    store.off('update.block.metadata.'+id, this.onUpdateBlockMeta)
+    store.off('update.block.metadata.' + id, this.onUpdateBlockMeta)
   }
   getChildContext () {
     return (
@@ -123,7 +113,6 @@ class AttributionEditor extends React.Component {
     )
   }
   render () {
-
     const {block} = this.state
     const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
@@ -180,7 +169,7 @@ class AttributionEditor extends React.Component {
       )
     )
   }
-  renderFields(schema, metadata = {}, onChange) {
+  renderFields (schema, metadata = {}, onChange) {
     let fields = []
     if (schema.title) {
       fields.push(renderTextField('title', this.state.titlePlaceholder, metadata.title, onChange))
@@ -190,7 +179,7 @@ class AttributionEditor extends React.Component {
     }
     return fields
   }
-  renderMenus(schema, metadata = {}, onChange, onMoreClick) {
+  renderMenus (schema, metadata = {}, onChange, onMoreClick) {
     let menus = []
     if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
       menus.push(
@@ -219,26 +208,26 @@ class AttributionEditor extends React.Component {
     )
     return menus
   }
-  renderLoader() {
+  renderLoader () {
     if (!this.state.showLoader) return null
     let props = {
       initialBlock: this.state.block
     }
     return Placeholder(props, this.context, false)
   }
-  renderEmptyCover(id) {
+  renderEmptyCover (id) {
     return el('div'
-      , {className:"cover-buttons"}
+      , {className: 'cover-buttons'}
       , el(ButtonOutline
         , { key: 'upload-cover-photo'
           , style: buttonStyle
-          , onClick: this.addPhoto.bind(this,id)
+          , onClick: this.addPhoto.bind(this, id)
           , rounded: true
           }
         , el('div'
-        ,   { style:{width:'18px !important', height:'18px !important', margin:3}
-            , dangerouslySetInnerHTML:{
-              __html:`
+        , { style: {width: '18px !important', height: '18px !important', margin: 3}
+            , dangerouslySetInnerHTML: {
+              __html: `
                 <svg x="0px" y="0px"
                    viewBox="30.8 -15.7 833.2 879.7" enable-background="new 30.8 -15.7 833.2 879.7" xml:space="preserve">
                 <g>
@@ -259,16 +248,16 @@ class AttributionEditor extends React.Component {
     )
   }
   removeMedia (id) {
-    //const el = ReactDOM.findDOMNode(this).querySelector('textarea')
-    //const value = el.value.trim()
+    // const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    // const value = el.value.trim()
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_COVER_REMOVE', {id:id})
+    store.routeChange('FOLD_MEDIA_COVER_REMOVE', {id: id})
   }
   addPhoto (id) {
-    //const el = ReactDOM.findDOMNode(this).querySelector('textarea')
-    //const value = el.value.trim()
+    // const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    // const value = el.value.trim()
     const {store} = this.context
-    store.routeChange('FOLD_MEDIA_UPLOAD_AND_REPLACE', {id:id})
+    store.routeChange('FOLD_MEDIA_UPLOAD_AND_REPLACE', {id: id})
   }
   renderCover () {
     const {block} = this.state
@@ -287,29 +276,28 @@ class AttributionEditor extends React.Component {
       src = preview
     }
     if (!src) return
-    let props = {src, width, height, key:'image'}
+    let props = {src, width, height, key: 'image'}
     return el('div'
       , {}
       , el(Image, props)
       , el('div'
-          , {className:"cover-buttons"}
+          , {className: 'cover-buttons'}
           , el(ButtonOutline
             , { key: 'change-cover-photo'
               , style: buttonStyle
-              , onClick: this.addPhoto.bind(this,id)
+              , onClick: this.addPhoto.bind(this, id)
               , rounded: true
               }
-            , 'Change Cover Photo' )
+            , 'Change Cover Photo')
           , el(ButtonOutline
             , { key: 'remove-cover-photo'
               , style: buttonStyle
-              , onClick: this.removeMedia.bind(this,id)
+              , onClick: this.removeMedia.bind(this, id)
               , rounded: true
               }
-            , 'Remove Cover Photo' )
+            , 'Remove Cover Photo')
         )
     )
-
   }
   onChange (path, value) {
     const store = (this.context.store || this.props.store)
@@ -371,7 +359,6 @@ AttributionEditor.propTypes =
   }
 export default React.createFactory(AttributionEditor)
 
-
 function makeChange (path, onChange) {
   return function (event) {
     const {value} = event.target
@@ -390,8 +377,6 @@ function renderTextField (key, placeholderText, value, onChange) {
     }
   )
 }
-
-
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   return el(CreditEditor

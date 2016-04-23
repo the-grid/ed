@@ -22,10 +22,8 @@ class FoldMedia extends React.Component {
     this.state = {linkOpen: false}
   }
   render () {
-    const {store} = this.context
     let {block} = this.props
-    console.log("render fold media", JSON.stringify(this.props))
-    //if (!block) {
+    // if (!block) {
     //  store.routeChange('FOLD_MEDIA_INIT'
     //  , { id: uuid.v4()
     //    , type: 'image'
@@ -34,7 +32,7 @@ class FoldMedia extends React.Component {
     //    }
     //  )
     //  return null
-    //}
+    // }
     return el('div'
     , { className: 'FoldMedia'
       , style:

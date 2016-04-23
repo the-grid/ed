@@ -94,11 +94,11 @@ function makeInputOnChange (index) {
       function () {
         const updatedBlocks = ids.map(function (id, index) {
           // TODO!!!
-          ed.updatePlaceholder(id, {cover:{src:urls[index]}})
+          ed.updatePlaceholder(id, {cover: {src: urls[index]}})
           return (
             { id
             , type: 'image'
-            , cover:{src:urls[index]} //!!!! TODO
+            , cover: {src: urls[index]} //! !!! TODO
             , metadata: {title: names[index]}
             }
           )

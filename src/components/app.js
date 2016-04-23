@@ -82,7 +82,7 @@ class App extends React.Component {
         }
       }
     , el(HrLabel
-      , { label: "Anything below this fold is not guaranteed to be on your homepage" }
+      , { label: 'Anything below this fold is not guaranteed to be on your homepage' }
       )
     )
   }

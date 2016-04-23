@@ -16,14 +16,14 @@ function noop () {
 
 }
 
-function isPlaceHolder(block) {
-  if(block.type === 'placeholder') return true;
+function isPlaceHolder (block) {
+  if (block.type === 'placeholder') return true
  // if(block.type === 'image') return true;
-  //if(block.type === 'article' && block.metadata && block.metadata.starred) {
+  // if(block.type === 'article' && block.metadata && block.metadata.starred) {
     // inital block that get transferred to an articel
   //  return true;
  // }
-  return false;
+  return false
 }
 
 export default class Ed {
@@ -56,14 +56,14 @@ export default class Ed {
     if (!options.initialContent.length) {
       options.initialContent = [
         {
-          "id": uuid.v4(),
-          "type": "article",
-          "metadata": {
-            "title": "",
-            "description": "",
-            "starred": true
-          },
-          "html": "<article><img title=\"\"/></article>"
+          'id': uuid.v4()
+          , 'type': 'article'
+          , 'metadata': {
+            'title': ''
+            , 'description': ''
+            , 'starred': true
+          }
+         , 'html': '<article><img title=""/></article>'
         }
       ]
     }
@@ -95,9 +95,6 @@ export default class Ed {
     ReactDOM.unmountComponentAtNode(this.container)
   }
   routeChange (type, payload) {
-
-    console.log("routeChange", {type, payload})
-
     switch (type) {
       case 'EDITABLE_INITIALIZE':
         this._editableInitialize(payload)
@@ -156,11 +153,11 @@ export default class Ed {
         break
       case 'FOLD_MEDIA_COVER_REMOVE':
         this._coverPreviews[payload.id] = undefined
-        this.trigger('update.block.metadata.'+payload.id, {cover:"REMOVE"})
+        this.trigger('update.block.metadata.' + payload.id, {cover: 'REMOVE'})
         break
       case 'FOLD_MEDIA_UPLOAD_AND_REPLACE':
         let __id = payload.id
-        if (!__id) throw new Error ('FOLD_MEDIA_UPLOAD_AND_REPLACE requires {id}')
+        if (!__id) throw new Error('FOLD_MEDIA_UPLOAD_AND_REPLACE requires {id}')
         this.onShareFile(__id)
         break
       case 'FOLD_MEDIA_EMPTY':
@@ -210,7 +207,6 @@ export default class Ed {
     this.pm = editableView.pm
   }
   _initializeContent (content) {
-    console.log("_initializeContent( content:", content)
     for (let i = 0, len = content.length; i < len; i++) {
       const block = content[i]
       if (!block || !block.id) {
@@ -348,8 +344,7 @@ export default class Ed {
     if (block) {
       // TODO: handle multiple files or limit to one when updating a media block's cover
       ids = [index_or_id]
-    }
-    else {
+    } else {
       let index = index_or_id
       for (let i = 0, length = count; i < length; i++) {
         const id = uuid.v4()
@@ -372,9 +367,9 @@ export default class Ed {
       throw new Error('Can not update this placeholder block')
     }
 
-    //if (block.type !== 'placeholder') {
+    // if (block.type !== 'placeholder') {
     //  throw new Error('Block is not a placeholder block')
-    //}
+    // }
 
     const {status, progress, failed} = metadata
 
@@ -389,11 +384,9 @@ export default class Ed {
       if (this._foldMedia && this._foldMedia === id) {
         this.trigger('fold.media.change', block)
       }
+    } else {
+      this.trigger('update.block.metadata.' + id, metadata)
     }
-    else {
-      this.trigger('update.block.metadata.'+id, metadata)
-    }
-
   }
   _placeholderCancel (id) {
     let block = this.getBlock(id)
@@ -487,10 +480,8 @@ function arrayInsertAll (array, index, arrayToInsert) {
 }
 
 function mergeContent (oldContent, newContent) {
-
   // Only add new placeholders and update exiting placeholders
   let merged = oldContent.slice()
-
   // New placeholders
   for (let i = 0, len = newContent.length; i < len; i++) {
     const block = newContent[i]

@@ -13,7 +13,7 @@ export default function CreditAdd (props) {
 }
 
 
-function makeLinks (schema, metadata = {}, onClick, removable=true) {
+function makeLinks (schema, metadata = {}, onClick, removable = true) {
   let links = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl == null) {
     links.push(makeLink('isBasedOnUrl', 'Add Source Link', onClick))

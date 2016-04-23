@@ -2,7 +2,6 @@ import {isMediaType} from './types'
 
 
 export default function spaceContent (items) {
-  console.log("spaceContent() items:", items)
   if (items.length <= 1) {
     return items
   }
