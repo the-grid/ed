@@ -12,8 +12,19 @@ import determineFold from './convert/determine-fold'
 
 import App from './components/app'
 
-function noop () {}
+function noop () {
 
+}
+
+function isPlaceHolder(block) {
+  if(block.type === 'placeholder') return true;
+ // if(block.type === 'image') return true;
+  //if(block.type === 'article' && block.metadata && block.metadata.starred) {
+    // inital block that get transferred to an articel
+  //  return true;
+ // }
+  return false;
+}
 
 export default class Ed {
   constructor (options) {
@@ -45,14 +56,14 @@ export default class Ed {
     if (!options.initialContent.length) {
       options.initialContent = [
         {
-          "id": "COVER_" + uuid.v4(),
-          "type": "image",
+          "id": uuid.v4(),
+          "type": "article",
           "metadata": {
             "title": "",
             "description": "",
             "starred": true
           },
-          "html": "<img title=\"\">"
+          "html": "<article><img title=\"\"/></article>"
         }
       ]
     }
@@ -327,6 +338,7 @@ export default class Ed {
     // Render
     this._setMergedContent(newContent)
   }
+
   insertPlaceholders (index_or_id, count) {
     let toInsert = []
     let ids = []
@@ -366,7 +378,7 @@ export default class Ed {
 
     const {status, progress, failed} = metadata
 
-    if (block.type === 'placeholder') {
+    if (isPlaceHolder(block)) {
       // Mutation
       if (status != null) block.metadata.status = status
       if (progress != null) block.metadata.progress = progress
@@ -388,7 +400,7 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not cancel this placeholder block')
     }
-    if (block.type !== 'placeholder') {
+    if (!isPlaceHolder(block)) {
       throw new Error('Block is not a placeholder block')
     }
     const content = this.getContent()

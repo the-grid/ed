@@ -49,6 +49,7 @@ class AttributionEditor extends React.Component {
       let {
         status, progress, failed,
         cover,
+        html,
       } = data
 
       let showLoader = false
@@ -64,6 +65,7 @@ class AttributionEditor extends React.Component {
           if (!src) throw new Error ('cover.src expected in updatePlaceholder() if cover used at all')
           didMutateBlock = true
           block.cover = cover
+          block.html = html
         }
         store.routeChange('MEDIA_BLOCK_UPDATE', block)
       }

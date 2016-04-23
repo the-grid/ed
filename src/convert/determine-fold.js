@@ -22,7 +22,7 @@ export default function determineFold (items, previews) {
       media = item
       continue
     }
-    if (id && id.indexOf('COVER_') === 0) {
+    if (id && type === 'article' && metadata.starred === true) {
       media = item
       continue
     }
