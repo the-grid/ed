@@ -3,11 +3,9 @@
   line-height: 1.5;
 }
 
-// Editor isn't small screen first so buttons and such are upsized for little 'uns
-
 @media screen and (max-width: 768px) {
   .Ed button {
-    width: 100%;
+    width: 100% !important;
   }
 
   .Ed .Ed-Divider {
