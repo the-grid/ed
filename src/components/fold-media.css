@@ -5,6 +5,12 @@
   box-shadow: 0px -1px 1px hsla(0,0%,0%,0.2);
 }
 
+.FoldMedia .AttributionEditor-title textarea {
+  font-size: 32px !important;
+  margin-top: 0 !important;
+  line-height: 1.2;
+}
+
 .FoldMedia .Placeholder {
   padding: 0 90px;
 }

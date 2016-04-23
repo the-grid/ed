@@ -1,35 +1,29 @@
 .AttributionEditor {
+  margin-top: 0 !important;
 }
+
 .AttributionEditor-cover{
   min-height: 136px;
   background: #ddd;
   overflow: hidden;
 }
-.FoldMedia .AttributionEditor-cover{
+.AttributionEditor-cover{
   min-height: 240px;
-}
-
-:not(.FoldMedia) > .AttributionEditor-title textarea {
-  font-size: 20px !important;
-  margin-top: 0 !important;
-  line-height: 1.2;
-}
-.FoldMedia .AttributionEditor-title textarea {
-  font-size: 32px !important;
-  margin-top: 0 !important;
-  line-height: 1.2;
-}
-.FoldMedia .AttributionEditor-description textarea {
-  font-size: 16px !important;
-  font-family: Georgia, Times, serif !important;
-}
-
-.AttributionEditor {
-  margin-top: 0 !important;
 }
 
 :not(.FoldMedia) > .AttributionEditor {
   background-color: hsl(0,0%,98.3%);
+}
+
+:not(.FoldMedia) > .AttributionEditor-title textarea {
+  font-size: 32px !important;
+  margin-top: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.AttributionEditor-description textarea {
+  font-size: 20px !important;
+  font-family: Georgia, Times, serif !important;
 }
 
 .AttributionEditor-links {
