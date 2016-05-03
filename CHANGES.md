@@ -1,5 +1,21 @@
 ## dev
 
+## 0.11.0 - 2016-04-23
+
+* Styling font sizing throughout (#N/A)
+* Add image change/remove to all images and "upload" button to empty image
+* Default to empty image/title/description above the fold
+* Change fold copy
+* Mario did fancy things TBD...
+
+## 0.10.7 - 2016-04-22
+
+* Styling small screen button 100% width (#N/A)
+
+## 0.10.6 - 2016-04-21
+
+* Styling for small screen first (#187)
+
 ## 0.10.5 - 2016-04-19
 
 * FIX -- "Upload Image" button was triggering `onShareFile` callback twice (#179)
