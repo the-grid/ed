@@ -6,7 +6,7 @@
 * Add image change/remove to all images and "upload" button to empty image
 * Default to empty image/title/description above the fold
 * Change fold copy
-* Mario did fancy things TBD...
+* Change integration-points for Webapp, so that attribution-editor can have updatetable progressbars (subject to change in future)
 
 ## 0.10.7 - 2016-04-22
 
