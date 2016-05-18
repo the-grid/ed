@@ -1,5 +1,16 @@
 ## dev
 
+* Fix ````` shortcut to add a code block (#25)
+* "Upload Image" button show logic: don't show on block selection
+
+## 0.10.7 - 2016-04-22
+
+* Styling small screen button 100% width
+
+## 0.10.6 - 2016-04-21
+
+* Styling for small screen first (#187)
+
 ## 0.10.5 - 2016-04-19
 
 * FIX -- "Upload Image" button was triggering `onShareFile` callback twice (#179)
