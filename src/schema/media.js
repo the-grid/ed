@@ -7,6 +7,7 @@ export class Media extends Block {
   get kind () { return NodeKindTop }
   get contains () { return null }
   get isBlock () { return true }
+  get isLeaf () { return true }
   get locked () { return true }
   get canBeEmpty () { return true }
   get draggable () { return true }
