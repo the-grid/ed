@@ -146,7 +146,7 @@ function initializeWidget (id, type, rectangle) {
 }
 
 function initializeBlock (id, type) {
-  const block = 
+  const block =
     { id
     , type
     , html: ''

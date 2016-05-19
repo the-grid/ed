@@ -5,7 +5,6 @@ export function focusedIndex (pm) {
     return pm.doc.childBefore(selection.anchor).index
   }
   if (selection.to != null) {
-    console.log(pm.doc.childBefore(selection.to))
     return pm.doc.childBefore(selection.to).index
   }
 }

@@ -1,7 +1,8 @@
 ## dev
 
-* Fix ````` shortcut to add a code block (#25)
+* Fix ``` shortcut to add a code block (#25)
 * "Upload Image" button show logic: don't show on block selection
+* Reverting 0.11.0 prototype
 
 ## 0.10.7 - 2016-04-22
 
