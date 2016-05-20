@@ -19,15 +19,15 @@ describe('GridToDoc', function () {
       { 'type': 'doc'
       , 'content':
         [ { 'type': 'heading'
-          , 'attrs': {'level': '1'}
+          , 'attrs': {'level': 1}
           , 'content': [{'type': 'text', 'text': 'heading 1'}]
           }
         , { 'type': 'heading'
-          , 'attrs': {'level': '2'}
+          , 'attrs': {'level': 2}
           , 'content': [{'type': 'text', 'text': 'heading 2'}]
           }
         , { 'type': 'heading'
-          , 'attrs': {'level': '3'}
+          , 'attrs': {'level': 3}
           , 'content': [{'type': 'text', 'text': 'heading 3'}]
           }
         , { 'type': 'media'
@@ -59,6 +59,7 @@ describe('GridToDoc', function () {
 
     it('correctly converts Grid content to Doc', function () {
       const doc = GridToDoc(fixture)
+      console.log(JSON.stringify(doc.toJSON(), null, 2))
       expect(doc.toJSON()).to.deep.equal(expected)
     })
   })
