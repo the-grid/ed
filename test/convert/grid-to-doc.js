@@ -59,7 +59,6 @@ describe('GridToDoc', function () {
 
     it('correctly converts Grid content to Doc', function () {
       const doc = GridToDoc(fixture)
-      console.log(JSON.stringify(doc.toJSON(), null, 2))
       expect(doc.toJSON()).to.deep.equal(expected)
     })
   })
