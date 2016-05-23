@@ -3,6 +3,9 @@
 * Fix ``` shortcut to add a code block (#25)
 * "Upload Image" button show logic: don't show on block selection
 * Reverting 0.11.0 prototype
+* Revert special-cased fold block
+* Revert special-case media delete / joinBackward: default behavior selects media before deleting it now
+* Don't space media with empty `p`: default behavior allows select media block + enter to add a block
 
 ## 0.10.7 - 2016-04-22
 

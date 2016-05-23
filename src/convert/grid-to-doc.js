@@ -1,18 +1,27 @@
 import {fromDOM} from 'prosemirror/src/format'
 
 import {isMediaType, isHTMLType} from './types'
-import spaceContentWithEmptyText from './space-content'
-
 import EdSchemaFull from '../schema/ed-schema-full'
+import determineFold from './determine-fold'
+import spaceContent from './space-content'
 
 
 export default function (items, schema = EdSchemaFull) {
-  items = spaceContentWithEmptyText(items)
-  let elements = itemsToEls(items)
-  var container = document.createElement('div')
-  elements.forEach((el) => {
+  const container = document.createElement('div')
+  let {starred, unstarred} = determineFold(items)
+  starred = spaceContent(starred)
+  let elements = itemsToEls(starred)
+  elements.forEach(function (el) {
     if (el) container.appendChild(el)
   })
+  if (unstarred.length > 0) {
+    const hr = document.createElement('hr')
+    container.appendChild(hr)
+    elements = itemsToEls(unstarred)
+    elements.forEach(function (el) {
+      if (el) container.appendChild(el)
+    })
+  }
   return fromDOM(schema, container)
 }
 

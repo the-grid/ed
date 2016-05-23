@@ -48,7 +48,7 @@ class Editable extends React.Component {
       { place: mirror
       , autoInput: true
       , commands: commands
-      , doc: GridToDoc(initialContent, EdSchemaFull)
+      , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
       }
 

@@ -7,8 +7,7 @@ import uuid from 'uuid'
 import {TextSelection} from 'prosemirror/src/edit/selection'
 
 import GridToDoc from './convert/grid-to-doc'
-import DocToGrid, {metaToHtml} from './convert/doc-to-grid'
-import determineFold from './convert/determine-fold'
+import DocToGrid from './convert/doc-to-grid'
 
 import App from './components/app'
 
@@ -41,10 +40,6 @@ export default class Ed {
     this._content = {}
     this._coverPreviews = {}
     this._initializeContent(options.initialContent)
-    const {media, content} = determineFold(options.initialContent, this._coverPreviews)
-    this._foldMedia = (media ? media.id : null)
-    options.initialMedia = media
-    options.initialContent = content
     options.store = this
 
     // Events
@@ -95,60 +90,12 @@ export default class Ed {
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break
-      case 'FOLD_MEDIA_SHARE':
-        // const {url, rest} = payload
-        const newId = uuid.v4()
-        const share =
-          { id: newId
-          , type: 'placeholder'
-          , metadata:
-            { starred: true
-            , status: `Sharing... ${payload.url}`
-            }
-          }
-        this._foldMedia = share.id
-        this._initializeContent([share])
-        this.trigger('fold.media.change', share)
-        this.onShareUrl({block: newId, url: payload.url})
-        // Make a new text block with rest of above fold text
-        if (payload.rest) {
-          const belowFold =
-            { type: 'text'
-            , html: `<p>${payload.rest}</p>`
-            }
-          this._insertBlocks(0, [belowFold])
-          this.trigger('change')
-        }
-        break
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
         break
-      case 'FOLD_MEDIA_INIT':
-        this._initializeContent([payload])
-        this._foldMedia = payload.id
-        this.trigger('fold.media.change', payload)
-        this.trigger('change')
-        break
-      case 'FOLD_MEDIA_CHANGE':
-        this._updateMediaBlock(payload)
-        this.trigger('fold.media.change', payload)
-        this.trigger('change')
-        break
-      case 'FOLD_TEXT_CHANGE':
-        if (!this._foldMedia) {
-          const titleBlock =
-            { id: uuid.v4()
-            , type: 'text'
-            , metadata: {starred: true}
-            }
-          this._initializeContent([titleBlock])
-          this._foldMedia = titleBlock.id
-        }
-        // MUTATION
-        const textBlock = this.getBlock(this._foldMedia)
-        textBlock.html = `<p>${payload}</p>`
-        this.trigger('change')
-        break
+      // case 'ADD_FOLD_DELIMITER':
+      //   this._convertToFullPost()
+      //   break
       case 'PLACEHOLDER_CANCEL':
         this._placeholderCancel(payload)
         break
@@ -240,9 +187,6 @@ export default class Ed {
     const index = getIndexWithId(content, id)
     // MUTATION
     content.splice(index, 1)
-    if (this._foldMedia === id) {
-      this._foldMedia = null
-    }
     // Render
     this._setMergedContent(content)
   }
@@ -273,9 +217,6 @@ export default class Ed {
   }
   _replaceBlock (index, block) {
     let content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
-      index += 1
-    }
     // MUTATION
     content.splice(index, 1, block)
     // Render
@@ -283,9 +224,6 @@ export default class Ed {
   }
   _insertBlocks (index, blocks) {
     const content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
-      index += 1
-    }
     // MUTATION
     const newContent = arrayInsertAll(content, index, blocks)
     // Render
@@ -297,12 +235,16 @@ export default class Ed {
     for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
-      toInsert.push(
+      const block =
         { id
         , type: 'placeholder'
-        , metadata: {}
+        // FIXME
+        , metadata: {starred: true}
         }
-      )
+      if (index === 0) {
+        block.metadata.superstar = true
+      }
+      toInsert.push(block)
     }
     this._insertBlocks(index, toInsert)
     return ids
@@ -322,10 +264,6 @@ export default class Ed {
     if (failed != null) block.metadata.failed = failed
     // Let content widgets know to update
     this.trigger('media.update')
-    // Let fold media know to update
-    if (this._foldMedia && this._foldMedia === id) {
-      this.trigger('fold.media.change', block)
-    }
   }
   _placeholderCancel (id) {
     let block = this.getBlock(id)
@@ -350,10 +288,6 @@ export default class Ed {
       throw new Error('Can not set image preview for block id that does not exist')
     }
     this._coverPreviews[id] = src
-    // Let fold media know to update
-    if (this._foldMedia && this._foldMedia === id) {
-      this.trigger('fold.media.change', block)
-    }
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
@@ -361,29 +295,14 @@ export default class Ed {
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
-    if (this._foldMedia) {
-      const fold = this.getBlock(this._foldMedia)
-      if (!fold.metadata) {
-        fold.metadata = {}
-      }
-      fold.metadata.starred = true
-      const html = metaToHtml(fold)
-      if (html) {
-        fold.html = html
-      }
-      content.unshift(fold)
-    }
     return content
   }
   setContent (content) {
     const merged = mergeContent(this.getContent(), content)
     this._setMergedContent(merged)
   }
-  _setMergedContent (mergedContent) {
-    this._initializeContent(mergedContent)
-    const {media, content} = determineFold(mergedContent, this._coverPreviews)
-    this._foldMedia = (media ? media.id : null)
-    this.trigger('fold.media.change', media)
+  _setMergedContent (content) {
+    this._initializeContent(content)
     let doc = GridToDoc(content)
     // Make selection to set after DOM update
     let selection = fixSelection(this.pm.selection, this.pm.doc, doc)
@@ -439,6 +358,16 @@ function mergeContent (oldContent, newContent) {
     if (block.type === 'placeholder') {
       const index = getIndexWithId(newContent, block.id)
       if (index > -1) {
+        const newBlock = newContent[index]
+        if (!newBlock.metadata) {
+          newBlock.metadata = {}
+        }
+        if (block.metadata && block.metadata.starred) {
+          newBlock.metadata.starred = true
+        }
+        if (block.metadata && block.metadata.superstar) {
+          newBlock.metadata.superstar = true
+        }
         merged.splice(i, 1, newContent[index])
       }
     }

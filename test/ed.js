@@ -101,9 +101,9 @@ describe('Ed', function () {
 
   describe('Content mounting and merging', function () {
     const fixture =
-      [ {type: 'h1', html: '<h1>Title</h1>'}
-      , {type: 'text', html: '<p>Text 1</p>'}
-      , {type: 'text', html: '<p>Text 2</p>'}
+      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
+      , {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}}
+      , {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
       ]
 
     beforeEach(function (done) {
@@ -148,100 +148,129 @@ describe('Ed', function () {
 
     it('inject placeholder blocks via setContent', function () {
       ed.setContent(
-        [ {type: 'h1', html: '<h1>Title</h1>'}
-        , {id: '0000', type: 'placeholder'}
-        , {id: '0001', type: 'placeholder'}
-        , {type: 'text', html: '<p>Text 1</p>'}
-        , {type: 'text', html: '<p>Text 2</p>'}
+        [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
+        , {id: '0000', type: 'placeholder', metadata: {starred: true}}
+        , {id: '0001', type: 'placeholder', metadata: {starred: true}}
+        , {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}}
+        , {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
         ]
       )
-      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(4)
+      expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.id).to.equal('0001')
+      expect(content[1].attrs.id).to.equal('0000')
       expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('Text 1')
-      expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[2].textContent).to.equal('')
+      expect(content[2].type.name).to.equal('media')
+      expect(content[2].attrs.id).to.equal('0001')
+      expect(content[2].attrs.type).to.equal('placeholder')
+      expect(content[3].textContent).to.equal('Text 1')
       expect(content[3].type.name).to.equal('paragraph')
+      expect(content[4].textContent).to.equal('Text 2')
+      expect(content[4].type.name).to.equal('paragraph')
     })
 
     it('inject placeholder blocks via insertPlaceholders', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)
 
-      expect(ed._foldMedia).to.equal(ids[0])
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(4)
+      expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
-      expect(content[1].attrs.id).to.equal(ids[1])
+      expect(content[1].attrs.id).to.equal(ids[0])
       expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('Text 1')
-      expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[2].textContent).to.equal('')
+      expect(content[2].type.name).to.equal('media')
+      expect(content[2].attrs.id).to.equal(ids[1])
+      expect(content[2].attrs.type).to.equal('placeholder')
+      expect(content[3].textContent).to.equal('Text 1')
       expect(content[3].type.name).to.equal('paragraph')
+      expect(content[4].textContent).to.equal('Text 2')
+      expect(content[4].type.name).to.equal('paragraph')
     })
 
     it('replace text with placeholder block', function () {
-      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
+      ed._replaceBlock(1,
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {starred: true}
+        }
+      )
 
-      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(2)
+      expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
-      expect(content[1].textContent).to.equal('Text 2')
-      expect(content[1].type.name).to.equal('paragraph')
+      expect(content[1].textContent).to.equal('')
+      expect(content[1].type.name).to.equal('media')
+      expect(content[1].attrs.id).to.equal('0000')
+      expect(content[1].attrs.type).to.equal('placeholder')
+      expect(content[2].textContent).to.equal('Text 2')
+      expect(content[2].type.name).to.equal('paragraph')
     })
 
     it('replace placeholder with image block, should correctly merge', function () {
-      ed._replaceBlock(1, {id: '0000', type: 'placeholder'})
-      ed.setContent([{id: '0000', type: 'image', cover: {src: '...'}}])
+      ed._replaceBlock(1,
+        { id: '0000'
+        , type: 'placeholder'
+        , metadata: {starred: true}
+        }
+      )
+      ed.setContent([
+        {id: '0000'
+        , type: 'image'
+        , metadata: {starred: true}
+        }
+      ])
 
-      expect(ed._foldMedia).to.equal('0000')
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(2)
+      expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
-      expect(content[1].textContent).to.equal('Text 2')
-      expect(content[1].type.name).to.equal('paragraph')
+      expect(content[1].textContent).to.equal('')
+      expect(content[1].type.name).to.equal('media')
+      expect(content[1].attrs.id).to.equal('0000')
+      expect(content[1].attrs.type).to.equal('image')
+      expect(content[2].textContent).to.equal('Text 2')
+      expect(content[2].type.name).to.equal('paragraph')
     })
 
     it('replace multiple placeholders, should correctly merge', function () {
       const ids = ed.insertPlaceholders(1, 2)
       ed.setContent(
-        [ {id: ids[0], type: 'image', cover: {src: '...a'}}
-        , {id: ids[1], type: 'image', cover: {src: '...b'}}
+        [ {id: ids[0], type: 'image', metadata: {starred: true}}
+        , {id: ids[1], type: 'image', metadata: {starred: true}}
         ]
       )
 
-      expect(ed._foldMedia).to.equal(ids[0])
       const content = ed.editableView.pm.doc.content.content
-      expect(content.length).to.equal(4)
+      expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
       expect(content[1].attrs.type).to.equal('image')
-      expect(content[1].attrs.id).to.equal(ids[1])
-      expect(content[2].textContent).to.equal('Text 1')
-      expect(content[2].type.name).to.equal('paragraph')
-      expect(content[3].textContent).to.equal('Text 2')
+      expect(content[1].attrs.id).to.equal(ids[0])
+      expect(content[2].textContent).to.equal('')
+      expect(content[2].type.name).to.equal('media')
+      expect(content[2].attrs.type).to.equal('image')
+      expect(content[2].attrs.id).to.equal(ids[1])
+      expect(content[3].textContent).to.equal('Text 1')
       expect(content[3].type.name).to.equal('paragraph')
+      expect(content[4].textContent).to.equal('Text 2')
+      expect(content[4].type.name).to.equal('paragraph')
     })
 
     it('cancels placeholder', function () {
       const ids = ed.insertPlaceholders(1, 1)
       ed._placeholderCancel(ids[0])
 
-      expect(ed._foldMedia).to.be.null
       const content = ed.editableView.pm.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
@@ -254,20 +283,16 @@ describe('Ed', function () {
 
     describe('Getting content', function () {
       it('outputs content with placeholders', function () {
-        const ids = ed.insertPlaceholders(1, 2)
+        const ids = ed.insertPlaceholders(1, 1)
         const content = ed.getContent()
         const expected =
-          [ { id: ids[0]
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
+          , { id: ids[0]
             , type: 'placeholder'
             , metadata: {starred: true}
             }
-          , { type: 'h1', html: '<h1>Title</h1>' }
-          , { id: ids[1]
-            , type: 'placeholder'
-            , metadata: {}
-            }
-          , { type: 'text', html: '<p>Text 1</p>' }
-          , { type: 'text', html: '<p>Text 2</p>' }
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -287,20 +312,21 @@ describe('Ed', function () {
         )
         const content = ed.getContent()
         const expected =
-          [ { id: ids[0]
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
+          , { id: ids[0]
             , type: 'image'
             , cover: {src: '...a.jpg'}
             , metadata: {starred: true}
             , html: '<img src="...a.jpg">'
             }
-          , { type: 'h1', html: '<h1>Title</h1>' }
           , { id: ids[1]
             , type: 'image'
             , cover: {src: '...b.jpg'}
+            , metadata: {starred: true}
             , html: '<img src="...b.jpg">'
             }
-          , { type: 'text', html: '<p>Text 1</p>' }
-          , { type: 'text', html: '<p>Text 2</p>' }
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -310,9 +336,9 @@ describe('Ed', function () {
         ed._placeholderCancel(ids[0])
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>' }
-          , { type: 'text', html: '<p>Text 1</p>' }
-          , { type: 'text', html: '<p>Text 2</p>' }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -322,9 +348,9 @@ describe('Ed', function () {
         ed._removeMediaBlock(ids[0])
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>' }
-          , { type: 'text', html: '<p>Text 1</p>' }
-          , { type: 'text', html: '<p>Text 2</p>' }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -333,7 +359,7 @@ describe('Ed', function () {
 
   describe('The Fold', function () {
     const fixture =
-      [ {id: '0000', type: 'image', cover: {src: '..j.jpg'}}
+      [ {id: '0000', type: 'image', metadata: {starred: true}}
       , {type: 'text', html: '<p>Text 1</p>'}
       ]
 
@@ -357,23 +383,14 @@ describe('Ed', function () {
 
     describe('Mounting', function () {
       it('splits content correctly', function () {
-        const {initialMedia, initialContent} = ed.app.props
-        expect(initialMedia).to.deep.equal(fixture[0])
-        expect(initialContent).to.deep.equal([fixture[1]])
-      })
-    })
-
-    describe('Getting content', function () {
-      it('outputs expected content', function () {
         const content = ed.getContent()
         const expected =
           [ { id: '0000'
             , type: 'image'
-            , cover: {src: '..j.jpg'}
-            , metadata: {starred: true}
-            , html: '<img src="..j.jpg">'
+            , metadata: { starred: true }
+            , html: '<img>'
             }
-          , {type: 'text', html: '<p>Text 1</p>'}
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} }
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -383,8 +400,8 @@ describe('Ed', function () {
   describe('Command interface', function () {
     let mount, ed
     const fixture =
-      [ {type: 'h1', html: '<h1>Title</h1>'}
-      , {type: 'text', html: '<p><a href="moo">link</a></p>'}
+      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
+      , {type: 'text', html: '<p><a href="moo">link</a></p>', metadata: {starred: true}}
       ]
 
     afterEach(function () {
@@ -397,6 +414,7 @@ describe('Ed', function () {
       document.body.appendChild(mount)
 
       function onCommandsChanged (commands) {
+        console.log(commands)
         expect(commands['heading:make1']).to.equal('disabled')
         expect(commands['paragraph:make']).to.equal('inactive')
         done()
