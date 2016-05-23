@@ -1,6 +1,3 @@
-import {isMediaType} from './types'
-
-
 export default function spaceContent (items) {
   let spacedItems = items.slice()
   if (spacedItems.length === 0) {

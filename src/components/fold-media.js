@@ -1,7 +1,6 @@
 require('./fold-media.css')
 
 import React, {createElement as el} from 'react'
-import Media from './media'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 const buttonStyle =
@@ -12,9 +11,6 @@ const buttonStyle =
   }
 
 class FoldMedia extends React.Component {
-  constructor (props) {
-    super(props)
-  }
   render () {
     return el('div'
     , { className: 'FoldMedia'

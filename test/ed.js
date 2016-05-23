@@ -414,7 +414,6 @@ describe('Ed', function () {
       document.body.appendChild(mount)
 
       function onCommandsChanged (commands) {
-        console.log(commands)
         expect(commands['heading:make1']).to.equal('disabled')
         expect(commands['paragraph:make']).to.equal('inactive')
         done()
