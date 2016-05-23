@@ -201,32 +201,27 @@ function EditorToAPI () {
 document.querySelector('#dehydrate').onclick = EditorToAPI
 
 // Simulate changes from API
+const bangOnContent = document.querySelector('#sim')
 let timeout
-const letters = 'pskzfgtaaiioo   '.split('')
-let randomLetter = function () {
-  return letters[ Math.floor(Math.random() * letters.length) ]
-}
 let simulateUpdates = function () {
   // Loop
-  timeout = setTimeout(simulateUpdates, 500)
+  timeout = setTimeout(simulateUpdates, 1000)
   // Mutate
   let content = ed.getContent()
-  let html = content[0].html
-  html = html.slice(0, -4) + randomLetter() + '</p>'
-  content[0].html = html
   ed.setContent(content)
 }
 let toggleUpdates = function () {
   if (timeout) {
     clearTimeout(timeout)
     timeout = null
-    document.querySelector('#sim').textContent = 'Sim changes from API ▶'
+    bangOnContent.textContent = 'Sim changes from API ▶'
   } else {
     timeout = setTimeout(simulateUpdates, 500)
-    document.querySelector('#sim').textContent = 'Sim changes from API ◼︎'
+    bangOnContent.textContent = 'Sim changes from API ◼︎'
   }
 }
-document.querySelector('#sim').onclick = toggleUpdates
+bangOnContent.onclick = toggleUpdates
+bangOnContent.click()
 
 // Load full post
 function loadFixture () {
