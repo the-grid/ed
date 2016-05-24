@@ -41,7 +41,8 @@
     "@the-grid/ced": {
       "include": [
         "/editor/index.html",
-        "/lib/mount.*"
+        "/lib/mount.js",
+        "/lib/mount.js.map"
       ]
     }
   },
