@@ -232,22 +232,30 @@ export default class Ed {
   insertPlaceholders (index, count) {
     let toInsert = []
     let ids = []
+    const fold = this.indexOfFold()
+    const starred = (fold === -1 || index < fold)
     for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
       const block =
         { id
         , type: 'placeholder'
-        // FIXME
-        , metadata: {starred: true}
+        , metadata: {starred}
         }
-      if (index === 0) {
-        block.metadata.superstar = true
-      }
       toInsert.push(block)
     }
     this._insertBlocks(index, toInsert)
     return ids
+  }
+  indexOfFold () {
+    const blocks = this.getContent()
+    for (let i = 0, len = blocks.length; i < len; i++) {
+      const block = blocks[i]
+      if (!block.metadata || !block.metadata.starred) {
+        return i
+      }
+    }
+    return -1
   }
   updatePlaceholder (id, metadata) {
     let block = this.getBlock(id)

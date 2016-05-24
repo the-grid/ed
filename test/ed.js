@@ -394,6 +394,11 @@ describe('Ed', function () {
           ]
         expect(content).to.deep.equal(expected)
       })
+
+      it('gives correct fold index', function () {
+        const fold = ed.indexOfFold()
+        expect(fold).to.equal(1)
+      })
     })
   })
 
