@@ -4,11 +4,10 @@ import './util/react-tap-hack'
 import _ from './util/lodash'
 import uuid from 'uuid'
 
-import {TextSelection} from 'prosemirror/src/edit/selection'
+import {isMediaType} from './convert/types'
+import {indexToPos, indexOfId} from './util/pm'
 
-import GridToDoc from './convert/grid-to-doc'
-import DocToGrid, {metaToHtml} from './convert/doc-to-grid'
-import determineFold from './convert/determine-fold'
+import DocToGrid from './convert/doc-to-grid'
 
 import App from './components/app'
 
@@ -41,10 +40,6 @@ export default class Ed {
     this._content = {}
     this._coverPreviews = {}
     this._initializeContent(options.initialContent)
-    const {media, content} = determineFold(options.initialContent, this._coverPreviews)
-    this._foldMedia = (media ? media.id : null)
-    options.initialMedia = media
-    options.initialContent = content
     options.store = this
 
     // Events
@@ -95,59 +90,11 @@ export default class Ed {
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break
-      case 'FOLD_MEDIA_SHARE':
-        // const {url, rest} = payload
-        const newId = uuid.v4()
-        const share =
-          { id: newId
-          , type: 'placeholder'
-          , metadata:
-            { starred: true
-            , status: `Sharing... ${payload.url}`
-            }
-          }
-        this._foldMedia = share.id
-        this._initializeContent([share])
-        this.trigger('fold.media.change', share)
-        this.onShareUrl({block: newId, url: payload.url})
-        // Make a new text block with rest of above fold text
-        if (payload.rest) {
-          const belowFold =
-            { type: 'text'
-            , html: `<p>${payload.rest}</p>`
-            }
-          this._insertBlocks(0, [belowFold])
-          this.trigger('change')
-        }
-        break
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
         break
-      case 'FOLD_MEDIA_INIT':
-        this._initializeContent([payload])
-        this._foldMedia = payload.id
-        this.trigger('fold.media.change', payload)
-        this.trigger('change')
-        break
-      case 'FOLD_MEDIA_CHANGE':
-        this._updateMediaBlock(payload)
-        this.trigger('fold.media.change', payload)
-        this.trigger('change')
-        break
-      case 'FOLD_TEXT_CHANGE':
-        if (!this._foldMedia) {
-          const titleBlock =
-            { id: uuid.v4()
-            , type: 'text'
-            , metadata: {starred: true}
-            }
-          this._initializeContent([titleBlock])
-          this._foldMedia = titleBlock.id
-        }
-        // MUTATION
-        const textBlock = this.getBlock(this._foldMedia)
-        textBlock.html = `<p>${payload}</p>`
-        this.trigger('change')
+      case 'ADD_FOLD_DELIMITER':
+        this._convertToFullPost()
         break
       case 'PLACEHOLDER_CANCEL':
         this._placeholderCancel(payload)
@@ -236,76 +183,120 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not find this block id')
     }
-    const content = this.getContent()
-    const index = getIndexWithId(content, id)
-    // MUTATION
-    content.splice(index, 1)
-    if (this._foldMedia === id) {
-      this._foldMedia = null
+
+    const index = indexOfId(this.pm.doc, id)
+    if (index === -1) {
+      throw new Error('Can not find node with this id')
     }
-    // Render
-    this._setMergedContent(content)
+    const nodeToRemove = this.pm.doc.child(index)
+    const pos = indexToPos(this.pm.doc, index)
+    this.pm.tr
+      .delete(pos, pos + nodeToRemove.nodeSize)
+      .apply()
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   _dedupeIds () {
-    // Triggered by copy & pasted
-    let content = this.getContent()
     let ids = []
-    for (let i = 0, len = content.length; i < len; i++) {
-      let block = content[i]
-      let {id} = block
-      if (!id) {
+    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
+      const node = this.pm.doc.child(i)
+      if (!node.attrs || !node.attrs.id) {
         continue
       }
+      let id = node.attrs.id
       if (ids.indexOf(id) !== -1) {
-        // MUTATION
-        block = _.cloneDeep(block)
+        const block = this.getBlock(id)
+        let blockClone = _.cloneDeep(block)
         id = uuid.v4()
-        block.id = id
-        content[i] = block
+        blockClone.id = id
+        this._replaceBlock(i, blockClone)
       }
       ids.push(id)
     }
-    // Render
-    this._setMergedContent(content)
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   getBlock (id) {
     return this._content[id]
   }
   _replaceBlock (index, block) {
-    let content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
-      index += 1
+    if (!this.pm) {
+      throw new Error('pm not ready')
     }
-    // MUTATION
-    content.splice(index, 1, block)
-    // Render
-    this._setMergedContent(content)
+
+    const {type, id} = block
+    if (!isMediaType(type)) {
+      throw new Error('_replaceBlock with non-media blocks not yet implemented.')
+    }
+    const replaceNode = this.pm.doc.maybeChild(index)
+    if (!replaceNode) {
+      throw new Error('Node to replace not found.')
+    }
+
+    this._initializeContent([block])
+
+    const node = this.pm.schema.nodes.media.create({id, type})
+    const pos = indexToPos(this.pm.doc, index)
+    this.pm.tr
+      // Delete the node to replace
+      .delete(pos, pos + replaceNode.nodeSize)
+      // Insert the block
+      .insert(pos, node)
+      .apply()
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   _insertBlocks (index, blocks) {
-    const content = this.getContent()
-    if (content[0] && this._foldMedia && content[0].id === this._foldMedia) {
-      index += 1
+    if (!this.pm) {
+      throw new Error('pm not ready')
     }
-    // MUTATION
-    const newContent = arrayInsertAll(content, index, blocks)
-    // Render
-    this._setMergedContent(newContent)
+
+    this._initializeContent(blocks)
+
+    for (let i = 0, len = blocks.length; i < len; i++) {
+      const block = blocks[i]
+      const {type, id} = block
+      if (!isMediaType(type)) {
+        throw new Error('_insertBlocks with non-media blocks not yet implemented.')
+      }
+
+      const node = this.pm.schema.nodes.media.create({id, type})
+      const pos = indexToPos(this.pm.doc, index + i)
+      this.pm.tr.insert(pos, node).apply()
+    }
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   insertPlaceholders (index, count) {
     let toInsert = []
     let ids = []
+    const fold = this.indexOfFold()
+    const starred = (fold === -1 || index < fold)
     for (let i = 0, length = count; i < length; i++) {
       const id = uuid.v4()
       ids.push(id)
-      toInsert.push(
+      const block =
         { id
         , type: 'placeholder'
-        , metadata: {}
+        , metadata: {starred}
         }
-      )
+      toInsert.push(block)
     }
     this._insertBlocks(index, toInsert)
     return ids
+  }
+  indexOfFold () {
+    const blocks = this.getContent()
+    for (let i = 0, len = blocks.length; i < len; i++) {
+      const block = blocks[i]
+      if (!block.metadata || !block.metadata.starred) {
+        return i
+      }
+    }
+    return -1
   }
   updatePlaceholder (id, metadata) {
     let block = this.getBlock(id)
@@ -322,25 +313,9 @@ export default class Ed {
     if (failed != null) block.metadata.failed = failed
     // Let content widgets know to update
     this.trigger('media.update')
-    // Let fold media know to update
-    if (this._foldMedia && this._foldMedia === id) {
-      this.trigger('fold.media.change', block)
-    }
   }
   _placeholderCancel (id) {
-    let block = this.getBlock(id)
-    if (!block) {
-      throw new Error('Can not cancel this placeholder block')
-    }
-    if (block.type !== 'placeholder') {
-      throw new Error('Block is not a placeholder block')
-    }
-    const content = this.getContent()
-    const index = getIndexWithId(content, id)
-    // MUTATION
-    content.splice(index, 1)
-    // Render
-    this._setMergedContent(content)
+    this._removeMediaBlock(id)
     // Event
     this.onPlaceholderCancel(id)
   }
@@ -350,109 +325,76 @@ export default class Ed {
       throw new Error('Can not set image preview for block id that does not exist')
     }
     this._coverPreviews[id] = src
-    // Let fold media know to update
-    if (this._foldMedia && this._foldMedia === id) {
-      this.trigger('fold.media.change', block)
-    }
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
   }
+  _convertToFullPost () {
+    let addTitle = true
+    let addFold = true
+    let endPos = 0
+    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
+      const node = this.pm.doc.child(i)
+      if (node.type.name === 'heading' && node.attrs.level === 1) {
+        addTitle = false
+      }
+      if (node.type.name === 'horizontal_rule') {
+        addFold = false
+      }
+      endPos += node.nodeSize
+    }
+    if (addTitle) {
+      const titleNode = this.pm.schema.nodes.heading.create({level: 1})
+      this.pm.tr
+        .insert(0, titleNode)
+        .apply()
+      endPos += titleNode.nodeSize
+    }
+    if (addFold) {
+      const ruleNode = this.pm.schema.nodes.horizontal_rule.create()
+      const pNode = this.pm.schema.nodes.paragraph.create()
+      this.pm.tr
+        .insert(endPos, ruleNode)
+        .insert(endPos + ruleNode.nodeSize, pNode)
+        .apply()
+    }
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
+  }
   getContent () {
     const doc = this.pm.getContent()
     const content = DocToGrid(doc, this._content)
-    if (this._foldMedia) {
-      const fold = this.getBlock(this._foldMedia)
-      if (!fold.metadata) {
-        fold.metadata = {}
-      }
-      fold.metadata.starred = true
-      const html = metaToHtml(fold)
-      if (html) {
-        fold.html = html
-      }
-      content.unshift(fold)
-    }
     return content
   }
   setContent (content) {
-    const merged = mergeContent(this.getContent(), content)
-    this._setMergedContent(merged)
-  }
-  _setMergedContent (mergedContent) {
-    this._initializeContent(mergedContent)
-    const {media, content} = determineFold(mergedContent, this._coverPreviews)
-    this._foldMedia = (media ? media.id : null)
-    this.trigger('fold.media.change', media)
-    let doc = GridToDoc(content)
-    // Make selection to set after DOM update
-    let selection = fixSelection(this.pm.selection, this.pm.doc, doc)
-    // Populate ProseMirror
-    this.pm.setDoc(doc, selection)
+    this._applyTransform(content)
+    this._initializeContent(content)
     // Let widgets know to update
     this.trigger('media.update')
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
-}
-
-// Util
-
-function getIndexWithId (array, id) {
-  for (let i = 0, len = array.length; i < len; i++) {
-    let item = array[i]
-    if (item.id === id) {
-      return i
-    }
-  }
-  return -1
-}
-
-// function getItemWithId (array, id) {
-//   let index = getIndexWithId(array, id)
-//   if (index === -1) return
-//   return array[index]
-// }
-
-function arrayInsertAll (array, index, arrayToInsert) {
-  let before = array.slice(0, index)
-  const after = array.slice(index)
-  return before.concat(arrayToInsert, after)
-}
-
-function mergeContent (oldContent, newContent) {
-  // Only add new placeholders and update exiting placeholders
-  let merged = oldContent.slice()
-  // New placeholders
-  for (let i = 0, len = newContent.length; i < len; i++) {
-    const block = newContent[i]
-    if (block.type === 'placeholder') {
-      const index = getIndexWithId(merged, block.id)
-      if (index > -1) {
-        merged.splice(index, 1, block)
-      } else {
-        merged.splice(i, 0, block)
+  _applyTransform (content) {
+    for (let i = 0, len = content.length; i < len; i++) {
+      const block = content[i]
+      const {id, type} = block
+      if (!isMediaType(type)) {
+        continue
+      }
+      const currentBlock = this._content[id]
+      if (!currentBlock) {
+        this._insertBlocks(i, [block])
+        continue
+      }
+      if (currentBlock.type !== type) {
+        const index = indexOfId(this.pm.doc, id)
+        if (index === -1) {
+          continue
+        }
+        this._replaceBlock(index, block)
+        continue
       }
     }
   }
-  // Old placeholders
-  for (let i = 0, len = merged.length; i < len; i++) {
-    const block = merged[i]
-    if (block.type === 'placeholder') {
-      const index = getIndexWithId(newContent, block.id)
-      if (index > -1) {
-        merged.splice(i, 1, newContent[index])
-      }
-    }
-  }
-  return merged
-}
-
-function fixSelection (selection, prevDoc, doc) {
-  if (!selection.anchor) return selection
-  const index = prevDoc.childBefore(selection.anchor).index
-  let offset = 0
-  for (let i = 0; i < index; i++) {
-    offset += doc.child(i).nodeSize
-  }
-  offset++
-  return new TextSelection(offset)
 }

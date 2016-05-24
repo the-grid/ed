@@ -12,6 +12,8 @@ import commands from '../commands/index'
 import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
 
+import '../inputrules/autoinput.js'
+
 import PluginWidget from '../plugins/widget.js'
 import ShareUrl from '../plugins/share-url'
 import FixedMenuBarHack from '../plugins/fixed-menu-hack'
@@ -46,7 +48,7 @@ class Editable extends React.Component {
       { place: mirror
       , autoInput: true
       , commands: commands
-      , doc: GridToDoc(initialContent, EdSchemaFull)
+      , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
       }
 

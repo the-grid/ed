@@ -22,15 +22,19 @@ const WidgetTypes =
 // Should use debounced version
 function onDOMChanged () {
   // Mount or move widget overlays
-  const els = this.pm.content.querySelectorAll('div[grid-type]')
+  const els = this.pm.content.children
   let inDoc = []
   let heightChanges = []
   let idDuplicates = []
   for (let i = 0, len = els.length; i < len; i++) {
     const el = els[i]
     const id = el.getAttribute('grid-id')
+    if (!id) {
+      // Not a media block
+      continue
+    }
     const type = el.getAttribute('grid-type')
-    if (!id || !type) {
+    if (!type) {
       throw new Error('Bad placeholder!')
     }
     if (inDoc.indexOf(id) !== -1) {
@@ -120,6 +124,14 @@ function initializeWidget (id, type, rectangle) {
 
   let initialBlock = this.ed.getBlock(id)
 
+  if (!initialBlock) {
+    initialBlock = this.initializeBlock(id, type)
+  }
+
+  if (!initialBlock) {
+    throw new Error('Block does not exist in content')
+  }
+
   this.widgets[id] = new Widget(
     { ed: this.ed
     , id
@@ -131,6 +143,17 @@ function initializeWidget (id, type, rectangle) {
   )
 
   this.pm.signal('ed.plugin.widget.one.initialized', id)
+}
+
+function initializeBlock (id, type) {
+  const block =
+    { id
+    , type
+    , html: ''
+    , metadata: {}
+    }
+  this.ed._initializeContent([block])
+  return this.ed.getBlock(id)
 }
 
 function onIframeMessage (message) {
@@ -183,6 +206,7 @@ export default class PluginWidget {
     this.initializeWidget = initializeWidget.bind(this)
     this.onIframeMessage = onIframeMessage.bind(this)
     this.updatePlaceholders = updatePlaceholders.bind(this)
+    this.initializeBlock = initializeBlock.bind(this)
 
     this.initialized = false
 

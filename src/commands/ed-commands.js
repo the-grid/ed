@@ -1,5 +1,5 @@
 import {elt} from 'prosemirror/src/dom'
-import {focusedIndex} from '../util/pm'
+import {focusedIndex, isCollapsed} from '../util/pm'
 
 let commands = {}
 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
@@ -13,6 +13,9 @@ function triggerUpload (pm) {
 commands.ed_upload_image =
   { label: 'upload image to post'
   , run: triggerUpload
+  , select (pm) {
+    return isCollapsed(pm)
+  }
   , menu:
     { group: 'ed_block'
     , display:

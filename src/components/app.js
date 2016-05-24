@@ -3,13 +3,27 @@ require('./app.css')
 import React, {createElement as el} from 'react'
 
 import FoldMedia from './fold-media'
-import HrLabel from './hr-label'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
 
-function isEditableShown (media, content) {
-  const emptyContent = (content && content.length === 0)
-  return (media != null || !emptyContent)
+function hasCover (content) {
+  for (let i = 0, len = content.length; i < len; i++) {
+    const block = content[i]
+    if (block.type === 'image' && block.metadata && !block.metadata.isBasedOnUrl) {
+      return true
+    }
+  }
+  return false
+}
+
+function hasUnstarred (content) {
+  for (let i = 0, len = content.length; i < len; i++) {
+    const block = content[i]
+    if (block.metadata && !block.metadata.starred) {
+      return true
+    }
+  }
+  return false
 }
 
 
@@ -17,28 +31,11 @@ class App extends React.Component {
   constructor (props) {
     super(props)
 
-    const {initialMedia, initialContent} = props
+    const {initialContent} = props
     this.state =
-      { media: initialMedia
-      , editableShown: isEditableShown(initialMedia, initialContent)
+      { hasCover: hasCover(initialContent)
+      , hasUnstarred: hasUnstarred(initialContent)
       }
-
-    const {store} = props
-    store.on('fold.media.change', (block) => {
-      let {editableShown} = this.state
-      // Only show editable, don't hide it.
-      // Kinda weird, but otherwise we would need to
-      // get the current content, which isn't known
-      // here, by design.
-      if (!editableShown) {
-        editableShown = isEditableShown(block, initialContent)
-      }
-      this.setState(
-        { media: block
-        , editableShown
-        }
-      )
-    })
   }
   getChildContext () {
     const {store, imgfloConfig} = this.props
@@ -53,42 +50,25 @@ class App extends React.Component {
     return el('div'
     , {className: 'Ed'}
     , this.renderMedia()
-    , this.renderDivider()
     , this.renderContent()
     )
   }
   renderMedia () {
-    const {media} = this.state
-    const {onChange} = this.props
+    const {hasCover, hasUnstarred} = this.state
+    if (hasCover && hasUnstarred) return
 
     return el('div'
     , { className: 'Ed-Media'
       , style: { zIndex: 2 }
       }
     , el(FoldMedia
-      , { block: media
-        , onChange
+      , { hasCover
+        , hasUnstarred
         }
-      )
-    )
-  }
-  renderDivider () {
-    const {editableShown} = this.state
-
-    return el('div'
-    , { className: 'Ed-Divider'
-      , style:
-        { display: (editableShown ? 'block' : 'none')
-        }
-      }
-    , el(HrLabel
-      , { label: 'Anything below this line will become an article page. Anything above will be featured on the home page.' }
       )
     )
   }
   renderContent () {
-    const {editableShown} = this.state
-
     const { initialContent
       , menuBar, menuTip
       , onChange, onShareFile, onShareUrl
@@ -98,7 +78,6 @@ class App extends React.Component {
     , { className: 'Ed-Content'
       , style:
         { zIndex: 1
-        , display: (editableShown ? 'block' : 'none')
         }
       }
     , el(Editable
@@ -121,7 +100,6 @@ App.childContextTypes =
   }
 App.propTypes =
   { initialContent: React.PropTypes.array.isRequired
-  , initialMedia: React.PropTypes.object
   , onChange: React.PropTypes.func.isRequired
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool

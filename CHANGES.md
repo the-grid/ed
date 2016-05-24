@@ -1,5 +1,33 @@
 ## dev
 
+* Fix ``` shortcut to add a code block (#25)
+* "Upload Image" button show logic: don't show on block selection
+* Reverting 0.11.0 prototype
+* Revert special-cased fold block
+* Revert special-case media delete / joinBackward: default behavior selects media before deleting it now
+* Don't space media with empty `p`: default behavior allows select media block + enter to add a block
+* NEW fold behavior: Unstarred blocks render below `hr`
+* FIX jumping cursors (#201)
+  * All mounted doc changes now via [ProseMirror transforms](http://prosemirror.net/ref.html#transform)
+* NEW -- button to add first image
+* NEW -- button to add title and fold
+
+## 0.11.0 - 2016-04-23
+
+* Styling font sizing throughout
+* Add image change/remove to all images and "upload" button to empty image
+* Default to empty image/title/description above the fold
+* Change fold copy
+* Change integration-points for Webapp, so that attribution-editor can have updatetable progressbars (subject to change in future)
+
+## 0.10.7 - 2016-04-22
+
+* Styling small screen button 100% width
+
+## 0.10.6 - 2016-04-21
+
+* Styling for small screen first (#187)
+
 ## 0.10.5 - 2016-04-19
 
 * FIX -- "Upload Image" button was triggering `onShareFile` callback twice (#179)

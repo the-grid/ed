@@ -1,24 +1,44 @@
-import {defaultSchema, Schema} from 'prosemirror/src/model'
-import {EdDoc
-  , EdHeading, EdBlockQuote, EdParagraph
-  , EdBulletList, EdOrderedList, EdListItem} from './ed-nodes.js'
+// See also, PM's default schema:
+// https://github.com/ProseMirror/prosemirror/blob/86d55c3f48a0b092bb446fe5c33cc4978c2ba61c/src/model/defaultschema.js#L91-L118
+
+import {Schema, Doc,
+  Heading, BlockQuote, Paragraph,
+  HorizontalRule,
+  BulletList, OrderedList, ListItem,
+  Text,
+  HardBreak,
+  EmMark, StrongMark, LinkMark} from 'prosemirror/src/model'
+
 import {Media} from './media'
 
-// Extend default schema with custom types
-let spec = defaultSchema.spec
-spec = spec.update(
-  { doc: EdDoc
-  , heading: EdHeading
-  , blockquote: EdBlockQuote
-  , paragraph: EdParagraph
-  , bullet_list: EdBulletList
-  , ordered_list: EdOrderedList
-  , list_item: EdListItem
-  , media: Media
-  , code_block: null
-  , horizontal_rule: null
+class EdHeading extends Heading {
+  // Limit h1, h2, h3
+  get maxLevel () { return 3 }
+}
+
+const EdSchema = new Schema(
+  { nodes:
+    { doc: {type: Doc, content: '(paragraph | topblock | ordered_list | bullet_list)+'}
+    , paragraph: {type: Paragraph, content: 'inline<_>*', group: 'block'}
+    , blockquote: {type: BlockQuote, content: 'block+', group: 'topblock'}
+    , ordered_list: {type: OrderedList, content: 'list_item+', group: 'block'}
+    , bullet_list: {type: BulletList, content: 'list_item+', group: 'block'}
+    , horizontal_rule: {type: HorizontalRule, group: 'topblock'}
+    , heading: {type: EdHeading, content: 'inline<_>*', group: 'topblock'}
+    , media: {type: Media, group: 'topblock'}
+    // , code_block: {type: CodeBlock, content: 'text*', group: 'block'}
+    , list_item: {type: ListItem, content: 'block+'}
+    , text: {type: Text, group: 'inline'}
+    // , image: {type: Image, group: 'inline'}
+    , hard_break: {type: HardBreak, group: 'inline'}
+    }
+  , marks:
+    { em: EmMark
+    , strong: StrongMark
+    , link: LinkMark
+    // , code: CodeMark
+    }
   }
 )
 
-const EdSchemaFull = new Schema(spec)
-export default EdSchemaFull
+export default EdSchema

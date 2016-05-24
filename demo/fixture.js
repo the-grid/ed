@@ -279,7 +279,7 @@ let imageCole = {
       'domain': 'the-grid-user-content.s3-us-west-2.amazonaws.com',
       'name': 'The Grid'
     },
-    'starred': false,
+    'starred': true,
     'source': '51642a12-50cf-4072-855c-d7d8294ba125',
     author: [{
       name: 'Cole Rise',

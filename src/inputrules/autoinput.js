@@ -1,19 +1,27 @@
-import {InputRule} from 'prosemirror/src/inputrules'
-import {Pos} from 'prosemirror/src/model'
 import {Media} from '../schema/media'
-
 import uuid from 'uuid'
+import {InputRule} from 'prosemirror/src/inputrules'
 
 
-Media.register('autoInput', 'replaceWithCodeWidget',
+Media.register('autoInput', 'ed_start_code',
   new InputRule(/^```$/, '`', function (pm, _, pos) {
-    setAs(pm, pos, this, {id: uuid.v4(), type: 'code'})
+    insertBlock(pm, pos, this, {id: uuid.v4(), type: 'code'})
   })
 )
 
-function setAs (pm, pos, type, attrs) {
+
+function insertBlock (pm, pos, type, attrs) {
+  const $pos = pm.doc.resolve(pos)
+  const start = pos - $pos.parentOffset
+  const nodePos = start - 1
+  const codeNode = type.create(attrs)
   pm.tr
-    .delete(new Pos(pos.path, 0), pos)
-    .setBlockType(pos, pos, type, attrs)
+    // Delete the input shortcut text (like ```)
+    .delete(start, pos)
+    // Insert the block above the current block
+    .insert(nodePos, codeNode)
     .apply()
+
+  // Trigger event for widget system
+  setTimeout(() => pm.signal('draw'), 0)
 }
