@@ -61,7 +61,8 @@ class DropdownGroup extends React.Component {
           , inverted: false
           , style:
             { borderWidth: 0
-            , boxShadow: 'none'
+            , boxShadow: 'none',
+              outline: 'none'
             }
           , rounded: false
           , title: `Edit ${label}`
