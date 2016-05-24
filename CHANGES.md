@@ -1,5 +1,9 @@
 ## dev
 
+## 0.12.1 - 2016-05-24
+
+* Fix gh-pages code editor includes
+
 ## 0.12.0 - 2016-05-24
 
 Major fixes, but API is stable from 0.10.x tag.
