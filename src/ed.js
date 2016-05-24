@@ -93,9 +93,9 @@ export default class Ed {
       case 'FOLD_MEDIA_UPLOAD':
         this.onShareFile(0)
         break
-      // case 'ADD_FOLD_DELIMITER':
-      //   this._convertToFullPost()
-      //   break
+      case 'ADD_FOLD_DELIMITER':
+        this._convertToFullPost()
+        break
       case 'PLACEHOLDER_CANCEL':
         this._placeholderCancel(payload)
         break
@@ -328,6 +328,39 @@ export default class Ed {
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
+  }
+  _convertToFullPost () {
+    let addTitle = true
+    let addFold = true
+    let endPos = 0
+    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
+      const node = this.pm.doc.child(i)
+      if (node.type.name === 'heading' && node.attrs.level === 1) {
+        addTitle = false
+      }
+      if (node.type.name === 'horizontal_rule') {
+        addFold = false
+      }
+      endPos += node.nodeSize
+    }
+    if (addTitle) {
+      const titleNode = this.pm.schema.nodes.heading.create({level: 1})
+      this.pm.tr
+        .insert(0, titleNode)
+        .apply()
+      endPos += titleNode.nodeSize
+    }
+    if (addFold) {
+      const ruleNode = this.pm.schema.nodes.horizontal_rule.create()
+      const pNode = this.pm.schema.nodes.paragraph.create()
+      this.pm.tr
+        .insert(endPos, ruleNode)
+        .insert(endPos + ruleNode.nodeSize, pNode)
+        .apply()
+    }
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   getContent () {
     const doc = this.pm.getContent()

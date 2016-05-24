@@ -33,7 +33,7 @@ class FoldMedia extends React.Component {
           }
         }
       , this.renderAddImage()
-      // , this.renderAddFold()
+      , this.renderAddFold()
       )
     )
   }
