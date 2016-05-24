@@ -6,9 +6,19 @@
 * Revert special-cased fold block
 * Revert special-case media delete / joinBackward: default behavior selects media before deleting it now
 * Don't space media with empty `p`: default behavior allows select media block + enter to add a block
-* New fold behavior: Unstarred blocks render below `hr`
+* NEW fold behavior: Unstarred blocks render below `hr`
 * FIX jumping cursors (#201)
-  * All mounted doc changes now via [ProseMirror transform](http://prosemirror.net/ref.html#transform)
+  * All mounted doc changes now via [ProseMirror transforms](http://prosemirror.net/ref.html#transform)
+* NEW -- button to add first image
+* NEW -- button to add title and fold
+
+## 0.11.0 - 2016-04-23
+
+* Styling font sizing throughout
+* Add image change/remove to all images and "upload" button to empty image
+* Default to empty image/title/description above the fold
+* Change fold copy
+* Change integration-points for Webapp, so that attribution-editor can have updatetable progressbars (subject to change in future)
 
 ## 0.10.7 - 2016-04-22
 
