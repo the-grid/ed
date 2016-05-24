@@ -11,6 +11,15 @@ const buttonStyle =
   }
 
 class FoldMedia extends React.Component {
+  constructor (props) {
+    super(props)
+
+    const {hasCover, hasUnstarred} = props
+    this.state =
+      { showAddCoverButton: !hasCover
+      , showAddFoldButton: !hasUnstarred
+      }
+  }
   render () {
     return el('div'
     , { className: 'FoldMedia'
@@ -38,8 +47,8 @@ class FoldMedia extends React.Component {
     )
   }
   renderAddImage () {
-    const {hasCover} = this.props
-    if (hasCover) return
+    const {showAddCoverButton} = this.state
+    if (!showAddCoverButton) return
 
     return el(ButtonOutline
     , { style: buttonStyle
@@ -52,10 +61,12 @@ class FoldMedia extends React.Component {
   addImage () {
     const {store} = this.context
     store.routeChange('FOLD_MEDIA_UPLOAD')
+
+    this.setState({showAddCoverButton: false})
   }
   renderAddFold () {
-    const {hasUnstarred} = this.props
-    if (hasUnstarred) return
+    const {showAddFoldButton} = this.state
+    if (!showAddFoldButton) return
 
     return el(ButtonOutline
     , { style: buttonStyle
@@ -68,6 +79,8 @@ class FoldMedia extends React.Component {
   addFold () {
     const {store} = this.context
     store.routeChange('ADD_FOLD_DELIMITER')
+
+    this.setState({showAddFoldButton: false})
   }
 }
 FoldMedia.contextTypes = { store: React.PropTypes.object }
