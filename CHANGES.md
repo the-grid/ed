@@ -1,5 +1,9 @@
 ## dev
 
+## 0.12.0 - 2016-05-24
+
+Major fixes, but API is stable from 0.10.x tag.
+
 * Fix ``` shortcut to add a code block (#25)
 * "Upload Image" button show logic: don't show on block selection
 * Reverting 0.11.0 prototype
@@ -13,6 +17,8 @@
 * NEW -- button to add title and fold
 
 ## 0.11.0 - 2016-04-23
+
+([archived](https://github.com/the-grid/ed/tree/archive/d4-mario-oh-eleven))
 
 * Styling font sizing throughout
 * Add image change/remove to all images and "upload" button to empty image
