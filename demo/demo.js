@@ -206,7 +206,7 @@ let timeout
 let simulateUpdates = function () {
   // Loop
   timeout = setTimeout(simulateUpdates, 1000)
-  // Mutate
+
   let content = ed.getContent()
   ed.setContent(content)
 }

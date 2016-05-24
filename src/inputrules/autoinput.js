@@ -22,6 +22,6 @@ function insertBlock (pm, pos, type, attrs) {
     .insert(nodePos, codeNode)
     .apply()
 
-  // Trigger event for widget system and autosave
+  // Trigger event for widget system
   setTimeout(() => pm.signal('draw'), 0)
 }
