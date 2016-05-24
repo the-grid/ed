@@ -7,6 +7,8 @@
 * Revert special-case media delete / joinBackward: default behavior selects media before deleting it now
 * Don't space media with empty `p`: default behavior allows select media block + enter to add a block
 * New fold behavior: Unstarred blocks render below `hr`
+* FIX jumping cursors (#201)
+  * All mounted doc changes now via [ProseMirror transform](http://prosemirror.net/ref.html#transform)
 
 ## 0.10.7 - 2016-04-22
 

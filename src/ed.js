@@ -4,9 +4,9 @@ import './util/react-tap-hack'
 import _ from './util/lodash'
 import uuid from 'uuid'
 
-import {TextSelection} from 'prosemirror/src/edit/selection'
+import {isMediaType} from './convert/types'
+import {indexToPos, indexOfId} from './util/pm'
 
-import GridToDoc from './convert/grid-to-doc'
 import DocToGrid from './convert/doc-to-grid'
 
 import App from './components/app'
@@ -183,51 +183,92 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not find this block id')
     }
-    const content = this.getContent()
-    const index = getIndexWithId(content, id)
-    // MUTATION
-    content.splice(index, 1)
-    // Render
-    this._setMergedContent(content)
+
+    const index = indexOfId(this.pm.doc, id)
+    if (index === -1) {
+      throw new Error('Can not find node with this id')
+    }
+    const nodeToRemove = this.pm.doc.child(index)
+    const pos = indexToPos(this.pm.doc, index)
+    this.pm.tr
+      .delete(pos, pos + nodeToRemove.nodeSize)
+      .apply()
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   _dedupeIds () {
-    // Triggered by copy & pasted
-    let content = this.getContent()
     let ids = []
-    for (let i = 0, len = content.length; i < len; i++) {
-      let block = content[i]
-      let {id} = block
-      if (!id) {
+    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
+      const node = this.pm.doc.child(i)
+      if (!node.attrs || !node.attrs.id) {
         continue
       }
+      let id = node.attrs.id
       if (ids.indexOf(id) !== -1) {
-        // MUTATION
-        block = _.cloneDeep(block)
+        const block = this.getBlock(id)
+        let blockClone = _.cloneDeep(block)
         id = uuid.v4()
-        block.id = id
-        content[i] = block
+        blockClone.id = id
+        this._replaceBlock(i, blockClone)
       }
       ids.push(id)
     }
-    // Render
-    this._setMergedContent(content)
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   getBlock (id) {
     return this._content[id]
   }
   _replaceBlock (index, block) {
-    let content = this.getContent()
-    // MUTATION
-    content.splice(index, 1, block)
-    // Render
-    this._setMergedContent(content)
+    if (!this.pm) {
+      throw new Error('pm not ready')
+    }
+
+    const {type, id} = block
+    if (!isMediaType(type)) {
+      throw new Error('_replaceBlock with non-media blocks not yet implemented.')
+    }
+    const replaceNode = this.pm.doc.maybeChild(index)
+    if (!replaceNode) {
+      throw new Error('Node to replace not found.')
+    }
+
+    this._initializeContent([block])
+
+    const node = this.pm.schema.nodes.media.create({id, type})
+    const pos = indexToPos(this.pm.doc, index)
+    this.pm.tr
+      // Delete the node to replace
+      .delete(pos, pos + replaceNode.nodeSize)
+      // Insert the block
+      .insert(pos, node)
+      .apply()
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   _insertBlocks (index, blocks) {
-    const content = this.getContent()
-    // MUTATION
-    const newContent = arrayInsertAll(content, index, blocks)
-    // Render
-    this._setMergedContent(newContent)
+    if (!this.pm) {
+      throw new Error('pm not ready')
+    }
+
+    this._initializeContent(blocks)
+
+    for (let i = 0, len = blocks.length; i < len; i++) {
+      const block = blocks[i]
+      const {type, id} = block
+      if (!isMediaType(type)) {
+        throw new Error('_insertBlocks with non-media blocks not yet implemented.')
+      }
+
+      const node = this.pm.schema.nodes.media.create({id, type})
+      const pos = indexToPos(this.pm.doc, index + i)
+      this.pm.tr.insert(pos, node).apply()
+    }
+
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -274,19 +315,7 @@ export default class Ed {
     this.trigger('media.update')
   }
   _placeholderCancel (id) {
-    let block = this.getBlock(id)
-    if (!block) {
-      throw new Error('Can not cancel this placeholder block')
-    }
-    if (block.type !== 'placeholder') {
-      throw new Error('Block is not a placeholder block')
-    }
-    const content = this.getContent()
-    const index = getIndexWithId(content, id)
-    // MUTATION
-    content.splice(index, 1)
-    // Render
-    this._setMergedContent(content)
+    this._removeMediaBlock(id)
     // Event
     this.onPlaceholderCancel(id)
   }
@@ -306,90 +335,33 @@ export default class Ed {
     return content
   }
   setContent (content) {
-    const merged = mergeContent(this.getContent(), content)
-    this._setMergedContent(merged)
-  }
-  _setMergedContent (content) {
+    this._applyTransform(content)
     this._initializeContent(content)
-    let doc = GridToDoc(content)
-    // Make selection to set after DOM update
-    let selection = fixSelection(this.pm.selection, this.pm.doc, doc)
-    // Populate ProseMirror
-    this.pm.setDoc(doc, selection)
     // Let widgets know to update
     this.trigger('media.update')
+    // Trigger event for widget system
+    setTimeout(() => this.pm.signal('draw'), 0)
   }
-}
-
-// Util
-
-function getIndexWithId (array, id) {
-  for (let i = 0, len = array.length; i < len; i++) {
-    let item = array[i]
-    if (item.id === id) {
-      return i
-    }
-  }
-  return -1
-}
-
-// function getItemWithId (array, id) {
-//   let index = getIndexWithId(array, id)
-//   if (index === -1) return
-//   return array[index]
-// }
-
-function arrayInsertAll (array, index, arrayToInsert) {
-  let before = array.slice(0, index)
-  const after = array.slice(index)
-  return before.concat(arrayToInsert, after)
-}
-
-function mergeContent (oldContent, newContent) {
-  // Only add new placeholders and update exiting placeholders
-  let merged = oldContent.slice()
-  // New placeholders
-  for (let i = 0, len = newContent.length; i < len; i++) {
-    const block = newContent[i]
-    if (block.type === 'placeholder') {
-      const index = getIndexWithId(merged, block.id)
-      if (index > -1) {
-        merged.splice(index, 1, block)
-      } else {
-        merged.splice(i, 0, block)
+  _applyTransform (content) {
+    for (let i = 0, len = content.length; i < len; i++) {
+      const block = content[i]
+      const {id, type} = block
+      if (!isMediaType(type)) {
+        continue
+      }
+      const currentBlock = this._content[id]
+      if (!currentBlock) {
+        this._insertBlocks(i, [block])
+        continue
+      }
+      if (currentBlock.type !== type) {
+        const index = indexOfId(this.pm.doc, id)
+        if (index === -1) {
+          continue
+        }
+        this._replaceBlock(index, block)
+        continue
       }
     }
   }
-  // Old placeholders
-  for (let i = 0, len = merged.length; i < len; i++) {
-    const block = merged[i]
-    if (block.type === 'placeholder') {
-      const index = getIndexWithId(newContent, block.id)
-      if (index > -1) {
-        const newBlock = newContent[index]
-        if (!newBlock.metadata) {
-          newBlock.metadata = {}
-        }
-        if (block.metadata && block.metadata.starred) {
-          newBlock.metadata.starred = true
-        }
-        if (block.metadata && block.metadata.superstar) {
-          newBlock.metadata.superstar = true
-        }
-        merged.splice(i, 1, newContent[index])
-      }
-    }
-  }
-  return merged
-}
-
-function fixSelection (selection, prevDoc, doc) {
-  if (!selection.anchor) return selection
-  const index = prevDoc.childBefore(selection.anchor).index
-  let offset = 0
-  for (let i = 0; i < index; i++) {
-    offset += doc.child(i).nodeSize
-  }
-  offset++
-  return new TextSelection(offset)
 }
