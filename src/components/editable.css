@@ -165,6 +165,23 @@
   left: auto;
   right: 5px;
 }
+
+.ProseMirror-content hr {
+  width: calc(100% + 4em);
+  left: -2em;
+}
+
+.ProseMirror-content hr:after {
+  content: 'Adding content below this line will make a separate page for this post.';
+  display: block;
+  position: relative;
+  opacity: .2;
+  bottom: 0;
+  text-align: center;
+  font-size: 12px;
+  padding: 0 2em;
+}
+
 /* Responsive font size magic, small screen first */
 
 .ProseMirror-content {
