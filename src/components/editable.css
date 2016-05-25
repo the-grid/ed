@@ -171,16 +171,34 @@
   left: -2em;
 }
 
-.ProseMirror-content hr:after {
+.ProseMirror-content hr::after {
   content: 'Adding content below this line will make a separate page for this post.';
   display: block;
   position: relative;
-  opacity: .2;
+  opacity: 0.5;
   bottom: 0;
   text-align: center;
   font-size: 12px;
   padding: 0 2em;
 }
+
+/* Placeholder text hacks */
+.ProseMirror-content > .empty {
+  position: relative;
+}
+.ProseMirror-content > h1.empty::after {
+  content: 'Title';
+  opacity: 0.2;
+  position: absolute;
+  bottom: 0;
+}
+.ProseMirror-content > p.empty::after {
+  content: '¶';
+  opacity: 0.2;
+  position: absolute;
+  bottom: 0;
+}
+
 
 /* Responsive font size magic, small screen first */
 
