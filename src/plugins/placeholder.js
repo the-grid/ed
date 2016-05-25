@@ -41,11 +41,13 @@ export default class PluginPlaceholder {
     this.pm = options.pm
 
     window.addEventListener('resize', this.debouncedDOMChanged)
-    this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
+    this.updater = new UpdateScheduler(this.pm, 'change draw flush', this.debouncedDOMChanged)
+    this.pm.content.addEventListener('compositionstart', this.debouncedDOMChanged)
     this.updater.force()
   }
   teardown () {
     this.updater.detach()
+    this.pm.content.removeEventListener('compositionstart', this.debouncedDOMChanged)
     window.removeEventListener('resize', this.debouncedDOMChanged)
   }
 }
