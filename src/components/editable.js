@@ -107,6 +107,7 @@ class Editable extends React.Component {
     for (let i = 0, len = changes.length; i < len; i++) {
       const change = changes[i]
       // TODO do this with standard pm.tr interface, not direct DOM
+      if (!this.refs.mirror) return
       const placeholder = this.refs.mirror.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
       placeholder.style.height = change.height + 'px'
     }
