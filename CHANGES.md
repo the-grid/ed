@@ -1,5 +1,10 @@
 ## dev
 
+## 0.12.2 - 2016-05-25
+
+* Style fix for attribution buttons (#205)
+* Placeholder plugin for empty h1 and paragraph (#202)
+
 ## 0.12.1 - 2016-05-24
 
 * Fix gh-pages code editor includes
