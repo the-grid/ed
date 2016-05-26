@@ -1,5 +1,8 @@
 ## dev
 
+* Add label to Author & Publisher dropdown (#203)
+* Validate urls added as attribution; don't trigger change events while invalid (#129)
+
 ## 0.12.2 - 2016-05-25
 
 * Style fix for attribution buttons (#205)
