@@ -16,6 +16,7 @@ export default function CreditEditor (props, context) {
       }
     }
   , renderAvatar(avatar, context.imgfloConfig)
+  , renderLabel(label)
   , (onlyUrl
     ? renderBasedOnUrl(url, onChange, path)
     : renderFields(name, label, url, avatar, onChange, path)
@@ -43,6 +44,13 @@ function renderAvatar (avatar, imgfloConfig) {
   )
 }
 
+function renderLabel (label) {
+  return el('div'
+  , {style: {marginBottom: '0.5rem'}}
+  , label
+  )
+}
+
 function renderFields (name, label, url, avatar, onChange, path) {
   return (
     [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true)
@@ -52,7 +60,7 @@ function renderFields (name, label, url, avatar, onChange, path) {
 }
 
 function renderBasedOnUrl (value, onChange, path) {
-  return renderTextField('url', 'Link', value, onChange, path, true)
+  return renderTextField('url', '', value, onChange, path, true)
 }
 
 function renderTextField (key, label, value, onChange, path, defaultFocus = false) {
