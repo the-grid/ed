@@ -222,12 +222,14 @@ export default class PluginWidget {
     this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
     this.updater.force()
     this.ed.on('media.update', this.updatePlaceholders)
+    this.interval = window.setInterval(this.debouncedDOMChanged, 1000)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
   teardown () {
     this.updater.detach()
     this.ed.off('media.update', this.updatePlaceholders)
+    window.clearInterval(this.interval)
     window.removeEventListener('resize', this.debouncedDOMChanged)
     window.removeEventListener('message', this.onIframeMessage)
 
