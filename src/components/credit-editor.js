@@ -11,8 +11,8 @@ export default function CreditEditor (props, context) {
 
   return el('div'
   , { style:
-      { width: 360
-      , padding: '1rem 1rem 0 1rem'
+      { padding: '1rem 1rem 0 1rem'
+      , minWidth: 360
       }
     }
   , renderAvatar(avatar, context.imgfloConfig)

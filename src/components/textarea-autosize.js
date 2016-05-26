@@ -10,8 +10,6 @@ const containerStyle =
 
 const areaStyle =
   { fontFamily: sans
-  //, fontSize: 18
-  //, lineHeight: 1.5
   , minHeight: '1.5rem'
   , display: 'block'
   , width: '100%'
@@ -23,7 +21,7 @@ const areaStyle =
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'
-  , margin: '1.5rem 0 .75rem 0'
+  , marginBottom: '0.75rem'
   }
 
 function resize () {
