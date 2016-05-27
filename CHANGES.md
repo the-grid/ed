@@ -1,5 +1,7 @@
 ## dev
 
+## 0.12.3 - 2016-05-26
+
 * Add label to Author & Publisher dropdown (#203)
 * Validate urls added as attribution; don't trigger change events while invalid (#129)
 * Widget layout now runs on a loop, so whack layouts shouldn't stay off for long (#208)
