@@ -369,6 +369,7 @@ export default class Ed {
       this.pm.setTextSelection(1)
     } catch (error) {}
     this.pm.focus()
+    this.pm.scrollIntoView()
   }
   getContent () {
     const doc = this.pm.getContent()

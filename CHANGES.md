@@ -1,5 +1,9 @@
 ## dev
 
+## 0.12.5 - 2016-05-27
+
+* On conversion to full post, scroll to focused title
+
 ## 0.12.4 - 2016-05-27
 
 * Space media with blank `p`: easier focus on mobile
