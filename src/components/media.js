@@ -2,12 +2,10 @@ import React, {createElement as el} from 'react'
 
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
-import Title from './title'
 import rebassTheme from './rebass-theme'
 
 const Components =
   { placeholder: Placeholder
-  , h1: Title
   , attribution: AttributionEditor
   }
 

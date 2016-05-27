@@ -8,10 +8,14 @@ const containerStyle =
   , fontSize: 12
   }
 
+const labelStyle = {}
+
+const labelStyleError =
+  { color: 'red'
+  }
+
 const areaStyle =
   { fontFamily: sans
-  //, fontSize: 18
-  //, lineHeight: 1.5
   , minHeight: '1.5rem'
   , display: 'block'
   , width: '100%'
@@ -23,7 +27,7 @@ const areaStyle =
   , borderRadius: 0
   , outline: 'none'
   , overflow: 'hidden'
-  , margin: '1.5rem 0 .75rem 0'
+  , marginBottom: '0.75rem'
   }
 
 function resize () {
@@ -37,7 +41,10 @@ class TextareaAutosize extends React.Component {
   constructor (props) {
     super(props)
     this.resize = resize.bind(this)
-    this.state = {value: props.defaultValue}
+    this.state =
+      { value: props.defaultValue
+      , valid: true
+      }
   }
   componentDidMount () {
     this.resize()
@@ -50,14 +57,15 @@ class TextareaAutosize extends React.Component {
   }
   render () {
     const {label, placeholder} = this.props
-    const {value} = this.state
+    const {value, valid} = this.state
 
     return el('div'
     , { className: `TextareaAutosize ${this.props.className}`
       , style: containerStyle
       }
     , el('label'
-      , {}
+      , { style: (valid ? labelStyle : labelStyleError)
+        }
       , label
       , el('textarea'
         , { ref: 'textarea'
@@ -82,15 +90,20 @@ class TextareaAutosize extends React.Component {
     }
   }
   onChange (event) {
+    const {validator, onChange} = this.props
+    let valid = true
     let {value} = event.target
     if (!this.props.multiline) {
       value = value
         .replace(/\r\n/g, ' ')
         .replace(/[\r\n]/g, ' ')
     }
-    this.setState({value})
-    if (this.props.onChange) {
-      this.props.onChange(event)
+    if (validator) {
+      valid = validator(value)
+    }
+    this.setState({value, valid})
+    if (valid && onChange) {
+      onChange(event)
     }
     this.resize()
   }
@@ -102,6 +115,7 @@ TextareaAutosize.propTypes =
   , placeholder: React.PropTypes.string
   , onChange: React.PropTypes.func
   , multiline: React.PropTypes.bool
+  , validator: React.PropTypes.func
   }
 TextareaAutosize.defaultProps =
   { multiline: false

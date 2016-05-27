@@ -9,4 +9,6 @@
   font-size: 16px;
 }
 
-.TextareaAutosize textarea:
+.TextareaAutosize textarea:placeholder-shown {
+  opacity: 0.5;
+}

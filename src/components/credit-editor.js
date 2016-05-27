@@ -2,8 +2,13 @@ import React, {createElement as el} from 'react'
 import imgflo from 'imgflo-url'
 
 import TextareaAutosize from './textarea-autosize'
+import {isUrl} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
+
+function isUrlOrBlank (string) {
+  return (isUrl(string) || string === '')
+}
 
 
 export default function CreditEditor (props, context) {
@@ -11,14 +16,15 @@ export default function CreditEditor (props, context) {
 
   return el('div'
   , { style:
-      { width: 360
-      , padding: '1rem 1rem 0 1rem'
+      { padding: '1rem 1rem 0 1rem'
+      , minWidth: 360
       }
     }
   , renderAvatar(avatar, context.imgfloConfig)
+  , renderLabel(label)
   , (onlyUrl
     ? renderBasedOnUrl(url, onChange, path)
-    : renderFields(name, label, url, avatar, onChange, path)
+    : renderFields(name, url, avatar, onChange, path)
     )
   )
 }
@@ -43,19 +49,26 @@ function renderAvatar (avatar, imgfloConfig) {
   )
 }
 
-function renderFields (name, label, url, avatar, onChange, path) {
+function renderLabel (label) {
+  return el('div'
+  , {style: {marginBottom: '0.5rem'}}
+  , label
+  )
+}
+
+function renderFields (name, url, avatar, onChange, path) {
   return (
     [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true)
-    , renderTextField('url', 'Link', url, onChange, path.concat(['url']), false)
+    , renderTextField('url', 'Link', url, onChange, path.concat(['url']), false, isUrlOrBlank, 'https...')
     ]
   )
 }
 
 function renderBasedOnUrl (value, onChange, path) {
-  return renderTextField('url', 'Link', value, onChange, path, true)
+  return renderTextField('url', '', value, onChange, path, true, isUrlOrBlank, 'https...')
 }
 
-function renderTextField (key, label, value, onChange, path, defaultFocus = false) {
+function renderTextField (key, label, value, onChange, path, defaultFocus, validator, placeholder) {
   return el(TextareaAutosize
   , { className: `AttributionEditor-${key}`
     , label
@@ -66,6 +79,8 @@ function renderTextField (key, label, value, onChange, path, defaultFocus = fals
     , multiLine: true
     , style: {width: '100%'}
     , onChange: makeChange(path, onChange)
+    , validator
+    , placeholder
     }
   )
 }

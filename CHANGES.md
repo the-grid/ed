@@ -1,5 +1,13 @@
 ## dev
 
+* Add label to Author & Publisher dropdown (#203)
+* Validate urls added as attribution; don't trigger change events while invalid (#129)
+* Widget layout now runs on a loop, so whack layouts shouldn't stay off for long (#208)
+* Improvements to "Make Full Post" UX (#210)
+  * put button after content
+  * reshow buttons if `hr` or cover image is removed
+  * focus editable after click
+
 ## 0.12.2 - 2016-05-25
 
 * Style fix for attribution buttons (#205)

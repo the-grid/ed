@@ -19,6 +19,7 @@ import ShareUrl from '../plugins/share-url'
 import FixedMenuBarHack from '../plugins/fixed-menu-hack'
 import CommandsInterface from '../plugins/commands-interface'
 import PluginPlaceholder from '../plugins/placeholder'
+import PluginContentHints from '../plugins/content-hints'
 
 function noop () { /* noop */ }
 
@@ -77,7 +78,12 @@ class Editable extends React.Component {
     })
 
     // Setup plugins
-    let pluginsToInit = [PluginWidget, ShareUrl, PluginPlaceholder]
+    let pluginsToInit =
+      [ PluginWidget
+      , ShareUrl
+      , PluginPlaceholder
+      , PluginContentHints
+      ]
     if (menuBar) {
       pluginsToInit.push(FixedMenuBarHack)
     }

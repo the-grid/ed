@@ -90,7 +90,7 @@ export default class Ed {
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break
-      case 'FOLD_MEDIA_UPLOAD':
+      case 'ADD_IMAGE_TOP':
         this.onShareFile(0)
         break
       case 'ADD_FOLD_DELIMITER':
@@ -361,6 +361,12 @@ export default class Ed {
 
     // Trigger event for widget system
     setTimeout(() => this.pm.signal('draw'), 0)
+    // Focus first textblock
+    try {
+      this.pm.checkPos(1, true)
+      this.pm.setTextSelection(1)
+    } catch (error) {}
+    this.pm.focus()
   }
   getContent () {
     const doc = this.pm.getContent()
