@@ -2,6 +2,7 @@
 
 * Space media with blank `p`: easier focus on mobile
 * Skip empty blocks with `getContent` (#204)
+* Focus on load
 
 ## 0.12.3 - 2016-05-26
 
