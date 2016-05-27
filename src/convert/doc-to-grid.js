@@ -25,9 +25,12 @@ export default function (doc, apiContentMap) {
     if (!apiBlock) {
       apiBlock = isMedia ? {id, type} : {type}
     }
-    // TODO massage media types that need it
     if (!isMedia) {
       apiBlock.html = child.outerHTML
+      // Skip empty blocks in output content
+      if (isEmpty(type, apiBlock.html)) {
+        continue
+      }
     }
     if (isMedia) {
       const html = metaToHtml(apiBlock)
@@ -71,4 +74,12 @@ export function metaToHtml (block) {
   if (schema && schema.makeHtml) {
     return schema.makeHtml(block.metadata, block.cover)
   }
+}
+
+function isEmpty (type, html) {
+  if (type === 'text' && html === '<p></p>') return true
+  if (type === 'h1' && html === '<h1></h1>') return true
+  if (type === 'h2' && html === '<h2></h2>') return true
+  if (type === 'h3' && html === '<h3></h3>') return true
+  return false
 }
