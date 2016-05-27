@@ -109,6 +109,8 @@ export default class Ed {
     }
     this.editableView = editableView
     this.pm = editableView.pm
+
+    this.pm.focus()
   }
   _initializeContent (content) {
     for (let i = 0, len = content.length; i < len; i++) {

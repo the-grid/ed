@@ -11,6 +11,7 @@ describe('PluginWidget', function () {
       , type: 'placeholder'
       , metadata: {status: 'Status', starred: true}
       }
+    , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
     , { id: '0000'
       , type: 'placeholder'
       , metadata: {status: 'Status', starred: true}
@@ -40,19 +41,21 @@ describe('PluginWidget', function () {
   describe('Content mounting and merging', function () {
     it('has expected pm document', function () {
       const content = ed.pm.doc.content.content
-      expect(content.length).to.equal(4)
+      expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
       expect(content[1].textContent).to.equal('')
       expect(content[1].type.name).to.equal('media')
       expect(content[1].attrs.id).to.equal('0001')
       expect(content[1].attrs.type).to.equal('placeholder')
-      expect(content[2].textContent).to.equal('')
-      expect(content[2].type.name).to.equal('media')
-      expect(content[2].attrs.id).to.equal('0000')
-      expect(content[2].attrs.type).to.equal('placeholder')
-      expect(content[3].textContent).to.equal('Text')
-      expect(content[3].type.name).to.equal('paragraph')
+      expect(content[2].textContent).to.equal('Text')
+      expect(content[2].type.name).to.equal('paragraph')
+      expect(content[3].textContent).to.equal('')
+      expect(content[3].type.name).to.equal('media')
+      expect(content[3].attrs.id).to.equal('0000')
+      expect(content[3].attrs.type).to.equal('placeholder')
+      expect(content[4].textContent).to.equal('Text')
+      expect(content[4].type.name).to.equal('paragraph')
     })
 
     it('has mounted widget', function () {
@@ -138,10 +141,10 @@ describe('PluginWidget', function () {
 
       // PM placeholder change is sync
       const content = ed.pm.doc.content.content
-      expect(content[2].textContent).to.equal('')
-      expect(content[2].type.name).to.equal('media')
-      expect(content[2].attrs.id).to.equal('0000')
-      expect(content[2].attrs.type).to.equal('image')
+      expect(content[3].textContent).to.equal('')
+      expect(content[3].type.name).to.equal('media')
+      expect(content[3].attrs.id).to.equal('0000')
+      expect(content[3].attrs.type).to.equal('image')
     })
   })
 })

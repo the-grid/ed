@@ -18,7 +18,8 @@ describe('GridToDoc', function () {
     const expected =
       { 'type': 'doc'
       , 'content':
-        [ { 'type': 'media'
+        [ { 'type': 'paragraph' }
+        , { 'type': 'media'
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
@@ -56,6 +57,7 @@ describe('GridToDoc', function () {
             , 'height': 50
             }
           }
+        , { 'type': 'paragraph' }
         ]
       }
 
@@ -75,6 +77,7 @@ describe('GridToDoc', function () {
       , 'content':
         [ { 'type': 'paragraph' }
         , { 'type': 'horizontal_rule' }
+        , { 'type': 'paragraph' }
         , { 'type': 'media'
           , 'attrs':
             { 'id': 'image-0000'
@@ -82,17 +85,19 @@ describe('GridToDoc', function () {
             , 'height': 50
             }
           }
-        , { 'type': 'media'
+         , { 'type': 'paragraph' }
+         , { 'type': 'media'
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
             , 'height': 50
             }
           }
+        , { 'type': 'paragraph' }
         ]
       }
 
-    it('spaces with empty paragraph', function () {
+    it('spaces with empty paragraphs', function () {
       const doc = GridToDoc(fixture)
       expect(doc.toJSON()).to.deep.equal(expected)
     })
