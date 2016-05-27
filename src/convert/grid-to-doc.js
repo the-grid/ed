@@ -17,6 +17,7 @@ export default function (items, schema = EdSchemaFull) {
   if (unstarred.length > 0) {
     const hr = document.createElement('hr')
     container.appendChild(hr)
+    unstarred = spaceContent(unstarred)
     elements = itemsToEls(unstarred)
     elements.forEach(function (el) {
       if (el) container.appendChild(el)
