@@ -90,7 +90,7 @@ export default class Ed {
       case 'EDITABLE_CHANGE':
         this.trigger('change')
         break
-      case 'FOLD_MEDIA_UPLOAD':
+      case 'ADD_IMAGE_TOP':
         this.onShareFile(0)
         break
       case 'ADD_FOLD_DELIMITER':

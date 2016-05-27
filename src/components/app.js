@@ -2,41 +2,13 @@ require('./app.css')
 
 import React, {createElement as el} from 'react'
 
-import FoldMedia from './fold-media'
+import AddCover from './add-cover'
+import AddFold from './add-fold'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
 
-function hasCover (content) {
-  for (let i = 0, len = content.length; i < len; i++) {
-    const block = content[i]
-    if (block.type === 'image' && block.metadata && !block.metadata.isBasedOnUrl) {
-      return true
-    }
-  }
-  return false
-}
-
-function hasUnstarred (content) {
-  for (let i = 0, len = content.length; i < len; i++) {
-    const block = content[i]
-    if (block.metadata && !block.metadata.starred) {
-      return true
-    }
-  }
-  return false
-}
-
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-
-    const {initialContent} = props
-    this.state =
-      { hasCover: hasCover(initialContent)
-      , hasUnstarred: hasUnstarred(initialContent)
-      }
-  }
   getChildContext () {
     const {store, imgfloConfig} = this.props
     return (
@@ -49,23 +21,9 @@ class App extends React.Component {
   render () {
     return el('div'
     , {className: 'Ed'}
-    , this.renderMedia()
+    , el(AddCover, {})
     , this.renderContent()
-    )
-  }
-  renderMedia () {
-    const {hasCover, hasUnstarred} = this.state
-    if (hasCover && hasUnstarred) return
-
-    return el('div'
-    , { className: 'Ed-Media'
-      , style: { zIndex: 2 }
-      }
-    , el(FoldMedia
-      , { hasCover
-        , hasUnstarred
-        }
-      )
+    , el(AddFold, {})
     )
   }
   renderContent () {
