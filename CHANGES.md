@@ -1,5 +1,9 @@
 ## dev
 
+## 0.12.7 - 2016-05-28
+
+* Build fix "It looks like you're using a minified copy of the development build of React" error.
+
 ## 0.12.6 - 2016-05-28
 
 * Fix negative margin in block without cover

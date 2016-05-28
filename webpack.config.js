@@ -51,6 +51,14 @@ if (__DEV && !__KARMA) {
 
 // Build for publish
 if (!__DEV && !__KARMA) {
+  // Needed for React min http://facebook.github.io/react/downloads.html#npm
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
+    })
+  )
   plugins.push(new webpack.optimize.UglifyJsPlugin())
   var copyPatterns = []
 
