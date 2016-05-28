@@ -126,13 +126,24 @@ function onShareUrlDemo (share) {
           { title: 'Shared article title'
           , description: `Simulated share from ${url}`
           }
-        , cover:
-          { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
-          , width: 400
-          , height: 474
-          }
         }
       ])
+      window.setTimeout(function () {
+        ed.setContent([
+          { id: block
+          , type: 'article'
+          , metadata:
+            { title: 'Shared article title'
+            , description: `Simulated share from ${url}`
+            }
+          , cover:
+            { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+            , width: 400
+            , height: 474
+            }
+          }
+        ])
+      }, 1000)
     }
   )
 }
