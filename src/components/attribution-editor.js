@@ -26,6 +26,9 @@ class AttributionEditor extends React.Component {
       }
     )
   }
+  componentWillReceiveProps (props) {
+    this.setState({block: props.initialBlock})
+  }
   render () {
     const {block} = this.state
     const {type, metadata} = block
@@ -155,8 +158,6 @@ AttributionEditor.childContextTypes =
 AttributionEditor.propTypes =
   { initialBlock: React.PropTypes.object.isRequired
   , id: React.PropTypes.string.isRequired
-  , imgfloConfig: React.PropTypes.object
-  , store: React.PropTypes.object
   }
 export default React.createFactory(AttributionEditor)
 

@@ -119,6 +119,7 @@ function onShareUrlDemo (share) {
       ed.updatePlaceholder(block, {status, progress})
     },
     function () {
+      console.log('Share: mount block')
       ed.setContent([
         { id: block
         , type: 'article'
@@ -129,11 +130,12 @@ function onShareUrlDemo (share) {
         }
       ])
       window.setTimeout(function () {
+        console.log('Share: mount block + cover')
         ed.setContent([
           { id: block
           , type: 'article'
           , metadata:
-            { title: 'Shared article title'
+            { title: 'Shared article title + cover'
             , description: `Simulated share from ${url}`
             }
           , cover:
