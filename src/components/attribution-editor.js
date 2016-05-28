@@ -42,7 +42,7 @@ class AttributionEditor extends React.Component {
         , { className: 'AttributionEditor-metadata'
           , style:
             { width: '90%'
-            , margin: '-48px auto 36px'
+            , margin: '0 auto 36px'
             , padding: '1.5em 3em 0'
             , background: '#fff'
             , border: '1px solid #ddd'
