@@ -2,6 +2,7 @@
 
 import debounce from 'lodash/debounce'
 import cloneDeep from 'lodash/cloneDeep'
-const _ = {debounce, cloneDeep}
+import isEqual from 'lodash/isEqual'
+const _ = {debounce, cloneDeep, isEqual}
 
 export default _

@@ -1,4 +1,5 @@
 import React, {createElement as el} from 'react'
+import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
@@ -10,6 +11,21 @@ const Components =
   }
 
 class Media extends React.Component {
+  constructor (props) {
+    super(props)
+
+    const initialBlock = _.cloneDeep(props.initialBlock)
+    const {id} = initialBlock
+    this.state = {id, initialBlock}
+
+    const {store} = props
+    this.boundUpdateBlock = this.updateBlock.bind(this)
+    store.on('media.update', this.boundUpdateBlock)
+  }
+  componentWillUnmount () {
+    const {store} = this.props
+    store.off('media.update', this.boundUpdateBlock)
+  }
   getChildContext () {
     return (
       { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig)
@@ -19,9 +35,23 @@ class Media extends React.Component {
     )
   }
   render () {
-    const {type} = this.props.initialBlock
+    const {initialBlock, id} = this.state
+    const {type} = initialBlock
     let Component = Components[type] || Components.attribution
-    return el(Component, this.props)
+    return el(Component
+    , { initialBlock
+      , id
+      }
+    )
+  }
+  updateBlock () {
+    const {store} = this.props
+    const {id, initialBlock} = this.state
+    const block = _.cloneDeep(store.getBlock(id))
+    if (_.isEqual(initialBlock, block)) {
+      return
+    }
+    this.setState({initialBlock: block})
   }
 }
 Media.contextTypes =

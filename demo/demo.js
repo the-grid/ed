@@ -119,6 +119,7 @@ function onShareUrlDemo (share) {
       ed.updatePlaceholder(block, {status, progress})
     },
     function () {
+      console.log('Share: mount block')
       ed.setContent([
         { id: block
         , type: 'article'
@@ -126,13 +127,25 @@ function onShareUrlDemo (share) {
           { title: 'Shared article title'
           , description: `Simulated share from ${url}`
           }
-        , cover:
-          { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
-          , width: 400
-          , height: 474
-          }
         }
       ])
+      window.setTimeout(function () {
+        console.log('Share: mount block + cover')
+        ed.setContent([
+          { id: block
+          , type: 'article'
+          , metadata:
+            { title: 'Shared article title + cover'
+            , description: `Simulated share from ${url}`
+            }
+          , cover:
+            { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
+            , width: 400
+            , height: 474
+            }
+          }
+        ])
+      }, 1000)
     }
   )
 }

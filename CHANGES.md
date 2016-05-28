@@ -1,5 +1,10 @@
 ## dev
 
+## 0.12.6 - 2016-05-28
+
+* Fix negative margin in block without cover
+* Update block cover from app (#216)
+
 ## 0.12.5 - 2016-05-27
 
 * On conversion to full post, scroll to focused title
