@@ -52,6 +52,7 @@ export default class Ed {
     this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
     this.onCommandsChanged = options.onCommandsChanged
+    this.onRequestCoverUpload = options.onRequestCoverUpload
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
@@ -80,6 +81,9 @@ export default class Ed {
       case 'MEDIA_BLOCK_REMOVE':
         this._removeMediaBlock(payload)
         this.trigger('change')
+        break
+      case 'MEDIA_BLOCK_REQUEST_COVER_UPLOAD':
+        this.onRequestCoverUpload(payload)
         break
       case 'DEDUPE_IDS':
         this._dedupeIds()
@@ -325,7 +329,7 @@ export default class Ed {
     this.onPlaceholderCancel(id)
   }
   setCoverPreview (id, src) {
-    const block = this._content[id]
+    const block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not set image preview for block id that does not exist')
     }
@@ -333,6 +337,16 @@ export default class Ed {
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
+  }
+  setCover (id, cover) {
+    const block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not find block to set cover')
+    }
+    // MUTATION
+    block.cover = cover
+    // Let widgets know to update
+    this.trigger('media.update')
   }
   _convertToFullPost () {
     let addTitle = true

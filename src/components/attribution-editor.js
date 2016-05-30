@@ -7,6 +7,7 @@ import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
+import ChangeCover from './change-cover'
 import blockMetaSchema from '../schema/block-meta'
 
 
@@ -41,7 +42,6 @@ class AttributionEditor extends React.Component {
             , border: '1px solid #ddd'
             , opacity: '.96'
             , transition: '.1s all ease-out'
-            , zIndex: '2'
             , position: 'relative'
             , borderRadius: 2
             }
@@ -58,6 +58,7 @@ class AttributionEditor extends React.Component {
           , el(DropdownGroup, {menus})
         )
       )
+      , this.renderCoverUpdate()
       , el('div'
         , { style: {clear: 'both'} }
       )
@@ -85,12 +86,21 @@ class AttributionEditor extends React.Component {
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
-        , zIndex: '1'
         , position: 'relative'
         }
       }
     , el(Image, props)
     )
+  }
+  renderCoverUpdate () {
+    const {block} = this.state
+    if (!block) return
+    const {id, type} = block
+    // Only types that support cover change for now
+    if (type !== 'image' && type !== 'article') {
+      return
+    }
+    return el(ChangeCover, {id})
   }
   onChange (path, value) {
     const {store} = this.context
