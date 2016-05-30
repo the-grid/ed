@@ -8,7 +8,6 @@ import CreditEditor from './credit-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 import blockMetaSchema from '../schema/block-meta'
-import rebassTheme from './rebass-theme'
 
 
 class AttributionEditor extends React.Component {
@@ -17,14 +16,6 @@ class AttributionEditor extends React.Component {
     this.state = {
       block: props.initialBlock
     }
-  }
-  getChildContext () {
-    return (
-      { imgfloConfig: this.props.imgfloConfig
-      , store: (this.context.store || this.props.store)
-      , rebass: rebassTheme
-      }
-    )
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
@@ -40,8 +31,7 @@ class AttributionEditor extends React.Component {
       'div'
       , { className: 'AttributionEditor' }
       , this.renderCover()
-      , el(
-        'div'
+      , el('div'
         , { className: 'AttributionEditor-metadata'
           , style:
             { width: '90%'
@@ -57,8 +47,7 @@ class AttributionEditor extends React.Component {
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
-        , el(
-          'div'
+        , el('div'
           , { className: 'AttributionEditor-links'
             , style:
               { margin: '2em -3em 0'
@@ -69,8 +58,7 @@ class AttributionEditor extends React.Component {
           , el(DropdownGroup, {menus})
         )
       )
-      , el(
-        'div'
+      , el('div'
         , { style: {clear: 'both'} }
       )
     )
@@ -79,7 +67,7 @@ class AttributionEditor extends React.Component {
     const {block} = this.state
     if (!block) return
     const {id, cover} = block
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
     let src, width, height
@@ -105,7 +93,7 @@ class AttributionEditor extends React.Component {
     )
   }
   onChange (path, value) {
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const {id} = this.props
     // Send change up to store
     const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
@@ -113,7 +101,7 @@ class AttributionEditor extends React.Component {
     this.setState({block})
   }
   onMoreClick (key) {
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const {id} = this.props
 
     let block, path, value
