@@ -1,5 +1,15 @@
 ## dev
 
+## 0.13.0 - 2016-05-30
+
+* FIX -- Upload Image Button disappears after cancel upload (#219)
+* NEW -- Upload new cover for blocks that support it (only `image` and `article` now) (#71)
+  * `options.onRequestCoverUpload(id)` - similar to onShareFile, but hit with block id instead of index
+  * `ed.setCover(id, cover)` - once image uploads, cover object with `{src, width, height}`
+  * Upload progress available in non-placeholder blocks
+  * See Readme and Demo
+* Added blocks with various states to [/#fixture](https://the-grid.github.io/ed/#fixture), to help with dev and styling
+
 ## 0.12.7 - 2016-05-28
 
 * Build fix "It looks like you're using a minified copy of the development build of React" error.

@@ -7,8 +7,8 @@ import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
+import Progress from 'rebass/dist/Progress'
 import blockMetaSchema from '../schema/block-meta'
-import rebassTheme from './rebass-theme'
 
 
 class AttributionEditor extends React.Component {
@@ -17,14 +17,6 @@ class AttributionEditor extends React.Component {
     this.state = {
       block: props.initialBlock
     }
-  }
-  getChildContext () {
-    return (
-      { imgfloConfig: this.props.imgfloConfig
-      , store: (this.context.store || this.props.store)
-      , rebass: rebassTheme
-      }
-    )
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
@@ -40,8 +32,8 @@ class AttributionEditor extends React.Component {
       'div'
       , { className: 'AttributionEditor' }
       , this.renderCover()
-      , el(
-        'div'
+      , this.renderProgress()
+      , el('div'
         , { className: 'AttributionEditor-metadata'
           , style:
             { width: '90%'
@@ -51,14 +43,12 @@ class AttributionEditor extends React.Component {
             , border: '1px solid #ddd'
             , opacity: '.96'
             , transition: '.1s all ease-out'
-            , zIndex: '2'
             , position: 'relative'
             , borderRadius: 2
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
-        , el(
-          'div'
+        , el('div'
           , { className: 'AttributionEditor-links'
             , style:
               { margin: '2em -3em 0'
@@ -69,8 +59,7 @@ class AttributionEditor extends React.Component {
           , el(DropdownGroup, {menus})
         )
       )
-      , el(
-        'div'
+      , el('div'
         , { style: {clear: 'both'} }
       )
     )
@@ -79,7 +68,7 @@ class AttributionEditor extends React.Component {
     const {block} = this.state
     if (!block) return
     const {id, cover} = block
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
     let src, width, height
@@ -97,15 +86,28 @@ class AttributionEditor extends React.Component {
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
-        , zIndex: '1'
         , position: 'relative'
         }
       }
     , el(Image, props)
     )
   }
+  renderProgress () {
+    const {block} = this.state
+    if (!block || !block.metadata) return
+    const {progress, failed} = block.metadata
+    if (progress == null) return
+
+    const theme = (failed === true ? 'error' : 'info')
+    return el(Progress
+    , { value: progress / 100
+      , style: {margin: '8px 0'}
+      , theme
+      }
+    )
+  }
   onChange (path, value) {
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const {id} = this.props
     // Send change up to store
     const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
@@ -113,7 +115,7 @@ class AttributionEditor extends React.Component {
     this.setState({block})
   }
   onMoreClick (key) {
-    const store = (this.context.store || this.props.store)
+    const {store} = this.context
     const {id} = this.props
 
     let block, path, value
@@ -138,6 +140,9 @@ class AttributionEditor extends React.Component {
         path = [key]
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
+      case 'changeCover':
+        store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
         break
       default:
         return

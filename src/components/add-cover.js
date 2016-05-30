@@ -52,7 +52,6 @@ class AddCover extends React.Component {
   addImage () {
     const {store} = this.context
     store.routeChange('ADD_IMAGE_TOP')
-    this.setState({hasCover: true})
   }
   updateHints (hints) {
     const {hasCover} = hints

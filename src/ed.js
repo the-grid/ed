@@ -31,6 +31,9 @@ export default class Ed {
     if (!options.onShareFile) {
       throw new Error('Missing options.onShareFile')
     }
+    if (!options.onRequestCoverUpload) {
+      throw new Error('Missing options.onRequestCoverUpload')
+    }
     if (!options.container) {
       throw new Error('Missing options.container')
     }
@@ -49,6 +52,7 @@ export default class Ed {
     this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
     this.onCommandsChanged = options.onCommandsChanged
+    this.onRequestCoverUpload = options.onRequestCoverUpload
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
@@ -77,6 +81,9 @@ export default class Ed {
       case 'MEDIA_BLOCK_REMOVE':
         this._removeMediaBlock(payload)
         this.trigger('change')
+        break
+      case 'MEDIA_BLOCK_REQUEST_COVER_UPLOAD':
+        this.onRequestCoverUpload(payload)
         break
       case 'DEDUPE_IDS':
         this._dedupeIds()
@@ -305,7 +312,7 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not update this placeholder block')
     }
-    if (block.type !== 'placeholder') {
+    if (block.type !== 'placeholder' && block.type !== 'image' && block.type !== 'article') {
       throw new Error('Block is not a placeholder block')
     }
     // Mutation
@@ -322,7 +329,7 @@ export default class Ed {
     this.onPlaceholderCancel(id)
   }
   setCoverPreview (id, src) {
-    const block = this._content[id]
+    const block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not set image preview for block id that does not exist')
     }
@@ -330,6 +337,19 @@ export default class Ed {
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
+  }
+  setCover (id, cover) {
+    const block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not find block to set cover')
+    }
+    // MUTATION
+    block.cover = cover
+    if (block.metadata && block.metadata.progress != null) {
+      block.metadata.progress = null
+    }
+    // Let widgets know to update
+    this.trigger('media.update')
   }
   _convertToFullPost () {
     let addTitle = true

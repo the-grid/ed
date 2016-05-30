@@ -21,6 +21,7 @@ describe('PluginContentHints', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         }
       )
       ed.on('plugin.contenthints.initialized', done)
@@ -55,6 +56,7 @@ describe('PluginContentHints', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         }
       )
       ed.on('plugin.contenthints.initialized', done)
@@ -89,6 +91,7 @@ describe('PluginContentHints', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         }
       )
       ed.on('plugin.contenthints.initialized', done)

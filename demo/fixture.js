@@ -568,7 +568,45 @@ let post = {
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       'metadata': {'starred': true}
     },
+    {
+      'type': 'text',
+      'html': '<p>Here\'s a normal image:</p>',
+      'metadata': {'starred': true}
+    },
     imageCole,
+    {
+      'type': 'text',
+      'html': '<p>Here\'s an article block with no cover (you can upload an image with ... menu):</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'id': '0000-article',
+      'type': 'article',
+      'html': '<article><h1>article title</h1></article>',
+      'metadata': {'starred': true, 'title': 'article title', 'description': ''}
+    },
+    {
+      'type': 'text',
+      'html': '<p>Here\'s an article block with upload progress:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'id': '0000-article-progress',
+      'type': 'article',
+      'html': '<article><h1>up</h1></article>',
+      'metadata': {starred: true, title: 'up', description: '', progress: 66}
+    },
+    {
+      'type': 'text',
+      'html': '<p>Here\'s an article block with failed upload:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'id': '0000-article-failed',
+      'type': 'article',
+      'html': '<article><h1>boo</h1></article>',
+      'metadata': {starred: true, title: 'boo', description: '', progress: 33, failed: true}
+    },
     {
       'id': 'abc-00000000-h1',
       'type': 'h1',

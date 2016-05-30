@@ -7,6 +7,7 @@ const blockMetaSchema =
     , description: true
     , isBasedOnUrl: true
     , cover: true
+    , changeCover: true
     , author: true
     , publisher: true
     , makeHtml: makeImage
@@ -16,6 +17,7 @@ const blockMetaSchema =
     , description: true
     , isBasedOnUrl: true
     , cover: true
+    , changeCover: false
     , author: true
     , publisher: true
     }
@@ -24,6 +26,7 @@ const blockMetaSchema =
     , description: true
     , isBasedOnUrl: true
     , cover: true
+    , changeCover: true
     , author: true
     , publisher: true
     , makeHtml: makeArticle
@@ -33,6 +36,7 @@ const blockMetaSchema =
     , description: false
     , isBasedOnUrl: true
     , cover: false
+    , changeCover: false
     , author: true
     , publisher: true
     }
@@ -41,6 +45,7 @@ const blockMetaSchema =
     , description: true
     , isBasedOnUrl: true
     , cover: true
+    , changeCover: false
     , author: true
     , publisher: true
     }
