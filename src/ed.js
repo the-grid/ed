@@ -31,6 +31,9 @@ export default class Ed {
     if (!options.onShareFile) {
       throw new Error('Missing options.onShareFile')
     }
+    if (!options.onRequestCoverUpload) {
+      throw new Error('Missing options.onRequestCoverUpload')
+    }
     if (!options.container) {
       throw new Error('Missing options.container')
     }

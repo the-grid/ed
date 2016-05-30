@@ -20,6 +20,7 @@ describe('PluginPlaceholder', function () {
       , onChange: function () {}
       , onShareUrl: function () {}
       , onShareFile: function () {}
+      , onRequestCoverUpload: function () {}
       }
     )
     ed.on('plugin.placeholder.initialized', done)

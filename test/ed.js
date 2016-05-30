@@ -29,6 +29,7 @@ describe('Ed', function () {
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: function () {}
+          , onRequestCoverUpload: function () {}
           }
         )
       }
@@ -42,6 +43,7 @@ describe('Ed', function () {
           , onChange: null
           , onShareUrl: function () {}
           , onShareFile: function () {}
+          , onRequestCoverUpload: function () {}
           }
         )
       }
@@ -55,6 +57,7 @@ describe('Ed', function () {
           , onChange: function () {}
           , onShareUrl: null
           , onShareFile: function () {}
+          , onRequestCoverUpload: function () {}
           }
         )
       }
@@ -68,10 +71,25 @@ describe('Ed', function () {
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: null
+          , onRequestCoverUpload: function () {}
           }
         )
       }
       expect(no_onShareFile).to.throw('Missing options.onShareFile')
+    })
+    it('throws without options.onRequestCoverUpload', function () {
+      function no_onRequestCoverUpload () {
+        ed = new Ed(
+          { container: mount
+          , initialContent: []
+          , onChange: function () {}
+          , onShareUrl: function () {}
+          , onShareFile: function () {}
+          , onRequestCoverUpload: null
+          }
+        )
+      }
+      expect(no_onRequestCoverUpload).to.throw('Missing options.onRequestCoverUpload')
     })
     it('throws without options.container', function () {
       function no_container () {
@@ -81,6 +99,7 @@ describe('Ed', function () {
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: function () {}
+          , onRequestCoverUpload: function () {}
           }
         )
       }
@@ -93,6 +112,7 @@ describe('Ed', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         , onMount: function () { done() }
         }
       )
@@ -115,6 +135,7 @@ describe('Ed', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         }
       )
       done()
@@ -372,6 +393,7 @@ describe('Ed', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         }
       )
       done()
@@ -430,6 +452,7 @@ describe('Ed', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         , onCommandsChanged
         }
       )
@@ -452,6 +475,7 @@ describe('Ed', function () {
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
+        , onRequestCoverUpload: function () {}
         , onMount
         }
       )
@@ -475,6 +499,7 @@ describe('Ed', function () {
         , initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
+        , onRequestCoverUpload: function () {}
         , onShareFile
         , onMount
         }

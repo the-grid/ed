@@ -24,9 +24,9 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 * [x] native widgets
 * [x] handle image, video, article, quote types
   * [x] edit attribution
-* [ ] Integrate into web app
-* [ ] Integrate into mobile apps
-* [ ] Read-only mode
+* [x] Integrate into web app
+* [x] Integrate into mobile apps
+* [x] Remove / change cover image
 
 # use
 
@@ -36,12 +36,12 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     container: document.querySelector('#ed'),
     // REQUIRED -- Content array from post
     initialContent: [],
+    // Bar is designed for touch, Tip for mouse
     menuTip: true,
     menuBar: false,
     // REQUIRED -- Hit on every change
     onChange: function () {
       /* App can show "unsaved changes" in UI */
-      /* Don't call ed.getContent() here */
     },
     // OPTIONAL -- imgflo image proxy config
     imgfloConfig: {
@@ -53,6 +53,11 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       /* App makes placeholder block(s) and calls ed.insertPlaceholders(index, count) */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
+    },
+    onRequestCoverUpload: function (block) {
+      /* Similar to onShareFile, but hit with block id instead of index */
+      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
+      /* Once upload is complete, app hits ed.setCoverSrc */
     },
     onShareUrl: function ({block, url}) {
       /* Ed made the placeholder with block id */
@@ -78,6 +83,10 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
   // Update placeholder metadata
   // {status (string), progress (number 0-100), failed (boolean)}
   ed.updatePlaceholder(id, metadata)
+  
+  // Once block cover upload completes
+  // `cover` is object with {src, width, height}
+  ed.setCover(id, cover)
 
   // Returns content array
   // Expensive, so best to debounce and not call this on every change
