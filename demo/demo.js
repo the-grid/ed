@@ -286,7 +286,7 @@ function makeRequestCoverUploadInputOnChange (id) {
       function () {
         // Apps should have dimensions from API
         // and should not need to load the image client-side
-        const img = new Image
+        const img = new Image()
         img.onload = function () {
           const {width, height} = img
           ed.setCover(id, {src, width, height})

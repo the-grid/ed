@@ -7,7 +7,7 @@ import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
-import ChangeCover from './change-cover'
+import Progress from 'rebass/dist/Progress'
 import blockMetaSchema from '../schema/block-meta'
 
 
@@ -32,6 +32,7 @@ class AttributionEditor extends React.Component {
       'div'
       , { className: 'AttributionEditor' }
       , this.renderCover()
+      , this.renderProgress()
       , el('div'
         , { className: 'AttributionEditor-metadata'
           , style:
@@ -58,7 +59,6 @@ class AttributionEditor extends React.Component {
           , el(DropdownGroup, {menus})
         )
       )
-      , this.renderCoverUpdate()
       , el('div'
         , { style: {clear: 'both'} }
       )
@@ -92,15 +92,19 @@ class AttributionEditor extends React.Component {
     , el(Image, props)
     )
   }
-  renderCoverUpdate () {
+  renderProgress () {
     const {block} = this.state
-    if (!block) return
-    const {id, type} = block
-    // Only types that support cover change for now
-    if (type !== 'image' && type !== 'article') {
-      return
-    }
-    return el(ChangeCover, {id})
+    if (!block || !block.metadata) return
+    const {progress, failed} = block.metadata
+    if (progress == null) return
+
+    const theme = (failed === true ? 'error' : 'info')
+    return el(Progress
+    , { value: progress / 100
+      , style: {margin: '8px 0'}
+      , theme
+      }
+    )
   }
   onChange (path, value) {
     const {store} = this.context
@@ -136,6 +140,9 @@ class AttributionEditor extends React.Component {
         path = [key]
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
+      case 'changeCover':
+        store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
         break
       default:
         return

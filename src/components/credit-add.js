@@ -25,6 +25,9 @@ function makeLinks (schema, metadata = {}, onClick) {
   if (schema.publisher && !metadata.publisher) {
     links.push(makeLink('publisher', 'Add Publisher', onClick))
   }
+  if (schema.changeCover) {
+    links.push(makeLink('changeCover', 'Upload New Image', onClick))
+  }
   links.push(makeLink('delete', 'Remove Block', onClick, true))
   return links
 }

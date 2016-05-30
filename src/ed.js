@@ -312,7 +312,7 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not update this placeholder block')
     }
-    if (block.type !== 'placeholder') {
+    if (block.type !== 'placeholder' && block.type !== 'image' && block.type !== 'article') {
       throw new Error('Block is not a placeholder block')
     }
     // Mutation
@@ -345,6 +345,9 @@ export default class Ed {
     }
     // MUTATION
     block.cover = cover
+    if (block.metadata && block.metadata.progress != null) {
+      block.metadata.progress = null
+    }
     // Let widgets know to update
     this.trigger('media.update')
   }
