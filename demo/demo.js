@@ -28,6 +28,7 @@ function setup (options) {
     , onMount: () => { console.log('mount') }
     , onShareFile: onShareFileDemo
     , onShareUrl: onShareUrlDemo
+    , onRequestCoverUpload: onRequestCoverUploadDemo
     , onPlaceholderCancel: onPlaceholderCancelDemo
     , onCommandsChanged: (commands) => {}
     , imgfloConfig: null
@@ -246,4 +247,52 @@ document.querySelector('#fixture').onclick = loadFixture
 
 function onPlaceholderCancelDemo (id) {
   console.log(`App would cancel the share or upload with id: ${id}`)
+}
+
+// Cover change
+
+function onRequestCoverUploadDemo (id) {
+  console.log('onRequestCoverUpload: app triggers native picker', id)
+
+  // Remove old input from DOM
+  if (input && input.parentNode) {
+    input.parentNode.removeChild(input)
+  }
+  input = document.createElement('input')
+  input.type = 'file'
+  input.multiple = false
+  input.accept = 'image/*'
+  input.onchange = makeRequestCoverUploadInputOnChange(id)
+  input.style.display = 'none'
+  document.body.appendChild(input)
+  input.click()
+}
+
+function makeRequestCoverUploadInputOnChange (id) {
+  return function (event) {
+    event.stopPropagation()
+
+    const file = input.files[0]
+    const src = URL.createObjectURL(file)
+    ed.setCoverPreview(id, src)
+
+    console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+
+    simulateProgress(
+      function (progress) {
+        let status = 'Uploading...'
+        ed.updatePlaceholder(id, {status, progress})
+      },
+      function () {
+        // Apps should have dimensions from API
+        // and should not need to load the image client-side
+        const img = new Image
+        img.onload = function () {
+          const {width, height} = img
+          ed.setCover(id, {src, width, height})
+        }
+        img.src = src
+      }
+    )
+  }
 }
