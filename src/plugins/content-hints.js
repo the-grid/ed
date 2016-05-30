@@ -40,7 +40,7 @@ function onDocChanged () {
 export default class PluginContentHints {
   constructor (options) {
     this.onDocChanged = onDocChanged.bind(this)
-    this.debouncedDocChanged = _.debounce(this.onDocChanged, 750)
+    this.debouncedDocChanged = _.debounce(this.onDocChanged, 500)
 
     this.ed = options.ed
     this.pm = options.pm
