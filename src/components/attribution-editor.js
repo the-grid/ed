@@ -71,6 +71,13 @@ class AttributionEditor extends React.Component {
       )
     )
   }
+  canChangeCover () {
+    const {block} = this.state
+    if (!block) return false
+    const {type} = block
+    const schema = blockMetaSchema[type] || blockMetaSchema.default
+    return schema.changeCover
+  }
   renderCover () {
     const {block} = this.state
     if (!block) return
@@ -101,7 +108,7 @@ class AttributionEditor extends React.Component {
   }
   renderUnsalvageable () {
     const {block} = this.state
-    if (!block || !block.cover || !block.cover.unsalvageable) return
+    if (!block || !block.cover || !block.cover.unsalvageable || !this.canChangeCover()) return
 
     return el(Message
     , {theme: 'error'}
