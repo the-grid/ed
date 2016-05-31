@@ -598,7 +598,7 @@ let post = {
     },
     {
       'type': 'text',
-      'html': '<p>Here\'s an article block with failed upload:</p>',
+      'html': '<p>Here\'s an article block with <b>failed</b> upload:</p>',
       'metadata': {'starred': true}
     },
     {
@@ -606,6 +606,18 @@ let post = {
       'type': 'article',
       'html': '<article><h1>boo</h1></article>',
       'metadata': {starred: true, title: 'boo', description: '', progress: 33, failed: true}
+    },
+    {
+      'type': 'text',
+      'html': '<p>Here\'s an image block with <b>unsalvageable</b> cover:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'id': '0000-image-unsalvageable',
+      'type': 'image',
+      'html': '',
+      'metadata': {starred: true, caption: 'Sometimes images go away :-('},
+      'cover': {unsalvageable: true}
     },
     {
       'id': 'abc-00000000-h1',

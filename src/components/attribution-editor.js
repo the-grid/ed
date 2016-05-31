@@ -2,12 +2,18 @@
 require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
+
+import Progress from 'rebass/dist/Progress'
+import Message from 'rebass/dist/Message'
+import Button from 'rebass/dist/Button'
+import Space from 'rebass/dist/Space'
+
 import Image from './image'
 import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
-import Progress from 'rebass/dist/Progress'
+
 import blockMetaSchema from '../schema/block-meta'
 
 
@@ -32,6 +38,7 @@ class AttributionEditor extends React.Component {
       'div'
       , { className: 'AttributionEditor' }
       , this.renderCover()
+      , this.renderUnsalvageable()
       , this.renderProgress()
       , el('div'
         , { className: 'AttributionEditor-metadata'
@@ -90,6 +97,24 @@ class AttributionEditor extends React.Component {
         }
       }
     , el(Image, props)
+    )
+  }
+  renderUnsalvageable () {
+    const {block} = this.state
+    if (!block || !block.cover || !block.cover.unsalvageable) return
+
+    return el(Message
+    , {theme: 'error'}
+    , 'We were unable to find the image originally saved with this block.'
+    , el(Space, {auto: true})
+    , el(Button
+      , { onClick: () => this.onMoreClick('changeCover')
+        , rounded: true
+        , color: 'error'
+        , backgroundColor: 'white'
+        }
+      , 'Upload New Image'
+      )
     )
   }
   renderProgress () {
