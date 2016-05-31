@@ -1,5 +1,14 @@
 ## dev
 
+## 0.13.1 - 2016-05-31
+
+* "Image" menu on blocks
+  * "Upload New Image" button moved here
+  * `metadata.coverPrefs` checkboxen (#199)
+  * Image hover title editing
+* Image caption editing (#213)
+* Message and upload button for `cover.unsalvageable` (#195)
+
 ## 0.13.0 - 2016-05-30
 
 * FIX -- Upload Image Button disappears after cancel upload (#219)
