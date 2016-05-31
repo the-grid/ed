@@ -11,6 +11,7 @@ import Space from 'rebass/dist/Space'
 import Image from './image'
 import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
+import ImageEditor from './image-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 
@@ -32,7 +33,7 @@ class AttributionEditor extends React.Component {
     const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this))
+    const menus = renderMenus(type, schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this), this.onUploadRequest.bind(this))
 
     return el(
       'div'
@@ -115,7 +116,7 @@ class AttributionEditor extends React.Component {
     , 'We were unable to find the image originally saved with this block.'
     , el(Space, {auto: true})
     , el(Button
-      , { onClick: () => this.onMoreClick('changeCover')
+      , { onClick: () => this.onUploadRequest()
         , rounded: true
         , color: 'error'
         , backgroundColor: 'white'
@@ -137,6 +138,11 @@ class AttributionEditor extends React.Component {
       , theme
       }
     )
+  }
+  onUploadRequest () {
+    const {store} = this.context
+    const {id} = this.props
+    store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
   }
   onChange (path, value) {
     const {store} = this.context
@@ -172,9 +178,6 @@ class AttributionEditor extends React.Component {
         path = [key]
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
-        break
-      case 'changeCover':
-        store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
         break
       default:
         return
@@ -232,7 +235,7 @@ function renderTextField (key, label, value, onChange) {
   )
 }
 
-function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
+function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUploadRequest) {
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
@@ -248,6 +251,9 @@ function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
     menus.push(
       renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
     )
+  }
+  if (schema.changeCover) {
+    menus.push(renderImageEditor(type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest))
   }
   menus.push(
     el(CreditAdd
@@ -272,6 +278,21 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
     , path: path || [key]
     , onChange
     , onlyUrl
+    }
+  )
+}
+
+function renderImageEditor (type, title, coverPrefs = {}, onChange, onUploadRequest) {
+  const {filter, crop, overlay} = coverPrefs
+  return el(ImageEditor
+  , { title
+    , filter
+    , crop
+    , overlay
+    , onChange
+    , onUploadRequest
+    , type
+    , name: 'Image'
     }
   )
 }
