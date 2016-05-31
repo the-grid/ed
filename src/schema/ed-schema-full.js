@@ -18,7 +18,7 @@ class EdHeading extends Heading {
 
 const EdSchema = new Schema(
   { nodes:
-    { doc: {type: Doc, content: '(paragraph | topblock | ordered_list | bullet_list)+'}
+    { doc: {type: Doc, content: '(block | topblock)+'}
     , paragraph: {type: Paragraph, content: 'inline<_>*', group: 'block'}
     , blockquote: {type: BlockQuote, content: 'block+', group: 'topblock'}
     , ordered_list: {type: OrderedList, content: 'list_item+', group: 'block'}
