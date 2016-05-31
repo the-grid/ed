@@ -241,7 +241,7 @@ function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
   }
   if (schema.author && metadata.author && metadata.author[0]) {
     menus.push(
-      renderCreditEditor(false, 'author.0', 'Author', metadata.author[0], onChange, ['author', 0])
+      renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['author', 0])
     )
   }
   if (schema.publisher && metadata.publisher) {
