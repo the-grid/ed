@@ -3,8 +3,9 @@ import encode from '../util/encode'
 
 const blockMetaSchema =
   { image:
-    { title: true
-    , description: true
+    { title: false
+    , description: false
+    , caption: true
     , isBasedOnUrl: true
     , cover: true
     , changeCover: true
@@ -15,6 +16,7 @@ const blockMetaSchema =
   , video:
     { title: true
     , description: true
+    , caption: false
     , isBasedOnUrl: true
     , cover: true
     , changeCover: false
@@ -24,6 +26,7 @@ const blockMetaSchema =
   , article:
     { title: true
     , description: true
+    , caption: false
     , isBasedOnUrl: true
     , cover: true
     , changeCover: true
@@ -34,6 +37,7 @@ const blockMetaSchema =
   , quote:
     { title: false
     , description: false
+    , caption: false
     , isBasedOnUrl: true
     , cover: false
     , changeCover: false
@@ -43,6 +47,7 @@ const blockMetaSchema =
   , default:
     { title: true
     , description: true
+    , caption: false
     , isBasedOnUrl: true
     , cover: true
     , changeCover: false
@@ -59,8 +64,8 @@ function makeImage (metadata, cover) {
   if (metadata && metadata.title) {
     htmlString += ` title="${encode(metadata.title)}"`
   }
-  if (metadata && metadata.description) {
-    htmlString += ` alt="${encode(metadata.description)}"`
+  if (metadata && metadata.caption) {
+    htmlString += ` alt="${encode(metadata.caption)}"`
   }
   htmlString += '>'
   return htmlString

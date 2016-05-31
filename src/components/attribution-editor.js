@@ -2,12 +2,19 @@
 require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
+
+import Progress from 'rebass/dist/Progress'
+import Message from 'rebass/dist/Message'
+import Button from 'rebass/dist/Button'
+import Space from 'rebass/dist/Space'
+
 import Image from './image'
 import DropdownGroup from './dropdown-group'
 import CreditEditor from './credit-editor'
+import ImageEditor from './image-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
-import Progress from 'rebass/dist/Progress'
+
 import blockMetaSchema from '../schema/block-meta'
 
 
@@ -26,12 +33,13 @@ class AttributionEditor extends React.Component {
     const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this))
+    const menus = renderMenus(type, schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this), this.onUploadRequest.bind(this))
 
     return el(
       'div'
       , { className: 'AttributionEditor' }
       , this.renderCover()
+      , this.renderUnsalvageable()
       , this.renderProgress()
       , el('div'
         , { className: 'AttributionEditor-metadata'
@@ -64,6 +72,13 @@ class AttributionEditor extends React.Component {
       )
     )
   }
+  canChangeCover () {
+    const {block} = this.state
+    if (!block) return false
+    const {type} = block
+    const schema = blockMetaSchema[type] || blockMetaSchema.default
+    return schema.changeCover
+  }
   renderCover () {
     const {block} = this.state
     if (!block) return
@@ -92,6 +107,24 @@ class AttributionEditor extends React.Component {
     , el(Image, props)
     )
   }
+  renderUnsalvageable () {
+    const {block} = this.state
+    if (!block || !block.cover || !block.cover.unsalvageable || !this.canChangeCover()) return
+
+    return el(Message
+    , {theme: 'error'}
+    , 'We were unable to find the image originally saved with this block.'
+    , el(Space, {auto: true})
+    , el(Button
+      , { onClick: () => this.onUploadRequest()
+        , rounded: true
+        , color: 'error'
+        , backgroundColor: 'white'
+        }
+      , 'Upload New Image'
+      )
+    )
+  }
   renderProgress () {
     const {block} = this.state
     if (!block || !block.metadata) return
@@ -105,6 +138,11 @@ class AttributionEditor extends React.Component {
       , theme
       }
     )
+  }
+  onUploadRequest () {
+    const {store} = this.context
+    const {id} = this.props
+    store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
   }
   onChange (path, value) {
     const {store} = this.context
@@ -140,9 +178,6 @@ class AttributionEditor extends React.Component {
         path = [key]
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
-        break
-      case 'changeCover':
-        store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
         break
       default:
         return
@@ -182,6 +217,9 @@ function renderFields (schema, metadata = {}, onChange) {
   if (schema.description) {
     fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))
   }
+  if (schema.caption) {
+    fields.push(renderTextField('caption', 'CAPTION', metadata.caption, onChange))
+  }
   return fields
 }
 
@@ -197,7 +235,7 @@ function renderTextField (key, label, value, onChange) {
   )
 }
 
-function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
+function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUploadRequest) {
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
@@ -206,13 +244,16 @@ function renderMenus (schema, metadata = {}, onChange, onMoreClick) {
   }
   if (schema.author && metadata.author && metadata.author[0]) {
     menus.push(
-      renderCreditEditor(false, 'author.0', 'Author', metadata.author[0], onChange, ['author', 0])
+      renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['author', 0])
     )
   }
   if (schema.publisher && metadata.publisher) {
     menus.push(
       renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
     )
+  }
+  if (schema.changeCover) {
+    menus.push(renderImageEditor(type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest))
   }
   menus.push(
     el(CreditAdd
@@ -237,6 +278,21 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
     , path: path || [key]
     , onChange
     , onlyUrl
+    }
+  )
+}
+
+function renderImageEditor (type, title, coverPrefs = {}, onChange, onUploadRequest) {
+  const {filter, crop, overlay} = coverPrefs
+  return el(ImageEditor
+  , { title
+    , filter
+    , crop
+    , overlay
+    , onChange
+    , onUploadRequest
+    , type
+    , name: 'Image'
     }
   )
 }

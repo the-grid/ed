@@ -20,13 +20,10 @@ function makeLinks (schema, metadata = {}, onClick) {
   }
   // TODO allow multiple authors?
   if (schema.author && (!metadata.author || !metadata.author[0])) {
-    links.push(makeLink('author', 'Add Author', onClick))
+    links.push(makeLink('author', 'Add Credit', onClick))
   }
   if (schema.publisher && !metadata.publisher) {
     links.push(makeLink('publisher', 'Add Publisher', onClick))
-  }
-  if (schema.changeCover) {
-    links.push(makeLink('changeCover', 'Upload New Image', onClick))
   }
   links.push(makeLink('delete', 'Remove Block', onClick, true))
   return links

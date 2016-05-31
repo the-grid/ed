@@ -168,7 +168,11 @@ export default class Ed {
     // MUTATION
     let parent = block.metadata
     for (let i = 0, length = path.length; i < length - 1; i++) {
-      parent = parent[path[i]]
+      const key = path[i]
+      if (!parent[key]) {
+        parent[key] = {}
+      }
+      parent = parent[key]
     }
     parent[path[path.length - 1]] = value
 
