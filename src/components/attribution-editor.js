@@ -182,6 +182,9 @@ function renderFields (schema, metadata = {}, onChange) {
   if (schema.description) {
     fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))
   }
+  if (schema.caption) {
+    fields.push(renderTextField('caption', 'CAPTION', metadata.caption, onChange))
+  }
   return fields
 }
 
