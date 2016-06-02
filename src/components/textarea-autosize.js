@@ -86,6 +86,7 @@ class TextareaAutosize extends React.Component {
     const {label} = this.props
     if (label !== 'Link') return
     const {value, valid} = this.state
+    if (!value) return
     if (!valid) {
       return el('span', {}, ' - must be a valid url starting with "http"')
     }
