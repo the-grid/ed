@@ -1,7 +1,13 @@
 ## dev
 
+## 0.13.2 - 2016-06-02
+
 * Render image with hover `title`
 * Attribution `via` can be added and edited (#114)
+* Open urls in new tab (#130)
+* Placeholder cancel button style tweak (#218)
+* Media / attribution style tweak, put image back in box (#226)
+* Remove attribution (#225)
 
 ## 0.13.1 - 2016-05-31
 
