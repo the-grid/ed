@@ -4,7 +4,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .Ed button {
+  .Ed .AddCover button,
+  .Ed .AddFold button {
     width: 100% !important;
   }
 

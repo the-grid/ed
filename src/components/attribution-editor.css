@@ -32,4 +32,7 @@
   .AttributionEditor-metadata {
     padding: 2em 3em 0 !important;
   }
+  .AttributionEditor button {
+    width: 100% !important;
+  }
 }
