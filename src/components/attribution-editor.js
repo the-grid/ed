@@ -167,18 +167,23 @@ class AttributionEditor extends React.Component {
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
         return
       case 'isBasedOnUrl':
-        path = [key]
+        path = ['isBasedOnUrl']
         value = ''
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
       case 'author':
-        path = [key]
+        path = ['author']
         // TODO smarter when we support multiple
         value = [{}]
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
+      case 'via':
+        path = ['via']
+        value = {}
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
       case 'publisher':
-        path = [key]
+        path = ['publisher']
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
@@ -245,9 +250,15 @@ function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUplo
       renderCreditEditor(true, 'isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}, onChange, ['isBasedOnUrl'])
     )
   }
+  // TODO support >1 author
   if (schema.author && metadata.author && metadata.author[0]) {
     menus.push(
       renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['author', 0])
+    )
+  }
+  if (schema.via && metadata.via) {
+    menus.push(
+      renderCreditEditor(false, 'via', 'Via', metadata.via, onChange, ['via'])
     )
   }
   if (schema.publisher && metadata.publisher) {
@@ -296,6 +307,7 @@ function renderImageEditor (type, title, coverPrefs = {}, onChange, onUploadRequ
     , onUploadRequest
     , type
     , name: 'Image'
+    , label: 'Image'
     }
   )
 }

@@ -1,6 +1,8 @@
 ## dev
 
 * Render image with hover `title`
+* Attribution `via` can be added and edited (#114)
+
 ## 0.13.1 - 2016-05-31
 
 * "Image" menu on blocks

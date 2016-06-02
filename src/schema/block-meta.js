@@ -11,6 +11,7 @@ const blockMetaSchema =
     , changeCover: true
     , author: true
     , publisher: true
+    , via: true
     , makeHtml: makeImage
     }
   , video:
@@ -22,6 +23,7 @@ const blockMetaSchema =
     , changeCover: false
     , author: true
     , publisher: true
+    , via: true
     }
   , article:
     { title: true
@@ -32,6 +34,7 @@ const blockMetaSchema =
     , changeCover: true
     , author: true
     , publisher: true
+    , via: true
     , makeHtml: makeArticle
     }
   , quote:
@@ -43,6 +46,7 @@ const blockMetaSchema =
     , changeCover: false
     , author: true
     , publisher: true
+    , via: true
     }
   , default:
     { title: true
@@ -53,6 +57,7 @@ const blockMetaSchema =
     , changeCover: false
     , author: true
     , publisher: true
+    , via: true
     }
   }
 
