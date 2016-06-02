@@ -1,5 +1,6 @@
 ## dev
 
+* Render image with hover `title`
 ## 0.13.1 - 2016-05-31
 
 * "Image" menu on blocks

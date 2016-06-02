@@ -82,21 +82,24 @@ class AttributionEditor extends React.Component {
   renderCover () {
     const {block} = this.state
     if (!block) return
-    const {id, cover} = block
+    const {id, cover, metadata} = block
     const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
-    let src, width, height
+    let src, width, height, title
     if (cover) {
       src = cover.src
       width = cover.width
       height = cover.height
     }
+    if (metadata) {
+      title = metadata.title
+    }
     if (preview) {
       src = preview
     }
     if (!src) return
-    let props = {src, width, height}
+    let props = {src, width, height, title}
     return el('div'
     , { className: 'AttributionEditor-cover'
       , style:
