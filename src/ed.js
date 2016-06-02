@@ -184,8 +184,7 @@ export default class Ed {
       if (key === 0) {
         // HACK only for author array
         parent.shift()
-      }
-      else {
+      } else {
         delete parent[key]
       }
     }
