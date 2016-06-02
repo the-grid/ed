@@ -35,8 +35,7 @@ class AttributionEditor extends React.Component {
 
     const menus = renderMenus(type, schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this), this.onUploadRequest.bind(this))
 
-    return el(
-      'div'
+    return el('div'
       , { className: 'AttributionEditor'
         , style:
           { padding: '1rem 1rem 0'

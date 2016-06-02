@@ -165,6 +165,9 @@ export default class Ed {
     if (!block) {
       throw new Error('Can not update this block')
     }
+    if (!path || !path.length) {
+      throw new Error('Invalid metadata update path')
+    }
     // MUTATION
     let parent = block.metadata
     for (let i = 0, length = path.length; i < length - 1; i++) {
@@ -174,7 +177,18 @@ export default class Ed {
       }
       parent = parent[key]
     }
-    parent[path[path.length - 1]] = value
+    const key = path[path.length - 1]
+    parent[key] = value
+
+    if (value === undefined) {
+      if (key === 0) {
+        // HACK only for author array
+        parent.shift()
+      }
+      else {
+        delete parent[key]
+      }
+    }
 
     return block
   }

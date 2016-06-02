@@ -17,7 +17,7 @@ class DropdownGroup extends React.Component {
       return
     }
     // Find and open new menu
-    if (nextProps.menus.length !== this.props.menus.length) {
+    if (nextProps.menus.length > this.props.menus.length) {
       for (let i = 0, len = nextProps.menus.length; i < len; i++) {
         const menu = this.props.menus[i]
         const nextMenu = nextProps.menus[i]
@@ -26,6 +26,10 @@ class DropdownGroup extends React.Component {
           return
         }
       }
+    }
+    // Close if removed
+    if (nextProps.menus.length < this.props.menus.length) {
+      this.setState({openMenu: null})
     }
   }
   componentDidUpdate (_, prevState) {

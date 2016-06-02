@@ -5,6 +5,7 @@ import TextareaAutosize from './textarea-autosize'
 import {isUrl} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
+import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 function isUrlOrBlank (string) {
   return (isUrl(string) || string === '')
@@ -16,7 +17,7 @@ export default function CreditEditor (props, context) {
 
   return el('div'
   , { style:
-      { padding: '1rem 1rem 0 1rem'
+      { padding: '1rem'
       , minWidth: 360
       }
     }
@@ -26,6 +27,7 @@ export default function CreditEditor (props, context) {
     ? renderBasedOnUrl(url, onChange, path)
     : renderFields(name, url, avatar, onChange, path)
     )
+  , renderRemove(onChange, path)
   )
 }
 CreditEditor.contextTypes = {imgfloConfig: React.PropTypes.object}
@@ -46,6 +48,17 @@ function renderAvatar (avatar, imgfloConfig) {
     , style: {float: 'right'}
     , src
     }
+  )
+}
+
+function renderRemove (onChange, path) {
+  return el(ButtonOutline
+  , { onClick: makeRemove(onChange, path)
+    , style: {float: 'right'}
+    , theme: 'warning'
+    , title: 'delete attribution from block'
+    }
+  , 'Remove'
   )
 }
 
@@ -78,16 +91,22 @@ function renderTextField (key, label, value, onChange, path, defaultFocus, valid
     , name: key
     , multiLine: true
     , style: {width: '100%'}
-    , onChange: makeChange(path, onChange)
+    , onChange: makeChange(onChange, path)
     , validator
     , placeholder
     }
   )
 }
 
-function makeChange (path, onChange) {
+function makeChange (onChange, path) {
   return function (event) {
     const {value} = event.target
     onChange(path, value)
+  }
+}
+
+function makeRemove (onChange, path) {
+  return function () {
+    onChange(path, undefined)
   }
 }
