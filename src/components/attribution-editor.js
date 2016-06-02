@@ -37,7 +37,7 @@ class AttributionEditor extends React.Component {
 
     return el(
       'div'
-      , { className: 'AttributionEditor' 
+      , { className: 'AttributionEditor'
         , style:
           { padding: '1rem 1rem 0'
           , background: '#fff'
