@@ -35,31 +35,29 @@ class AttributionEditor extends React.Component {
 
     const menus = renderMenus(type, schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this), this.onUploadRequest.bind(this))
 
-    return el(
-      'div'
-      , { className: 'AttributionEditor' }
+    return el('div'
+      , { className: 'AttributionEditor'
+        , style:
+          { padding: '1rem 1rem 0'
+          , background: '#fff'
+          , border: '1px solid #ddd'
+          , borderRadius: 2
+          }
+        }
       , this.renderCover()
       , this.renderUnsalvageable()
       , this.renderProgress()
       , el('div'
         , { className: 'AttributionEditor-metadata'
           , style:
-            { width: '90%'
-            , margin: '0 auto 36px'
-            , padding: '1.5em 3em 0'
-            , background: '#fff'
-            , border: '1px solid #ddd'
-            , opacity: '.96'
-            , transition: '.1s all ease-out'
-            , position: 'relative'
-            , borderRadius: 2
+            { position: 'relative'
             }
           }
         , renderFields(schema, metadata, this.onChange.bind(this))
         , el('div'
           , { className: 'AttributionEditor-links'
             , style:
-              { margin: '2em -3em 0'
+              { margin: '1em -1em 0'
               , position: 'relative'
               , top: 1
               }
@@ -82,26 +80,30 @@ class AttributionEditor extends React.Component {
   renderCover () {
     const {block} = this.state
     if (!block) return
-    const {id, cover} = block
+    const {id, cover, metadata} = block
     const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
-    let src, width, height
+    let src, width, height, title
     if (cover) {
       src = cover.src
       width = cover.width
       height = cover.height
     }
+    if (metadata) {
+      title = metadata.title
+    }
     if (preview) {
       src = preview
     }
     if (!src) return
-    let props = {src, width, height}
+    let props = {src, width, height, title}
     return el('div'
     , { className: 'AttributionEditor-cover'
       , style:
         { width: '100%'
         , position: 'relative'
+        , marginBottom: '1rem'
         }
       }
     , el(Image, props)
@@ -164,18 +166,23 @@ class AttributionEditor extends React.Component {
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
         return
       case 'isBasedOnUrl':
-        path = [key]
+        path = ['isBasedOnUrl']
         value = ''
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
       case 'author':
-        path = [key]
+        path = ['author']
         // TODO smarter when we support multiple
         value = [{}]
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
+      case 'via':
+        path = ['via']
+        value = {}
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        break
       case 'publisher':
-        path = [key]
+        path = ['publisher']
         value = {}
         block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
         break
@@ -242,9 +249,15 @@ function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUplo
       renderCreditEditor(true, 'isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}, onChange, ['isBasedOnUrl'])
     )
   }
+  // TODO support >1 author
   if (schema.author && metadata.author && metadata.author[0]) {
     menus.push(
       renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['author', 0])
+    )
+  }
+  if (schema.via && metadata.via) {
+    menus.push(
+      renderCreditEditor(false, 'via', 'Via', metadata.via, onChange, ['via'])
     )
   }
   if (schema.publisher && metadata.publisher) {
@@ -293,6 +306,7 @@ function renderImageEditor (type, title, coverPrefs = {}, onChange, onUploadRequ
     , onUploadRequest
     , type
     , name: 'Image'
+    , label: 'Image'
     }
   )
 }

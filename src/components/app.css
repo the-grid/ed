@@ -3,21 +3,19 @@
   line-height: 1.5;
 }
 
-@media screen and (max-width: 768px) {
-  .Ed button {
+@media screen and (max-width: 500px) {
+  .Ed .AddCover button,
+  .Ed .AddFold button {
     width: 100% !important;
-  }
-
-  .Ed .Ed-Divider {
-    margin: 80px 0;
   }
 
   .Ed .Menu {
     width: 100%;
   }
-
+  
+  .Ed .DropdownGroup > button,
   .Ed .NavItem {
-    font-size: 1.2em !important;
-    padding: 15px 20px !important;
+    font-size: 1rem !important;
+    padding: 10px !important;
   }
 }

@@ -22,6 +22,9 @@ function makeLinks (schema, metadata = {}, onClick) {
   if (schema.author && (!metadata.author || !metadata.author[0])) {
     links.push(makeLink('author', 'Add Credit', onClick))
   }
+  if (schema.via && !metadata.via) {
+    links.push(makeLink('via', 'Add Via', onClick))
+  }
   if (schema.publisher && !metadata.publisher) {
     links.push(makeLink('publisher', 'Add Publisher', onClick))
   }

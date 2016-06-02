@@ -620,6 +620,18 @@ let post = {
       'cover': {unsalvageable: true}
     },
     {
+      'type': 'text',
+      'html': '<p>Placeholder with preview:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'id': '0000-placeholder-preview',
+      'type': 'placeholder',
+      'html': '',
+      'metadata': {starred: true, status: 'Uploading...', progress: 85},
+      'cover': {src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'}
+    },
+    {
       'id': 'abc-00000000-h1',
       'type': 'h1',
       'html': `<h1>${getHappyLittlePhrase()}</h1>`,

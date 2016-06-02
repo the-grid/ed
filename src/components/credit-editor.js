@@ -5,6 +5,7 @@ import TextareaAutosize from './textarea-autosize'
 import {isUrl} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
+import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 function isUrlOrBlank (string) {
   return (isUrl(string) || string === '')
@@ -16,16 +17,17 @@ export default function CreditEditor (props, context) {
 
   return el('div'
   , { style:
-      { padding: '1rem 1rem 0 1rem'
+      { padding: '1rem'
       , minWidth: 360
       }
     }
   , renderAvatar(avatar, context.imgfloConfig)
-  , renderLabel(label)
+  , (onlyUrl ? '' : renderLabel(label))
   , (onlyUrl
     ? renderBasedOnUrl(url, onChange, path)
     : renderFields(name, url, avatar, onChange, path)
     )
+  , renderRemove(onChange, path)
   )
 }
 CreditEditor.contextTypes = {imgfloConfig: React.PropTypes.object}
@@ -49,6 +51,17 @@ function renderAvatar (avatar, imgfloConfig) {
   )
 }
 
+function renderRemove (onChange, path) {
+  return el(ButtonOutline
+  , { onClick: makeRemove(onChange, path)
+    , style: {float: 'right'}
+    , theme: 'warning'
+    , title: 'delete attribution from block'
+    }
+  , 'Remove'
+  )
+}
+
 function renderLabel (label) {
   return el('div'
   , {style: {marginBottom: '0.5rem'}}
@@ -65,7 +78,7 @@ function renderFields (name, url, avatar, onChange, path) {
 }
 
 function renderBasedOnUrl (value, onChange, path) {
-  return renderTextField('url', '', value, onChange, path, true, isUrlOrBlank, 'https...')
+  return renderTextField('url', 'Link', value, onChange, path, true, isUrlOrBlank, 'https...')
 }
 
 function renderTextField (key, label, value, onChange, path, defaultFocus, validator, placeholder) {
@@ -78,16 +91,22 @@ function renderTextField (key, label, value, onChange, path, defaultFocus, valid
     , name: key
     , multiLine: true
     , style: {width: '100%'}
-    , onChange: makeChange(path, onChange)
+    , onChange: makeChange(onChange, path)
     , validator
     , placeholder
     }
   )
 }
 
-function makeChange (path, onChange) {
+function makeChange (onChange, path) {
   return function (event) {
     const {value} = event.target
     onChange(path, value)
+  }
+}
+
+function makeRemove (onChange, path) {
+  return function () {
+    onChange(path, undefined)
   }
 }

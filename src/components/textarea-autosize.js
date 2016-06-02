@@ -67,6 +67,7 @@ class TextareaAutosize extends React.Component {
       , { style: (valid ? labelStyle : labelStyleError)
         }
       , label
+      , this.renderLink()
       , el('textarea'
         , { ref: 'textarea'
           , style: areaStyle
@@ -79,6 +80,26 @@ class TextareaAutosize extends React.Component {
           }
         )
       )
+    )
+  }
+  renderLink () {
+    const {label} = this.props
+    if (label !== 'Link') return
+    const {value, valid} = this.state
+    if (!value) return
+    if (!valid) {
+      return el('span', {}, ' - must be a valid url starting with "http"')
+    }
+    return el('a'
+    , { href: value
+      , target: '_blank'
+      , rel: 'noreferrer noopener'
+      , style:
+        { marginLeft: '0.5rem'
+        , textDecoration: 'none'
+        }
+      }
+    , 'open'
     )
   }
   onKeyDown (event) {

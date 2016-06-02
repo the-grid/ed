@@ -10,7 +10,7 @@ import imgflo from 'imgflo-url'
 
 
 export default function Image (props, context) {
-  let {src} = props
+  let {src, title} = props
   const {width, height} = props
   if (context && context.imgfloConfig) {
     const params =
@@ -20,7 +20,7 @@ export default function Image (props, context) {
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
   return el('div', {className: 'Image'}
-    , el('img', {src: src})
+    , el('img', {src, title})
   )
 }
 Image.contextTypes = {
