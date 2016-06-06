@@ -11,6 +11,7 @@ import GridToDoc from '../convert/grid-to-doc'
 import commands from '../commands/index'
 import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
+import {posToIndex} from '../util/pm'
 
 import '../inputrules/autoinput.js'
 
@@ -77,6 +78,8 @@ class Editable extends React.Component {
       onChange('EDITABLE_CHANGE', this.pm)
     })
 
+    this.pm.on('drop', this.onDrop.bind(this))
+
     // Setup plugins
     let pluginsToInit =
       [ PluginWidget
@@ -107,6 +110,7 @@ class Editable extends React.Component {
     this.pm.off('change')
     this.pm.off('ed.plugin.url')
     this.pm.off('ed.menu.file')
+    this.pm.off('drop')
     this.plugins.forEach((plugin) => plugin.teardown())
   }
   updatePlaceholderHeights (changes) {
@@ -120,6 +124,17 @@ class Editable extends React.Component {
     }
     this.pm.signal('draw')
   }
+  onDrop (event) {
+    if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return
+    const {onDropFiles} = this.props
+    if (!onDropFiles) return
+    const pos = this.pm.posAtCoords({left: event.clientX, top: event.clientY})
+    if (pos == null) return
+    const index = posToIndex(this.pm.doc, pos)
+    if (index == null) return
+    event.preventDefault()
+    onDropFiles(index, event.dataTransfer.files)
+  }
 }
 Editable.contextTypes = {store: React.PropTypes.object}
 Editable.propTypes =
@@ -127,6 +142,7 @@ Editable.propTypes =
   , onChange: React.PropTypes.func.isRequired
   , onShareFile: React.PropTypes.func
   , onShareUrl: React.PropTypes.func
+  , onDropFiles: React.PropTypes.func
   , onEditableInit: React.PropTypes.func
   , menubar: React.PropTypes.bool
   , menutip: React.PropTypes.bool

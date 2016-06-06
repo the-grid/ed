@@ -53,6 +53,7 @@ export default class Ed {
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
     this.onCommandsChanged = options.onCommandsChanged
     this.onRequestCoverUpload = options.onRequestCoverUpload
+    options.onDropFiles = options.onDropFiles || noop
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)

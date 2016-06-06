@@ -50,7 +50,8 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       secret: 'secret'
     },
     onShareFile: function (index) {
-      /* App makes placeholder block(s) and calls ed.insertPlaceholders(index, count) */
+      /* App triggers native file picker */
+      /* App calls ed.insertPlaceholders(index, count) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
@@ -74,6 +75,11 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     },
     onCommandsChanged: function (commands) {
       /* Object with commandName keys and one of inactive, active, disabled */
+    },
+    onDropFiles: function (index, files) {
+      /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
+      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
+      /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     }
   })
   

@@ -1,5 +1,9 @@
 ## dev
 
+## 0.14.0 - 2016-06-06
+
+* NEW -- optional `options.onDropFiles(index, files)` to drop files into editor flow
+
 ## 0.13.2 - 2016-06-02
 
 * Render image with hover `title`

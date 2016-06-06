@@ -27,10 +27,10 @@ class App extends React.Component {
     )
   }
   renderContent () {
-    const { initialContent
+    const {initialContent
       , menuBar, menuTip
       , onChange, onShareFile, onShareUrl
-      , onCommandsChanged } = this.props
+      , onCommandsChanged, onDropFiles} = this.props
 
     return el('div'
     , { className: 'Ed-Content'
@@ -46,6 +46,7 @@ class App extends React.Component {
         , onShareFile
         , onShareUrl
         , onCommandsChanged
+        , onDropFiles
         }
       )
     )
@@ -59,6 +60,7 @@ App.childContextTypes =
 App.propTypes =
   { initialContent: React.PropTypes.array.isRequired
   , onChange: React.PropTypes.func.isRequired
+  , onDropFiles: React.PropTypes.func
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object

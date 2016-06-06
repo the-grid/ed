@@ -37,3 +37,7 @@ export function indexOfId (doc, id) {
   }
   return -1
 }
+
+export function posToIndex (doc, pos) {
+  return doc.childBefore(pos).index
+}

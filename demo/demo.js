@@ -31,6 +31,7 @@ function setup (options) {
     , onRequestCoverUpload: onRequestCoverUploadDemo
     , onPlaceholderCancel: onPlaceholderCancelDemo
     , onCommandsChanged: (commands) => {}
+    , onDropFiles: onDropFilesDemo
     , imgfloConfig: null
     }
   )
@@ -61,47 +62,53 @@ function onShareFileDemo (index) {
 function makeInputOnChange (index) {
   return function (event) {
     event.stopPropagation()
-
-    // Make placeholder blocks
     const input = event.target
-    let names = []
-    for (let i = 0, len = input.files.length; i < len; i++) {
-      const file = input.files[i]
-      const name = file.name.substr(0, file.name.indexOf('.'))
-      names.push(name)
-    }
-
-    // Insert placeholder blocks into content
-    const ids = ed.insertPlaceholders(index, names.length)
-
-    for (let i = 0, len = input.files.length; i < len; i++) {
-      const file = input.files[i]
-      const url = URL.createObjectURL(file)
-      ed.setCoverPreview(ids[i], url)
-    }
-
-    console.log('app uploads files now and calls ed.updatePlaceholder with updates')
-
-    simulateProgress(
-      function (progress) {
-        ids.forEach(function (id, index) {
-          let status = `Uploading ${names[index]}`
-          ed.updatePlaceholder(id, {status, progress})
-        })
-      },
-      function () {
-        const updatedBlocks = ids.map(function (id, index) {
-          return (
-            { id
-            , type: 'image'
-            , metadata: {title: names[index]}
-            }
-          )
-        })
-        ed.setContent(updatedBlocks)
-      }
-    )
+    const files = input.files
+    if (!files || !files.length) return
+    filesUploadSim(index, files)
   }
+}
+
+function filesUploadSim (index, files) {
+  // Make placeholder blocks
+  let names = []
+  for (let i = 0, len = files.length; i < len; i++) {
+    const file = files[i]
+    const name = file.name.substr(0, file.name.indexOf('.'))
+    names.push(name)
+  }
+
+  // Insert placeholder blocks into content
+  console.log(`app calls ed.insertPlaceholders(${index}, ${files.length}) and gets array of ids`)
+  const ids = ed.insertPlaceholders(index, files.length)
+
+  for (let i = 0, len = files.length; i < len; i++) {
+    const file = files[i]
+    const url = URL.createObjectURL(file)
+    ed.setCoverPreview(ids[i], url)
+  }
+
+  console.log('app uploads files now and calls `ed.updatePlaceholder(id, meta)` with updates')
+
+  simulateProgress(
+    function (progress) {
+      ids.forEach(function (id, index) {
+        let status = `Uploading ${names[index]}`
+        ed.updatePlaceholder(id, {status, progress})
+      })
+    },
+    function () {
+      const updatedBlocks = ids.map(function (id, index) {
+        return (
+          { id
+          , type: 'image'
+          , metadata: {title: names[index]}
+          }
+        )
+      })
+      ed.setContent(updatedBlocks)
+    }
+  )
 }
 
 // File picker debug
@@ -295,4 +302,9 @@ function makeRequestCoverUploadInputOnChange (id) {
       }
     )
   }
+}
+
+function onDropFilesDemo (index, files) {
+  console.log('onDropFiles: files dropped')
+  filesUploadSim(index, files)
 }
