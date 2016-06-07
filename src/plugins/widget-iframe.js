@@ -48,6 +48,5 @@ export default class WidgetIframe extends WidgetBase {
   focus () {
     if (!this.frame || !this.initialized) return
     this.postMessage('focus')
-    this.frame.contentWindow.focus()
   }
 }
