@@ -1,17 +1,14 @@
 import WidgetBase from './widget-base'
 
 function postInitialBlock () {
-  this.postMessage(this.initialBlock)
+  this.postMessage('setblock', this.initialBlock)
   delete this.initialBlock
-}
 
-function postMessage (message) {
-  this.frame.contentWindow.postMessage(
-    { topic: 'setblock'
-    , payload: message
-    }
-  , '*'
-  )
+  this.initialized = true
+
+  if (this.initialFocus) {
+    this.focus()
+  }
 }
 
 export default class WidgetIframe extends WidgetBase {
@@ -20,11 +17,13 @@ export default class WidgetIframe extends WidgetBase {
   constructor (options) {
     super(options)
     this.postInitialBlock = postInitialBlock.bind(this)
-    this.postMessage = postMessage.bind(this)
+
+    this.initialFocus = options.initialFocus
 
     this.frame = document.createElement('iframe')
     this.frame.setAttribute('grid-id', options.id)
     if (options.initialBlock) {
+      this.initialized = false
       this.initialBlock = options.initialBlock
       this.frame.addEventListener('load', this.postInitialBlock)
     }
@@ -42,5 +41,13 @@ export default class WidgetIframe extends WidgetBase {
   getHeight () {
     // Don't measure from outside: iframes report own height
     return this.height
+  }
+  postMessage (topic, payload) {
+    this.frame.contentWindow.postMessage({topic, payload}, '*')
+  }
+  focus () {
+    if (!this.frame || !this.initialized) return
+    this.postMessage('focus')
+    this.frame.contentWindow.focus()
   }
 }

@@ -1,5 +1,7 @@
 ## dev
 
+* Focus new iframe widget
+
 ## 0.14.0 - 2016-06-06
 
 * NEW -- optional `options.onDropFiles(index, files)` to drop files into editor flow
