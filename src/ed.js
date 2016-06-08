@@ -461,6 +461,5 @@ export default class Ed {
   }
   onDrop (event) {
     event.preventDefault()
-    console.log(event)
   }
 }
