@@ -54,6 +54,7 @@ export default class Ed {
     this.onCommandsChanged = options.onCommandsChanged
     this.onRequestCoverUpload = options.onRequestCoverUpload
     options.onDropFiles = options.onDropFiles || noop
+    this.onDropFileOnBlock = options.onDropFileOnBlock || noop
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
@@ -62,9 +63,17 @@ export default class Ed {
     this.container = options.container
     this.app = el(App, options)
     ReactDOM.render(this.app, options.container)
+
+    this.boundOnDragOver = this.onDragOver.bind(this)
+    window.addEventListener('dragover', this.boundOnDragOver)
+    this.boundOnDrop = this.onDrop.bind(this)
+    window.addEventListener('drop', this.boundOnDrop)
   }
   teardown () {
     ReactDOM.unmountComponentAtNode(this.container)
+
+    window.removeEventListener('dragover', this.boundOnDragOver)
+    window.removeEventListener('drop', this.boundOnDrop)
   }
   routeChange (type, payload) {
     switch (type) {
@@ -85,6 +94,9 @@ export default class Ed {
         break
       case 'MEDIA_BLOCK_REQUEST_COVER_UPLOAD':
         this.onRequestCoverUpload(payload)
+        break
+      case 'MEDIA_BLOCK_DROP_FILE':
+        this.onDropFileOnBlock(payload.id, payload.file)
         break
       case 'DEDUPE_IDS':
         this._dedupeIds()
@@ -443,5 +455,12 @@ export default class Ed {
         continue
       }
     }
+  }
+  onDragOver (event) {
+    event.preventDefault()
+  }
+  onDrop (event) {
+    event.preventDefault()
+    console.log(event)
   }
 }

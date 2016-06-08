@@ -133,6 +133,7 @@ class Editable extends React.Component {
     const index = posToIndex(this.pm.doc, pos)
     if (index == null) return
     event.preventDefault()
+    event.stopPropagation()
     onDropFiles(index, event.dataTransfer.files)
   }
 }
