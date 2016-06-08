@@ -46,7 +46,7 @@ class AddCover extends React.Component {
       , onClick: this.addImage.bind(this)
       , rounded: true
       }
-    , 'Add Cover Image'
+    , 'Add Image'
     )
   }
   addImage () {

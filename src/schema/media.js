@@ -13,6 +13,7 @@ export class Media extends Block {
       { id: new Attribute()
       , type: new Attribute()
       , height: new Attribute({default: 50})
+      , initialFocus: new Attribute({default: false})
       }
     )
   }
@@ -31,7 +32,7 @@ Media.register('parseDOM', 'div'
   }
 )
 Media.prototype.serializeDOM = (node, s) => {
-  const {id, type, height} = node.attrs
+  const {id, type, height, initialFocus} = node.attrs
   if (!id) {
     throw new Error('Can not serialize Media div without id')
   }
@@ -42,6 +43,7 @@ Media.prototype.serializeDOM = (node, s) => {
   , { class: 'EdSchemaMedia'
     , 'grid-id': id
     , 'grid-type': type
+    , 'grid-initial-focus': initialFocus
     , style: `height: ${height};`
     }
   )

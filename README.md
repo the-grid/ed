@@ -57,7 +57,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
     },
     onRequestCoverUpload: function (block) {
       /* Similar to onShareFile, but hit with block id instead of index */
-      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
+      /* App uploads files and sets status on blocks with ed.updatePlaceholder */
       /* Once upload is complete, app hits ed.setCoverSrc */
     },
     onShareUrl: function ({block, url}) {
@@ -80,6 +80,10 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
       /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
+    },
+    onDropFileOnBlock: function (id, file) {
+      /* App uploads files and sets status on block with ed.updatePlaceholder */
+      /* Once upload is complete, app hits ed.setCoverSrc */
     }
   })
   

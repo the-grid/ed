@@ -16,14 +16,17 @@ import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 
 import blockMetaSchema from '../schema/block-meta'
+import {isFileEvent} from '../util/drop'
 
 
 class AttributionEditor extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      block: props.initialBlock
-    }
+    this.state =
+      { block: props.initialBlock
+      }
+    this.boundOnDragOver = this.onDragOver.bind(this)
+    this.boundOnDrop = this.onDrop.bind(this)
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
@@ -42,7 +45,10 @@ class AttributionEditor extends React.Component {
           , background: '#fff'
           , border: '1px solid #ddd'
           , borderRadius: 2
+          , position: 'relative'
           }
+        , onDragOver: this.boundOnDragOver
+        , onDrop: this.boundOnDrop
         }
       , this.renderCover()
       , this.renderUnsalvageable()
@@ -153,6 +159,24 @@ class AttributionEditor extends React.Component {
     const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
     // Send change to view
     this.setState({block})
+  }
+  onDragOver (event) {
+    if (event.dataTransfer.types[0] !== 'Files') return
+    event.preventDefault()
+  }
+  onDrop (event) {
+    if (!isFileEvent(event)) return
+    if (!this.canChangeCover()) return
+    event.preventDefault()
+    event.stopPropagation()
+
+    const {store} = this.context
+    const {id} = this.props
+    store.routeChange('MEDIA_BLOCK_DROP_FILE'
+    , { id
+      , file: event.dataTransfer.files[0]
+      }
+    )
   }
   onMoreClick (key) {
     const {store} = this.context

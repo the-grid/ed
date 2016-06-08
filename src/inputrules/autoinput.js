@@ -5,7 +5,12 @@ import {InputRule} from 'prosemirror/src/inputrules'
 
 Media.register('autoInput', 'ed_start_code',
   new InputRule(/^```$/, '`', function (pm, _, pos) {
-    insertBlock(pm, pos, this, {id: uuid.v4(), type: 'code'})
+    insertBlock(pm, pos, this
+    , { id: uuid.v4()
+      , type: 'code'
+      , initialFocus: true
+      }
+    )
   })
 )
 

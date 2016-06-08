@@ -32,6 +32,7 @@ function setup (options) {
     , onPlaceholderCancel: onPlaceholderCancelDemo
     , onCommandsChanged: (commands) => {}
     , onDropFiles: onDropFilesDemo
+    , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     }
   )
@@ -307,4 +308,30 @@ function makeRequestCoverUploadInputOnChange (id) {
 function onDropFilesDemo (index, files) {
   console.log('onDropFiles: files dropped')
   filesUploadSim(index, files)
+}
+
+function onDropFileOnBlockDemo (id, file) {
+  console.log('onDropFileOnBlock: file dropped')
+
+  const src = URL.createObjectURL(file)
+  ed.setCoverPreview(id, src)
+
+  console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+
+  simulateProgress(
+    function (progress) {
+      let status = 'Uploading...'
+      ed.updatePlaceholder(id, {status, progress})
+    },
+    function () {
+      // Apps should have dimensions from API
+      // and should not need to load the image client-side
+      const img = new Image()
+      img.onload = function () {
+        const {width, height} = img
+        ed.setCover(id, {src, width, height})
+      }
+      img.src = src
+    }
+  )
 }

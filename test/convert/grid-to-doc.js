@@ -24,6 +24,7 @@ describe('GridToDoc', function () {
             { 'id': 'image-0000'
             , 'type': 'image'
             , 'height': 50
+            , initialFocus: false
             }
           }
         , { 'type': 'heading'
@@ -55,6 +56,7 @@ describe('GridToDoc', function () {
             { 'id': 'video-0000'
             , 'type': 'video'
             , 'height': 50
+            , initialFocus: false
             }
           }
         , { 'type': 'paragraph' }
@@ -83,6 +85,7 @@ describe('GridToDoc', function () {
             { 'id': 'image-0000'
             , 'type': 'image'
             , 'height': 50
+            , initialFocus: false
             }
           }
          , { 'type': 'paragraph' }
@@ -91,6 +94,7 @@ describe('GridToDoc', function () {
             { 'id': 'video-0000'
             , 'type': 'video'
             , 'height': 50
+            , initialFocus: false
             }
           }
         , { 'type': 'paragraph' }

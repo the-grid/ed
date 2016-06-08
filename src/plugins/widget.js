@@ -55,7 +55,8 @@ function onDOMChanged () {
         }
       )
     }
-    this.checkWidget(id, type, rectangle)
+    const initialFocus = (el.getAttribute('grid-initial-focus') === 'true')
+    this.checkWidget(id, type, rectangle, initialFocus)
   }
 
   // Hide or show widgets
@@ -102,7 +103,7 @@ function onDOMChanged () {
   }
 }
 
-function checkWidget (id, type, rectangle) {
+function checkWidget (id, type, rectangle, initialFocus) {
   let widget = this.widgets[id]
   if (widget && widget.type !== type) {
     // Remove it
@@ -115,11 +116,11 @@ function checkWidget (id, type, rectangle) {
     widget.move(rectangle)
   } else {
     // Make it
-    this.initializeWidget(id, type, rectangle)
+    this.initializeWidget(id, type, rectangle, initialFocus)
   }
 }
 
-function initializeWidget (id, type, rectangle) {
+function initializeWidget (id, type, rectangle, initialFocus) {
   let Widget = WidgetTypes[type] || WidgetTypes.react
 
   let initialBlock = this.ed.getBlock(id)
@@ -139,6 +140,7 @@ function initializeWidget (id, type, rectangle) {
     , initialBlock
     , widgetContainer: this.el
     , initialRectangle: rectangle
+    , initialFocus
     }
   )
 
