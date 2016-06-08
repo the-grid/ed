@@ -25,8 +25,12 @@ class AttributionEditor extends React.Component {
     this.state =
       { block: props.initialBlock
       }
+
     this.boundOnDragOver = this.onDragOver.bind(this)
     this.boundOnDrop = this.onDrop.bind(this)
+    this.boundOnChange = this.onChange.bind(this)
+    this.boundOnMoreClick = this.onMoreClick.bind(this)
+    this.boundOnUploadRequest = this.onUploadRequest.bind(this)
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
@@ -36,7 +40,7 @@ class AttributionEditor extends React.Component {
     const {type, metadata} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(type, schema, metadata, this.onChange.bind(this), this.onMoreClick.bind(this), this.onUploadRequest.bind(this))
+    const menus = renderMenus(type, schema, metadata, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest)
 
     return el('div'
       , { className: 'AttributionEditor'
@@ -59,7 +63,7 @@ class AttributionEditor extends React.Component {
             { position: 'relative'
             }
           }
-        , renderFields(schema, metadata, this.onChange.bind(this))
+        , renderFields(schema, metadata, this.boundOnChange)
         , el('div'
           , { className: 'AttributionEditor-links'
             , style:

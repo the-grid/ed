@@ -8,8 +8,10 @@ class AddFold extends React.Component {
 
     this.state = {hasFold: false}
 
-    const {store} = context
     this.boundUpdateHints = this.updateHints.bind(this)
+    this.boundAddFold = this.addFold.bind(this)
+
+    const {store} = context
     store.on('plugin.contenthints', this.boundUpdateHints)
   }
   componentWillUnmount () {
@@ -30,13 +32,13 @@ class AddFold extends React.Component {
   renderAddImage () {
     return el(ButtonOutline
     , { style: buttonStyle
-      , onClick: this.addImage.bind(this)
+      , onClick: this.boundAddFold
       , rounded: true
       }
     , 'Make Full Post'
     )
   }
-  addImage () {
+  addFold () {
     const {store} = this.context
     store.routeChange('ADD_FOLD_DELIMITER')
     this.setState({hasFold: true})
