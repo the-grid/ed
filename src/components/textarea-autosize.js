@@ -130,11 +130,13 @@ class TextareaAutosize extends React.Component {
   }
 }
 TextareaAutosize.propTypes =
-  { defaultValue: React.PropTypes.string
+  { className: React.PropTypes.string
+  , defaultValue: React.PropTypes.string
   , defaultFocus: React.PropTypes.bool
   , label: React.PropTypes.string
   , placeholder: React.PropTypes.string
   , onChange: React.PropTypes.func
+  , onKeyDown: React.PropTypes.func
   , multiline: React.PropTypes.bool
   , validator: React.PropTypes.func
   }

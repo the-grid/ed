@@ -63,4 +63,9 @@ Media.childContextTypes =
   , rebass: React.PropTypes.object
   , store: React.PropTypes.object
   }
+Media.propTypes =
+  { initialBlock: React.PropTypes.object.isRequired
+  , store: React.PropTypes.object.isRequired
+  , imgfloConfig: React.PropTypes.object
+  }
 export default React.createFactory(Media)

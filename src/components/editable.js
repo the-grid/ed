@@ -145,7 +145,8 @@ Editable.propTypes =
   , onShareUrl: React.PropTypes.func
   , onDropFiles: React.PropTypes.func
   , onEditableInit: React.PropTypes.func
-  , menubar: React.PropTypes.bool
-  , menutip: React.PropTypes.bool
+  , onCommandsChanged: React.PropTypes.func
+  , menuBar: React.PropTypes.bool
+  , menuTip: React.PropTypes.bool
   }
 export default React.createFactory(Editable)

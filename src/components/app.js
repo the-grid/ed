@@ -60,7 +60,10 @@ App.childContextTypes =
 App.propTypes =
   { initialContent: React.PropTypes.array.isRequired
   , onChange: React.PropTypes.func.isRequired
+  , onShareFile: React.PropTypes.func
+  , onShareUrl: React.PropTypes.func
   , onDropFiles: React.PropTypes.func
+  , onCommandsChanged: React.PropTypes.func
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
