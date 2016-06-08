@@ -1,5 +1,7 @@
 ## dev
 
+## 0.14.1 - 2016-06-08
+
 * Focus new iframe widget (type ``` to test with code block)
 * NEW -- optional `options.onDropFileOnBlock(id, file)` to a block's cover
 
