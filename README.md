@@ -98,6 +98,11 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
   // `cover` is object with {src, width, height}
   ed.setCover(id, cover)
 
+  // For placeholder or media block with uploading cover
+  // `src` should be blob: or data: url of a
+  // sized preview of the local image
+  ed.setCoverPreview(id, src)
+
   // Returns content array
   // Expensive, so best to debounce and not call this on every change
   // Above the fold block is index 0, and starred
