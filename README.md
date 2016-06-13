@@ -30,8 +30,14 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 # use
 
+Ed exposes a React component by default. There are also
+`{mountApp, unmountApp}` helper methods available to use
+like this:
+
 ``` javascript
-  ed = new Ed({
+  import {mountApp, unmountApp} from '@the-grid/ed'
+
+  ed = mountApp(document.querySelector('#ed'), {
     // Where ed will mount
     container: document.querySelector('#ed'),
     // REQUIRED -- Content array from post
