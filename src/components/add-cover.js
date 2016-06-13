@@ -21,8 +21,10 @@ class AddCover extends React.Component {
 
     this.state = {hasCover: false}
 
-    const {store} = context
     this.boundUpdateHints = this.updateHints.bind(this)
+    this.boundAddImage = this.addImage.bind(this)
+
+    const {store} = context
     store.on('plugin.contenthints', this.boundUpdateHints)
   }
   componentWillUnmount () {
@@ -43,7 +45,7 @@ class AddCover extends React.Component {
   renderAddImage () {
     return el(ButtonOutline
     , { style: buttonStyle
-      , onClick: this.addImage.bind(this)
+      , onClick: this.boundAddImage
       , rounded: true
       }
     , 'Add Image'

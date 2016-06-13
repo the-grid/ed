@@ -30,30 +30,26 @@ const areaStyle =
   , marginBottom: '0.75rem'
   }
 
-function resize () {
-  const { textarea } = this.refs
-  textarea.style.height = 'auto'
-  textarea.style.height = textarea.scrollHeight + 'px'
-}
-
 
 class TextareaAutosize extends React.Component {
   constructor (props) {
     super(props)
-    this.resize = resize.bind(this)
+    this.boundResize = this.resize.bind(this)
+    this.boundOnChange = this.onChange.bind(this)
+    this.boundOnKeyDown = this.onKeyDown.bind(this)
     this.state =
       { value: props.defaultValue
       , valid: true
       }
   }
   componentDidMount () {
-    this.resize()
+    this.boundResize()
     if (this.props.defaultFocus === true) {
       this.refs.textarea.focus()
     }
   }
   componentDidUpdate () {
-    this.resize()
+    this.boundResize()
   }
   render () {
     const {label, placeholder} = this.props
@@ -73,10 +69,10 @@ class TextareaAutosize extends React.Component {
           , style: areaStyle
           , value: value || ''
           , placeholder
-          , onChange: this.onChange.bind(this)
+          , onChange: this.boundOnChange
           , rows: 1
-          , onFocus: this.resize
-          , onKeyDown: this.onKeyDown.bind(this)
+          , onFocus: this.boundResize
+          , onKeyDown: this.boundOnKeyDown
           }
         )
       )
@@ -102,6 +98,11 @@ class TextareaAutosize extends React.Component {
     , 'open'
     )
   }
+  resize () {
+    const { textarea } = this.refs
+    textarea.style.height = 'auto'
+    textarea.style.height = textarea.scrollHeight + 'px'
+  }
   onKeyDown (event) {
     if (this.props.onKeyDown) {
       this.props.onKeyDown(event)
@@ -126,15 +127,17 @@ class TextareaAutosize extends React.Component {
     if (valid && onChange) {
       onChange(event)
     }
-    this.resize()
+    this.boundResize()
   }
 }
 TextareaAutosize.propTypes =
-  { defaultValue: React.PropTypes.string
+  { className: React.PropTypes.string
+  , defaultValue: React.PropTypes.string
   , defaultFocus: React.PropTypes.bool
   , label: React.PropTypes.string
   , placeholder: React.PropTypes.string
   , onChange: React.PropTypes.func
+  , onKeyDown: React.PropTypes.func
   , multiline: React.PropTypes.bool
   , validator: React.PropTypes.func
   }

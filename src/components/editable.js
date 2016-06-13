@@ -26,6 +26,10 @@ function noop () { /* noop */ }
 
 
 class Editable extends React.Component {
+  constructor (props) {
+    super(props)
+    this.boundOnDrop = this.onDrop.bind(this)
+  }
   setState () {
     throw new Error('Can not setState of Editable')
   }
@@ -78,7 +82,7 @@ class Editable extends React.Component {
       onChange('EDITABLE_CHANGE', this.pm)
     })
 
-    this.pm.on('drop', this.onDrop.bind(this))
+    this.pm.on('drop', this.boundOnDrop)
 
     // Setup plugins
     let pluginsToInit =
@@ -110,7 +114,7 @@ class Editable extends React.Component {
     this.pm.off('change')
     this.pm.off('ed.plugin.url')
     this.pm.off('ed.menu.file')
-    this.pm.off('drop')
+    this.pm.off('drop', this.boundOnDrop)
     this.plugins.forEach((plugin) => plugin.teardown())
   }
   updatePlaceholderHeights (changes) {
@@ -145,7 +149,8 @@ Editable.propTypes =
   , onShareUrl: React.PropTypes.func
   , onDropFiles: React.PropTypes.func
   , onEditableInit: React.PropTypes.func
-  , menubar: React.PropTypes.bool
-  , menutip: React.PropTypes.bool
+  , onCommandsChanged: React.PropTypes.func
+  , menuBar: React.PropTypes.bool
+  , menuTip: React.PropTypes.bool
   }
 export default React.createFactory(Editable)

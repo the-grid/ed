@@ -11,5 +11,6 @@
   , "comma-style": [2, "first"]
   , "camelcase": 0
   }
-, "extends": "standard"
+, "plugins": ["react"]
+, "extends": ["standard", "plugin:react/recommended"]
 }
