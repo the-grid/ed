@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import Ed from '../../src/ed'
+import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginWidget', function () {
@@ -22,20 +22,19 @@ describe('PluginWidget', function () {
   beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    ed = new Ed(
-      { container: mount
-      , initialContent: fixture
+    ed = mountApp(mount
+    , { initialContent: fixture
       , onChange: function () {}
       , onShareUrl: function () {}
       , onShareFile: function () {}
       , onRequestCoverUpload: function () {}
       }
     )
-    PluginWidget = ed.editableView.plugins[0]
-    ed.on('plugin.widget.initialized', done)
+    PluginWidget = ed._store.editableView.plugins[0]
+    ed._store.on('plugin.widget.initialized', done)
   })
   afterEach(function () {
-    ed.teardown()
+    unmountApp(mount)
     mount.parentNode.removeChild(mount)
   })
 
@@ -69,7 +68,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates placeholder widget status via setContent', function (done) {
-      ed.on('media.update', function () {
+      ed._store.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
@@ -87,7 +86,7 @@ describe('PluginWidget', function () {
     it('updates placeholder widget failed via setContent', function (done) {
       const widget = PluginWidget.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
-      ed.on('media.update', function () {
+      ed._store.on('media.update', function () {
         expect(el.classList.contains('Placeholder-error')).to.be.true
         done()
       })
@@ -101,7 +100,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates placeholder widget status via updatePlaceholder', function (done) {
-      ed.on('media.update', function () {
+      ed._store.on('media.update', function () {
         const widget = PluginWidget.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
@@ -114,7 +113,7 @@ describe('PluginWidget', function () {
     it('updates placeholder widget failed true via updatePlaceholder', function (done) {
       const widget = PluginWidget.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
-      ed.on('media.update', function () {
+      ed._store.on('media.update', function () {
         expect(el.classList.contains('Placeholder-error')).to.be.true
         done()
       })
