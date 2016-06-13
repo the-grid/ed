@@ -38,8 +38,6 @@ like this:
   import {mountApp, unmountApp} from '@the-grid/ed'
 
   ed = mountApp(document.querySelector('#ed'), {
-    // Where ed will mount
-    container: document.querySelector('#ed'),
     // REQUIRED -- Content array from post
     initialContent: [],
     // Bar is designed for touch, Tip for mouse
@@ -49,47 +47,55 @@ like this:
     onChange: function () {
       /* App can show "unsaved changes" in UI */
     },
-    // OPTIONAL -- imgflo image proxy config
-    imgfloConfig: {
-      server: 'https://imgflo.herokuapp.com/',
-      key: 'key',
-      secret: 'secret'
-    },
+    // REQUIRED
     onShareFile: function (index) {
       /* App triggers native file picker */
       /* App calls ed.insertPlaceholders(index, count) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
+    // REQUIRED
     onRequestCoverUpload: function (block) {
       /* Similar to onShareFile, but hit with block id instead of index */
       /* App uploads files and sets status on blocks with ed.updatePlaceholder */
       /* Once upload is complete, app hits ed.setCoverSrc */
     },
+    // REQUIRED
     onShareUrl: function ({block, url}) {
       /* Ed made the placeholder with block id */
       /* App shares url with given block id */
       /* App updates status on placeholder blocks with ed.updatePlaceholder */
       /* On share / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
+    // REQUIRED
     onPlaceholderCancel: function (id) {
       /* Ed removed the placeholder if you call ed.getContent() now */
       /* App should cancel the share or upload */
     },
-    onMount: function () {
-      /* Called once PM and widgets are mounted */
-    },
-    onCommandsChanged: function (commands) {
-      /* Object with commandName keys and one of inactive, active, disabled */
-    },
+    // REQUIRED
     onDropFiles: function (index, files) {
       /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
+    // REQUIRED
     onDropFileOnBlock: function (id, file) {
       /* App uploads files and sets status on block with ed.updatePlaceholder */
       /* Once upload is complete, app hits ed.setCoverSrc */
+    },
+    // OPTIONAL
+    onMount: function () {
+      /* Called once PM and widgets are mounted */
+    },
+    // OPTIONAL
+    onCommandsChanged: function (commands) {
+      /* Object with commandName keys and one of inactive, active, disabled */
+    },
+    // OPTIONAL -- imgflo image proxy config
+    imgfloConfig: {
+      server: 'https://imgflo.herokuapp.com/',
+      key: 'key',
+      secret: 'secret'
     }
   })
   
