@@ -31,8 +31,8 @@
     "imgflo-url": "^1.1.0",
     "lodash": "^4.12.0",
     "prosemirror": "^0.7.0",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "react-tap-event-plugin": "^1.0.0",
     "rebass": "^0.2.6",
     "uuid": "^2.0.2"
