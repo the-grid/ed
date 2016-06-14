@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 
-import Ed from '../src/ed'
+import {mountApp, unmountApp} from '../src/ed'
 import fixture from './fixture'
 
 let ed
@@ -12,16 +12,17 @@ let apiJSON = document.querySelector('#debug-api')
 
 // ProseMirror setup
 function setup (options) {
+  const container = document.querySelector('#app')
+
   if (ed) {
-    ed.teardown()
+    unmountApp(container)
     ed = null
   }
   if (options.initialContent) {
     apiJSON.value = JSON.stringify(options.initialContent, null, 2)
   }
-  ed = new Ed(
-    { container: document.querySelector('#app')
-    , initialContent: (options.initialContent || [])
+  const props =
+    { initialContent: (options.initialContent || [])
     , menuTip: (options.menu === 'tip')
     , menuBar: (options.menu === 'bar')
     , onChange: () => { console.log('change') }
@@ -35,7 +36,8 @@ function setup (options) {
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     }
-  )
+
+  ed = mountApp(container, props)
   console.log(ed)
   window.ed = ed
 }

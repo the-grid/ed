@@ -4,7 +4,7 @@
   "license": "MIT",
   "version": "0.14.1",
   "description": "the grid api with prosemirror",
-  "main": "dist/ed.js",
+  "main": "src/ed.js",
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline --host 0.0.0.0",
     "build": "npm run clean; webpack",
@@ -31,8 +31,8 @@
     "imgflo-url": "^1.1.0",
     "lodash": "^4.12.0",
     "prosemirror": "^0.7.0",
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
     "react-tap-event-plugin": "^1.0.0",
     "rebass": "^0.2.6",
     "uuid": "^2.0.2"

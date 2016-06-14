@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import Ed from '../src/ed'
+import {mountApp, unmountApp} from '../src/ed'
 
 
 describe('Ed', function () {
@@ -12,20 +12,26 @@ describe('Ed', function () {
       document.body.appendChild(mount)
     })
     afterEach(function () {
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
-    it('throws without options', function () {
-      function no_options () {
-        ed = new Ed()
+    it('throws without container', function () {
+      function no_container () {
+        ed = mountApp(null, null)
       }
-      expect(no_options).to.throw('Missing options')
+      expect(no_container).to.throw('Missing container')
     })
-    it('throws without options.initialContent', function () {
+    it('throws without props', function () {
+      function no_props () {
+        ed = mountApp(mount, null)
+      }
+      expect(no_props).to.throw('Missing props')
+    })
+    it('throws without props.initialContent', function () {
       function no_initialContent () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: null
+        ed = mountApp(mount
+        , { initialContent: null
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: function () {}
@@ -33,13 +39,12 @@ describe('Ed', function () {
           }
         )
       }
-      expect(no_initialContent).to.throw('Missing options.initialContent')
+      expect(no_initialContent).to.throw('Missing props.initialContent')
     })
-    it('throws without options.onChange', function () {
+    it('throws without props.onChange', function () {
       function no_onChange () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: []
+        ed = mountApp(mount
+        , { initialContent: []
           , onChange: null
           , onShareUrl: function () {}
           , onShareFile: function () {}
@@ -47,13 +52,12 @@ describe('Ed', function () {
           }
         )
       }
-      expect(no_onChange).to.throw('Missing options.onChange')
+      expect(no_onChange).to.throw('Missing props.onChange')
     })
-    it('throws without options.onShareUrl', function () {
+    it('throws without props.onShareUrl', function () {
       function no_onShareUrl () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: []
+        ed = mountApp(mount
+        , { initialContent: []
           , onChange: function () {}
           , onShareUrl: null
           , onShareFile: function () {}
@@ -61,13 +65,12 @@ describe('Ed', function () {
           }
         )
       }
-      expect(no_onShareUrl).to.throw('Missing options.onShareUrl')
+      expect(no_onShareUrl).to.throw('Missing props.onShareUrl')
     })
-    it('throws without options.onShareFile', function () {
+    it('throws without props.onShareFile', function () {
       function no_onShareFile () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: []
+        ed = mountApp(mount
+        , { initialContent: []
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: null
@@ -75,13 +78,12 @@ describe('Ed', function () {
           }
         )
       }
-      expect(no_onShareFile).to.throw('Missing options.onShareFile')
+      expect(no_onShareFile).to.throw('Missing props.onShareFile')
     })
-    it('throws without options.onRequestCoverUpload', function () {
+    it('throws without props.onRequestCoverUpload', function () {
       function no_onRequestCoverUpload () {
-        ed = new Ed(
-          { container: mount
-          , initialContent: []
+        ed = mountApp(mount
+        , { initialContent: []
           , onChange: function () {}
           , onShareUrl: function () {}
           , onShareFile: function () {}
@@ -89,26 +91,11 @@ describe('Ed', function () {
           }
         )
       }
-      expect(no_onRequestCoverUpload).to.throw('Missing options.onRequestCoverUpload')
+      expect(no_onRequestCoverUpload).to.throw('Missing props.onRequestCoverUpload')
     })
-    it('throws without options.container', function () {
-      function no_container () {
-        ed = new Ed(
-          { container: null
-          , initialContent: []
-          , onChange: function () {}
-          , onShareUrl: function () {}
-          , onShareFile: function () {}
-          , onRequestCoverUpload: function () {}
-          }
-        )
-      }
-      expect(no_container).to.throw('Missing options.container')
-    })
-    it('calls options.onMount', function (done) {
-      ed = new Ed(
-        { container: mount
-        , initialContent: []
+    it('calls props.onMount', function (done) {
+      ed = mountApp(mount
+      , { initialContent: []
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
@@ -129,9 +116,8 @@ describe('Ed', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
@@ -141,7 +127,7 @@ describe('Ed', function () {
       done()
     })
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
@@ -217,7 +203,7 @@ describe('Ed', function () {
     })
 
     it('replace text with placeholder block', function () {
-      ed._replaceBlock(1,
+      ed._store._replaceBlock(1,
         { id: '0000'
         , type: 'placeholder'
         , metadata: {starred: true}
@@ -237,7 +223,7 @@ describe('Ed', function () {
     })
 
     it('replace placeholder with image block, should correctly merge', function () {
-      ed._replaceBlock(1,
+      ed._store._replaceBlock(1,
         { id: '0000'
         , type: 'placeholder'
         , metadata: {starred: true}
@@ -290,7 +276,7 @@ describe('Ed', function () {
 
     it('cancels placeholder', function () {
       const ids = ed.insertPlaceholders(1, 1)
-      ed._placeholderCancel(ids[0])
+      ed._store._placeholderCancel(ids[0])
 
       const content = ed.pm.doc.content.content
       expect(content.length).to.equal(3)
@@ -354,7 +340,7 @@ describe('Ed', function () {
 
       it('does not have cancelled placeholder', function () {
         const ids = ed.insertPlaceholders(1, 1)
-        ed._placeholderCancel(ids[0])
+        ed._store._placeholderCancel(ids[0])
         const content = ed.getContent()
         const expected =
           [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
@@ -366,7 +352,7 @@ describe('Ed', function () {
 
       it('does not have removed block', function () {
         const ids = ed.insertPlaceholders(1, 1)
-        ed._removeMediaBlock(ids[0])
+        ed._store._removeMediaBlock(ids[0])
         const content = ed.getContent()
         const expected =
           [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
@@ -387,9 +373,8 @@ describe('Ed', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
@@ -399,7 +384,7 @@ describe('Ed', function () {
       done()
     })
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
@@ -432,7 +417,7 @@ describe('Ed', function () {
       ]
 
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
@@ -446,9 +431,8 @@ describe('Ed', function () {
         done()
       }
 
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
@@ -469,9 +453,8 @@ describe('Ed', function () {
         done()
       }
 
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
@@ -494,9 +477,8 @@ describe('Ed', function () {
         done()
       }
 
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onRequestCoverUpload: function () {}

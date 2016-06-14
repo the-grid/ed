@@ -1,5 +1,7 @@
 ## dev
 
+* Refactor to easily [use Ed as React component](https://github.com/the-grid/ed#use).
+
 ## 0.14.1 - 2016-06-08
 
 * Focus new iframe widget (type ``` to test with code block)

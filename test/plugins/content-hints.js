@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import Ed from '../../src/ed'
+import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginContentHints', function () {
@@ -15,19 +15,18 @@ describe('PluginContentHints', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
         }
       )
-      ed.on('plugin.contenthints.initialized', done)
+      ed._store.on('plugin.contenthints.initialized', done)
     })
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
@@ -50,19 +49,18 @@ describe('PluginContentHints', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
         }
       )
-      ed.on('plugin.contenthints.initialized', done)
+      ed._store.on('plugin.contenthints.initialized', done)
     })
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
@@ -85,19 +83,18 @@ describe('PluginContentHints', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = new Ed(
-        { container: mount
-        , initialContent: fixture
+      ed = mountApp(mount
+      , { initialContent: fixture
         , onChange: function () {}
         , onShareUrl: function () {}
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
         }
       )
-      ed.on('plugin.contenthints.initialized', done)
+      ed._store.on('plugin.contenthints.initialized', done)
     })
     afterEach(function () {
-      ed.teardown()
+      unmountApp(mount)
       mount.parentNode.removeChild(mount)
     })
 
