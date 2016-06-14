@@ -44,10 +44,13 @@ class Editable extends React.Component {
   }
   componentDidMount () {
     const {mirror, plugins} = this.refs
-    const {initialContent
-      , menuBar, menuTip
-      , onChange, onShareFile
-      , onCommandsChanged} = this.props
+    const { initialContent
+      , menuBar
+      , menuTip
+      , onChange
+      , onShareFile
+      , onCommandsChanged
+      , widgetPath } = this.props
     const {store} = this.context
 
     // PM setup
@@ -104,6 +107,7 @@ class Editable extends React.Component {
       , editableView: this
       , pm: this.pm
       , container: plugins
+      , widgetPath
       }
 
     this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
@@ -152,5 +156,6 @@ Editable.propTypes =
   , onCommandsChanged: React.PropTypes.func
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
+  , widgetPath: React.PropTypes.string
   }
 export default React.createFactory(Editable)

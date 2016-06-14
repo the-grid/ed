@@ -1,6 +1,7 @@
 ## dev
 
 * Refactor to easily [use Ed as React component](https://github.com/the-grid/ed#use).
+* `props.widgetPath` for the iframe widget base directory. Defaults to `'./node_modules/'`
 
 ## 0.14.1 - 2016-06-08
 

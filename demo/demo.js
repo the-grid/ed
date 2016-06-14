@@ -35,6 +35,7 @@ function setup (options) {
     , onDropFiles: onDropFilesDemo
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
+    , widgetPath: './node_modules/'
     }
 
   ed = mountApp(container, props)

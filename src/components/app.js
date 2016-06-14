@@ -83,10 +83,14 @@ export default class App extends React.Component {
     )
   }
   renderContent () {
-    const {initialContent
-      , menuBar, menuTip
-      , onShareFile, onShareUrl
-      , onCommandsChanged, onDropFiles} = this.props
+    const { initialContent
+      , menuBar
+      , menuTip
+      , onShareFile
+      , onShareUrl
+      , onCommandsChanged
+      , onDropFiles
+      , widgetPath} = this.props
 
     return el('div'
     , { className: 'Ed-Content'
@@ -103,6 +107,7 @@ export default class App extends React.Component {
         , onShareUrl
         , onCommandsChanged
         , onDropFiles
+        , widgetPath
         }
       )
     )
@@ -160,4 +165,6 @@ App.propTypes =
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
+  , widgetPath: React.PropTypes.string
   }
+App.defaultProps = { widgetPath: './node_modules/' }

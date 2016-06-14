@@ -9,11 +9,11 @@ import {UpdateScheduler} from 'prosemirror/src/ui/update'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
-import WidgetCode from './widget-code'
+import WidgetIframe from './widget-iframe'
 import WidgetReact from './widget-react'
 
 const WidgetTypes =
-  { code: WidgetCode
+  { code: WidgetIframe
   , react: WidgetReact
   }
 
@@ -141,6 +141,7 @@ function initializeWidget (id, type, rectangle, initialFocus) {
     , widgetContainer: this.el
     , initialRectangle: rectangle
     , initialFocus
+    , widgetPath: this.widgetPath
     }
   )
 
@@ -202,6 +203,7 @@ export default class PluginWidget {
     this.ed = options.ed
     this.editableView = options.editableView
     this.pm = options.pm
+    this.widgetPath = options.widgetPath
 
     this.widgets = {}
     this.el = document.createElement('div')

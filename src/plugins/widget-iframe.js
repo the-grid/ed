@@ -1,5 +1,13 @@
 import WidgetBase from './widget-base'
 
+const Widgets =
+  { code:
+      { src: '@the-grid/ced/editor/index.html'
+      , initialHeight: 50
+      }
+  }
+
+
 function postInitialBlock () {
   this.postMessage('setblock', this.initialBlock)
   delete this.initialBlock
@@ -16,6 +24,12 @@ export default class WidgetIframe extends WidgetBase {
   src () { return 'about:blank' }
   constructor (options) {
     super(options)
+
+    const widget = Widgets[options.type]
+    if (!widget) {
+      throw new Error('No iframe widget of that type')
+    }
+
     this.postInitialBlock = postInitialBlock.bind(this)
 
     this.initialFocus = options.initialFocus
@@ -27,10 +41,10 @@ export default class WidgetIframe extends WidgetBase {
       this.initialBlock = options.initialBlock
       this.frame.addEventListener('load', this.postInitialBlock)
     }
-    this.frame.src = this.src()
+    this.frame.src = options.widgetPath + widget.src
     this.el.appendChild(this.frame)
 
-    this.height = 250
+    this.height = widget.initialHeight
   }
   teardown () {
     if (this.initialBlock) {
