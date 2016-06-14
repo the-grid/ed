@@ -1,6 +1,7 @@
 import {toDOM} from 'prosemirror/src/format'
 import {isMediaType} from './types'
 import BlockMetaSchema from '../schema/block-meta'
+import _ from '../util/lodash'
 
 export default function (doc, apiContentMap) {
   const fragment = toDOM(doc)
@@ -47,9 +48,33 @@ export default function (doc, apiContentMap) {
     currentContent.push(apiBlock)
   }
 
+  currentContent = trimContent(currentContent)
+
   return currentContent
 }
 
+
+function trimContent (content) {
+  return _.map(content, function (item) {
+    let cleaned = _.pick(item
+    , [ 'id'
+      , 'type'
+      , 'html'
+      , 'metadata'
+      , 'cover'
+      ]
+    )
+    if (cleaned.cover) {
+      cleaned.cover = _.pick(cleaned.cover
+      , [ 'src'
+        , 'width'
+        , 'height'
+        ]
+      )
+    }
+    return cleaned
+  })
+}
 
 function isTheFold (el) {
   return (el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR')

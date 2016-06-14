@@ -73,5 +73,49 @@ describe('DocToGrid', function () {
       const contentOut = DocToGrid(node, map)
       expect(contentOut).to.deep.equal(content)
     })
+    it('strips non-whitelisted keys out of blocks (and makes image html)', function () {
+      let map =
+        { 'image-0000':
+          { id: 'image-0000'
+          , type: 'image'
+          , metadata: {starred: true}
+          , title: 'Wat.'
+          , cover:
+            { src: 'https://...'
+            , width: 10
+            , height: 10
+            , saliency: 'fff'
+            }
+          }
+        }
+      let doc =
+        { 'type': 'doc'
+        , 'content':
+          [ { 'type': 'media'
+            , 'attrs':
+              { 'id': 'image-0000'
+              , 'type': 'image'
+              , 'height': 50
+              }
+            }
+          ]
+        }
+      let expected =
+        [ { id: 'image-0000'
+          , type: 'image'
+          , html: '<img src="https://...">'
+          , metadata: {starred: true}
+          , cover:
+            { src: 'https://...'
+            , width: 10
+            , height: 10
+            }
+          }
+        ]
+
+      const node = Node.fromJSON(EdSchemaFull, doc)
+      const contentOut = DocToGrid(node, map)
+      expect(contentOut).to.deep.equal(expected)
+    })
   })
 })

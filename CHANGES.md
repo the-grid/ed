@@ -1,5 +1,9 @@
 ## dev
 
+## 0.16.0 - 2016-06-14
+
+* Minimize `getContent` output to only include block `{id, type, html, metadata, cover: {src, width, height}}`
+
 ## 0.15.0 - 2016-06-14
 
 * Refactor to easily [use Ed as React component](https://github.com/the-grid/ed#use).
