@@ -1,18 +1,6 @@
 ## dev
 
-* Refactor to easily use Ed as React component.
-
-``` jsx
-import TheGridEd from '@the-grid/ed'
-
-export default class PostEditor extends React.Component {
-  render() {
-    return (
-      <TheGridEd initialContent={...} onChange={...} ... />
-    )
-  }
-}
-```
+* Refactor to easily [use Ed as React component](https://github.com/the-grid/ed#use).
 
 ## 0.14.1 - 2016-06-08
 
