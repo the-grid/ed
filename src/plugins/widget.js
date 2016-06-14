@@ -14,6 +14,7 @@ import WidgetReact from './widget-react'
 
 const WidgetTypes =
   { code: WidgetIframe
+  , location: WidgetIframe
   , react: WidgetReact
   }
 

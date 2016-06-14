@@ -5,6 +5,10 @@ const Widgets =
       { src: '@the-grid/ced/editor/index.html'
       , initialHeight: 50
       }
+  , location:
+      { src: '@the-grid/ed-location/index.html'
+      , initialHeight: 320
+      }
   }
 
 

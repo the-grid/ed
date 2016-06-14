@@ -549,18 +549,22 @@ let sharing = {
   }
 }
 
-let post = {
-  id: 'post-uuid-01234',
-  metadata: {
-    title: getHappyLittlePhrase(),
-    description: getHappyLittlePhrase(),
-    inFeed: true,
-    starred: false,
-    hasPage: true,
-    inNav: false,
-    tags: ['tag1', 'tag2']
+let location = {
+  "metadata": {
+    "geo": {
+      "latitude": 68.55260186877743,
+      "longitude": 22.666168212890625,
+      "zoom": 5
+    },
+    "address": "Enontekiö, Lappi, Finland",
+    starred: true
   },
-  published: false,
+  "id": "uuid-loca-tion",
+  "html": "",
+  "type": "location"
+}
+
+let post = {
   content: [
     {
       'id': 'abc-00000000-p',
@@ -568,6 +572,12 @@ let post = {
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       'metadata': {'starred': true}
     },
+    {
+      'type': 'text',
+      'html': '<p>Here\'s a location in Lapland:</p>',
+      'metadata': {'starred': true}
+    },
+    location,
     {
       'type': 'text',
       'html': '<p>Here\'s a normal image:</p>',

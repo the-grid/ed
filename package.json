@@ -27,6 +27,7 @@
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
     "@the-grid/ced": "^0.1.2",
+    "@the-grid/ed-location": "^1.0.2",
     "he": "^1.1.0",
     "imgflo-url": "^1.1.0",
     "lodash": "^4.12.0",
@@ -43,6 +44,12 @@
         "/editor/index.html",
         "/lib/mount.js",
         "/lib/mount.js.map"
+      ]
+    },
+    "@the-grid/ed-location": {
+      "include": [
+        "/index.html",
+        "/ed-location.js"
       ]
     }
   },
