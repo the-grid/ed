@@ -68,7 +68,7 @@ available to use like this:
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     // REQUIRED
-    onRequestCoverUpload: function (block) {
+    onRequestCoverUpload: function (id) {
       /* Similar to onShareFile, but hit with block id instead of index */
       /* App uploads files and sets status on blocks with ed.updatePlaceholder */
       /* Once upload is complete, app hits ed.setCoverSrc */
@@ -85,13 +85,13 @@ available to use like this:
       /* Ed removed the placeholder if you call ed.getContent() now */
       /* App should cancel the share or upload */
     },
-    // REQUIRED
+    // OPTIONAL
     onDropFiles: function (index, files) {
       /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
-    // REQUIRED
+    // OPTIONAL
     onDropFileOnBlock: function (id, file) {
       /* App uploads files and sets status on block with ed.updatePlaceholder */
       /* Once upload is complete, app hits ed.setCoverSrc */
@@ -109,7 +109,9 @@ available to use like this:
       server: 'https://imgflo.herokuapp.com/',
       key: 'key',
       secret: 'secret'
-    }
+    },
+    // OPTIONAL -- where iframe widgets live relative to app
+    widgetPath: './node_modules/'
   })
   
   // Returns array of inserted placeholder ids
