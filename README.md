@@ -30,11 +30,24 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 # use
 
-Ed exposes a React component by default. There are also
-`{mountApp, unmountApp}` helper methods available to use
-like this:
+Ed exposes a React component by default. 
 
-``` javascript
+``` jsx
+import Ed from '@the-grid/ed'
+
+export default class PostEditor extends React.Component {
+  render() {
+    return (
+      <Ed initialContent={...} onChange={...} ... />
+    )
+  }
+}
+```
+
+There are also `{mountApp, unmountApp}` helper methods
+available to use like this:
+
+``` js
   import {mountApp, unmountApp} from '@the-grid/ed'
 
   ed = mountApp(document.querySelector('#ed'), {
