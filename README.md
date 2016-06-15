@@ -38,7 +38,7 @@ import Ed from '@the-grid/ed'
 export default class PostEditor extends React.Component {
   render() {
     return (
-      <Ed initialContent={...} onChange={...} ... />
+      <Ed key='item-uuid' initialContent={...} onChange={...} ... />
     )
   }
 }
