@@ -2,10 +2,10 @@ require('./editable.css')
 require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
-import {ProseMirror} from 'prosemirror/src/edit/main'
-import 'prosemirror/src/inputrules/autoinput'
-import 'prosemirror/src/menu/tooltipmenu'
-import 'prosemirror/src/menu/menubar'
+import {ProseMirror} from 'prosemirror/dist/edit/main'
+// import 'prosemirror/dist/inputrules/autoinput'
+import 'prosemirror/dist/menu/tooltipmenu'
+import 'prosemirror/dist/menu/menubar'
 
 import GridToDoc from '../convert/grid-to-doc'
 import commands from '../commands/index'

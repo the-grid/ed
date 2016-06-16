@@ -2,7 +2,7 @@
 * Plugin to manage `empty` class for placeholder text
 */
 
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
+import {UpdateScheduler} from 'prosemirror/dist/edit'
 import _ from '../util/lodash'
 
 

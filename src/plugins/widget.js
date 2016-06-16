@@ -5,7 +5,7 @@
 require('./widget.css')
 
 import _ from '../util/lodash'
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
+import {UpdateScheduler} from 'prosemirror/dist/edit'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 

@@ -1,6 +1,6 @@
 require('./media.css')
 
-import {Block, Attribute} from 'prosemirror/src/model'
+import {Block, Attribute} from 'prosemirror/dist/model'
 import {isMediaType} from '../convert/types'
 
 export class Media extends Block {

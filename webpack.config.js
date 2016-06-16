@@ -17,8 +17,7 @@ var loaders = [
     loader: 'babel-loader', 
     include: [
       path.resolve(__dirname, 'demo'),
-      path.resolve(__dirname, 'src'),
-      path.resolve(__dirname, 'node_modules', 'prosemirror')
+      path.resolve(__dirname, 'src')
     ]
   },
   { test: /\.css$/, loader: 'style?singleton!raw' },

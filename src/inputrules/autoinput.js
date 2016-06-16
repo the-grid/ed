@@ -1,6 +1,6 @@
 import {Media} from '../schema/media'
 import uuid from 'uuid'
-import {InputRule} from 'prosemirror/src/inputrules'
+import {InputRule} from 'prosemirror/dist/inputrules'
 
 
 Media.register('autoInput', 'ed_start_code',

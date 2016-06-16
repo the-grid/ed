@@ -2,7 +2,7 @@
 * Plugin to manage events for content hint buttons
 */
 
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
+import {UpdateScheduler} from 'prosemirror/dist/edit'
 import _ from '../util/lodash'
 
 

@@ -1,4 +1,4 @@
-import {elt} from 'prosemirror/src/dom'
+import {elt} from 'prosemirror/dist/util/dom'
 import {focusedIndex, isCollapsed} from '../util/pm'
 
 let commands = {}

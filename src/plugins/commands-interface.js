@@ -1,5 +1,5 @@
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
-import {resolveGroup, Dropdown} from 'prosemirror/src/menu/menu'
+import {UpdateScheduler} from 'prosemirror/dist/edit'
+import {resolveGroup, Dropdown} from 'prosemirror/dist/menu/menu'
 import {barMenu} from '../menu/ed-menu'
 
 export default class CommandsInterface {

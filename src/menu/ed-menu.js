@@ -1,6 +1,6 @@
 import {MenuCommandGroup, Dropdown
   , inlineGroup, blockGroup
-  , historyGroup} from 'prosemirror/src/menu/menu'
+  , historyGroup} from 'prosemirror/dist/menu/menu'
 
 const textblockMenu = new Dropdown(
   { label: 'Type...'

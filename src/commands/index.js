@@ -1,4 +1,4 @@
-import {CommandSet} from 'prosemirror/src/edit'
+import {CommandSet} from 'prosemirror/dist/edit'
 import edCommands from './ed-commands'
 
 let commands = CommandSet.default
