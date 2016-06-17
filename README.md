@@ -30,7 +30,9 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 # use
 
-Ed exposes a React component by default. 
+## Using as a React ⚛ component
+
+Ed exposes (a React component)[./src/components/app.js] by default.
 
 ``` jsx
 import Ed from '@the-grid/ed'
@@ -44,13 +46,20 @@ export default class PostEditor extends React.Component {
 }
 ```
 
-There are also `{mountApp, unmountApp}` helper methods
+## Using as a stand-alone library in iframe or similar
+
+Including `dist/build.js` in your page exposes `window.TheGridEd`
+
+``` html
+<script src='dist/build.js'></script>
+```
+
+There are `{mountApp, unmountApp}` helper methods
 available to use like this:
 
 ``` js
-  import {mountApp, unmountApp} from '@the-grid/ed'
-
-  ed = mountApp(document.querySelector('#ed'), {
+  var container = document.querySelector('#ed')
+  var ed = window.TheGridEd.mountApp(container, {
     // REQUIRED -- Content array from post
     initialContent: [],
     // Bar is designed for touch, Tip for mouse

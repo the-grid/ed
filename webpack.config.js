@@ -27,7 +27,7 @@ var loaders = [
 if (__DEV || __DEMO) {
   entry.demo = './demo/demo.js'
 } else {
-  entry.ed = './src/ed.js'
+  entry.build = './src/ed.js'
 }
 
 if (__KARMA) {

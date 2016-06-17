@@ -4,10 +4,11 @@
   "license": "MIT",
   "version": "0.16.0",
   "description": "the grid api with prosemirror",
-  "main": "src/ed.js",
+  "main": "dist/ed.js",
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline --host 0.0.0.0",
-    "build": "npm run clean; webpack",
+    "babel": "mkdir -p dist && babel src --out-dir dist",
+    "build": "npm run clean; webpack; npm run babel",
     "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",
     "test": "npm run lint && npm run karma",
@@ -54,6 +55,7 @@
     }
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
