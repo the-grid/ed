@@ -3,6 +3,7 @@ require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
+import {Plugin} from 'prosemirror/dist/edit/plugin'
 // import 'prosemirror/dist/inputrules/autoinput'
 import 'prosemirror/dist/menu/tooltipmenu'
 import 'prosemirror/dist/menu/menubar'
@@ -60,9 +61,10 @@ class Editable extends React.Component {
       , commands: commands
       , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
+      , plugins: [exampleSetup]
       }
 
-    this.pm = new ProseMirror(pmOptions)
+    let edPluginClasses = [PluginWidget]
 
     if (menuBar) {
       this.pm.setOption('menuBar'
@@ -80,6 +82,17 @@ class Editable extends React.Component {
         }
       )
     }
+    const pluginOptions =
+      { ed: store
+      , editableView: this
+      , container: plugins
+      , widgetPath
+      }
+
+    edPluginClasses.forEach(function (plugin) {
+      const p = new Plugin(plugin, pluginOptions)
+      pmOptions.plugins.push(p)
+    })
 
     this.pm.on('change', () => {
       onChange('EDITABLE_CHANGE', this.pm)

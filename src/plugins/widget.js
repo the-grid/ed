@@ -5,7 +5,6 @@
 require('./widget.css')
 
 import _ from '../util/lodash'
-import {UpdateScheduler} from 'prosemirror/dist/edit'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
@@ -191,7 +190,7 @@ function onIframeMessage (message) {
 // The plugin
 
 export default class PluginWidget {
-  constructor (options) {
+  constructor (pm, options) {
     this.onDOMChanged = onDOMChanged.bind(this)
     this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
     this.checkWidget = checkWidget.bind(this)
@@ -203,7 +202,7 @@ export default class PluginWidget {
 
     this.ed = options.ed
     this.editableView = options.editableView
-    this.pm = options.pm
+    this.pm = pm
     this.widgetPath = options.widgetPath
 
     this.widgets = {}
@@ -211,13 +210,14 @@ export default class PluginWidget {
     this.el.className = 'EdPlugins-Widgets'
     options.container.appendChild(this.el)
 
-    this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
+    const {draw, flush} = this.pm.on
+    this.updater = this.pm.updateScheduler([draw, flush], this.debouncedDOMChanged)
     this.updater.force()
     this.interval = window.setInterval(this.debouncedDOMChanged, 1000)
     window.addEventListener('resize', this.debouncedDOMChanged)
     window.addEventListener('message', this.onIframeMessage)
   }
-  teardown () {
+  detach () {
     this.updater.detach()
     window.clearInterval(this.interval)
     window.removeEventListener('resize', this.debouncedDOMChanged)
