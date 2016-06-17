@@ -2,31 +2,20 @@
 
 # ed
 
-:warning: WIP; not in production yet. :warning: [![Build Status](https://travis-ci.org/the-grid/ed.svg?branch=master)](https://travis-ci.org/the-grid/ed)
+[![Build Status](https://travis-ci.org/the-grid/ed.svg?branch=master)](https://travis-ci.org/the-grid/ed)
 
 Using [ProseMirror](http://prosemirror.net/) with data from [the Grid API](http://developer.thegrid.io/)
 
-Demo: [the-grid.github.io/ed/](https://the-grid.github.io/ed/)
+Demo: [the-grid.github.io/ed/](https://the-grid.github.io/ed/), [with fixture](https://the-grid.github.io/ed/#fixture)
 
 The demo shows translating from ProseMirror to the the Grid API JSON and back.
 
 ## purpose
 
-ProseMirror provides a high-level schema-based interface for interacting with `contenteditable`, taking care of that pain. This project is focused on:
+ProseMirror provides a high-level schema-based interface for interacting with `contenteditable`, taking care of that pain. Ed is focused on:
 
 * Schema to translate between the Grid API data and ProseMirror doc type
 * Coordinating widgets (block editors specialized by type) ([example](https://github.com/the-grid/ced))
-
-## todo
-
-* [x] test crucial parts
-* [x] iframe widgets
-* [x] native widgets
-* [x] handle image, video, article, quote types
-  * [x] edit attribution
-* [x] Integrate into web app
-* [x] Integrate into mobile apps
-* [x] Remove / change cover image
 
 # use
 
@@ -119,7 +108,7 @@ available to use like this:
       key: 'key',
       secret: 'secret'
     },
-    // OPTIONAL -- where iframe widgets live relative to app
+    // OPTIONAL -- where iframe widgets live relative to app (or absolute)
     widgetPath: './node_modules/'
   })
   
