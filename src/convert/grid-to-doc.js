@@ -4,6 +4,7 @@ import {isMediaType, isHTMLType} from './types'
 // import EdSchemaFull from '../schema/ed-schema-full'
 import determineFold from './determine-fold'
 import spaceContent from './space-content'
+import IframeInfo from '../plugins/iframe-info'
 
 
 export default function (items) {
@@ -38,6 +39,10 @@ function itemToDOM (item) {
     el = document.createElement('div')
     el.setAttribute('grid-id', id)
     el.setAttribute('grid-type', type)
+    const iframe = IframeInfo[type]
+    if (iframe) {
+      el.setAttribute('grid-initial-height', iframe.initialHeight)
+    }
   } else {
     return null
   }

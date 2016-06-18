@@ -1,16 +1,5 @@
 import WidgetBase from './widget-base'
-
-const Widgets =
-  { code:
-      { src: '@the-grid/ced/editor/index.html'
-      , initialHeight: 50
-      }
-  , location:
-      { src: '@the-grid/ed-location/index.html'
-      , initialHeight: 320
-      }
-  }
-
+import IframeInfo from './iframe-info'
 
 function postInitialBlock () {
   this.postMessage('setblock', this.initialBlock)
@@ -23,13 +12,14 @@ function postInitialBlock () {
   }
 }
 
+
 export default class WidgetIframe extends WidgetBase {
   static type () { return 'iframe -- extend me' }
   src () { return 'about:blank' }
   constructor (options) {
     super(options)
 
-    const widget = Widgets[options.type]
+    const widget = IframeInfo[options.type]
     if (!widget) {
       throw new Error('No iframe widget of that type')
     }
