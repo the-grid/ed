@@ -4,6 +4,7 @@
 * BREAKING -- changed build and dist directory
   * `dist/build.js` for all-inclusive built library that exposes `window.TheGridEd`
   * `dist/ed.js` (package main) for the React component
+* BREAKING -- `mountApp` does not return the mounted Ed instance. Now you have to pass a `ref` callback function with the props. This is synchronous for now, but [might be async](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) in the future.
 
 ## 0.16.0 - 2016-06-14
 

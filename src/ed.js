@@ -15,8 +15,7 @@ export function mountApp (container, props) {
   }
   // Setup main DOM structure
   const app = React.createElement(App, props)
-  const mounted = ReactDOM.render(app, container)
-  return mounted
+  ReactDOM.render(app, container)
 }
 
 export function unmountApp (container) {

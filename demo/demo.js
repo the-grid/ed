@@ -36,11 +36,14 @@ function setup (options) {
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     , widgetPath: './node_modules/'
+    , ref: function (mounted) {
+        ed = mounted
+        console.log(ed)
+        window.ed = ed
+      }
     }
 
-  ed = mountApp(container, props)
-  console.log(ed)
-  window.ed = ed
+  mountApp(container, props)
 }
 const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
 setup({menu, initialContent})
