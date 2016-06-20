@@ -28,9 +28,10 @@ export default class ShareUrl {
     if (!prevNode || prevNode.type.name !== 'paragraph') return
 
     // Test if url
-    const url = prevNode.content.content[0].text
     // TODO this will be fixed in PM 082
     // const url = prevNode.textContent.trim()
+    if (!prevNode.content.content[0] || !prevNode.content.content[0].text) return
+    const url = prevNode.content.content[0].text.trim()
     if (!url || !isUrl(url)) return
 
     // Make share
