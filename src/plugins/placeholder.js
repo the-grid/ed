@@ -2,52 +2,48 @@
 * Plugin to manage `empty` class for placeholder text
 */
 
-import {UpdateScheduler} from 'prosemirror/dist/edit'
 import _ from '../util/lodash'
 
-
-// Functions to bind in class constructor
-
-// Should use debounced version
-function onDOMChanged () {
-  const els = this.pm.content.children
-  for (let i = 0, len = els.length; i < len; i++) {
-    const el = els[i]
-    const tag = el.tagName
-    if (tag === 'H1' || tag === 'P') {
-      if (el.textContent === '') {
-        el.classList.add('empty')
-      } else {
-        el.classList.remove('empty')
-      }
-    }
-  }
-
-  // Signal widgets initialized if first
-  if (!this.initialized) {
-    this.initialized = true
-    this.ed.trigger('plugin.placeholder.initialized')
-  }
-}
 
 // The plugin
 
 export default class PluginPlaceholder {
-  constructor (options) {
-    this.onDOMChanged = onDOMChanged.bind(this)
-    this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
+  constructor (pm, options) {
+    this.boundOnDOMChanged = this.onDOMChanged.bind(this)
+    this.debouncedDOMChanged = _.debounce(this.boundOnDOMChanged, 50)
 
+    this.pm = pm
     this.ed = options.ed
-    this.pm = options.pm
 
-    window.addEventListener('resize', this.debouncedDOMChanged)
-    this.updater = new UpdateScheduler(this.pm, 'change draw flush', this.debouncedDOMChanged)
+    this.updater = pm.updateScheduler([pm.on.change], this.debouncedDOMChanged)
     this.pm.content.addEventListener('compositionstart', this.debouncedDOMChanged)
     this.updater.force()
   }
-  teardown () {
+  detach () {
     this.updater.detach()
     this.pm.content.removeEventListener('compositionstart', this.debouncedDOMChanged)
-    window.removeEventListener('resize', this.debouncedDOMChanged)
+  }
+  onDOMChanged () {
+    // Should use debounced version
+    const els = this.pm.content.children
+    console.log(els)
+    for (let i = 0, len = els.length; i < len; i++) {
+      const el = els[i]
+      const tag = el.tagName
+      if (tag === 'H1' || tag === 'P') {
+        if (el.textContent === '') {
+          console.log('empty', el)
+          el.classList.add('empty')
+        } else {
+          el.classList.remove('empty')
+        }
+      }
+    }
+
+    // Signal widgets initialized if first
+    if (!this.initialized) {
+      this.initialized = true
+      this.ed.trigger('plugin.placeholder.initialized')
+    }
   }
 }

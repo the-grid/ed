@@ -20,9 +20,9 @@ import {posToIndex} from '../util/pm'
 import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
+import PluginPlaceholder from '../plugins/placeholder'
 // import FixedMenuBarHack from '../plugins/fixed-menu-hack'
 // import CommandsInterface from '../plugins/commands-interface'
-// import PluginPlaceholder from '../plugins/placeholder'
 
 function noop () { /* noop */ }
 
@@ -68,6 +68,8 @@ class Editable extends React.Component {
     let edPluginClasses =
       [ PluginWidget
       , PluginShareUrl
+      , PluginContentHints
+      , PluginPlaceholder
       ]
 
     // Setup plugins
