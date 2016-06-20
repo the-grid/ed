@@ -9,19 +9,20 @@ import 'prosemirror/dist/menu/tooltipmenu'
 import 'prosemirror/dist/menu/menubar'
 
 import GridToDoc from '../convert/grid-to-doc'
-import commands from '../commands/index'
-import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
+// import commands from '../commands/index'
+// import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
 import {posToIndex} from '../util/pm'
 
-import '../inputrules/autoinput.js'
+// import '../inputrules/autoinput.js'
 
+// import {exampleSetup} from 'prosemirror/dist/example-setup'
 import PluginWidget from '../plugins/widget.js'
-import ShareUrl from '../plugins/share-url'
-import FixedMenuBarHack from '../plugins/fixed-menu-hack'
-import CommandsInterface from '../plugins/commands-interface'
-import PluginPlaceholder from '../plugins/placeholder'
-import PluginContentHints from '../plugins/content-hints'
+import PluginShareUrl from '../plugins/share-url'
+// import FixedMenuBarHack from '../plugins/fixed-menu-hack'
+// import CommandsInterface from '../plugins/commands-interface'
+// import PluginPlaceholder from '../plugins/placeholder'
+// import PluginContentHints from '../plugins/content-hints'
 
 function noop () { /* noop */ }
 
@@ -58,30 +59,28 @@ class Editable extends React.Component {
     let pmOptions =
       { place: mirror
       , autoInput: true
-      , commands: commands
+      // , commands: commands
       , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
-      , plugins: [exampleSetup]
+      , plugins: [] // [exampleSetup]
       }
 
-    let edPluginClasses = [PluginWidget]
+    let edPluginClasses =
+      [ PluginWidget
+      , PluginShareUrl
+      ]
 
-    if (menuBar) {
-      this.pm.setOption('menuBar'
-      , { content: barMenu }
-      )
-    }
-    if (menuTip) {
-      this.pm.setOption('tooltipMenu'
-      , { showLinks: true
-        , emptyBlockMenu: true
-        , selectedBlockMenu: true
-        , inlineContent: inlineMenu
-        , selectedBlockContent: inlineMenu
-        , blockContent: blockMenu
-        }
-      )
-    }
+    // Setup plugins
+    // let pluginsToInit =
+    //   [ PluginWidget
+    //   , ShareUrl
+    //   , PluginPlaceholder
+    //   , PluginContentHints
+    //   ]
+    // if (menuBar) {
+    //   pluginsToInit.push(FixedMenuBarHack)
+    // }
+
     const pluginOptions =
       { ed: store
       , editableView: this
@@ -94,47 +93,49 @@ class Editable extends React.Component {
       pmOptions.plugins.push(p)
     })
 
-    this.pm.on('change', () => {
+    this.pm = new ProseMirror(pmOptions)
+
+    // if (menuBar) {
+    //   this.pm.setOption('menuBar'
+    //   , { content: barMenu }
+    //   )
+    // }
+    // if (menuTip) {
+    //   this.pm.setOption('tooltipMenu'
+    //   , { showLinks: true
+    //     , emptyBlockMenu: true
+    //     , selectedBlockMenu: true
+    //     , inlineContent: inlineMenu
+    //     , selectedBlockContent: inlineMenu
+    //     , blockContent: blockMenu
+    //     }
+    //   )
+    // }
+
+    this.pm.on.change.add(() => {
       onChange('EDITABLE_CHANGE', this.pm)
     })
 
-    this.pm.on('drop', this.boundOnDrop)
+    this.pm.on.domDrop.add(this.boundOnDrop)
 
-    // Setup plugins
-    let pluginsToInit =
-      [ PluginWidget
-      , ShareUrl
-      , PluginPlaceholder
-      , PluginContentHints
-      ]
-    if (menuBar) {
-      pluginsToInit.push(FixedMenuBarHack)
-    }
-    this.pm.on('ed.menu.file', (onShareFile || noop))
-    if (onCommandsChanged) {
-      pluginsToInit.push(CommandsInterface)
-    }
+    // this.pm.on('ed.menu.file', (onShareFile || noop))
+    // if (onCommandsChanged) {
+    //   pluginsToInit.push(CommandsInterface)
+    // }
 
-    const pluginOptions =
-      { ed: store
-      , editableView: this
-      , pm: this.pm
-      , container: plugins
-      , widgetPath
-      }
-
-    this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
+    // this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
 
     onChange('EDITABLE_INITIALIZE', this)
   }
   componentWillUnmount () {
-    this.pm.off('change')
-    this.pm.off('ed.plugin.url')
-    this.pm.off('ed.menu.file')
-    this.pm.off('drop', this.boundOnDrop)
-    this.plugins.forEach((plugin) => plugin.teardown())
+    // this.pm.off('change')
+    // this.pm.off('ed.plugin.url')
+    // this.pm.off('ed.menu.file')
+    // this.pm.off('drop', this.boundOnDrop)
+    // this.plugins.forEach((plugin) => plugin.teardown())
   }
   updatePlaceholderHeights (changes) {
+    throw new Error('updatePlaceholderHeights is dprctd')
     // Do this in a batch, with one widget remeasure/move
     for (let i = 0, len = changes.length; i < len; i++) {
       const change = changes[i]
