@@ -1,15 +1,24 @@
 // See also, PM's default schema:
 // https://github.com/ProseMirror/prosemirror/blob/86d55c3f48a0b092bb446fe5c33cc4978c2ba61c/src/model/defaultschema.js#L91-L118
 
-import {Schema, Doc,
-  Heading, BlockQuote, Paragraph,
-  HorizontalRule,
-  BulletList, OrderedList, ListItem,
-  Text,
-  HardBreak,
-  EmMark, StrongMark, LinkMark} from 'prosemirror/src/model'
+import {Schema} from 'prosemirror/dist/model'
+
+import { Doc
+  , Heading
+  , BlockQuote
+  , Paragraph
+  , HorizontalRule
+  , BulletList
+  , OrderedList
+  , ListItem
+  , Text
+  , HardBreak
+  , EmMark
+  , StrongMark
+  , LinkMark } from 'prosemirror/dist/schema-basic'
 
 import {Media} from './media'
+
 
 class EdHeading extends Heading {
   // Limit h1, h2, h3
