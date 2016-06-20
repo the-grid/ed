@@ -195,9 +195,6 @@ export default class EdStore {
     this.pm.tr
       .delete(pos, pos + nodeToRemove.nodeSize)
       .apply()
-
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
   }
   _dedupeIds () {
     let ids = []
@@ -216,8 +213,6 @@ export default class EdStore {
       }
       ids.push(id)
     }
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
   }
   getBlock (id) {
     return this._content[id]
@@ -246,9 +241,6 @@ export default class EdStore {
       // Insert the block
       .insert(pos, node)
       .apply()
-
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
   }
   _insertBlocks (index, blocks) {
     if (!this.pm) {
@@ -268,9 +260,6 @@ export default class EdStore {
       const pos = indexToPos(this.pm.doc, index + i)
       this.pm.tr.insert(pos, node).apply()
     }
-
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -374,9 +363,6 @@ export default class EdStore {
         .apply()
     }
 
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
-
     // Focus first textblock
     try {
       this.pm.checkPos(1, true)
@@ -393,8 +379,6 @@ export default class EdStore {
     this._initializeContent(content)
     // Let widgets know to update
     this.trigger('media.update')
-    // Trigger event for widget system
-    // setTimeout(() => this.pm.signal('draw'), 0)
   }
   _applyTransform (content) {
     for (let i = 0, len = content.length; i < len; i++) {
