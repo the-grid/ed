@@ -19,10 +19,10 @@ import {posToIndex} from '../util/pm'
 // import {exampleSetup} from 'prosemirror/dist/example-setup'
 import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
+import PluginContentHints from '../plugins/content-hints'
 // import FixedMenuBarHack from '../plugins/fixed-menu-hack'
 // import CommandsInterface from '../plugins/commands-interface'
 // import PluginPlaceholder from '../plugins/placeholder'
-// import PluginContentHints from '../plugins/content-hints'
 
 function noop () { /* noop */ }
 
