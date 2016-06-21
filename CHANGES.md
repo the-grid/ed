@@ -2,7 +2,7 @@
 
 ## 0.17.0 - 2016-06-21
 
-* Update to [ProseMirror 0.8.0](https://discuss.prosemirror.net/t/release-0-8-0/336)
+* Update to [ProseMirror 0.8.2](https://discuss.prosemirror.net/t/release-0-8-0/336)
 * BREAKING -- changed dist directory
   * `dist/build.js` for all-inclusive built library that exposes `window.TheGridEd`
   * `dist/ed.js` (package main) for the React component
