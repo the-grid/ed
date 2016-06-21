@@ -141,8 +141,14 @@ export default class PluginWidget {
         , height: el.offsetHeight
         }
       const widget = this.widgets[id]
+      let needsReInit = false
+      if (widget && widget.type !== type) {
+        // Need to re-initialize new widget type
+        widget.teardown()
+        needsReInit = true
+      }
       // Queue init
-      if (!widget) {
+      if (!widget || needsReInit) {
         const initialFocus = (el.getAttribute('grid-initial-focus') === 'true')
         toInit.push({id, type, rectangle, initialFocus})
         continue

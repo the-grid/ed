@@ -121,7 +121,7 @@ function filesUploadSim (index, files) {
 
 // File picker debug
 document.getElementById('upload').onclick = function () {
-  window.ed.pm.signal('ed.menu.file', 1)
+  ed.execCommand('ed_upload_image')
 }
 
 // onShareUrl demo
