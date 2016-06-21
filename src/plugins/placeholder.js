@@ -26,13 +26,11 @@ export default class PluginPlaceholder {
   onDOMChanged () {
     // Should use debounced version
     const els = this.pm.content.children
-    console.log(els)
     for (let i = 0, len = els.length; i < len; i++) {
       const el = els[i]
       const tag = el.tagName
       if (tag === 'H1' || tag === 'P') {
         if (el.textContent === '') {
-          console.log('empty', el)
           el.classList.add('empty')
         } else {
           el.classList.remove('empty')

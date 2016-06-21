@@ -7,7 +7,7 @@ let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 function triggerUpload (pm) {
   const index = focusedIndex(pm)
   if (index == null) return
-  pm.signal('ed.menu.file', index)
+  pm.ed.trigger('command.menu.file', index)
 }
 
 commands.ed_upload_image =

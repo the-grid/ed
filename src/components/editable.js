@@ -5,12 +5,13 @@ import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
 import {Plugin} from 'prosemirror/dist/edit/plugin'
 // import 'prosemirror/dist/inputrules/autoinput'
-import 'prosemirror/dist/menu/tooltipmenu'
-import 'prosemirror/dist/menu/menubar'
+
+import {menuBar as pluginMenuBar, tooltipMenu as pluginMenuTip} from 'prosemirror/dist/menu'
+// import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
+import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import commands from '../commands/index'
-// import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import EdSchemaFull from '../schema/ed-schema-full'
 import {posToIndex} from '../util/pm'
 
@@ -21,7 +22,7 @@ import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
-// import FixedMenuBarHack from '../plugins/fixed-menu-hack'
+// import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 // import CommandsInterface from '../plugins/commands-interface'
 
 function noop () { /* noop */ }
@@ -62,7 +63,7 @@ class Editable extends React.Component {
       // , commands: commands
       , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
-      , plugins: [] // [exampleSetup]
+      , plugins: []
       }
 
     let edPluginClasses =
@@ -71,6 +72,26 @@ class Editable extends React.Component {
       , PluginContentHints
       , PluginPlaceholder
       ]
+    if (menuBar) {
+      let menu = pluginMenuBar.config(
+        { float: true
+        , content: edBarMenu
+        }
+      )
+      pmOptions.plugins.push(menu)
+      // edPluginClasses.push(PluginFixedMenuHack)
+    }
+    if (menuTip) {
+      let menu = pluginMenuTip.config(
+        { showLinks: true
+        , selectedBlockMenu: true
+        , inlineContent: edInlineMenu
+        , blockContent: edBlockMenu
+        , selectedBlockContent: edBlockMenu
+        }
+      )
+      pmOptions.plugins.push(menu)
+    }
 
     // Setup plugins
     // let pluginsToInit =
@@ -79,9 +100,6 @@ class Editable extends React.Component {
     //   , PluginPlaceholder
     //   , PluginContentHints
     //   ]
-    // if (menuBar) {
-    //   pluginsToInit.push(FixedMenuBarHack)
-    // }
 
     const pluginOptions =
       { ed: store
@@ -96,6 +114,7 @@ class Editable extends React.Component {
     })
 
     this.pm = new ProseMirror(pmOptions)
+    this.pm.ed = store
 
     // if (menuBar) {
     //   this.pm.setOption('menuBar'
@@ -120,7 +139,6 @@ class Editable extends React.Component {
 
     this.pm.on.domDrop.add(this.boundOnDrop)
 
-    // this.pm.on('ed.menu.file', (onShareFile || noop))
     // if (onCommandsChanged) {
     //   pluginsToInit.push(CommandsInterface)
     // }
@@ -135,18 +153,6 @@ class Editable extends React.Component {
     // this.pm.off('ed.menu.file')
     // this.pm.off('drop', this.boundOnDrop)
     // this.plugins.forEach((plugin) => plugin.teardown())
-  }
-  updatePlaceholderHeights (changes) {
-    throw new Error('updatePlaceholderHeights is dprctd')
-    // Do this in a batch, with one widget remeasure/move
-    for (let i = 0, len = changes.length; i < len; i++) {
-      const change = changes[i]
-      // TODO do this with standard pm.tr interface, not direct DOM
-      if (!this.refs.mirror) return
-      const placeholder = this.refs.mirror.querySelector(`.EdSchemaMedia[grid-id="${change.id}"]`)
-      placeholder.style.height = change.height + 'px'
-    }
-    this.pm.signal('draw')
   }
   onDrop (event) {
     if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return

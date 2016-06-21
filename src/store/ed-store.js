@@ -26,12 +26,13 @@ export default class EdStore {
     this.on('change', options.onChange)
     options.onChange = this.routeChange.bind(this)
     this.onShareUrl = options.onShareUrl
-    this.onShareFile = options.onShareFile
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
     this.onCommandsChanged = options.onCommandsChanged
     this.onRequestCoverUpload = options.onRequestCoverUpload
     options.onDropFiles = options.onDropFiles || noop
     this.onDropFileOnBlock = options.onDropFileOnBlock || noop
+
+    this.on('command.menu.file', (options.onShareFile || noop))
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
