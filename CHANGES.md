@@ -1,5 +1,9 @@
 ## dev
 
+## 0.17.1 - 2016-06-21
+
+* Copy css to dist with build
+
 ## 0.17.0 - 2016-06-21
 
 * Update to [ProseMirror 0.8.2](https://discuss.prosemirror.net/t/release-0-8-0/336)
