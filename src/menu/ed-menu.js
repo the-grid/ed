@@ -1,4 +1,4 @@
-import {Dropdown, undoItem, redoItem} from 'prosemirror/dist/menu/menu'
+import {Dropdown, undoItem, redoItem, liftItem} from 'prosemirror/dist/menu/menu'
 import {buildMenuItems} from 'prosemirror/dist/example-setup'
 import EdSchema from '../schema/ed-schema-full'
 import menuImage from './menu-image'
@@ -30,6 +30,7 @@ export const edBlockMenu =
   , [ wrapBulletList
     , wrapOrderedList
     , wrapBlockQuote
+    , liftItem
     ]
   , [ menuImage ]
   ]
