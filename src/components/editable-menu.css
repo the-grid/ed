@@ -24,4 +24,19 @@
   display: inline-block;
   height: 2rem;
   vertical-align: middle;
+  margin: 0 3px;
+}
+
+.ProseMirror-menubar .ProseMirror-menuitem {
+  margin-right: 0;
+}
+
+.ProseMirror-menuitem:hover {
+  color: #000;
+}
+
+/* Upload Image button */
+
+.EdMenuText {
+  cursor: pointer;
 }

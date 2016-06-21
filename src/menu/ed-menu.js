@@ -42,6 +42,6 @@ export const edInlineMenu =
     ]
   ]
 
-export const edBarMenu = edBlockMenu
-  .concat(edInlineMenu)
+export const edBarMenu = edInlineMenu
+  .concat(edBlockMenu)
   .concat([[undoItem, redoItem]])

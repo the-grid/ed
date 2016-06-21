@@ -15,9 +15,7 @@ function select (pm) {
 
 function render (pm) {
   const el = elt('div'
-  , { style:
-      { cursor: 'pointer' }
-    }
+  , { class: 'EdMenuText' }
   , 'Upload Image'
   )
   el.addEventListener('mousedown', function (event) {
