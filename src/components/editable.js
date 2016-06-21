@@ -10,7 +10,7 @@ import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import commands from '../commands/index'
-import EdKeymap from '../commands/ed-keymap'
+import EdKeymap from '../inputrules/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
 import EdInputRules from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
