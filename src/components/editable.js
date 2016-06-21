@@ -9,23 +9,17 @@ import {menuBar as pluginMenuBar, tooltipMenu as pluginMenuTip} from 'prosemirro
 import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
-// import commands from '../commands/index'
 import EdKeymap from '../inputrules/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
 import EdInputRules from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
 
-// import '../inputrules/autoinput.js'
-
-// import {exampleSetup} from 'prosemirror/dist/example-setup'
 import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
-// import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
+import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 // import CommandsInterface from '../plugins/commands-interface'
-
-function noop () { /* noop */ }
 
 
 class Editable extends React.Component {
@@ -74,12 +68,12 @@ class Editable extends React.Component {
       ]
     if (menuBar) {
       let menu = pluginMenuBar.config(
-        { float: true
+        { float: false
         , content: edBarMenu
         }
       )
       pmOptions.plugins.push(menu)
-      // edPluginClasses.push(PluginFixedMenuHack)
+      edPluginClasses.push(PluginFixedMenuHack)
     }
     if (menuTip) {
       let menu = pluginMenuTip.config(
@@ -92,14 +86,6 @@ class Editable extends React.Component {
       )
       pmOptions.plugins.push(menu)
     }
-
-    // Setup plugins
-    // let pluginsToInit =
-    //   [ PluginWidget
-    //   , ShareUrl
-    //   , PluginPlaceholder
-    //   , PluginContentHints
-    //   ]
 
     const pluginOptions =
       { ed: store

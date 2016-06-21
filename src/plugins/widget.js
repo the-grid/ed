@@ -86,10 +86,8 @@ export default class PluginWidget {
 
     // Seems to work better to read first, despite docs:
     // http://prosemirror.net/version/0.8.0.html#ProseMirror.scheduleDOMUpdate
-    this.updater = this.pm.updateScheduler(
-      [this.pm.on.draw]
-      , this.boundReadDOM
-    )
+    const {draw} = this.pm.on
+    this.updater = this.pm.updateScheduler([draw], this.boundReadDOM)
     this.updater.force()
     this.interval = window.setInterval(this.debouncedTriggerUpdate, 1000)
     window.addEventListener('resize', this.debouncedTriggerUpdate)
@@ -193,6 +191,10 @@ export default class PluginWidget {
     toHide.forEach((config) => this.writeWidgetHide(config))
     toShow.forEach((config) => this.writeWidgetShow(config))
     toChangeHeight.forEach((config) => this.writePlaceholderHeight(config))
+    if (!this.initialized) {
+      this.initialized = true
+      this.ed.trigger('plugin.widget.initialized', this)
+    }
     if (toInit.length || toChangeHeight.length) {
       // Loop to remeasure and move
       return this.boundReadDOM
@@ -223,7 +225,7 @@ export default class PluginWidget {
       }
     )
 
-    // this.pm.signal('ed.plugin.widget.one.initialized', id)
+    this.ed.trigger('plugin.widget.one.initialized', id)
   }
   writeWidgetMove ({id, rectangle}) {
     this.widgets[id].move(rectangle)
