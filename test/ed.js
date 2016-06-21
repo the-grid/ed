@@ -469,7 +469,9 @@ describe('Ed', function () {
       document.body.appendChild(mount)
 
       function onMount () {
-        ed.execCommand('ed_upload_image')
+        setTimeout(function () {
+          ed.execCommand('ed_upload_image')
+        }, 100)
       }
 
       function onShareFile (index) {

@@ -4,6 +4,7 @@
 * BREAKING -- changed dist directory
   * `dist/build.js` for all-inclusive built library that exposes `window.TheGridEd`
   * `dist/ed.js` (package main) for the React component
+* BREAKING -- commands `link:set` and `link:unset` are replaced with `link:toggle`
 
 ## 0.16.0 - 2016-06-14
 

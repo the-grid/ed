@@ -151,8 +151,7 @@ Supported `commandName` keys:
 ```
 strong:toggle
 em:toggle
-link:unset
-link:set
+link:toggle
 paragraph:make
 heading:make1
 heading:make2

@@ -8,6 +8,7 @@ import Editable from './editable'
 import rebassTheme from './rebass-theme'
 
 import EdStore from '../store/ed-store'
+import {edCommands} from '../menu/ed-menu'
 
 
 export default class App extends React.Component {
@@ -128,7 +129,11 @@ export default class App extends React.Component {
     this._store.setContent(content)
   }
   execCommand (commandName) {
-    this._store.execCommand(commandName)
+    const item = edCommands[commandName]
+    if (!item) {
+      throw new Error('commandName not found')
+    }
+    item.spec.run(this._store.pm)
   }
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)

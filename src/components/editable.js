@@ -19,7 +19,7 @@ import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
 import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
-// import CommandsInterface from '../plugins/commands-interface'
+import PluginCommandsInterface from '../plugins/commands-interface'
 
 
 class Editable extends React.Component {
@@ -85,6 +85,9 @@ class Editable extends React.Component {
       )
       pmOptions.plugins.push(menu)
     }
+    if (onCommandsChanged) {
+      edPluginClasses.push(PluginCommandsInterface)
+    }
 
     const pluginOptions =
       { ed: store
@@ -101,23 +104,6 @@ class Editable extends React.Component {
     this.pm = new ProseMirror(pmOptions)
     this.pm.ed = store
 
-    // if (menuBar) {
-    //   this.pm.setOption('menuBar'
-    //   , { content: barMenu }
-    //   )
-    // }
-    // if (menuTip) {
-    //   this.pm.setOption('tooltipMenu'
-    //   , { showLinks: true
-    //     , emptyBlockMenu: true
-    //     , selectedBlockMenu: true
-    //     , inlineContent: inlineMenu
-    //     , selectedBlockContent: inlineMenu
-    //     , blockContent: blockMenu
-    //     }
-    //   )
-    // }
-
     this.pm.on.change.add(() => {
       onChange('EDITABLE_CHANGE', this.pm)
     })
@@ -126,9 +112,6 @@ class Editable extends React.Component {
 
     this.pm.addKeymap(EdKeymap)
 
-    // if (onCommandsChanged) {
-    //   pluginsToInit.push(CommandsInterface)
-    // }
 
     // this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
 

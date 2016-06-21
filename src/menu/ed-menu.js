@@ -16,6 +16,23 @@ const { makeParagraph
   , toggleStrong
   } = menuItems
 
+export const edCommands =
+  { 'strong:toggle': toggleStrong
+  , 'em:toggle': toggleEm
+  , 'link:toggle': toggleLink
+  , 'paragraph:make': makeParagraph
+  , 'heading:make1': makeHead1
+  , 'heading:make2': makeHead2
+  , 'heading:make3': makeHead3
+  , 'bullet_list:wrap': wrapBulletList
+  , 'ordered_list:wrap': wrapOrderedList
+  , 'blockquote:wrap': wrapBlockQuote
+  , 'lift': liftItem
+  , 'ed_upload_image': menuImage
+  , 'undo': undoItem
+  , 'redo': redoItem
+  }
+
 const typeDropdown = new Dropdown(
   [ makeParagraph
   , makeHead1
