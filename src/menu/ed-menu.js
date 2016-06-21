@@ -1,36 +1,64 @@
-import {MenuCommandGroup, Dropdown
-  , inlineGroup, blockGroup
-  , historyGroup} from 'prosemirror/src/menu/menu'
+import {Dropdown, undoItem, redoItem, liftItem} from 'prosemirror/dist/menu/menu'
+import {buildMenuItems} from 'prosemirror/dist/example-setup'
+import EdSchema from '../schema/ed-schema-full'
+import menuImage from './menu-image'
 
-const textblockMenu = new Dropdown(
-  { label: 'Type...'
-  , activeLabel: true
-  , class: 'ProseMirror-textblock-dropdown'
+const menuItems = buildMenuItems(EdSchema)
+const { makeParagraph
+  , makeHead1
+  , makeHead2
+  , makeHead3
+  , wrapBlockQuote
+  , wrapBulletList
+  , wrapOrderedList
+  , toggleEm
+  , toggleLink
+  , toggleStrong
+  } = menuItems
+
+export const edCommands =
+  { 'strong:toggle': toggleStrong
+  , 'em:toggle': toggleEm
+  , 'link:toggle': toggleLink
+  , 'paragraph:make': makeParagraph
+  , 'heading:make1': makeHead1
+  , 'heading:make2': makeHead2
+  , 'heading:make3': makeHead3
+  , 'bullet_list:wrap': wrapBulletList
+  , 'ordered_list:wrap': wrapOrderedList
+  , 'blockquote:wrap': wrapBlockQuote
+  , 'lift': liftItem
+  , 'ed_upload_image': menuImage
+  , 'undo': undoItem
+  , 'redo': redoItem
   }
-,
-  [ new MenuCommandGroup('textblock')
-  , new MenuCommandGroup('textblockHeading')
+
+const typeDropdown = new Dropdown(
+  [ makeParagraph
+  , makeHead1
+  , makeHead2
+  , makeHead3
   ]
+  , {label: 'Type...'}
 )
 
-const edMenuGroup = new MenuCommandGroup('ed_block')
-
-export const inlineMenu =
-  [ inlineGroup
-  , textblockMenu
-  , blockGroup
+export const edBlockMenu =
+  [ [ typeDropdown ]
+  , [ wrapBulletList
+    , wrapOrderedList
+    , wrapBlockQuote
+    , liftItem
+    ]
+  , [ menuImage ]
   ]
 
-export const blockMenu =
-  [ textblockMenu
-  , blockGroup
-  , edMenuGroup
+export const edInlineMenu =
+  [ [ toggleEm
+    , toggleLink
+    , toggleStrong
+    ]
   ]
 
-export const barMenu =
-  [ inlineGroup
-  , textblockMenu
-  , blockGroup
-  , edMenuGroup
-  , historyGroup
-  ]
+export const edBarMenu = edInlineMenu
+  .concat(edBlockMenu)
+  .concat([[undoItem, redoItem]])

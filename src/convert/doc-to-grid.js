@@ -1,12 +1,12 @@
-import {toDOM} from 'prosemirror/src/format'
 import {isMediaType} from './types'
 import BlockMetaSchema from '../schema/block-meta'
 import _ from '../util/lodash'
 
 export default function (doc, apiContentMap) {
-  const fragment = toDOM(doc)
+  const fragment = doc.content.toDOM()
   const dom = document.createElement('div')
   dom.appendChild(fragment)
+
   let currentContent = []
   let starred = true
   for (let i = 0, len = dom.children.length; i < len; i++) {

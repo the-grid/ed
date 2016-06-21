@@ -1,19 +1,15 @@
-import {Media} from '../schema/media'
+import {InputRule} from 'prosemirror/dist/inputrules'
 import uuid from 'uuid'
-import {InputRule} from 'prosemirror/src/inputrules'
 
-
-Media.register('autoInput', 'ed_start_code',
+const inputCode =
   new InputRule(/^```$/, '`', function (pm, _, pos) {
-    insertBlock(pm, pos, this
+    insertBlock(pm, pos, pm.schema.nodes.media
     , { id: uuid.v4()
       , type: 'code'
       , initialFocus: true
       }
     )
   })
-)
-
 
 function insertBlock (pm, pos, type, attrs) {
   const $pos = pm.doc.resolve(pos)
@@ -27,6 +23,8 @@ function insertBlock (pm, pos, type, attrs) {
     .insert(nodePos, codeNode)
     .apply()
 
-  // Trigger event for widget system
-  setTimeout(() => pm.signal('draw'), 0)
+  // Hide tooltip
+  pm.content.blur()
 }
+
+export default inputCode

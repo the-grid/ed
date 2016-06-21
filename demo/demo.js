@@ -36,11 +36,15 @@ function setup (options) {
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     , widgetPath: './node_modules/'
+    , ref:
+        function (mounted) {
+          ed = mounted
+          console.log(ed)
+          window.ed = ed
+        }
     }
 
-  ed = mountApp(container, props)
-  console.log(ed)
-  window.ed = ed
+  mountApp(container, props)
 }
 const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
 setup({menu, initialContent})
@@ -117,7 +121,7 @@ function filesUploadSim (index, files) {
 
 // File picker debug
 document.getElementById('upload').onclick = function () {
-  window.ed.pm.signal('ed.menu.file', 1)
+  ed.execCommand('ed_upload_image')
 }
 
 // onShareUrl demo
@@ -215,7 +219,7 @@ function APIToEditor () {
   } catch (e) {
     return console.warn('bad json')
   }
-  ed.setContent(json)
+  setup({initialContent: json, menu})
 }
 document.querySelector('#hydrate').onclick = APIToEditor
 

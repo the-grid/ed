@@ -132,18 +132,6 @@
   z-index: 3;
 }
 
-.ProseMirror-menuseparator {
-  margin-right: 12px;
-}
-
-.ProseMirror-menuitem {
-  margin-right: 6px;
-}
-
-.ProseMirror-menuitem:hover {
-  color: #000;
-}
-
 .ProseMirror-tooltip {
   height: auto;
   padding: 10px 15px 7px;
@@ -167,8 +155,7 @@
 }
 
 .ProseMirror-content hr {
-  width: calc(100% + 4em);
-  left: -2em;
+  border-width: 2px 0 0 0;
 }
 
 .ProseMirror-content hr::after {

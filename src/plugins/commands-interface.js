@@ -1,19 +1,18 @@
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
-import {resolveGroup, Dropdown} from 'prosemirror/src/menu/menu'
-import {barMenu} from '../menu/ed-menu'
+import {edCommands} from '../menu/ed-menu'
 
 export default class CommandsInterface {
-  constructor (options) {
-    const {ed, pm} = options
+  constructor (pm, options) {
+    const {ed} = options
     if (!ed.onCommandsChanged) {
       throw new Error('Should not init this plugin without Ed onCommandsChanged option.')
     }
-    this.ed = ed
     this.pm = pm
+    this.ed = ed
 
     // Schedule updates for available commands
-    this.updater = new UpdateScheduler(pm
-      , 'selectionChange blur focus commandsChanged'
+    this.updater = pm.updateScheduler(
+      [ pm.on.selectionChange
+      ]
       , this.update.bind(this)
     )
     this.updater.force()
@@ -24,30 +23,18 @@ export default class CommandsInterface {
   update () {
     let commands = {}
 
-    for (let i = 0; i < barMenu.length; i++) {
-      const items = resolveGroup(this.pm, barMenu[i])
-      for (let j = 0; j < items.length; j++) {
-        const item = items[j]
-
-        if (item instanceof Dropdown) {
-          for (let k = 0, len = item.content.length; k < len; k++) {
-            const dropdownItems = resolveGroup(this.pm, item.content[k])
-            for (let l = 0, len = dropdownItems.length; l < len; l++) {
-              commands[dropdownItems[l].commandName] = this.makeCommand(dropdownItems[l])
-            }
-          }
-          continue
-        }
-
-        commands[items[j].commandName] = this.makeCommand(items[j])
-      }
+    let keys = Object.keys(edCommands)
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i]
+      const item = edCommands[key]
+      commands[key] = this.makeCommand(item)
     }
 
     this.ed.onCommandsChanged(commands)
   }
   makeCommand (item) {
     let state = 'inactive'
-    let command = item.command(this.pm)
+    let command = item.spec
     if (command.active && command.active(this.pm)) {
       state = 'active'
     }

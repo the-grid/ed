@@ -9,7 +9,7 @@ export default class WidgetBase {
     this.top = 0
     this.left = 0
     this.width = 1
-    this.height = 50
+    this.height = 0
 
     // Base div container
     this.el = document.createElement('div')

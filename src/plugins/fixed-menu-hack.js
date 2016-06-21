@@ -1,4 +1,3 @@
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
 import _ from '../util/lodash'
 
 function onScroll (event) {
@@ -7,20 +6,22 @@ function onScroll (event) {
     this.menuEl.style.top = '0px'
     return
   }
+  this.menuEl.style.position = 'absolute'
   this.menuEl.style.top = (0 - contentTop) + 'px'
 }
 
 function spaceContent () {
-  const menuHeight = this.menuEl.style.minHeight
+  this.menuEl.style.minHeight = 'inherit'
+  const menuHeight = this.menuEl.offsetHeight
   if (this.menuHeight !== menuHeight) {
     this.menuHeight = menuHeight
-    this.contentEl.style.paddingTop = menuHeight
+    this.contentEl.style.paddingTop = (menuHeight + 36) + 'px'
   }
 }
 
+
 export default class FixedMenuBarHack {
-  constructor (options) {
-    const {pm} = options
+  constructor (pm, options) {
     this.pm = pm
 
     this.menuEl = pm.wrapper.querySelector('.ProseMirror-menubar')
@@ -31,21 +32,22 @@ export default class FixedMenuBarHack {
 
     // Padding for all
     this.spaceContent = _.debounce(spaceContent, 250).bind(this)
-    this.updater = new UpdateScheduler(pm, 'selectionChange activeMarkChange commandsChanged', this.spaceContent)
+    const {selectionChange} = pm.on
+    this.updater = pm.updateScheduler([selectionChange], this.spaceContent)
     this.updater.force()
 
     // Fake fixed
     this.menuEl.style.position = 'absolute'
     this.onScroll = onScroll.bind(this)
     window.addEventListener('scroll', this.onScroll)
+    window.addEventListener('resize', this.spaceContent)
   }
-  teardown () {
+  detach () {
     if (!this.menuEl) {
       return
     }
-    this.menuEl.style.position = 'fixed'
-    this.menuEl.style.top = '0px'
     window.removeEventListener('scroll', this.onScroll)
+    window.removeEventListener('resize', this.spaceContent)
     this.updater.detach()
   }
 }

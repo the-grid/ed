@@ -1,12 +1,13 @@
-import {fromDOM} from 'prosemirror/src/format'
+import EdSchema from '../schema/ed-schema-full'
 
 import {isMediaType, isHTMLType} from './types'
-import EdSchemaFull from '../schema/ed-schema-full'
+// import EdSchemaFull from '../schema/ed-schema-full'
 import determineFold from './determine-fold'
 import spaceContent from './space-content'
+import IframeInfo from '../plugins/iframe-info'
 
 
-export default function (items, schema = EdSchemaFull) {
+export default function (items) {
   const container = document.createElement('div')
   let {starred, unstarred} = determineFold(items)
   starred = spaceContent(starred)
@@ -23,7 +24,7 @@ export default function (items, schema = EdSchemaFull) {
       if (el) container.appendChild(el)
     })
   }
-  return fromDOM(schema, container)
+  return EdSchema.parseDOM(container)
 }
 
 
@@ -38,6 +39,10 @@ function itemToDOM (item) {
     el = document.createElement('div')
     el.setAttribute('grid-id', id)
     el.setAttribute('grid-type', type)
+    const iframe = IframeInfo[type]
+    if (iframe) {
+      el.setAttribute('grid-initial-height', iframe.initialHeight)
+    }
   } else {
     return null
   }

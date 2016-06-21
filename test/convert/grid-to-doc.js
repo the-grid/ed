@@ -23,7 +23,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
-            , 'height': 50
+            , initialHeight: 72
             , initialFocus: false
             }
           }
@@ -55,7 +55,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
-            , 'height': 50
+            , initialHeight: 72
             , initialFocus: false
             }
           }
@@ -64,8 +64,8 @@ describe('GridToDoc', function () {
       }
 
     it('correctly converts Grid content to Doc', function () {
-      const doc = GridToDoc(fixture)
-      expect(doc.toJSON()).to.deep.equal(expected)
+      const doc = GridToDoc(fixture).toJSON()
+      expect(doc).to.deep.equal(expected)
     })
   })
   describe('with no starred blocks', function () {
@@ -84,7 +84,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
-            , 'height': 50
+            , initialHeight: 72
             , initialFocus: false
             }
           }
@@ -93,7 +93,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
-            , 'height': 50
+            , initialHeight: 72
             , initialFocus: false
             }
           }
@@ -102,8 +102,8 @@ describe('GridToDoc', function () {
       }
 
     it('spaces with empty paragraphs', function () {
-      const doc = GridToDoc(fixture)
-      expect(doc.toJSON()).to.deep.equal(expected)
+      const doc = GridToDoc(fixture).toJSON()
+      expect(doc).to.deep.equal(expected)
     })
   })
 })

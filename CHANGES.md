@@ -1,5 +1,13 @@
 ## dev
 
+## 0.17.0 - 2016-06-21
+
+* Update to [ProseMirror 0.8.0](https://discuss.prosemirror.net/t/release-0-8-0/336)
+* BREAKING -- changed dist directory
+  * `dist/build.js` for all-inclusive built library that exposes `window.TheGridEd`
+  * `dist/ed.js` (package main) for the React component
+* BREAKING -- commands `link:set` and `link:unset` are replaced with `link:toggle`
+
 ## 0.16.0 - 2016-06-14
 
 * Minimize `getContent` output to only include block `{id, type, html, metadata, cover: {src, width, height}}`

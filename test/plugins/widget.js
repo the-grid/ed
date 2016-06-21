@@ -1,10 +1,9 @@
 import {expect} from 'chai'
-
 import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginWidget', function () {
-  let mount, ed, PluginWidget
+  let mount, ed, plugin
   const fixture =
     [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
     , { id: '0001'
@@ -28,10 +27,13 @@ describe('PluginWidget', function () {
       , onShareUrl: function () {}
       , onShareFile: function () {}
       , onRequestCoverUpload: function () {}
+      , onMount:
+          function (p) {
+            plugin = p
+            done()
+          }
       }
     )
-    PluginWidget = ed._store.editableView.plugins[0]
-    ed._store.on('plugin.widget.initialized', done)
   })
   afterEach(function () {
     unmountApp(mount)
@@ -59,7 +61,7 @@ describe('PluginWidget', function () {
     })
 
     it('has mounted widget', function () {
-      const widget = PluginWidget.widgets['0000']
+      const widget = plugin.widgets['0000']
       const status = widget.el.querySelector('.Placeholder-status')
       expect(widget).to.exist
       expect(widget.type).to.equal('placeholder')
@@ -69,7 +71,7 @@ describe('PluginWidget', function () {
 
     it('updates placeholder widget status via setContent', function (done) {
       ed._store.on('media.update', function () {
-        const widget = PluginWidget.widgets['0000']
+        const widget = plugin.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
         expect(status.textContent).to.equal('Status changed')
@@ -84,7 +86,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates placeholder widget failed via setContent', function (done) {
-      const widget = PluginWidget.widgets['0000']
+      const widget = plugin.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
       ed._store.on('media.update', function () {
         expect(el.classList.contains('Placeholder-error')).to.be.true
@@ -101,7 +103,7 @@ describe('PluginWidget', function () {
 
     it('updates placeholder widget status via updatePlaceholder', function (done) {
       ed._store.on('media.update', function () {
-        const widget = PluginWidget.widgets['0000']
+        const widget = plugin.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
         expect(status.textContent).to.equal('Status changed')
@@ -111,7 +113,7 @@ describe('PluginWidget', function () {
     })
 
     it('updates placeholder widget failed true via updatePlaceholder', function (done) {
-      const widget = PluginWidget.widgets['0000']
+      const widget = plugin.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
       ed._store.on('media.update', function () {
         expect(el.classList.contains('Placeholder-error')).to.be.true
@@ -123,10 +125,10 @@ describe('PluginWidget', function () {
 
     it('changes widget type via setContent', function (done) {
       // Widget change is async
-      ed.pm.on('ed.plugin.widget.one.initialized', function (id) {
+      ed._store.on('plugin.widget.one.initialized', function (id) {
         expect(id).to.equal('0000')
 
-        const widget = PluginWidget.widgets['0000']
+        const widget = plugin.widgets['0000']
         expect(widget).to.exist
         expect(widget.type).to.equal('image')
         expect(widget.el.firstChild.className).to.equal('AttributionEditor')

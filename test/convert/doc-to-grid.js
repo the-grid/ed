@@ -1,6 +1,6 @@
 import {expect} from 'chai'
 
-import {Node} from 'prosemirror/src/model/node'
+import {Node} from 'prosemirror/dist/model/node'
 
 import DocToGrid from '../../src/convert/doc-to-grid'
 import EdSchemaFull from '../../src/schema/ed-schema-full'

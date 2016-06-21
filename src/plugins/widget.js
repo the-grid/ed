@@ -5,7 +5,6 @@
 require('./widget.css')
 
 import _ from '../util/lodash'
-import {UpdateScheduler} from 'prosemirror/src/ui/update'
 
 // WidgetTypes keys correspond with PM media block's grid-type attribute
 
@@ -19,135 +18,6 @@ const WidgetTypes =
   }
 
 // Functions to bind in class constructor
-
-// Should use debounced version
-function onDOMChanged () {
-  // Mount or move widget overlays
-  const els = this.pm.content.children
-  let inDoc = []
-  let heightChanges = []
-  let idDuplicates = []
-  for (let i = 0, len = els.length; i < len; i++) {
-    const el = els[i]
-    const id = el.getAttribute('grid-id')
-    if (!id) {
-      // Not a media block
-      continue
-    }
-    const type = el.getAttribute('grid-type')
-    if (!type) {
-      throw new Error('Bad placeholder!')
-    }
-    if (inDoc.indexOf(id) !== -1) {
-      idDuplicates.push(id)
-    }
-    inDoc.push(id)
-    const rectangle =
-      { top: el.offsetTop
-      , left: el.offsetLeft
-      , width: el.offsetWidth
-      , height: el.offsetHeight
-      }
-    // HACK paste iframe, queue cached height for placeholder
-    if (rectangle.height === 0 && this.widgets[id] && this.widgets[id].height) {
-      heightChanges.push(
-        { id: id
-        , height: this.widgets[id].height
-        }
-      )
-    }
-    const initialFocus = (el.getAttribute('grid-initial-focus') === 'true')
-    this.checkWidget(id, type, rectangle, initialFocus)
-  }
-
-  // Hide or show widgets
-  let inDOM = Object.keys(this.widgets)
-  for (let i = 0, len = inDOM.length; i < len; i++) {
-    const id = inDOM[i]
-    const widget = this.widgets[id]
-    if (inDoc.indexOf(id) !== -1) {
-      widget.show()
-    } else {
-      widget.hide()
-    }
-  }
-
-  // Measure inner heights of widgets
-  for (let i = 0, len = inDOM.length; i < len; i++) {
-    const id = inDOM[i]
-    const widget = this.widgets[id]
-    if (!widget.shown) continue
-    const innerHeight = widget.getHeight()
-    if (innerHeight !== widget.height) {
-      heightChanges.push(
-        { id: id
-        , height: innerHeight
-        }
-      )
-    }
-  }
-  if (heightChanges.length) {
-    // Will trigger a redraw / this onDOMChanged again
-    this.editableView.updatePlaceholderHeights(heightChanges)
-  }
-
-  // Copy & pasted
-  if (idDuplicates.length) {
-    this.ed.routeChange('DEDUPE_IDS')
-    return
-  }
-
-  // Signal widgets initialized if first
-  if (!this.initialized) {
-    this.initialized = true
-    this.ed.trigger('plugin.widget.initialized')
-  }
-}
-
-function checkWidget (id, type, rectangle, initialFocus) {
-  let widget = this.widgets[id]
-  if (widget && widget.type !== type) {
-    // Remove it
-    widget.teardown()
-    // Will be overwritten in initializeWidget
-    widget = null
-  }
-  if (widget) {
-    // Move it
-    widget.move(rectangle)
-  } else {
-    // Make it
-    this.initializeWidget(id, type, rectangle, initialFocus)
-  }
-}
-
-function initializeWidget (id, type, rectangle, initialFocus) {
-  let Widget = WidgetTypes[type] || WidgetTypes.react
-
-  let initialBlock = this.ed.getBlock(id)
-
-  if (!initialBlock) {
-    initialBlock = this.initializeBlock(id, type)
-  }
-
-  if (!initialBlock) {
-    throw new Error('Block does not exist in content')
-  }
-
-  this.widgets[id] = new Widget(
-    { ed: this.ed
-    , id
-    , type
-    , initialBlock
-    , widgetContainer: this.el
-    , initialRectangle: rectangle
-    , initialFocus
-    , widgetPath: this.widgetPath
-    }
-  )
-
-  this.pm.signal('ed.plugin.widget.one.initialized', id)
-}
 
 function initializeBlock (id, type) {
   const block =
@@ -174,12 +44,15 @@ function onIframeMessage (message) {
       this.ed.routeChange('MEDIA_BLOCK_UPDATE', block)
       break
     case 'height':
-      if (isNaN(message.data.payload)) throw new Error('Iframe height message with non-numeric payload')
-      this.editableView.updatePlaceholderHeights([
+      if (isNaN(message.data.payload)) {
+        throw new Error('Iframe height message with non-numeric payload')
+      }
+      this.scheduledHeightUpdates.push(
         { id: message.data.id
         , height: message.data.payload
         }
-      ])
+      )
+      this.triggerUpdate()
       break
     case 'cursor':
     default:
@@ -191,38 +64,188 @@ function onIframeMessage (message) {
 // The plugin
 
 export default class PluginWidget {
-  constructor (options) {
-    this.onDOMChanged = onDOMChanged.bind(this)
-    this.debouncedDOMChanged = _.debounce(this.onDOMChanged, 50)
-    this.checkWidget = checkWidget.bind(this)
-    this.initializeWidget = initializeWidget.bind(this)
+  constructor (pm, options) {
     this.onIframeMessage = onIframeMessage.bind(this)
     this.initializeBlock = initializeBlock.bind(this)
+    this.boundReadDOM = this.readDOM.bind(this)
+    this.boundTriggerUpdate = this.triggerUpdate.bind(this)
+    this.debouncedTriggerUpdate = _.debounce(this.boundTriggerUpdate, 50)
 
     this.initialized = false
 
     this.ed = options.ed
     this.editableView = options.editableView
-    this.pm = options.pm
+    this.pm = pm
     this.widgetPath = options.widgetPath
 
     this.widgets = {}
     this.el = document.createElement('div')
     this.el.className = 'EdPlugins-Widgets'
     options.container.appendChild(this.el)
+    this.scheduledHeightUpdates = []
 
-    this.updater = new UpdateScheduler(this.pm, 'draw flush', this.debouncedDOMChanged)
+    // Seems to work better to read first, despite docs:
+    // http://prosemirror.net/version/0.8.0.html#ProseMirror.scheduleDOMUpdate
+    const {draw} = this.pm.on
+    this.updater = this.pm.updateScheduler([draw], this.boundReadDOM)
     this.updater.force()
-    this.interval = window.setInterval(this.debouncedDOMChanged, 1000)
-    window.addEventListener('resize', this.debouncedDOMChanged)
+    this.interval = window.setInterval(this.debouncedTriggerUpdate, 1000)
+    window.addEventListener('resize', this.debouncedTriggerUpdate)
     window.addEventListener('message', this.onIframeMessage)
   }
-  teardown () {
+  detach () {
     this.updater.detach()
     window.clearInterval(this.interval)
-    window.removeEventListener('resize', this.debouncedDOMChanged)
+    window.removeEventListener('resize', this.debouncedTriggerUpdate)
     window.removeEventListener('message', this.onIframeMessage)
 
     this.el.parentNode.removeChild(this.el)
   }
+  triggerUpdate () {
+    const update = () => this.updater.force()
+    setTimeout(update, 0)
+  }
+  readDOM () {
+    // Should read DOM, not write
+    let inDOM = Object.keys(this.widgets)
+    let inDoc = []
+
+    let toInit = []
+    let toMove = []
+    let toHide = []
+    let toShow = []
+    let toUndupe = []
+    let toChangeHeight = this.scheduledHeightUpdates
+    this.scheduledHeightUpdates = []
+
+    const els = this.pm.content.children
+    for (let i = 0, len = els.length; i < len; i++) {
+      const el = els[i]
+      const id = el.getAttribute('grid-id')
+      if (!id) {
+        // Not a media block
+        continue
+      }
+      const type = el.getAttribute('grid-type')
+      if (!type) {
+        throw new Error('Bad placeholder!')
+      }
+      if (inDoc.indexOf(id) !== -1) {
+        toUndupe.push(id)
+      }
+      inDoc.push(id)
+      const rectangle =
+        { top: el.offsetTop
+        , left: el.offsetLeft
+        , width: el.offsetWidth
+        , height: el.offsetHeight
+        }
+      const widget = this.widgets[id]
+      let needsReInit = false
+      if (widget && widget.type !== type) {
+        // Need to re-initialize new widget type
+        widget.teardown()
+        needsReInit = true
+      }
+      // Queue init
+      if (!widget || needsReInit) {
+        const initialFocus = (el.getAttribute('grid-initial-focus') === 'true')
+        toInit.push({id, type, rectangle, initialFocus})
+        continue
+      }
+      if (!widget.shown) continue
+      // Queue move
+      toMove.push({id, rectangle})
+      // Queue height
+      const innerHeight = widget.getHeight()
+      if (innerHeight !== widget.height) {
+        toChangeHeight.push(
+          { id: id
+          , height: innerHeight
+          }
+        )
+      }
+      // HACK paste iframe, queue cached height for placeholder
+      // if (rectangle.height === 0 && this.widgets[id] && this.widgets[id].height) {
+      //   toChangeHeight.push(
+      //     { id: id
+      //     , height: this.widgets[id].height
+      //     }
+      //   )
+      // }
+    }
+
+    // Queue hide or show widgets
+    for (let i = 0, len = inDOM.length; i < len; i++) {
+      const id = inDOM[i]
+      if (inDoc.indexOf(id) !== -1) {
+        toShow.push(id)
+      } else {
+        toHide.push(id)
+      }
+    }
+
+    return () => this.writeDOM(toInit, toMove, toHide, toShow, toUndupe, toChangeHeight)
+  }
+  writeDOM (toInit, toMove, toHide, toShow, toUndupe, toChangeHeight) {
+    if (toUndupe.length) {
+      this.ed.routeChange('DEDUPE_IDS')
+      return
+    }
+    toInit.forEach((config) => this.writeWidgetInit(config))
+    toMove.forEach((config) => this.writeWidgetMove(config))
+    toHide.forEach((config) => this.writeWidgetHide(config))
+    toShow.forEach((config) => this.writeWidgetShow(config))
+    toChangeHeight.forEach((config) => this.writePlaceholderHeight(config))
+    if (!this.initialized) {
+      this.initialized = true
+      this.ed.trigger('plugin.widget.initialized', this)
+    }
+    if (toInit.length || toChangeHeight.length) {
+      // Loop to remeasure and move
+      return this.boundReadDOM
+    }
+  }
+  writeWidgetInit ({id, type, rectangle, initialFocus}) {
+    let Widget = WidgetTypes[type] || WidgetTypes.react
+
+    let initialBlock = this.ed.getBlock(id)
+
+    if (!initialBlock) {
+      initialBlock = this.initializeBlock(id, type)
+    }
+
+    if (!initialBlock) {
+      throw new Error('Block does not exist in content')
+    }
+
+    this.widgets[id] = new Widget(
+      { ed: this.ed
+      , id
+      , type
+      , initialBlock
+      , widgetContainer: this.el
+      , initialRectangle: rectangle
+      , initialFocus
+      , widgetPath: this.widgetPath
+      }
+    )
+
+    this.ed.trigger('plugin.widget.one.initialized', id)
+  }
+  writeWidgetMove ({id, rectangle}) {
+    this.widgets[id].move(rectangle)
+  }
+  writeWidgetHide (id) {
+    this.widgets[id].hide()
+  }
+  writeWidgetShow (id) {
+    this.widgets[id].show()
+  }
+  writePlaceholderHeight ({id, height}) {
+    // TODO pm.tr interface
+    const placeholder = this.pm.content.querySelector(`.EdSchemaMedia[grid-id="${id}"]`)
+    placeholder.style.height = height + 'px'
+  }
+
 }
