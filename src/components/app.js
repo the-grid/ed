@@ -159,7 +159,7 @@ App.propTypes =
   , onChange: React.PropTypes.func.isRequired
   , onShareFile: React.PropTypes.func.isRequired
   , onShareUrl: React.PropTypes.func.isRequired
-  , onDropFiles: React.PropTypes.func.isRequired
+  , onDropFiles: React.PropTypes.func
   , onCommandsChanged: React.PropTypes.func
   , onRequestCoverUpload: React.PropTypes.func.isRequired
   , menuBar: React.PropTypes.bool
