@@ -12,6 +12,7 @@ import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import commands from '../commands/index'
+import EdKeymap from '../commands/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
 import {posToIndex} from '../util/pm'
 
@@ -138,6 +139,8 @@ class Editable extends React.Component {
     })
 
     this.pm.on.domDrop.add(this.boundOnDrop)
+
+    this.pm.addKeymap(EdKeymap)
 
     // if (onCommandsChanged) {
     //   pluginsToInit.push(CommandsInterface)
