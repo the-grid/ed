@@ -45,7 +45,6 @@ class Editable extends React.Component {
       , menuBar
       , menuTip
       , onChange
-      , onShareFile
       , onCommandsChanged
       , widgetPath } = this.props
     const {store} = this.context

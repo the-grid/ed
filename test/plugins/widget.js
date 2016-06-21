@@ -1,6 +1,5 @@
 import {expect} from 'chai'
 import {mountApp, unmountApp} from '../../src/ed'
-import PluginWidget from '../../src/plugins/widget'
 
 
 describe('PluginWidget', function () {
