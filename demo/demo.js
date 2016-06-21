@@ -36,11 +36,12 @@ function setup (options) {
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     , widgetPath: './node_modules/'
-    , ref: function (mounted) {
-        ed = mounted
-        console.log(ed)
-        window.ed = ed
-      }
+    , ref:
+        function (mounted) {
+          ed = mounted
+          console.log(ed)
+          window.ed = ed
+        }
     }
 
   mountApp(container, props)
@@ -218,7 +219,7 @@ function APIToEditor () {
   } catch (e) {
     return console.warn('bad json')
   }
-  ed.setContent(json)
+  setup({initialContent: json, menu})
 }
 document.querySelector('#hydrate').onclick = APIToEditor
 
