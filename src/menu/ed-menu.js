@@ -1,7 +1,7 @@
-import {MenuItem, Dropdown, undoItem, redoItem} from 'prosemirror/dist/menu/menu'
+import {Dropdown, undoItem, redoItem} from 'prosemirror/dist/menu/menu'
 import {buildMenuItems} from 'prosemirror/dist/example-setup'
 import EdSchema from '../schema/ed-schema-full'
-import commands from '../commands/ed-commands'
+import menuImage from './menu-image'
 
 const menuItems = buildMenuItems(EdSchema)
 const { makeParagraph
@@ -25,21 +25,13 @@ const typeDropdown = new Dropdown(
   , {label: 'Type...'}
 )
 
-const edAddImage = new MenuItem(
-  { label: 'Upload Image'
-  , title: 'upload image(s) above this block'
-  , run: commands.ed_upload_image.run
-  , select: commands.ed_upload_image.select
-  }
-)
-
 export const edBlockMenu =
   [ [ typeDropdown ]
   , [ wrapBulletList
     , wrapOrderedList
     , wrapBlockQuote
     ]
-  , [ edAddImage ]
+  , [ menuImage ]
   ]
 
 export const edInlineMenu =

@@ -32,7 +32,8 @@ export default class EdStore {
     options.onDropFiles = options.onDropFiles || noop
     this.onDropFileOnBlock = options.onDropFileOnBlock || noop
 
-    this.on('command.menu.file', (options.onShareFile || noop))
+    this.onShareFile = options.onShareFile || noop
+    this.on('command.menu.file', this.onShareFile)
 
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
