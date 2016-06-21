@@ -15,7 +15,6 @@ const { makeParagraph
   , toggleLink
   , toggleStrong
   } = menuItems
-console.log(menuItems)
 
 const typeDropdown = new Dropdown(
   [ makeParagraph

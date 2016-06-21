@@ -4,16 +4,15 @@ require('./editable-menu.css')
 import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
 import {Plugin} from 'prosemirror/dist/edit/plugin'
-// import 'prosemirror/dist/inputrules/autoinput'
 
 import {menuBar as pluginMenuBar, tooltipMenu as pluginMenuTip} from 'prosemirror/dist/menu'
-// import {inlineMenu, blockMenu, barMenu} from '../menu/ed-menu'
 import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import commands from '../commands/index'
 import EdKeymap from '../commands/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
+import EdInputRules from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
 
 // import '../inputrules/autoinput.js'
@@ -64,7 +63,7 @@ class Editable extends React.Component {
       // , commands: commands
       , doc: GridToDoc(initialContent)
       , schema: EdSchemaFull
-      , plugins: []
+      , plugins: [ EdInputRules ]
       }
 
     let edPluginClasses =
