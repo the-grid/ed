@@ -69,6 +69,7 @@ function trimContent (content) {
       , [ 'src'
         , 'width'
         , 'height'
+        , 'unsalvageable'
         ]
       )
     }

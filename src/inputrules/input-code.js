@@ -1,30 +1,21 @@
 import {InputRule} from 'prosemirror/dist/inputrules'
-import uuid from 'uuid'
+import {focusedIndex} from '../util/pm'
 
 const inputCode =
   new InputRule(/^```$/, '`', function (pm, _, pos) {
-    insertBlock(pm, pos, pm.schema.nodes.media
-    , { id: uuid.v4()
-      , type: 'code'
-      , initialFocus: true
-      }
-    )
+    const index = focusedIndex(pm)
+    if (index == null) return
+    clearNode(pm, pos)
+    pm.ed.routeChange('ADD_MEDIA', {index, type: 'code'})
   })
 
-function insertBlock (pm, pos, type, attrs) {
+function clearNode (pm, pos) {
   const $pos = pm.doc.resolve(pos)
   const start = pos - $pos.parentOffset
-  const nodePos = start - 1
-  const codeNode = type.create(attrs)
+  // Delete the input shortcut text (like ```)
   pm.tr
-    // Delete the input shortcut text (like ```)
     .delete(start, pos)
-    // Insert the block above the current block
-    .insert(nodePos, codeNode)
     .apply()
-
-  // Hide tooltip
-  pm.content.blur()
 }
 
 export default inputCode

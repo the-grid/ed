@@ -1,5 +1,12 @@
 ## dev
 
+## 0.17.3 - 2016-06-22
+
+* UI in menus add code and location blocks (#245)
+  * `ed_add_code` and `ed_add_location` added to [commands](https://github.com/the-grid/ed#commands)
+* Show coverPrefs when there is a cover. Show upload when that's allowed.
+* `getContent` whitelist cover unsalvageable, so `{id, type, html, metadata, cover: {src, width, height, unsalvageable}}`
+
 ## 0.17.2 - 2016-06-21
 
 * Use rsync for `npm run copycss`

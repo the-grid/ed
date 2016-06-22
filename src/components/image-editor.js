@@ -6,7 +6,26 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 
 export default function ImageEditor (props, context) {
-  const {title, filter, crop, overlay, type, onChange, onUploadRequest} = props
+  const {hasCover
+    , allowCoverChange
+    , title
+    , filter
+    , crop
+    , overlay
+    , type
+    , onChange
+    , onUploadRequest
+    } = props
+
+  let toggles = null
+  if (hasCover) {
+    toggles = el('div'
+    , {}
+    , renderToggle('filter', 'Allow filters', filter, onChange, ['coverPrefs', 'filter'])
+    , renderToggle('crop', 'Allow cropping', crop, onChange, ['coverPrefs', 'crop'])
+    , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['coverPrefs', 'overlay'])
+    )
+  }
 
   return el('div'
   , { style:
@@ -15,10 +34,8 @@ export default function ImageEditor (props, context) {
       }
     }
   , renderTextFields(type, title, onChange)
-  , renderToggle('filter', 'Allow filters', filter, onChange, ['coverPrefs', 'filter'])
-  , renderToggle('crop', 'Allow cropping', crop, onChange, ['coverPrefs', 'crop'])
-  , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['coverPrefs', 'overlay'])
-  , renderUploadButton(onUploadRequest)
+  , toggles
+  , (allowCoverChange ? renderUploadButton(onUploadRequest) : null)
   )
 }
 

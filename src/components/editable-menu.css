@@ -20,14 +20,14 @@
   padding: 0.5rem 4px;
 }
 
-.ProseMirror-menubar .ProseMirror-menuseparator {
+.ProseMirror-menuseparator {
   display: inline-block;
   height: 2rem;
   vertical-align: middle;
   margin: 0 3px;
 }
 
-.ProseMirror-menubar .ProseMirror-menuitem {
+.ProseMirror-menuitem {
   margin-right: 0;
 }
 
@@ -36,7 +36,10 @@
 }
 
 /* Upload Image button */
-
 .EdMenuText {
   cursor: pointer;
+}
+
+.ProseMirror-tooltip .ProseMirror-menuseparator {
+  margin: 0 6px;
 }

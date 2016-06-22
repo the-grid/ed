@@ -1,7 +1,15 @@
-import {Dropdown, undoItem, redoItem, liftItem} from 'prosemirror/dist/menu/menu'
-import {buildMenuItems} from 'prosemirror/dist/example-setup'
+import { Dropdown
+  , undoItem
+  , redoItem
+  , liftItem
+  } from 'prosemirror/dist/menu/menu'
+import { buildMenuItems } from 'prosemirror/dist/example-setup'
 import EdSchema from '../schema/ed-schema-full'
 import menuImage from './menu-image'
+import { menuMedia
+  , menuCode
+  , menuLocation
+  } from './menu-media'
 
 const menuItems = buildMenuItems(EdSchema)
 const { makeParagraph
@@ -28,9 +36,11 @@ export const edCommands =
   , 'ordered_list:wrap': wrapOrderedList
   , 'blockquote:wrap': wrapBlockQuote
   , 'lift': liftItem
-  , 'ed_upload_image': menuImage
   , 'undo': undoItem
   , 'redo': redoItem
+  , 'ed_upload_image': menuImage
+  , 'ed_add_code': menuCode
+  , 'ed_add_location': menuLocation
   }
 
 const typeDropdown = new Dropdown(
@@ -50,6 +60,7 @@ export const edBlockMenu =
     , liftItem
     ]
   , [ menuImage ]
+  , [ menuMedia ]
   ]
 
 export const edInlineMenu =
