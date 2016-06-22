@@ -160,9 +160,11 @@ bullet_list:wrap
 ordered_list:wrap
 blockquote:wrap
 lift
-ed_upload_image
 undo
 redo
+ed_upload_image
+ed_add_code
+ed_add_location
 ```
 
 # dev

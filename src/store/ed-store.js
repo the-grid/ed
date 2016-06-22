@@ -6,6 +6,7 @@ import {isMediaType} from '../convert/types'
 import {indexToPos, indexOfId} from '../util/pm'
 
 import DocToGrid from '../convert/doc-to-grid'
+import IframeInfo from '../plugins/iframe-info'
 
 function noop () {}
 
@@ -83,6 +84,9 @@ export default class EdStore {
         break
       case 'PLACEHOLDER_CANCEL':
         this._placeholderCancel(payload)
+        break
+      case 'ADD_MEDIA':
+        this._addMedia(payload)
         break
       default:
         throw new Error(`ed.routeChange '${type}' does not exist`)
@@ -219,7 +223,7 @@ export default class EdStore {
   getBlock (id) {
     return this._content[id]
   }
-  _replaceBlock (index, block) {
+  _replaceBlock (index, block, initialFocus = false) {
     if (!this.pm) {
       throw new Error('pm not ready')
     }
@@ -235,7 +239,19 @@ export default class EdStore {
 
     this._initializeContent([block])
 
-    const node = this.pm.schema.nodes.media.create({id, type})
+    let initialHeight = 72
+    const info = IframeInfo[type]
+    if (info) {
+      initialHeight = info.initialHeight
+    }
+
+    const node = this.pm.schema.nodes.media.create(
+      { id
+      , type
+      , initialHeight
+      , initialFocus
+      }
+    )
     const pos = indexToPos(this.pm.doc, index)
     this.pm.tr
       // Delete the node to replace
@@ -243,8 +259,13 @@ export default class EdStore {
       // Insert the block
       .insert(pos, node)
       .apply()
+
+    if (initialFocus) {
+      // Hide tooltip
+      this.pm.content.blur()
+    }
   }
-  _insertBlocks (index, blocks) {
+  _insertBlocks (index, blocks, initialFocus = false) {
     if (!this.pm) {
       throw new Error('pm not ready')
     }
@@ -258,10 +279,38 @@ export default class EdStore {
         throw new Error('_insertBlocks with non-media blocks not yet implemented.')
       }
 
-      const node = this.pm.schema.nodes.media.create({id, type})
+      let initialHeight = 72
+      const info = IframeInfo[type]
+      if (info) {
+        initialHeight = info.initialHeight
+      }
+
+      const node = this.pm.schema.nodes.media.create(
+        { id
+        , type
+        , initialHeight
+        , initialFocus
+        }
+      )
       const pos = indexToPos(this.pm.doc, index + i)
       this.pm.tr.insert(pos, node).apply()
+
+      if (initialFocus) {
+        // Hide tooltip
+        this.pm.content.blur()
+      }
     }
+  }
+  _addMedia ({index, type}) {
+    this._insertBlocks(index
+    , [ { id: uuid.v4()
+        , type
+        , html: ''
+        , metadata: {}
+        }
+      ]
+    , true
+    )
   }
   insertPlaceholders (index, count) {
     let toInsert = []

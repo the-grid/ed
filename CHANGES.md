@@ -1,5 +1,10 @@
 ## dev
 
+## 0.17.3 - 2016-06-22
+
+* UI in menus add code and location blocks (#245)
+  * `ed_add_code` and `ed_add_location` added to [commands](https://github.com/the-grid/ed#commands)
+
 ## 0.17.2 - 2016-06-21
 
 * Use rsync for `npm run copycss`
