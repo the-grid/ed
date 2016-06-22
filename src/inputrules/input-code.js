@@ -1,5 +1,4 @@
 import {InputRule} from 'prosemirror/dist/inputrules'
-// import uuid from 'uuid'
 import {focusedIndex} from '../util/pm'
 
 const inputCode =
