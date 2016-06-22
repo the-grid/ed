@@ -21,7 +21,7 @@ ProseMirror provides a high-level schema-based interface for interacting with `c
 
 ## Using as a React ⚛ component
 
-Ed exposes (a React component)[./src/components/app.js] by default.
+Ed exposes [a React component](./src/components/app.js) by default.
 
 ``` jsx
 import Ed from '@the-grid/ed'
