@@ -4,6 +4,7 @@
 
 * UI in menus add code and location blocks (#245)
   * `ed_add_code` and `ed_add_location` added to [commands](https://github.com/the-grid/ed#commands)
+* Show coverPrefs when there is a cover. Show upload when that's allowed.
 
 ## 0.17.2 - 2016-06-21
 

@@ -37,10 +37,10 @@ class AttributionEditor extends React.Component {
   }
   render () {
     const {block} = this.state
-    const {type, metadata} = block
+    const {type, metadata, cover} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(type, schema, metadata, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest)
+    const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest)
 
     return el('div'
       , { className: 'AttributionEditor'
@@ -270,7 +270,7 @@ function renderTextField (key, label, value, onChange) {
   )
 }
 
-function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUploadRequest) {
+function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick, onUploadRequest) {
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
@@ -293,8 +293,12 @@ function renderMenus (type, schema, metadata = {}, onChange, onMoreClick, onUplo
       renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
     )
   }
-  if (schema.changeCover) {
-    menus.push(renderImageEditor(type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest))
+  if (cover || schema.changeCover) {
+    const hasCover = (cover != null)
+    const allowCoverChange = schema.changeCover
+    menus.push(
+      renderImageEditor(hasCover, allowCoverChange, type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest)
+    )
   }
   menus.push(
     el(CreditAdd
@@ -323,10 +327,12 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   )
 }
 
-function renderImageEditor (type, title, coverPrefs = {}, onChange, onUploadRequest) {
+function renderImageEditor (hasCover, allowCoverChange, type, title, coverPrefs = {}, onChange, onUploadRequest) {
   const {filter, crop, overlay} = coverPrefs
   return el(ImageEditor
-  , { title
+  , { hasCover
+    , allowCoverChange
+    , title
     , filter
     , crop
     , overlay
