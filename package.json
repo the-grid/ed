@@ -8,7 +8,7 @@
   "scripts": {
     "start": "export DEV=true; webpack-dev-server --inline --host 0.0.0.0",
     "babel": "mkdir -p dist && babel src --out-dir dist",
-    "copycss": "for file in src/*/*.css; do cp \"$file\" \"${file/src/dist}\"; done",
+    "copycss": "(cd src && rsync -R -v **/*.css ../dist)",
     "build": "npm run clean; webpack; npm run babel; npm run copycss",
     "builddemo": "npm run clean; export DEMO=true; webpack",
     "clean": "rm -rf dist",

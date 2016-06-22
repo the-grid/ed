@@ -1,5 +1,9 @@
 ## dev
 
+## 0.17.2 - 2016-06-21
+
+* Use rsync for `npm run copycss`
+
 ## 0.17.1 - 2016-06-21
 
 * Copy css to dist with build
