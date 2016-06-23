@@ -31,6 +31,7 @@ class AttributionEditor extends React.Component {
     this.boundOnChange = this.onChange.bind(this)
     this.boundOnMoreClick = this.onMoreClick.bind(this)
     this.boundOnUploadRequest = this.onUploadRequest.bind(this)
+    this.boundOnCoverRemove = this.onCoverRemove.bind(this)
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
@@ -40,7 +41,7 @@ class AttributionEditor extends React.Component {
     const {type, metadata, cover} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest)
+    const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove)
 
     return el('div'
       , { className: 'AttributionEditor'
@@ -128,7 +129,7 @@ class AttributionEditor extends React.Component {
     , 'We were unable to find the image originally saved with this block.'
     , el(Space, {auto: true})
     , el(Button
-      , { onClick: () => this.onUploadRequest()
+      , { onClick: this.boundOnUploadRequest
         , rounded: true
         , color: 'error'
         , backgroundColor: 'white'
@@ -155,6 +156,14 @@ class AttributionEditor extends React.Component {
     const {store} = this.context
     const {id} = this.props
     store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
+  }
+  onCoverRemove () {
+    const {store} = this.context
+    const {id} = this.props
+    // Send change up to store
+    const block = store.routeChange('MEDIA_BLOCK_COVER_REMOVE', id)
+    // Send change to view
+    this.setState({block})
   }
   onChange (path, value) {
     const {store} = this.context
@@ -270,7 +279,7 @@ function renderTextField (key, label, value, onChange) {
   )
 }
 
-function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick, onUploadRequest) {
+function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick, onUploadRequest, onCoverRemove) {
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
@@ -296,8 +305,9 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
   if (cover || schema.changeCover) {
     const hasCover = (cover != null)
     const allowCoverChange = schema.changeCover
+    const allowCoverRemove = (cover && schema.removeCover)
     menus.push(
-      renderImageEditor(hasCover, allowCoverChange, type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest)
+      renderImageEditor(hasCover, allowCoverChange, allowCoverRemove, type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest, onCoverRemove)
     )
   }
   menus.push(
@@ -327,17 +337,19 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   )
 }
 
-function renderImageEditor (hasCover, allowCoverChange, type, title, coverPrefs = {}, onChange, onUploadRequest) {
+function renderImageEditor (hasCover, allowCoverChange, allowCoverRemove, type, title, coverPrefs = {}, onChange, onUploadRequest, onCoverRemove) {
   const {filter, crop, overlay} = coverPrefs
   return el(ImageEditor
   , { hasCover
     , allowCoverChange
+    , allowCoverRemove
     , title
     , filter
     , crop
     , overlay
     , onChange
     , onUploadRequest
+    , onCoverRemove
     , type
     , name: 'Image'
     , label: 'Image'
