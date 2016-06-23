@@ -16,7 +16,7 @@ import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
 
 import blockMetaSchema from '../schema/block-meta'
-import {isFileEvent} from '../util/drop'
+import {isDragFileEvent, isDropFileEvent} from '../util/drop'
 
 
 class AttributionEditor extends React.Component {
@@ -24,9 +24,12 @@ class AttributionEditor extends React.Component {
     super(props)
     this.state =
       { block: props.initialBlock
+      , showDropIndicator: false
       }
 
     this.boundOnDragOver = this.onDragOver.bind(this)
+    this.boundOnDragEnter = this.onDragEnter.bind(this)
+    this.boundOnDragLeave = this.onDragLeave.bind(this)
     this.boundOnDrop = this.onDrop.bind(this)
     this.boundOnChange = this.onChange.bind(this)
     this.boundOnMoreClick = this.onMoreClick.bind(this)
@@ -53,6 +56,8 @@ class AttributionEditor extends React.Component {
           , position: 'relative'
           }
         , onDragOver: this.boundOnDragOver
+        , onDragEnter: this.boundOnDragEnter
+        , onDragLeave: this.boundOnDragLeave
         , onDrop: this.boundOnDrop
         }
       , this.renderCover()
@@ -76,6 +81,7 @@ class AttributionEditor extends React.Component {
           , el(DropdownGroup, {menus})
         )
       )
+      , this.renderDropIndicator()
       , el('div'
         , { style: {clear: 'both'} }
       )
@@ -152,6 +158,27 @@ class AttributionEditor extends React.Component {
       }
     )
   }
+  renderDropIndicator () {
+    const {showDropIndicator} = this.state
+    if (!showDropIndicator) return
+
+    return el('div'
+    , { style:
+        { position: 'absolute'
+        , top: 0
+        , left: 0
+        , width: '100%'
+        , height: '100%'
+        , textAlign: 'center'
+        , fontSize: 36
+        , paddingTop: '5%'
+        , backgroundColor: 'rgba(255, 255, 255, 0.75)'
+        , border: '5px black dashed'
+        }
+      }
+    , 'DROP TO REPLACE THIS IMAGE'
+    )
+  }
   onUploadRequest () {
     const {store} = this.context
     const {id} = this.props
@@ -174,13 +201,37 @@ class AttributionEditor extends React.Component {
     this.setState({block})
   }
   onDragOver (event) {
-    if (event.dataTransfer.types[0] !== 'Files') return
     event.preventDefault()
   }
-  onDrop (event) {
-    if (!isFileEvent(event)) return
-    if (!this.canChangeCover()) return
+  onDragEnter (event) {
+    if (!isDragFileEvent(event)) return
     event.preventDefault()
+    const {showDropIndicator} = this.state
+    if (showDropIndicator) return
+    if (!this.canChangeCover()) return
+    this.setState({showDropIndicator: true})
+  }
+  onDragLeave (event) {
+    event.preventDefault()
+    const {showDropIndicator} = this.state
+    if (!showDropIndicator) return
+    // HACK
+    // Check if actually left as opposed to drag over child
+    const x = event.clientX + window.scrollX
+    const y = event.clientY + window.scrollY
+    const {offsetTop, offsetHeight, offsetLeft, offsetWidth} = event.currentTarget.parentNode
+    const top = offsetTop
+    const bottom = top + offsetHeight
+    const left = offsetLeft
+    const right = left + offsetWidth
+    if (y <= (top + 50) || y >= bottom || x <= left || x >= right) {
+      this.setState({showDropIndicator: false})
+    }
+  }
+  onDrop (event) {
+    if (!isDropFileEvent(event)) return
+    event.preventDefault()
+    if (!this.canChangeCover()) return
     event.stopPropagation()
 
     const {store} = this.context
@@ -190,6 +241,7 @@ class AttributionEditor extends React.Component {
       , file: event.dataTransfer.files[0]
       }
     )
+    this.setState({showDropIndicator: false})
   }
   onMoreClick (key) {
     const {store} = this.context

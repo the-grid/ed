@@ -1,8 +1,11 @@
 ## dev
 
+## 0.17.4 - 2016-06-23
+
 * NEW -- Images can be removed from `article` blocks (#243)
 * Less-chunky metadata editing on small screens (#236)
-* Disable menu on media block selection
+* Disable ProseMirror format menu on media block selection
+* Indicator to drop file on block (#235)
 
 ## 0.17.3 - 2016-06-22
 
