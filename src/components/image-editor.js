@@ -3,6 +3,7 @@ import {createElement as el} from 'react'
 import TextareaAutosize from './textarea-autosize'
 import Checkbox from 'rebass/dist/Checkbox'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
+import ButtonConfirm from './button-confirm'
 
 
 export default function ImageEditor (props, context) {
@@ -93,14 +94,15 @@ function renderUploadButton (onClick) {
 }
 
 function renderRemoveButton (onClick) {
-  return el(ButtonOutline
+  return el(ButtonConfirm
   , { onClick
+    , label: 'Remove Image'
+    , confirm: 'Remove Image: Are you sure?'
     , theme: 'warning'
     , style:
       { width: '100%'
       , marginTop: '0.5rem'
       }
     }
-  , 'Remove Image'
   )
 }
