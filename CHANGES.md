@@ -1,5 +1,7 @@
 ## dev
 
+* Images can be removed from `article` blocks (#243)
+
 ## 0.17.3 - 2016-06-22
 
 * UI in menus add code and location blocks (#245)
