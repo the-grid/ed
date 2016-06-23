@@ -8,14 +8,4 @@
   .Ed .AddFold button {
     width: 100% !important;
   }
-
-  .Ed .Menu {
-    width: 100%;
-  }
-  
-  .Ed .DropdownGroup > button,
-  .Ed .NavItem {
-    font-size: 1rem !important;
-    padding: 10px !important;
-  }
 }
