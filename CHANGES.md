@@ -1,5 +1,7 @@
 ## dev
 
+* Swallow file drop on iframe widgets (won't redirect editor to local image)
+
 ## 0.17.4 - 2016-06-23
 
 * NEW -- Images can be removed from `article` blocks (#243)
