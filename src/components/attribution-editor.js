@@ -165,18 +165,23 @@ class AttributionEditor extends React.Component {
     return el('div'
     , { style:
         { position: 'absolute'
+        , display: 'flex'
+        , justifyContent: 'center'
+        , alignItems: 'center'
         , top: 0
         , left: 0
         , width: '100%'
         , height: '100%'
         , textAlign: 'center'
         , fontSize: 36
-        , paddingTop: '5%'
-        , backgroundColor: 'rgba(255, 255, 255, 0.75)'
-        , border: '5px black dashed'
+        , fontWeight: 600
+        , color: '#0088EE'
+        , padding: '5%'
+        , backgroundColor: 'rgba(255, 255, 255, 0.9)'
+        , border: '12px #0088EE solid'
         }
       }
-    , 'DROP TO REPLACE THIS IMAGE'
+    , 'Drop to replace this image'
     )
   }
   onUploadRequest () {
