@@ -24,6 +24,19 @@ const { makeParagraph
   , toggleStrong
   } = menuItems
 
+// Disable these menus on media block selection
+function enableIsText (pm) {
+  if (pm.selection && pm.selection.node && !pm.selection.node.isTextblock) {
+    return false
+  }
+  return this.run(pm, false)
+}
+makeParagraph.spec.select = enableIsText
+makeHead1.spec.select = enableIsText
+makeHead2.spec.select = enableIsText
+makeHead3.spec.select = enableIsText
+
+
 export const edCommands =
   { 'strong:toggle': toggleStrong
   , 'em:toggle': toggleEm

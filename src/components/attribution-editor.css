@@ -1,8 +1,5 @@
-.AttributionEditor {
-}
-
 .AttributionEditor-title textarea {
-  font-size: 48px !important;
+  font-size: 24px !important;
   margin-top: 0 !important;
   line-height: 1.2;
 }
@@ -22,10 +19,7 @@
 }
 
 @media screen and (max-width: 500px){
-  .AttributionEditor-title textarea {
-    font-size: 32px !important;
-  }
-  .AttributionEditor button {
-    width: 100% !important;
+  .AttributionEditor .Menu {
+    width: 100%;
   }
 }

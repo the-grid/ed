@@ -61,6 +61,10 @@ export default class EdStore {
       case 'MEDIA_BLOCK_REQUEST_COVER_UPLOAD':
         this.onRequestCoverUpload(payload)
         break
+      case 'MEDIA_BLOCK_COVER_REMOVE':
+        const noCoverBlock = this._removeCover(payload)
+        this.trigger('change')
+        return noCoverBlock
       case 'MEDIA_BLOCK_DROP_FILE':
         this.onDropFileOnBlock(payload.id, payload.file)
         break
@@ -171,6 +175,21 @@ export default class EdStore {
       }
     }
 
+    return block
+  }
+  _removeCover (id) {
+    let block = this.getBlock(id)
+    if (!block) {
+      throw new Error('Can not find this block id')
+    }
+    const preview = this.getCoverPreview(id)
+    if (preview) {
+      delete this._coverPreviews[id]
+    }
+    if (block.cover) {
+      // MUTATION
+      delete block.cover
+    }
     return block
   }
   _updateMediaBlock (block) {

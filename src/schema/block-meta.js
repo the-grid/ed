@@ -9,6 +9,7 @@ const blockMetaSchema =
     , isBasedOnUrl: true
     , cover: true
     , changeCover: true
+    , removeCover: false
     , author: true
     , publisher: true
     , via: true
@@ -21,6 +22,7 @@ const blockMetaSchema =
     , isBasedOnUrl: true
     , cover: true
     , changeCover: false
+    , removeCover: false
     , author: true
     , publisher: true
     , via: true
@@ -32,6 +34,7 @@ const blockMetaSchema =
     , isBasedOnUrl: true
     , cover: true
     , changeCover: true
+    , removeCover: true
     , author: true
     , publisher: true
     , via: true
@@ -44,6 +47,7 @@ const blockMetaSchema =
     , isBasedOnUrl: true
     , cover: false
     , changeCover: false
+    , removeCover: false
     , author: true
     , publisher: true
     , via: true
@@ -55,6 +59,7 @@ const blockMetaSchema =
     , isBasedOnUrl: true
     , cover: true
     , changeCover: false
+    , removeCover: false
     , author: true
     , publisher: true
     , via: true

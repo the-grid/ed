@@ -3,11 +3,13 @@ import {createElement as el} from 'react'
 import TextareaAutosize from './textarea-autosize'
 import Checkbox from 'rebass/dist/Checkbox'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
+import ButtonConfirm from './button-confirm'
 
 
 export default function ImageEditor (props, context) {
   const {hasCover
     , allowCoverChange
+    , allowCoverRemove
     , title
     , filter
     , crop
@@ -15,6 +17,7 @@ export default function ImageEditor (props, context) {
     , type
     , onChange
     , onUploadRequest
+    , onCoverRemove
     } = props
 
   let toggles = null
@@ -36,6 +39,7 @@ export default function ImageEditor (props, context) {
   , renderTextFields(type, title, onChange)
   , toggles
   , (allowCoverChange ? renderUploadButton(onUploadRequest) : null)
+  , (allowCoverRemove ? renderRemoveButton(onCoverRemove) : null)
   )
 }
 
@@ -83,7 +87,22 @@ function renderUploadButton (onClick) {
   return el(ButtonOutline
   , { onClick
     , theme: 'warning'
+    , style: { width: '100%' }
     }
   , 'Upload New Image'
+  )
+}
+
+function renderRemoveButton (onClick) {
+  return el(ButtonConfirm
+  , { onClick
+    , label: 'Remove Image'
+    , confirm: 'Remove Image: Are you sure?'
+    , theme: 'warning'
+    , style:
+      { width: '100%'
+      , marginTop: '0.5rem'
+      }
+    }
   )
 }
