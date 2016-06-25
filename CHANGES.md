@@ -1,6 +1,9 @@
 ## dev
 
+## 0.17.5 - 2016-06-24
+
 * Swallow file drop on iframe widgets (won't redirect editor to local image)
+* Drop style tweak
 
 ## 0.17.4 - 2016-06-23
 
