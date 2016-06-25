@@ -181,7 +181,7 @@ class AttributionEditor extends React.Component {
         , fontSize: 36
         , fontWeight: 600
         , color: '#0088EE'
-        , padding: '5%'
+        , padding: '1rem'
         , backgroundColor: 'rgba(255, 255, 255, 0.9)'
         , border: '12px #0088EE solid'
         }
