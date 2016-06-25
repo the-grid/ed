@@ -1,6 +1,10 @@
 import WidgetBase from './widget-base'
 import IframeInfo from './iframe-info'
 
+function preventDefault (event) {
+  event.preventDefault()
+}
+
 function postInitialBlock () {
   this.postMessage('setblock', this.initialBlock)
   delete this.initialBlock
@@ -10,6 +14,10 @@ function postInitialBlock () {
   if (this.initialFocus) {
     this.focus()
   }
+
+  // Swallow file drop on iframe widgets
+  this.frame.contentWindow.addEventListener('dragover', preventDefault)
+  this.frame.contentWindow.addEventListener('drop', preventDefault)
 }
 
 

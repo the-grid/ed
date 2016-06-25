@@ -35,9 +35,14 @@ class AttributionEditor extends React.Component {
     this.boundOnMoreClick = this.onMoreClick.bind(this)
     this.boundOnUploadRequest = this.onUploadRequest.bind(this)
     this.boundOnCoverRemove = this.onCoverRemove.bind(this)
+    this.boundHideDropIndicator = this.hideDropIndicator.bind(this)
+    this.hideDropIndicatorTimeout = null
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
+  }
+  componentWillUnmount () {
+    clearTimeout(this.hideDropIndicatorTimeout)
   }
   render () {
     const {block} = this.state
@@ -176,7 +181,7 @@ class AttributionEditor extends React.Component {
         , fontSize: 36
         , fontWeight: 600
         , color: '#0088EE'
-        , padding: '5%'
+        , padding: '1rem'
         , backgroundColor: 'rgba(255, 255, 255, 0.9)'
         , border: '12px #0088EE solid'
         }
@@ -207,6 +212,7 @@ class AttributionEditor extends React.Component {
   }
   onDragOver (event) {
     event.preventDefault()
+    clearTimeout(this.hideDropIndicatorTimeout)
   }
   onDragEnter (event) {
     if (!isDragFileEvent(event)) return
@@ -214,24 +220,18 @@ class AttributionEditor extends React.Component {
     const {showDropIndicator} = this.state
     if (showDropIndicator) return
     if (!this.canChangeCover()) return
+    clearTimeout(this.hideDropIndicatorTimeout)
     this.setState({showDropIndicator: true})
   }
   onDragLeave (event) {
     event.preventDefault()
     const {showDropIndicator} = this.state
     if (!showDropIndicator) return
-    // HACK
-    // Check if actually left as opposed to drag over child
-    const x = event.clientX + window.scrollX
-    const y = event.clientY + window.scrollY
-    const {offsetTop, offsetHeight, offsetLeft, offsetWidth} = event.currentTarget.parentNode
-    const top = offsetTop
-    const bottom = top + offsetHeight
-    const left = offsetLeft
-    const right = left + offsetWidth
-    if (y <= (top + 50) || y >= bottom || x <= left || x >= right) {
-      this.setState({showDropIndicator: false})
-    }
+    // HACK since children fire drag leave/enter events
+    this.hideDropIndicatorTimeout = setTimeout(this.boundHideDropIndicator, 100)
+  }
+  hideDropIndicator () {
+    this.setState({showDropIndicator: false})
   }
   onDrop (event) {
     if (!isDropFileEvent(event)) return
