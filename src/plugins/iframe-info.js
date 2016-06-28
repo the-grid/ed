@@ -4,7 +4,7 @@ const IframeInfo =
     , initialHeight: 72
     }
   , location:
-    { src: '@the-grid/ed-location/index.html'
+    { src: '@the-grid/ed-location/edit.html'
     , initialHeight: 320
     }
   }
