@@ -361,6 +361,30 @@ describe('Ed', function () {
           ]
         expect(content).to.deep.equal(expected)
       })
+
+      it('does not change cover src with encoded url query params', function () {
+        const ids = ed.insertPlaceholders(1, 1)
+        ed.setContent(
+          [ { id: ids[0]
+            , type: 'image'
+            , cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'}
+            }
+          ]
+        )
+        const content = ed.getContent()
+        const expected =
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
+          , { id: ids[0]
+            , type: 'image'
+            , cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'}
+            , metadata: {starred: true}
+            , html: '<img src="https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg">'
+            }
+          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
+          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          ]
+        expect(content).to.deep.equal(expected)
+      })
     })
   })
 
