@@ -1,5 +1,9 @@
 ## dev
 
+## 0.17.7 - 2016-07-13
+
+* Patch [ProseMirror 0.8.3](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#083-2016-06-28)
+
 ## 0.17.6 - 2016-06-27
 
 * Updates ed-location to 2.0.0, which outputs block html as an iframe of a [simple map viewer](https://the-grid.github.io/ed-location/?latitude=68.55260186877743&longitude=22.666168212890625&zoom=5&address=Enonteki%C3%B6%2C%20Lappi%2C%20Finland)
