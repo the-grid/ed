@@ -4,6 +4,16 @@ import ReactDOM from 'react-dom'
 import Menu from 'rebass/dist/Menu'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 
+function hasParentWithClassName (el, className) {
+  while (el && el.parentNode) {
+    if (el.className === 'DropdownGroup') {
+      return true
+    }
+    el = el.parentNode
+  }
+  return false
+}
+
 
 class DropdownGroup extends React.Component {
   constructor (props) {
@@ -11,15 +21,18 @@ class DropdownGroup extends React.Component {
     this.state = {
       openMenu: null
     }
-    this.boundHide = this.hide.bind(this)
-
+    this.boundCloseMenu = this.closeMenu.bind(this)
+  }
+  componentDidMount () {
     // Click away to dismiss
     const el = document.querySelector('.ProseMirror-content')
-    el.addEventListener('focus', this.boundHide)
+    el.addEventListener('focus', this.boundCloseMenu)
+    document.body.addEventListener('click', this.boundCloseMenu)
   }
   componentWillUnmount () {
     const el = document.querySelector('.ProseMirror-content')
-    el.removeEventListener('focus', this.boundHide)
+    el.removeEventListener('focus', this.boundCloseMenu)
+    document.body.removeEventListener('click', this.boundCloseMenu)
   }
   componentWillReceiveProps (nextProps) {
     if (this.state.openMenu == null) {
@@ -129,7 +142,11 @@ class DropdownGroup extends React.Component {
       this.setState({openMenu: toggleOrOpen})
     }
   }
-  hide () {
+  closeMenu (event) {
+    // Hack since we can't stopPropagation to body
+    if (event.type === 'click' && hasParentWithClassName(event.srcElement, 'DropdownGroup')) {
+      return
+    }
     const {openMenu} = this.state
     if (openMenu != null) {
       this.setState({openMenu: null})
