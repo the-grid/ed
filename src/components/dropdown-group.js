@@ -6,7 +6,7 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 function hasParentWithClassName (el, className) {
   while (el && el.parentNode) {
-    if (el.className === 'DropdownGroup') {
+    if (el.className === className) {
       return true
     }
     el = el.parentNode
