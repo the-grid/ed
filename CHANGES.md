@@ -1,5 +1,9 @@
 ## dev
 
+## 0.17.8 - 2016-07-14
+
+* Dismiss meta dropdown by clicking out of menu or focusing editable (#229)
+
 ## 0.17.7 - 2016-07-13
 
 * Patch [ProseMirror 0.8.3](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#083-2016-06-28)
