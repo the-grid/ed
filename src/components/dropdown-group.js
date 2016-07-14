@@ -11,6 +11,15 @@ class DropdownGroup extends React.Component {
     this.state = {
       openMenu: null
     }
+    this.boundHide = this.hide.bind(this)
+
+    // Click away to dismiss
+    const el = document.querySelector('.ProseMirror-content')
+    el.addEventListener('focus', this.boundHide)
+  }
+  componentWillUnmount () {
+    const el = document.querySelector('.ProseMirror-content')
+    el.removeEventListener('focus', this.boundHide)
   }
   componentWillReceiveProps (nextProps) {
     if (this.state.openMenu == null) {
@@ -118,6 +127,12 @@ class DropdownGroup extends React.Component {
       const {openMenu} = this.state
       const toggleOrOpen = (openMenu === index ? null : index)
       this.setState({openMenu: toggleOrOpen})
+    }
+  }
+  hide () {
+    const {openMenu} = this.state
+    if (openMenu != null) {
+      this.setState({openMenu: null})
     }
   }
 }
