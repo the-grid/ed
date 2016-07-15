@@ -45,6 +45,9 @@ function setup (options) {
     }
 
   mountApp(container, props)
+
+  // Only for fixture demo
+  initializePlaceholderMetadata(props.initialContent)
 }
 const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
 setup({menu, initialContent})
@@ -259,6 +262,19 @@ function loadFixture () {
 }
 document.querySelector('#fixture').onclick = loadFixture
 
+function initializePlaceholderMetadata (content) {
+  for (let i = 0, len = content.length; i < len; i++) {
+    const block = content[i]
+    if (!block || !block.id || !block.metadata) {
+      continue
+    }
+    const {progress, status, failed} = block.metadata
+    if (progress === undefined && status === undefined && failed === undefined) {
+      continue
+    }
+    ed.updatePlaceholder(block.id, {progress, status, failed})
+  }
+}
 
 function onPlaceholderCancelDemo (id) {
   console.log(`App would cancel the share or upload with id: ${id}`)

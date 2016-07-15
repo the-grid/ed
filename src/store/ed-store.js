@@ -21,6 +21,7 @@ export default class EdStore {
     this._events = {}
     this._content = {}
     this._coverPreviews = {}
+    this._placeholderMetadata = {}
     this._initializeContent(options.initialContent)
 
     // Events
@@ -362,18 +363,24 @@ export default class EdStore {
   updatePlaceholder (id, metadata) {
     let block = this.getBlock(id)
     if (!block) {
-      throw new Error('Can not update this placeholder block')
+      throw new Error('Can not find this block')
     }
     if (block.type !== 'placeholder' && block.type !== 'image' && block.type !== 'article') {
-      throw new Error('Block is not a placeholder block')
+      throw new Error('Block is not a placeholder, image, or article block')
     }
-    // Mutation
+    if (!this._placeholderMetadata[id]) {
+      this._placeholderMetadata[id] = {}
+    }
+    const meta = this._placeholderMetadata[id]
     const {status, progress, failed} = metadata
-    if (status != null) block.metadata.status = status
-    if (progress != null) block.metadata.progress = progress
-    if (failed != null) block.metadata.failed = failed
+    if (status !== undefined) meta.status = status
+    if (progress !== undefined) meta.progress = progress
+    if (failed !== undefined) meta.failed = failed
     // Let content widgets know to update
-    this.trigger('media.update')
+    this.trigger('media.update.id', id)
+  }
+  getPlaceholderMetadata (id) {
+    return this._placeholderMetadata[id]
   }
   _placeholderCancel (id) {
     this._removeMediaBlock(id)
@@ -397,11 +404,8 @@ export default class EdStore {
     }
     // MUTATION
     block.cover = cover
-    if (block.metadata && block.metadata.progress != null) {
-      block.metadata.progress = null
-    }
     // Let widgets know to update
-    this.trigger('media.update')
+    this.trigger('media.update.id', id)
   }
   _convertToFullPost () {
     let addTitle = true

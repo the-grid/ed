@@ -8,12 +8,12 @@ describe('PluginWidget', function () {
     [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
     , { id: '0001'
       , type: 'placeholder'
-      , metadata: {status: 'Status', starred: true}
+      , metadata: {starred: true}
       }
     , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
     , { id: '0000'
       , type: 'placeholder'
-      , metadata: {status: 'Status', starred: true}
+      , metadata: {starred: true}
       }
     , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
     ]
@@ -34,6 +34,8 @@ describe('PluginWidget', function () {
           }
       }
     )
+    ed.updatePlaceholder('0001', {status: 'Status'})
+    ed.updatePlaceholder('0000', {status: 'Status'})
   })
   afterEach(function () {
     unmountApp(mount)
@@ -66,43 +68,12 @@ describe('PluginWidget', function () {
       expect(widget).to.exist
       expect(widget.type).to.equal('placeholder')
       expect(widget.el.firstChild.classList.contains('Placeholder')).to.be.true
+      expect(status).to.exist
       expect(status.textContent).to.equal('Status')
     })
 
-    it('updates placeholder widget status via setContent', function (done) {
-      ed._store.on('media.update', function () {
-        const widget = plugin.widgets['0000']
-        const status = widget.el.querySelector('.Placeholder-status')
-        expect(widget.type).to.equal('placeholder')
-        expect(status.textContent).to.equal('Status changed')
-        done()
-      })
-      ed.setContent([
-        { id: '0000'
-        , type: 'placeholder'
-        , metadata: {status: 'Status changed'}
-        }
-      ])
-    })
-
-    it('updates placeholder widget failed via setContent', function (done) {
-      const widget = plugin.widgets['0000']
-      const el = widget.el.querySelector('.Placeholder')
-      ed._store.on('media.update', function () {
-        expect(el.classList.contains('Placeholder-error')).to.be.true
-        done()
-      })
-      expect(el.classList.contains('Placeholder-error')).to.be.false
-      ed.setContent([
-        { id: '0000'
-        , type: 'placeholder'
-        , metadata: {failed: true}
-        }
-      ])
-    })
-
     it('updates placeholder widget status via updatePlaceholder', function (done) {
-      ed._store.on('media.update', function () {
+      ed._store.on('media.update.id', function () {
         const widget = plugin.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
         expect(widget.type).to.equal('placeholder')
@@ -112,10 +83,22 @@ describe('PluginWidget', function () {
       ed.updatePlaceholder('0000', {status: 'Status changed'})
     })
 
+    it('updates placeholder widget progress via updatePlaceholder', function (done) {
+      const widget = plugin.widgets['0000']
+      const progress = widget.el.querySelector('.Progress')
+      expect(progress).to.not.exist
+      ed._store.on('media.update.id', function () {
+        const progress = widget.el.querySelector('.Progress')
+        expect(progress).to.exist
+        done()
+      })
+      ed.updatePlaceholder('0000', {progress: 50})
+    })
+
     it('updates placeholder widget failed true via updatePlaceholder', function (done) {
       const widget = plugin.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
-      ed._store.on('media.update', function () {
+      ed._store.on('media.update.id', function () {
         expect(el.classList.contains('Placeholder-error')).to.be.true
         done()
       })

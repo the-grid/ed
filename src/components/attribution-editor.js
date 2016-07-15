@@ -150,9 +150,11 @@ class AttributionEditor extends React.Component {
     )
   }
   renderProgress () {
-    const {block} = this.state
-    if (!block || !block.metadata) return
-    const {progress, failed} = block.metadata
+    const {id} = this.props
+    const {store} = this.context
+    const meta = store.getPlaceholderMetadata(id)
+    if (!meta) return
+    const {progress, failed} = meta
     if (progress == null) return
 
     const theme = (failed === true ? 'error' : 'info')
