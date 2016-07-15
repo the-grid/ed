@@ -21,7 +21,7 @@ export default class EdStore {
     this._events = {}
     this._content = {}
     this._coverPreviews = {}
-    this._placeholderMetadata = {}
+    this._progressInfo = {}
     this._initializeContent(options.initialContent)
 
     // Events
@@ -360,7 +360,7 @@ export default class EdStore {
     }
     return -1
   }
-  updatePlaceholder (id, metadata) {
+  updateProgress (id, metadata) {
     let block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not find this block')
@@ -368,10 +368,10 @@ export default class EdStore {
     if (block.type !== 'placeholder' && block.type !== 'image' && block.type !== 'article') {
       throw new Error('Block is not a placeholder, image, or article block')
     }
-    if (!this._placeholderMetadata[id]) {
-      this._placeholderMetadata[id] = {}
+    if (!this._progressInfo[id]) {
+      this._progressInfo[id] = {}
     }
-    const meta = this._placeholderMetadata[id]
+    const meta = this._progressInfo[id]
     const {status, progress, failed} = metadata
     if (status !== undefined) meta.status = status
     if (progress !== undefined) meta.progress = progress
@@ -379,8 +379,8 @@ export default class EdStore {
     // Let content widgets know to update
     this.trigger('media.update.id', id)
   }
-  getPlaceholderMetadata (id) {
-    return this._placeholderMetadata[id]
+  getProgressInfo (id) {
+    return this._progressInfo[id]
   }
   _placeholderCancel (id) {
     this._removeMediaBlock(id)

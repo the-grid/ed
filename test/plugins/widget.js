@@ -34,8 +34,8 @@ describe('PluginWidget', function () {
           }
       }
     )
-    ed.updatePlaceholder('0001', {status: 'Status'})
-    ed.updatePlaceholder('0000', {status: 'Status'})
+    ed.updateProgress('0001', {status: 'Status'})
+    ed.updateProgress('0000', {status: 'Status'})
   })
   afterEach(function () {
     unmountApp(mount)
@@ -72,7 +72,7 @@ describe('PluginWidget', function () {
       expect(status.textContent).to.equal('Status')
     })
 
-    it('updates placeholder widget status via updatePlaceholder', function (done) {
+    it('updates placeholder widget status via updateProgress', function (done) {
       ed._store.on('media.update.id', function () {
         const widget = plugin.widgets['0000']
         const status = widget.el.querySelector('.Placeholder-status')
@@ -80,10 +80,10 @@ describe('PluginWidget', function () {
         expect(status.textContent).to.equal('Status changed')
         done()
       })
-      ed.updatePlaceholder('0000', {status: 'Status changed'})
+      ed.updateProgress('0000', {status: 'Status changed'})
     })
 
-    it('updates placeholder widget progress via updatePlaceholder', function (done) {
+    it('updates placeholder widget progress via updateProgress', function (done) {
       const widget = plugin.widgets['0000']
       const progress = widget.el.querySelector('.Progress')
       expect(progress).to.not.exist
@@ -92,10 +92,10 @@ describe('PluginWidget', function () {
         expect(progress).to.exist
         done()
       })
-      ed.updatePlaceholder('0000', {progress: 50})
+      ed.updateProgress('0000', {progress: 50})
     })
 
-    it('updates placeholder widget failed true via updatePlaceholder', function (done) {
+    it('updates placeholder widget failed true via updateProgress', function (done) {
       const widget = plugin.widgets['0000']
       const el = widget.el.querySelector('.Placeholder')
       ed._store.on('media.update.id', function () {
@@ -103,7 +103,7 @@ describe('PluginWidget', function () {
         done()
       })
       expect(el.classList.contains('Placeholder-error')).to.be.false
-      ed.updatePlaceholder('0000', {failed: true})
+      ed.updateProgress('0000', {failed: true})
     })
 
     it('changes widget type via setContent', function (done) {

@@ -99,13 +99,13 @@ function filesUploadSim (index, files) {
     ed.setCoverPreview(ids[i], url)
   }
 
-  console.log('app uploads files now and calls `ed.updatePlaceholder(id, meta)` with updates')
+  console.log('app uploads files now and calls `ed.updateProgress(id, meta)` with updates')
 
   simulateProgress(
     function (progress) {
       ids.forEach(function (id, index) {
         let status = `Uploading ${names[index]}`
-        ed.updatePlaceholder(id, {status, progress})
+        ed.updateProgress(id, {status, progress})
       })
     },
     function () {
@@ -130,12 +130,12 @@ document.getElementById('upload').onclick = function () {
 // onShareUrl demo
 function onShareUrlDemo (share) {
   const {block, url} = share
-  console.log('onShareUrl: app shares url now and calls ed.updatePlaceholder() with updates', share)
+  console.log('onShareUrl: app shares url now and calls ed.updateProgress() with updates', share)
 
   simulateProgress(
     function (progress) {
       const status = `Sharing ${url}`
-      ed.updatePlaceholder(block, {status, progress})
+      ed.updateProgress(block, {status, progress})
     },
     function () {
       console.log('Share: mount block')
@@ -272,7 +272,7 @@ function initializePlaceholderMetadata (content) {
     if (progress === undefined && status === undefined && failed === undefined) {
       continue
     }
-    ed.updatePlaceholder(block.id, {progress, status, failed})
+    ed.updateProgress(block.id, {progress, status, failed})
   }
 }
 
@@ -307,12 +307,12 @@ function makeRequestCoverUploadInputOnChange (id) {
     const src = URL.createObjectURL(file)
     ed.setCoverPreview(id, src)
 
-    console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+    console.log('app uploads files now and calls ed.updateProgress with updates')
 
     simulateProgress(
       function (progress) {
         let status = 'Uploading...'
-        ed.updatePlaceholder(id, {status, progress})
+        ed.updateProgress(id, {status, progress})
       },
       function () {
         // Apps should have dimensions from API
@@ -339,12 +339,12 @@ function onDropFileOnBlockDemo (id, file) {
   const src = URL.createObjectURL(file)
   ed.setCoverPreview(id, src)
 
-  console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+  console.log('app uploads files now and calls ed.updateProgress with updates')
 
   simulateProgress(
     function (progress) {
       let status = 'Uploading...'
-      ed.updatePlaceholder(id, {status, progress})
+      ed.updateProgress(id, {status, progress})
     },
     function () {
       // Apps should have dimensions from API

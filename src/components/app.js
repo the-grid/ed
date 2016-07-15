@@ -138,8 +138,11 @@ export default class App extends React.Component {
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)
   }
-  updatePlaceholder (id, metadata) {
-    this._store.updatePlaceholder(id, metadata)
+  updatePlaceholder () {
+    throw new Error('updatePlaceholder is deprecated: use updateProgress')
+  }
+  updateProgress (id, metadata) {
+    this._store.updateProgress(id, metadata)
   }
   setCoverPreview (id, src) {
     this._store.setCoverPreview(id, src)

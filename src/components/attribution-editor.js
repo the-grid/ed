@@ -152,7 +152,7 @@ class AttributionEditor extends React.Component {
   renderProgress () {
     const {id} = this.props
     const {store} = this.context
-    const meta = store.getPlaceholderMetadata(id)
+    const meta = store.getProgressInfo(id)
     if (!meta) return
     const {progress, failed} = meta
     if (progress == null) return
