@@ -96,7 +96,8 @@ function filesUploadSim (index, files) {
   for (let i = 0, len = files.length; i < len; i++) {
     const file = files[i]
     const url = URL.createObjectURL(file)
-    ed.setCoverPreview(ids[i], url)
+    const id = ids[i]
+    ed.setCoverPreview(id, url)
   }
 
   console.log('app uploads files now and calls `ed.updateProgress(id, meta)` with updates')
@@ -110,6 +111,7 @@ function filesUploadSim (index, files) {
     },
     function () {
       const updatedBlocks = ids.map(function (id, index) {
+        ed.updateProgress(id, {progress: null})
         return (
           { id
           , type: 'image'
@@ -306,6 +308,7 @@ function makeRequestCoverUploadInputOnChange (id) {
     const file = input.files[0]
     const src = URL.createObjectURL(file)
     ed.setCoverPreview(id, src)
+    ed.updateProgress(id, {failed: false})
 
     console.log('app uploads files now and calls ed.updateProgress with updates')
 
@@ -315,6 +318,7 @@ function makeRequestCoverUploadInputOnChange (id) {
         ed.updateProgress(id, {status, progress})
       },
       function () {
+        ed.updateProgress(id, {progress: null})
         // Apps should have dimensions from API
         // and should not need to load the image client-side
         const img = new Image()

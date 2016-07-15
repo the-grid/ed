@@ -67,6 +67,7 @@ class AttributionEditor extends React.Component {
         }
       , this.renderCover()
       , this.renderUnsalvageable()
+      , this.renderFailed()
       , this.renderProgress()
       , el('div'
         , { className: 'AttributionEditor-metadata'
@@ -133,13 +134,11 @@ class AttributionEditor extends React.Component {
   }
   renderUnsalvageable () {
     const {block} = this.state
-    if (!block || !block.cover || !block.cover.unsalvageable || !this.canChangeCover()) return
+    if (!block || !block.cover || !block.cover.unsalvageable) return
 
-    return el(Message
-    , {theme: 'error'}
-    , 'We were unable to find the image originally saved with this block.'
-    , el(Space, {auto: true})
-    , el(Button
+    let upload = null
+    if (this.canChangeCover()) {
+      upload = el(Button
       , { onClick: this.boundOnUploadRequest
         , rounded: true
         , color: 'error'
@@ -147,6 +146,38 @@ class AttributionEditor extends React.Component {
         }
       , 'Upload New Image'
       )
+    }
+
+    return el(Message
+    , {theme: 'error'}
+    , 'We were unable to find the image originally saved with this block.'
+    , el(Space, {auto: true})
+    , upload
+    )
+  }
+  renderFailed () {
+    const {id} = this.props
+    const {store} = this.context
+    const meta = store.getProgressInfo(id)
+    if (!meta || !meta.failed) return
+
+    let upload = null
+    if (this.canChangeCover()) {
+      upload = el(Button
+      , { onClick: this.boundOnUploadRequest
+        , rounded: true
+        , color: 'error'
+        , backgroundColor: 'white'
+        }
+      , 'Upload Image'
+      )
+    }
+
+    return el(Message
+    , {theme: 'error'}
+    , 'Upload failed, please try again'
+    , el(Space, {auto: true})
+    , upload
     )
   }
   renderProgress () {
