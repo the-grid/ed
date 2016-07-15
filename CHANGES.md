@@ -1,5 +1,7 @@
 ## dev
 
+## 0.18.0 - 2016-07-15
+
 * BREAKING -- `updatePlaceholder` is now `updateProgress`, with same arguments
 * BREAKING -- `{status, progress, failed}` will not be set from initial content or `setContent`: you must call `updateProgress`
 * BREAKING -- `ed.updateProgress` updates internally and does not change content block metadata (#237)
