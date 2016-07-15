@@ -45,6 +45,9 @@ function setup (options) {
     }
 
   mountApp(container, props)
+
+  // Only for fixture demo
+  initializePlaceholderMetadata(props.initialContent)
 }
 const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
 setup({menu, initialContent})
@@ -93,20 +96,22 @@ function filesUploadSim (index, files) {
   for (let i = 0, len = files.length; i < len; i++) {
     const file = files[i]
     const url = URL.createObjectURL(file)
-    ed.setCoverPreview(ids[i], url)
+    const id = ids[i]
+    ed.setCoverPreview(id, url)
   }
 
-  console.log('app uploads files now and calls `ed.updatePlaceholder(id, meta)` with updates')
+  console.log('app uploads files now and calls `ed.updateProgress(id, meta)` with updates')
 
   simulateProgress(
     function (progress) {
       ids.forEach(function (id, index) {
         let status = `Uploading ${names[index]}`
-        ed.updatePlaceholder(id, {status, progress})
+        ed.updateProgress(id, {status, progress})
       })
     },
     function () {
       const updatedBlocks = ids.map(function (id, index) {
+        ed.updateProgress(id, {progress: null})
         return (
           { id
           , type: 'image'
@@ -127,12 +132,12 @@ document.getElementById('upload').onclick = function () {
 // onShareUrl demo
 function onShareUrlDemo (share) {
   const {block, url} = share
-  console.log('onShareUrl: app shares url now and calls ed.updatePlaceholder() with updates', share)
+  console.log('onShareUrl: app shares url now and calls ed.updateProgress() with updates', share)
 
   simulateProgress(
     function (progress) {
       const status = `Sharing ${url}`
-      ed.updatePlaceholder(block, {status, progress})
+      ed.updateProgress(block, {status, progress})
     },
     function () {
       console.log('Share: mount block')
@@ -259,6 +264,19 @@ function loadFixture () {
 }
 document.querySelector('#fixture').onclick = loadFixture
 
+function initializePlaceholderMetadata (content) {
+  for (let i = 0, len = content.length; i < len; i++) {
+    const block = content[i]
+    if (!block || !block.id || !block.metadata) {
+      continue
+    }
+    const {progress, status, failed} = block.metadata
+    if (progress === undefined && status === undefined && failed === undefined) {
+      continue
+    }
+    ed.updateProgress(block.id, {progress, status, failed})
+  }
+}
 
 function onPlaceholderCancelDemo (id) {
   console.log(`App would cancel the share or upload with id: ${id}`)
@@ -290,15 +308,17 @@ function makeRequestCoverUploadInputOnChange (id) {
     const file = input.files[0]
     const src = URL.createObjectURL(file)
     ed.setCoverPreview(id, src)
+    ed.updateProgress(id, {failed: false})
 
-    console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+    console.log('app uploads files now and calls ed.updateProgress with updates')
 
     simulateProgress(
       function (progress) {
         let status = 'Uploading...'
-        ed.updatePlaceholder(id, {status, progress})
+        ed.updateProgress(id, {status, progress})
       },
       function () {
+        ed.updateProgress(id, {progress: null})
         // Apps should have dimensions from API
         // and should not need to load the image client-side
         const img = new Image()
@@ -323,12 +343,12 @@ function onDropFileOnBlockDemo (id, file) {
   const src = URL.createObjectURL(file)
   ed.setCoverPreview(id, src)
 
-  console.log('app uploads files now and calls ed.updatePlaceholder with updates')
+  console.log('app uploads files now and calls ed.updateProgress with updates')
 
   simulateProgress(
     function (progress) {
       let status = 'Uploading...'
-      ed.updatePlaceholder(id, {status, progress})
+      ed.updateProgress(id, {status, progress})
     },
     function () {
       // Apps should have dimensions from API

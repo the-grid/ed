@@ -1,5 +1,4 @@
 import React, {createElement as el} from 'react'
-import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
@@ -14,17 +13,20 @@ class Media extends React.Component {
   constructor (props) {
     super(props)
 
-    const initialBlock = _.cloneDeep(props.initialBlock)
+    const {initialBlock} = props
     const {id} = initialBlock
     this.state = {id, initialBlock}
 
     const {store} = props
     this.boundUpdateBlock = this.updateBlock.bind(this)
-    store.on('media.update', this.boundUpdateBlock)
+    this.boundUpdateBlockAll = this.updateBlockAll.bind(this)
+    store.on('media.update.id', this.boundUpdateBlock)
+    store.on('media.update', this.boundUpdateBlockAll)
   }
   componentWillUnmount () {
     const {store} = this.props
-    store.off('media.update', this.boundUpdateBlock)
+    store.off('media.update.id', this.boundUpdateBlock)
+    store.off('media.update', this.boundUpdateBlockAll)
   }
   getChildContext () {
     return (
@@ -44,14 +46,15 @@ class Media extends React.Component {
       }
     )
   }
-  updateBlock () {
-    const {store} = this.props
-    const {id, initialBlock} = this.state
-    const block = _.cloneDeep(store.getBlock(id))
-    if (_.isEqual(initialBlock, block)) {
+  updateBlock (updateId) {
+    const {id} = this.state
+    if (id !== updateId) {
       return
     }
-    this.setState({initialBlock: block})
+    this.setState({})
+  }
+  updateBlockAll () {
+    this.setState({})
   }
 }
 Media.contextTypes =

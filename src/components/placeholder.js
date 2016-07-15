@@ -7,7 +7,8 @@ import Close from 'rebass/dist/Close'
 
 export default function Placeholder (props, context) {
   const {store} = context
-  const {metadata, id} = props.initialBlock
+  const {id} = props.initialBlock
+  const metadata = store.getProgressInfo(id)
   if (!metadata) {
     return el('div', {className: 'Placeholder'})
   }

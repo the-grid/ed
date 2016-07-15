@@ -1,5 +1,12 @@
 ## dev
 
+* BREAKING -- `updatePlaceholder` is now `updateProgress`, with same arguments
+* BREAKING -- `{status, progress, failed}` will not be set from initial content or `setContent`: you must call `updateProgress`
+* BREAKING -- `ed.updateProgress` updates internally and does not change content block metadata (#237)
+* Simplifying updates = perf improvements with `updateProgress`
+* `ed.updateProgress(id, {progress: null})` will now remove progress bar
+* `ed.updateProgress(id, {failed: true})` will now show an error message and retry button
+
 ## 0.17.8 - 2016-07-14
 
 * Dismiss meta dropdown by clicking out of menu or focusing editable (#229)

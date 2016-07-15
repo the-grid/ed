@@ -62,20 +62,20 @@ available to use like this:
     onShareFile: function (index) {
       /* App triggers native file picker */
       /* App calls ed.insertPlaceholders(index, count) and gets array of ids back */
-      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
+      /* App uploads files and sets status on placeholder blocks with ed.updateProgress */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     // REQUIRED
     onRequestCoverUpload: function (id) {
       /* Similar to onShareFile, but hit with block id instead of index */
-      /* App uploads files and sets status on blocks with ed.updatePlaceholder */
+      /* App uploads files and sets status on blocks with ed.updateProgress */
       /* Once upload is complete, app hits ed.setCoverSrc */
     },
     // REQUIRED
     onShareUrl: function ({block, url}) {
       /* Ed made the placeholder with block id */
       /* App shares url with given block id */
-      /* App updates status on placeholder blocks with ed.updatePlaceholder */
+      /* App updates status on placeholder blocks with ed.updateProgress */
       /* On share / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     // REQUIRED
@@ -86,12 +86,12 @@ available to use like this:
     // OPTIONAL
     onDropFiles: function (index, files) {
       /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
-      /* App uploads files and sets status on placeholder blocks with ed.updatePlaceholder */
+      /* App uploads files and sets status on placeholder blocks with ed.updateProgress */
       /* On upload / measurement finishing, app replaces placeholder blocks with ed.setContent */
     },
     // OPTIONAL
     onDropFileOnBlock: function (id, file) {
-      /* App uploads files and sets status on block with ed.updatePlaceholder */
+      /* App uploads files and sets status on block with ed.updateProgress */
       /* Once upload is complete, app hits ed.setCoverSrc */
     },
     // OPTIONAL
@@ -117,7 +117,7 @@ available to use like this:
   
   // Update placeholder metadata
   // {status (string), progress (number 0-100), failed (boolean)}
-  ed.updatePlaceholder(id, metadata)
+  ed.updateProgress(id, metadata)
   
   // Once block cover upload completes
   // `cover` is object with {src, width, height}
