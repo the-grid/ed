@@ -1,4 +1,5 @@
 import React, {createElement as el} from 'react'
+import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
@@ -8,6 +9,7 @@ const Components =
   { placeholder: Placeholder
   , attribution: AttributionEditor
   }
+
 
 class Media extends React.Component {
   constructor (props) {
@@ -51,10 +53,20 @@ class Media extends React.Component {
     if (id !== updateId) {
       return
     }
-    this.setState({})
+    const {store} = this.props
+    const initialBlock = store.getBlock(id)
+    if (!initialBlock) return
+    this.setState({initialBlock})
   }
   updateBlockAll () {
-    this.setState({})
+    const {store} = this.props
+    const {id, initialBlock} = this.state
+    const block = store.getBlock(id)
+    if (!block) return
+    // Needed to speed up ed.setContent
+    // and not render every block every time
+    if (_.isEqual(initialBlock, block)) return
+    this.setState({initialBlock: block})
   }
 }
 Media.contextTypes =

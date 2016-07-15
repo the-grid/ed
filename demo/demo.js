@@ -242,6 +242,7 @@ let simulateUpdates = function () {
   timeout = setTimeout(simulateUpdates, 1000)
 
   let content = ed.getContent()
+  // content[4].metadata.caption = Date.now() + ''
   ed.setContent(content)
 }
 let toggleUpdates = function () {

@@ -1,5 +1,9 @@
 ## dev
 
+## 0.18.1 - 2016-07-15
+
+* Perf boost for when setContent is hit with old news
+
 ## 0.18.0 - 2016-07-15
 
 * BREAKING -- `updatePlaceholder` is now `updateProgress`, with same arguments
