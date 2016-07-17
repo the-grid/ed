@@ -38,6 +38,7 @@
 /* Upload Image button */
 .EdMenuText {
   cursor: pointer;
+  font-size: 90%;
 }
 
 .ProseMirror-tooltip .ProseMirror-menuseparator {
