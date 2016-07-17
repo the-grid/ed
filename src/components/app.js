@@ -18,10 +18,6 @@ const className = cxs(
     { 'box-sizing': 'border-box'
     , 'line-height': '1.5'
     }
-  , '@media screen and (max-width: 500px)':
-    { '.AddCover button, .AddFold button':
-      { 'width': '100% !important' }
-    }
   }
 )
 

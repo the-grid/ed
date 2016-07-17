@@ -1,19 +1,7 @@
 import React, {createElement as el} from 'react'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
+import {containerClassName} from './add-x-style'
 
-export const buttonStyle =
-  { textTransform: 'uppercase'
-  , borderRadius: 4
-  , padding: '10px 16px'
-  , margin: '0.25em 0.5em'
-  }
-
-export const containerStyle =
-  { margin: '0 auto'
-  , position: 'relative'
-  , textAlign: 'center'
-  , padding: '0.75em'
-  }
 
 class AddCover extends React.Component {
   constructor (props, context) {
@@ -36,16 +24,13 @@ class AddCover extends React.Component {
     if (hasCover) return null
 
     return el('div'
-    , { className: 'AddCover'
-      , style: containerStyle
-      }
+    , { className: 'AddCover ' + containerClassName }
     , this.renderAddImage()
     )
   }
   renderAddImage () {
     return el(ButtonOutline
-    , { style: buttonStyle
-      , onClick: this.boundAddImage
+    , { onClick: this.boundAddImage
       , rounded: true
       }
     , 'Add Image'
