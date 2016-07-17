@@ -1,5 +1,3 @@
-require('./app.css')
-
 import React, {createElement as el} from 'react'
 
 import AddCover from './add-cover'
@@ -9,6 +7,25 @@ import rebassTheme from './rebass-theme'
 
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
+
+import cxs from 'cxs'
+
+const className = cxs(
+  { 'font-family': '-apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif'
+  , 'button:hover':
+    { 'color': '#222 !important' }
+  , '*':
+    { 'box-sizing': 'border-box'
+    , 'line-height': '1.5'
+    }
+  , '@media screen and (max-width: 500px)':
+    { '.AddCover button, .AddFold button':
+      { 'width': '100% !important' }
+    }
+  }
+)
+
+console.log(className, cxs.css, cxs.options)
 
 
 export default class App extends React.Component {
@@ -77,7 +94,7 @@ export default class App extends React.Component {
   }
   render () {
     return el('div'
-    , {className: 'Ed'}
+    , { className: 'Ed ' + className }
     , el(AddCover, {})
     , this.renderContent()
     , el(AddFold, {})
