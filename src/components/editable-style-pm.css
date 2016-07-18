@@ -1,9 +1,9 @@
-[contenteditable]:focus {
-  outline: 0px solid transparent;
-}
-
 .ProseMirror {
   border: none;
+}
+
+.ProseMirror [contenteditable]:focus {
+  outline: 0px solid transparent;
 }
 
 .ProseMirror-content {
