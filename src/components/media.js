@@ -39,12 +39,14 @@ class Media extends React.Component {
     )
   }
   render () {
+    const {coverPrefs} = this.props
     const {initialBlock, id} = this.state
     const {type} = initialBlock
     let Component = Components[type] || Components.attribution
     return el(Component
     , { initialBlock
       , id
+      , coverPrefs
       }
     )
   }
@@ -82,5 +84,6 @@ Media.propTypes =
   { initialBlock: React.PropTypes.object.isRequired
   , store: React.PropTypes.object.isRequired
   , imgfloConfig: React.PropTypes.object
+  , coverPrefs: React.PropTypes.object
   }
 export default React.createFactory(Media)

@@ -332,6 +332,7 @@ AttributionEditor.childContextTypes =
 AttributionEditor.propTypes =
   { initialBlock: React.PropTypes.object.isRequired
   , id: React.PropTypes.string.isRequired
+  , coverPrefs: React.PropTypes.object
   }
 export default React.createFactory(AttributionEditor)
 
