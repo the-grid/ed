@@ -109,7 +109,13 @@ available to use like this:
       secret: 'secret'
     },
     // OPTIONAL -- where iframe widgets live relative to app (or absolute)
-    widgetPath: './node_modules/'
+    widgetPath: './node_modules/',
+    // OPTIONAL -- site-wide settings to allow cover filter, crop, overlay; default true
+    coverPrefs: {
+      filter: false,
+      crop: true,
+      overlay: true
+    }
   })
   
   // Returns array of inserted placeholder ids

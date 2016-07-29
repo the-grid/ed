@@ -36,6 +36,7 @@ function setup (options) {
     , onDropFileOnBlock: onDropFileOnBlockDemo
     , imgfloConfig: null
     , widgetPath: './node_modules/'
+    , coverPrefs: { filter: false }
     , ref:
         function (mounted) {
           ed = mounted

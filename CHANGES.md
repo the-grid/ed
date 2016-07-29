@@ -1,5 +1,7 @@
 ## dev
 
+* NEW -- optional `props.coverPrefs: {filter, crop, overlay}` for site-wide cover preferences. Boolean, default true. (#223)
+
 ## 0.18.1 - 2016-07-15
 
 * Perf boost for when setContent is hit with old news
