@@ -1,5 +1,9 @@
 ## dev
 
+## 0.18.2 - 2016-07-29
+
+* [ProseMirror 0.9.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#091-2016-07-29) -- fixes paste hr and media blocks (#252)
+
 ## 0.18.1 - 2016-07-15
 
 * Perf boost for when setContent is hit with old news
