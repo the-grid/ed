@@ -11,6 +11,7 @@ export default function ImageEditor (props, context) {
     , allowCoverChange
     , allowCoverRemove
     , title
+    , siteCoverPrefs
     , filter
     , crop
     , overlay
@@ -24,9 +25,9 @@ export default function ImageEditor (props, context) {
   if (hasCover) {
     toggles = el('div'
     , {}
-    , renderToggle('filter', 'Allow filters', filter, onChange, ['coverPrefs', 'filter'])
-    , renderToggle('crop', 'Allow cropping', crop, onChange, ['coverPrefs', 'crop'])
-    , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['coverPrefs', 'overlay'])
+    , renderToggle('filter', 'Allow filters', filter, onChange, ['coverPrefs', 'filter'], siteCoverPrefs.filter)
+    , renderToggle('crop', 'Allow cropping', crop, onChange, ['coverPrefs', 'crop'], siteCoverPrefs.crop)
+    , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['coverPrefs', 'overlay'], siteCoverPrefs.overlay)
     )
   }
 
@@ -66,13 +67,18 @@ function renderTextField (key, label, value, onChange, path, defaultFocus, place
   )
 }
 
-function renderToggle (key, label, value, onChange, path) {
+function renderToggle (key, label, value, onChange, path, siteAllow) {
+  const readOnly = (siteAllow === false)
   return el(Checkbox
   , { key
-    , label
+    , label: label + (readOnly ? ' (off site-wide)' : '')
     , name: key
-    , checked: (value !== false)
-    , onChange: makeChange(path, onChange, true)}
+    , checked: (siteAllow !== false && value !== false)
+    , style: (readOnly ? {opacity: 0.5} : {})
+    , readOnly
+    , disabled: readOnly
+    , onChange: makeChange(path, onChange, true)
+    }
   )
 }
 
