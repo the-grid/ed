@@ -77,7 +77,7 @@ export default class PluginWidget {
     this.editableView = options.editableView
     this.pm = pm
     this.widgetPath = options.widgetPath
-    this.coverPrefs = options.coverPrefs
+    this.coverPrefs = options.coverPrefs || {}
 
     this.widgets = {}
     this.el = document.createElement('div')

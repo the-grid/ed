@@ -45,11 +45,12 @@ class AttributionEditor extends React.Component {
     clearTimeout(this.hideDropIndicatorTimeout)
   }
   render () {
+    const {coverPrefs} = this.props
     const {block} = this.state
     const {type, metadata, cover} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
-    const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove)
+    const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove, coverPrefs)
 
     return el('div'
       , { className: 'AttributionEditor'
@@ -332,7 +333,7 @@ AttributionEditor.childContextTypes =
 AttributionEditor.propTypes =
   { initialBlock: React.PropTypes.object.isRequired
   , id: React.PropTypes.string.isRequired
-  , coverPrefs: React.PropTypes.object
+  , coverPrefs: React.PropTypes.object.isRequired
   }
 export default React.createFactory(AttributionEditor)
 
@@ -370,7 +371,7 @@ function renderTextField (key, label, value, onChange) {
   )
 }
 
-function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick, onUploadRequest, onCoverRemove) {
+function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick, onUploadRequest, onCoverRemove, siteCoverPrefs) {
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
@@ -398,7 +399,7 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
     const allowCoverChange = schema.changeCover
     const allowCoverRemove = (cover && schema.removeCover)
     menus.push(
-      renderImageEditor(hasCover, allowCoverChange, allowCoverRemove, type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest, onCoverRemove)
+      renderImageEditor(hasCover, allowCoverChange, allowCoverRemove, type, metadata.title, metadata.coverPrefs, onChange, onUploadRequest, onCoverRemove, siteCoverPrefs)
     )
   }
   menus.push(
@@ -428,13 +429,14 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   )
 }
 
-function renderImageEditor (hasCover, allowCoverChange, allowCoverRemove, type, title, coverPrefs = {}, onChange, onUploadRequest, onCoverRemove) {
+function renderImageEditor (hasCover, allowCoverChange, allowCoverRemove, type, title, coverPrefs = {}, onChange, onUploadRequest, onCoverRemove, siteCoverPrefs) {
   const {filter, crop, overlay} = coverPrefs
   return el(ImageEditor
   , { hasCover
     , allowCoverChange
     , allowCoverRemove
     , title
+    , siteCoverPrefs
     , filter
     , crop
     , overlay
