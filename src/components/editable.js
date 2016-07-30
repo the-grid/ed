@@ -46,7 +46,8 @@ class Editable extends React.Component {
       , menuTip
       , onChange
       , onCommandsChanged
-      , widgetPath } = this.props
+      , widgetPath
+      , coverPrefs } = this.props
     const {store} = this.context
 
     // PM setup
@@ -94,6 +95,7 @@ class Editable extends React.Component {
       , editableView: this
       , container: plugins
       , widgetPath
+      , coverPrefs
       }
 
     edPluginClasses.forEach(function (plugin) {
@@ -149,5 +151,6 @@ Editable.propTypes =
   , menuBar: React.PropTypes.bool
   , menuTip: React.PropTypes.bool
   , widgetPath: React.PropTypes.string
+  , coverPrefs: React.PropTypes.object
   }
 export default React.createFactory(Editable)

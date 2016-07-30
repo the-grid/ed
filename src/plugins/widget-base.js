@@ -16,6 +16,7 @@ export default class WidgetBase {
     this.el.setAttribute('grid-id', options.id)
     this.id = options.id
     this.initialBlock = options.initialBlock
+    this.coverPrefs = options.coverPrefs
     this.el.style.position = 'absolute'
     this.move(options.initialRectangle)
     options.widgetContainer.appendChild(this.el)

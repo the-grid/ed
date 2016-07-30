@@ -91,7 +91,8 @@ export default class App extends React.Component {
       , onShareUrl
       , onCommandsChanged
       , onDropFiles
-      , widgetPath} = this.props
+      , widgetPath
+      , coverPrefs } = this.props
 
     return el('div'
     , { className: 'Ed-Content'
@@ -109,6 +110,7 @@ export default class App extends React.Component {
         , onCommandsChanged
         , onDropFiles
         , widgetPath
+        , coverPrefs
         }
       )
     )
@@ -174,5 +176,6 @@ App.propTypes =
   , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
   , widgetPath: React.PropTypes.string
+  , coverPrefs: React.PropTypes.object
   }
 App.defaultProps = { widgetPath: './node_modules/' }
