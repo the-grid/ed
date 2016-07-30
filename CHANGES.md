@@ -1,10 +1,12 @@
 ## dev
 
+## 0.19.0 - 2016-07-30
+
 * NEW -- optional `props.coverPrefs: {filter, crop, overlay}` for site-wide cover preferences. Boolean, default true. (#223)
 
 ## 0.18.2 - 2016-07-29
 
-* [ProseMirror 0.9.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#091-2016-07-29) -- fixes paste hr and media blocks (#252)
+* FIX -- [ProseMirror 0.9.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#091-2016-07-29) -- fixes paste hr and media blocks (#252)
 * Update React to 15.2.1
 * Update more dependencies
 
