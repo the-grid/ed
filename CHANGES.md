@@ -1,5 +1,9 @@
 ## dev
 
+## 0.19.1 - 2016-08-01
+
+* FIX -- `ed.setCoverPreview` fixed
+
 ## 0.19.0 - 2016-07-30
 
 * NEW -- optional `props.coverPrefs: {filter, crop, overlay}` for site-wide cover preferences. Boolean, default true. (#223)
