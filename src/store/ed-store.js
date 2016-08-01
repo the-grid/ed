@@ -393,6 +393,8 @@ export default class EdStore {
       throw new Error('Can not set image preview for block id that does not exist')
     }
     this._coverPreviews[id] = src
+    // Let content widgets know to update
+    this.trigger('media.update.id', id)
   }
   getCoverPreview (id) {
     return this._coverPreviews[id]
