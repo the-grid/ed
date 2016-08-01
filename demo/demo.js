@@ -272,11 +272,17 @@ function initializePlaceholderMetadata (content) {
     if (!block || !block.id || !block.metadata) {
       continue
     }
+
     const {progress, status, failed} = block.metadata
     if (progress === undefined && status === undefined && failed === undefined) {
       continue
     }
     ed.updateProgress(block.id, {progress, status, failed})
+
+    const {cover} = block
+    if (cover && cover.src) {
+      ed.setCoverPreview(block.id, cover.src)
+    }
   }
 }
 

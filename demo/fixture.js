@@ -544,6 +544,7 @@ let sharing = {
   id: 'uuid-share-00',
   type: 'placeholder',
   metadata: {
+    starred: true,
     status: 'Sharing... https://thegrid.io/#8',
     progress: 67
   }
@@ -642,6 +643,25 @@ let post = {
       'cover': {src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'}
     },
     {
+      'type': 'text',
+      'html': '<p>Placeholder for URL share with progress:</p>',
+      'metadata': {'starred': true}
+    },
+    sharing,
+    {
+      'type': 'text',
+      'html': '<p>Placeholder failed:</p>',
+      'metadata': {'starred': true}
+    },
+    { id: '0000-failed'
+    , type: 'placeholder'
+    , metadata:
+      { starred: true
+      , status: 'Hmmm...'
+      , failed: true
+      }
+    },
+    {
       'id': 'abc-00000000-h1',
       'type': 'h1',
       'html': `<h1>${getHappyLittlePhrase()}</h1>`,
@@ -672,14 +692,6 @@ let post = {
     },
     article,
     tweet,
-    sharing,
-    { id: '0000-failed'
-    , type: 'placeholder'
-    , metadata:
-      { status: 'Hmmm...'
-      , failed: true
-      }
-    },
     {
       'id': 'abc-00000000-h3',
       'type': 'h3',
