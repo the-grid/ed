@@ -189,11 +189,11 @@ class AttributionEditor extends React.Component {
     const {progress, failed} = meta
     if (progress == null) return
 
-    const theme = (failed === true ? 'error' : 'info')
+    const color = (failed === true ? 'error' : 'info')
     return el(Progress
     , { value: progress / 100
       , style: {margin: '8px 0'}
-      , theme
+      , color
       }
     )
   }

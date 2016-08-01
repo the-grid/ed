@@ -54,12 +54,12 @@ function makePreview (id, store) {
   )
 }
 
-function makeProgress (progress, theme) {
+function makeProgress (progress, color) {
   if (progress == null) return
   return el(Progress
   , { value: progress / 100
     , style: {marginTop: 16}
-    , theme
+    , color
     }
   )
 }
