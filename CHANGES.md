@@ -1,5 +1,9 @@
 ## dev
 
+## 0.19.2 - 2016-08-04
+
+* ▶ Link for video, audio, interactive in top-right of blocks, opens in new window. (#260)
+
 ## 0.19.1 - 2016-08-01
 
 * FIX -- `ed.setCoverPreview` fixed

@@ -14,6 +14,7 @@ import CreditEditor from './credit-editor'
 import ImageEditor from './image-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
+import {Play as PlayIcon} from './icons'
 
 import blockMetaSchema from '../schema/block-meta'
 import {isDragFileEvent, isDropFileEvent} from '../util/drop'
@@ -66,6 +67,7 @@ class AttributionEditor extends React.Component {
         , onDragLeave: this.boundOnDragLeave
         , onDrop: this.boundOnDrop
         }
+      , this.renderPlay()
       , this.renderCover()
       , this.renderUnsalvageable()
       , this.renderFailed()
@@ -195,6 +197,32 @@ class AttributionEditor extends React.Component {
       , style: {margin: '8px 0'}
       , color
       }
+    )
+  }
+  renderPlay () {
+    const {block} = this.state
+    if (!block || !block.type || !block.metadata || !block.metadata.isBasedOnUrl) return
+    const {type} = block
+    if (['interactive', 'video', 'audio'].indexOf(type) < 0) return
+
+    return el('div'
+    , { style:
+        { textAlign: 'right'
+        , position: 'relative'
+        , top: '-0.5rem'
+        }
+      }
+    , el('a'
+      , { href: block.metadata.isBasedOnUrl
+        , target: '_blank'
+        , rel: 'noreferrer noopener'
+        , style:
+          { textDecoration: 'inherit'
+          }
+        }
+        , type + ' '
+        , el(PlayIcon)
+      )
     )
   }
   renderDropIndicator () {
