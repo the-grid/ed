@@ -30,6 +30,7 @@
   "dependencies": {
     "@the-grid/ced": "^0.1.2",
     "@the-grid/ed-location": "^2.0.0",
+    "cxs": "^1.0.0-beta.11",
     "he": "^1.1.0",
     "imgflo-url": "^1.1.0",
     "lodash": "^4.14.1",

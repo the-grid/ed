@@ -1,6 +1,7 @@
 import React, {createElement as el} from 'react'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
-import {buttonStyle, containerStyle} from './add-cover'
+import {containerClassName} from './add-x-style'
+
 
 class AddFold extends React.Component {
   constructor (props, context) {
@@ -23,16 +24,13 @@ class AddFold extends React.Component {
     if (hasFold) return null
 
     return el('div'
-    , { className: 'AddFold'
-      , style: containerStyle
-      }
+    , { className: 'AddFold ' + containerClassName }
     , this.renderAddImage()
     )
   }
   renderAddImage () {
     return el(ButtonOutline
-    , { style: buttonStyle
-      , onClick: this.boundAddFold
+    , { onClick: this.boundAddFold
       , rounded: true
       }
     , 'Make Full Post'

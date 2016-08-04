@@ -1,6 +1,3 @@
-// Copy style to head
-require('./attribution-editor.css')
-
 import React, {createElement as el} from 'react'
 
 import Progress from 'rebass/dist/Progress'
@@ -17,6 +14,39 @@ import TextareaAutosize from './textarea-autosize'
 
 import blockMetaSchema from '../schema/block-meta'
 import {isDragFileEvent, isDropFileEvent} from '../util/drop'
+
+import cxs from 'cxs'
+
+const className = cxs(
+  { position: 'relative'
+  , padding: '1rem 1rem 0'
+  , background: '#fff'
+  , border: '1px solid #ddd'
+  , borderRadius: 2
+  }
+)
+
+const metaClassName = cxs(
+  { position: 'relative'
+  , '.AttributionEditor-title textarea':
+    { fontSize: '24px !important'
+    , marginTop: '0 !important'
+    , lineHeight: '1.2'
+    }
+  }
+)
+
+const linksClassName = cxs(
+  { position: 'relative'
+  , margin: '1em -1em 0'
+  , top: 1
+  , textAlign: 'right'
+  , '> *':
+    { verticalAlign: 'middle' }
+  , '@media screen and (max-width: 500px)':
+    { '.Menu': {width: '100%'} }
+  }
+)
 
 
 class AttributionEditor extends React.Component {
@@ -53,14 +83,7 @@ class AttributionEditor extends React.Component {
     const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove, coverPrefs)
 
     return el('div'
-      , { className: 'AttributionEditor'
-        , style:
-          { padding: '1rem 1rem 0'
-          , background: '#fff'
-          , border: '1px solid #ddd'
-          , borderRadius: 2
-          , position: 'relative'
-          }
+      , { className: 'AttributionEditor ' + className
         , onDragOver: this.boundOnDragOver
         , onDragEnter: this.boundOnDragEnter
         , onDragLeave: this.boundOnDragLeave
@@ -71,19 +94,11 @@ class AttributionEditor extends React.Component {
       , this.renderFailed()
       , this.renderProgress()
       , el('div'
-        , { className: 'AttributionEditor-metadata'
-          , style:
-            { position: 'relative'
-            }
+        , { className: 'AttributionEditor-metadata ' + metaClassName
           }
         , renderFields(schema, metadata, this.boundOnChange)
         , el('div'
-          , { className: 'AttributionEditor-links'
-            , style:
-              { margin: '1em -1em 0'
-              , position: 'relative'
-              , top: 1
-              }
+          , { className: 'AttributionEditor-links ' + linksClassName
             }
           , el(DropdownGroup, {menus})
         )

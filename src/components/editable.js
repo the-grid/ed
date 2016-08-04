@@ -1,6 +1,3 @@
-require('./editable.css')
-require('./editable-menu.css')
-
 import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
 import {Plugin} from 'prosemirror/dist/edit/plugin'
@@ -21,6 +18,8 @@ import PluginPlaceholder from '../plugins/placeholder'
 import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 import PluginCommandsInterface from '../plugins/commands-interface'
 
+import className from './editable-style.js'
+
 
 class Editable extends React.Component {
   constructor (props) {
@@ -32,7 +31,7 @@ class Editable extends React.Component {
   }
   render () {
     return el('div'
-    , { className: 'Editable'
+    , { className: 'Editable ' + className
       , style: {position: 'relative'} /* So widgets can position selves */
       }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
