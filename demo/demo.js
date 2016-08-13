@@ -3,6 +3,7 @@
 import {mountApp, unmountApp} from '../src/ed'
 import fixture from './fixture'
 import Gremlins from 'gremlins.js/src/main'
+import gremlinProsemirror from './gremlin-prosemirror'
 
 let ed
 const fixtureContent = fixture.content
@@ -381,7 +382,10 @@ fuzz.addEventListener('click', function () {
     fuzzer.stop()
     fuzzer = null
   } else {
-    fuzzer = Gremlins.createHorde()
+    fuzzer = Gremlins
+      .createHorde()
+      // .allGremlins()
+      .gremlin(gremlinProsemirror)
     fuzzer.unleash()
   }
 })
