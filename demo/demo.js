@@ -2,6 +2,8 @@
 
 import {mountApp, unmountApp} from '../src/ed'
 import fixture from './fixture'
+import Gremlins from 'gremlins.js/src/main'
+import gremlinProsemirror from './gremlin-prosemirror'
 
 let ed
 const fixtureContent = fixture.content
@@ -370,3 +372,20 @@ function onDropFileOnBlockDemo (id, file) {
     }
   )
 }
+
+/* Fuzz / Monkey ? Gremlin.js testing */
+
+const fuzz = document.getElementById('fuzz')
+let fuzzer = null
+fuzz.addEventListener('click', function () {
+  if (fuzzer) {
+    fuzzer.stop()
+    fuzzer = null
+  } else {
+    fuzzer = Gremlins
+      .createHorde()
+      // .allGremlins()
+      .gremlin(gremlinProsemirror)
+    fuzzer.unleash()
+  }
+})
