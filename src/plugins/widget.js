@@ -6,15 +6,17 @@ require('./widget.css')
 
 import _ from '../util/lodash'
 
-// WidgetTypes keys correspond with PM media block's grid-type attribute
+// WIDGET_TYPES keys correspond with PM media block's grid-widget attribute
 
 import WidgetIframe from './widget-iframe'
 import WidgetReact from './widget-react'
 
-const WidgetTypes =
+const WIDGET_TYPES =
   { code: WidgetIframe
   , location: WidgetIframe
-  , react: WidgetReact
+  , userhtml: WidgetIframe
+  , placeholder: WidgetReact
+  , default: WidgetReact
   }
 
 // Functions to bind in class constructor
@@ -128,8 +130,9 @@ export default class PluginWidget {
         continue
       }
       const type = el.getAttribute('grid-type')
-      if (!type) {
-        throw new Error('Bad placeholder!')
+      const widgetType = el.getAttribute('grid-widget')
+      if (!type || !widgetType) {
+        throw new Error('Bad placeholder div!')
       }
       if (inDoc.indexOf(id) !== -1) {
         toUndupe.push(id)
@@ -151,7 +154,7 @@ export default class PluginWidget {
       // Queue init
       if (!widget || needsReInit) {
         const initialFocus = (el.getAttribute('grid-initial-focus') === 'true')
-        toInit.push({id, type, rectangle, initialFocus})
+        toInit.push({id, type, widgetType, rectangle, initialFocus})
         continue
       }
       if (!widget.shown) continue
@@ -207,8 +210,8 @@ export default class PluginWidget {
       return this.boundReadDOM
     }
   }
-  writeWidgetInit ({id, type, rectangle, initialFocus}) {
-    let Widget = WidgetTypes[type] || WidgetTypes.react
+  writeWidgetInit ({id, type, widgetType, rectangle, initialFocus}) {
+    let Widget = WIDGET_TYPES[widgetType] || WIDGET_TYPES.default
 
     let initialBlock = this.ed.getBlock(id)
 
@@ -224,6 +227,7 @@ export default class PluginWidget {
       { ed: this.ed
       , id
       , type
+      , widgetType
       , initialBlock
       , widgetContainer: this.el
       , initialRectangle: rectangle

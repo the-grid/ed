@@ -9,6 +9,7 @@ import menuImage from './menu-image'
 import { menuMedia
   , menuCode
   , menuLocation
+  , menuUserhtml
   } from './menu-media'
 
 const menuItems = buildMenuItems(EdSchema)
@@ -54,6 +55,7 @@ export const edCommands =
   , 'ed_upload_image': menuImage
   , 'ed_add_code': menuCode
   , 'ed_add_location': menuLocation
+  , 'ed_add_userhtml': menuUserhtml
   }
 
 const typeDropdown = new Dropdown(

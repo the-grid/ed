@@ -27,7 +27,7 @@ export default class WidgetIframe extends WidgetBase {
   constructor (options) {
     super(options)
 
-    const widget = IframeInfo[options.type]
+    const widget = IframeInfo[options.widgetType]
     if (!widget) {
       throw new Error('No iframe widget of that type')
     }

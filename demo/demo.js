@@ -373,7 +373,7 @@ function onDropFileOnBlockDemo (id, file) {
   )
 }
 
-/* Fuzz / Monkey ? Gremlin.js testing */
+/* Fuzz / Monkey / Gremlin.js testing */
 
 const fuzz = document.getElementById('fuzz')
 let fuzzer = null

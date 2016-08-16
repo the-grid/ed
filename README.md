@@ -171,6 +171,7 @@ redo
 ed_upload_image
 ed_add_code
 ed_add_location
+ed_add_userhtml
 ```
 
 # dev
