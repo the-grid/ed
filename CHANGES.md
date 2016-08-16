@@ -1,5 +1,9 @@
 ## dev
 
+## 0.19.3 - 2016-08-16
+
+* NEW -- [ed-userhtml](https://github.com/the-grid/ed-userhtml) widget for interactive/userhtml blocks
+
 ## 0.19.2 - 2016-08-04
 
 * ▶ Link for video, audio, interactive in top-right of blocks, opens in new window. (#260)
