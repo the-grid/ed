@@ -13,6 +13,7 @@ export class Media extends Block {
     return (
       { id: new Attribute()
       , type: new Attribute()
+      , widget: new Attribute()
       , initialHeight: new Attribute({default: 72})
       , initialFocus: new Attribute({default: false})
       }
@@ -22,19 +23,21 @@ export class Media extends Block {
     return {'div[grid-type]': function (dom) {
       const id = dom.getAttribute('grid-id')
       const type = dom.getAttribute('grid-type')
+      const widget = dom.getAttribute('grid-widget')
       const initialHeight = dom.getAttribute('grid-initial-height')
       if (id && type && isMediaType(type)) {
-        return {id, type, initialHeight}
+        return {id, type, widget, initialHeight}
       }
       return false
     }}
   }
   toDOM (node) {
-    const {id, type, initialHeight, initialFocus} = node.attrs
+    const {id, type, widget, initialHeight, initialFocus} = node.attrs
     return ['div'
     , { 'class': 'EdSchemaMedia'
       , 'grid-id': id
       , 'grid-type': type
+      , 'grid-widget': widget
       , 'grid-initial-focus': initialFocus
       , 'grid-initial-height': initialHeight
       , 'style': `height: ${initialHeight}px;`

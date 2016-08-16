@@ -23,6 +23,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
+            , 'widget': 'image'
             , initialHeight: 72
             , initialFocus: false
             }
@@ -55,6 +56,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
+            , 'widget': 'video'
             , initialHeight: 72
             , initialFocus: false
             }
@@ -84,6 +86,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
+            , 'widget': 'image'
             , initialHeight: 72
             , initialFocus: false
             }
@@ -93,6 +96,7 @@ describe('GridToDoc', function () {
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
+            , 'widget': 'video'
             , initialHeight: 72
             , initialFocus: false
             }

@@ -30,6 +30,15 @@ export default function (items) {
 
 function itemToDOM (item) {
   let {id, type} = item
+
+  let widget
+  if (item.metadata && item.metadata.widget) {
+    widget = item.metadata.widget
+  }
+  if (!widget) {
+    widget = type
+  }
+
   let el
   if (isHTMLType(type)) {
     let dummy = document.createElement('div')
@@ -39,6 +48,7 @@ function itemToDOM (item) {
     el = document.createElement('div')
     el.setAttribute('grid-id', id)
     el.setAttribute('grid-type', type)
+    el.setAttribute('grid-widget', widget)
     const iframe = IframeInfo[type]
     if (iframe) {
       el.setAttribute('grid-initial-height', iframe.initialHeight)

@@ -35,6 +35,7 @@ describe('DocToGrid', function () {
           , 'attrs':
             { 'id': 'image-0000'
             , 'type': 'image'
+            , 'widget': 'image'
             , 'height': 50
             }
           }
@@ -55,6 +56,7 @@ describe('DocToGrid', function () {
           , 'attrs':
             { 'id': 'video-0000'
             , 'type': 'video'
+            , 'widget': 'video'
             , 'height': 50
             }
           }
@@ -95,6 +97,7 @@ describe('DocToGrid', function () {
             , 'attrs':
               { 'id': 'image-0000'
               , 'type': 'image'
+              , 'widget': 'image'
               , 'height': 50
               }
             }

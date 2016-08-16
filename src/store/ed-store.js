@@ -248,7 +248,13 @@ export default class EdStore {
       throw new Error('pm not ready')
     }
 
-    const {type, id} = block
+    const {type, id, metadata} = block
+    let widget
+    if (metadata && metadata.widget) {
+      widget = metadata.widget
+    } else {
+      widget = type
+    }
     if (!isMediaType(type)) {
       throw new Error('_replaceBlock with non-media blocks not yet implemented.')
     }
@@ -268,6 +274,7 @@ export default class EdStore {
     const node = this.pm.schema.nodes.media.create(
       { id
       , type
+      , widget
       , initialHeight
       , initialFocus
       }
@@ -294,7 +301,13 @@ export default class EdStore {
 
     for (let i = 0, len = blocks.length; i < len; i++) {
       const block = blocks[i]
-      const {type, id} = block
+      const {type, id, metadata} = block
+      let widget
+      if (metadata && metadata.widget) {
+        widget = metadata.widget
+      } else {
+        widget = type
+      }
       if (!isMediaType(type)) {
         throw new Error('_insertBlocks with non-media blocks not yet implemented.')
       }
@@ -308,6 +321,7 @@ export default class EdStore {
       const node = this.pm.schema.nodes.media.create(
         { id
         , type
+        , widget
         , initialHeight
         , initialFocus
         }
@@ -321,16 +335,17 @@ export default class EdStore {
       }
     }
   }
-  _addMedia ({index, type}) {
-    this._insertBlocks(index
-    , [ { id: uuid.v4()
-        , type
-        , html: ''
-        , metadata: {}
-        }
-      ]
-    , true
-    )
+  _addMedia ({index, type, widgetType}) {
+    let block =
+      { id: uuid.v4()
+      , type
+      , html: ''
+      , metadata: {}
+      }
+    if (widgetType) {
+      block.metadata.widget = widgetType
+    }
+    this._insertBlocks(index, [ block ], true)
   }
   insertPlaceholders (index, count) {
     let toInsert = []

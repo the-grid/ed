@@ -7,6 +7,10 @@ const IframeInfo =
     { src: '@the-grid/ed-location/edit.html'
     , initialHeight: 320
     }
+  , userhtml:
+    { src: '@the-grid/ed-userhtml/edit.html'
+    , initialHeight: 144
+    }
   }
 
 export default IframeInfo
