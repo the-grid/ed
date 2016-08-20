@@ -1,5 +1,9 @@
 ## dev
 
+## 0.19.4 - 2016-08-20
+
+* Whitelist `block.text` to match what ced outputs.
+
 ## 0.19.3 - 2016-08-16
 
 * NEW -- [ed-userhtml](https://github.com/the-grid/ed-userhtml) widget for interactive/userhtml blocks

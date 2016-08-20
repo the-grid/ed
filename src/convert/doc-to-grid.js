@@ -60,6 +60,7 @@ function trimContent (content) {
     , [ 'id'
       , 'type'
       , 'html'
+      , 'text'
       , 'metadata'
       , 'cover'
       ]
