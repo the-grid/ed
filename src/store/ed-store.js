@@ -421,6 +421,11 @@ export default class EdStore {
     }
     // MUTATION
     block.cover = cover
+    if (cover.src) {
+      if (!block.metadata) block.metadata = {}
+      if (!block.metadata.coverPrefs) block.metadata.coverPrefs = {}
+      block.metadata.coverPrefs.src = cover.src
+    }
     // Let widgets know to update
     this.trigger('media.update.id', id)
   }
