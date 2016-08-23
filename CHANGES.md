@@ -1,5 +1,9 @@
 ## dev
 
+## 0.19.5 - 2016-08-20
+
+* [ed-userhtml 0.1.0](https://github.com/the-grid/ed-userhtml/blob/master/CHANGES.md#010-2016-08-23)
+
 ## 0.19.4 - 2016-08-20
 
 * Whitelist `block.text` to match what ced outputs.
