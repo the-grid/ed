@@ -2,14 +2,10 @@ import React, {createElement as el} from 'react'
 import imgflo from 'imgflo-url'
 
 import TextareaAutosize from './textarea-autosize'
-import {isUrl} from '../util/url'
+import {isUrlOrBlank} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
-
-function isUrlOrBlank (string) {
-  return (isUrl(string) || string === '')
-}
 
 
 export default function CreditEditor (props, context) {

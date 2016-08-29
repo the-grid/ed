@@ -16,6 +16,7 @@ const WIDGET_TYPES =
   , location: WidgetIframe
   , userhtml: WidgetIframe
   , placeholder: WidgetReact
+  , cta: WidgetReact
   , default: WidgetReact
   }
 

@@ -568,13 +568,24 @@ let location = {
 let userhtml = {
   "type": "interactive",
   "html": "<iframe src=\"https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q\"></iframe>",
+  "text": "<h1>Hello 😬</h1>\n<p>world 🌍</p>\n<img onload=\"console.warn('from inline')\" src=\"http://lorempixel.com/72/72/cats\">",
   "metadata": {
     starred: true,
     "widget": "userhtml",
-    "text": "<h1>Hello 😬</h1>\n<p>world 🌍</p>\n<img onload=\"console.warn('from inline')\" src=\"http://lorempixel.com/72/72/cats\">",
     "isBasedOnUrl": "https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q"
   },
   "id": "uuid-user-html"
+}
+
+let cta = {
+  type: 'cta',
+  html: '...',
+  metadata: {
+    starred: true,
+    url: 'https://app.meemoo.org/',
+    label: 'Try it now!'
+  },
+  id: 'uuid-cta'
 }
 
 let post = {
@@ -585,6 +596,12 @@ let post = {
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       'metadata': {'starred': true}
     },
+    {
+      'type': 'text',
+      'html': '<p>It\'s a link cta:</p>',
+      'metadata': {'starred': true}
+    },
+    cta,
     {
       'type': 'text',
       'html': '<p>Look it\'s userhtml:</p>',
