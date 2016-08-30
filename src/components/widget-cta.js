@@ -33,7 +33,6 @@ class WidgetCta extends React.Component {
       this.onChange(['url'], event.target.value)
     }
     this.changeModal = (event) => {
-      console.log(event.target.checked)
       this.onChange(['openAsModal'], event.target.checked)
     }
     this.toggleImport = () => {
