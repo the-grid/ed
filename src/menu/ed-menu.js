@@ -10,6 +10,7 @@ import { menuMedia
   , menuCode
   , menuLocation
   , menuUserhtml
+  , menuCta
   } from './menu-media'
 
 const menuItems = buildMenuItems(EdSchema)
@@ -56,6 +57,7 @@ export const edCommands =
   , 'ed_add_code': menuCode
   , 'ed_add_location': menuLocation
   , 'ed_add_userhtml': menuUserhtml
+  , 'ed_add_cta': menuCta
   }
 
 const typeDropdown = new Dropdown(
