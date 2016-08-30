@@ -129,9 +129,9 @@ function makeCTA (metadata) {
   const {label, url} = metadata
   const dataString = makeDataString(metadata)
   if (url) {
-    return `<a href="${url}" data-role="cta" ${dataString}>${label}</a>`
+    return `<a href="${url}" data-role="cta" ${dataString}>${encode(label)}</a>`
   }
-  return `<button data-role="cta" ${dataString}>${label}</button>`
+  return `<button data-role="cta" ${dataString}>${encode(label)}</button>`
 }
 
 function makeDataString (metadata) {
