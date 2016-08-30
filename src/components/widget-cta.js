@@ -9,12 +9,20 @@ import TextareaAutosize from './textarea-autosize'
 import {isUrlOrBlank} from '../util/url'
 import {widgetLeftStyle} from './rebass-theme'
 
+// Gets src or href from iframe or a
+// http://www.regexpal.com/ test string:
+// asfd  dfadf ads <iframe  a="ffff" src="fooo" sss></iframe> <a hRef='http://,,,'>thing!</a> asdf
+const extractLink = /<(iframe|a)\s+[^>]*(?:src|href)=["'](\S+)["'][^>]*>/i
+
 
 class WidgetCta extends React.Component {
   constructor (props) {
     super(props)
+    const {label, url, openAsModal} = props.initialBlock.metadata
     this.state =
-      { block: props.initialBlock
+      { label
+      , url
+      , openAsModal
       , showImport: false
       }
 
@@ -25,20 +33,22 @@ class WidgetCta extends React.Component {
       this.onChange(['url'], event.target.value)
     }
     this.changeModal = (event) => {
+      console.log(event.target.checked)
       this.onChange(['openAsModal'], event.target.checked)
     }
     this.toggleImport = () => {
       const {showImport} = this.state
       this.setState({showImport: !showImport})
     }
+    this.boundImportHTML = this.importHTML.bind(this)
   }
   componentWillReceiveProps (props) {
-    this.setState({block: props.initialBlock})
+    if (!props.initialBlock || !props.initialBlock.metadata) return
+    const {label, url, openAsModal} = props.initialBlock.metadata
+    this.setState({label, url, openAsModal})
   }
   render () {
-    const {block} = this.state
-    const {metadata} = block
-    const {label, url, openAsModal} = metadata
+    const {label, url, openAsModal} = this.state
 
     return el('div'
     , { className: 'WidgetCta'
@@ -74,7 +84,7 @@ class WidgetCta extends React.Component {
           , onChange: this.changeModal
           }
         )
-      // , this.renderImport()
+      , this.renderImport()
       )
     , el('div'
       , { style: {clear: 'both'} }
@@ -87,7 +97,8 @@ class WidgetCta extends React.Component {
     // Send change up to store
     const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
     // Send change to view
-    this.setState({block})
+    const {label, url, openAsModal} = block.metadata
+    this.setState({label, url, openAsModal})
   }
   renderImport () {
     const {showImport} = this.state
@@ -99,15 +110,16 @@ class WidgetCta extends React.Component {
     }
 
     return el('form'
-    , { onSubmit: this.importHTML }
+    , { onSubmit: this.boundImportHTML }
+    , el(TextareaAutosize
+      , { label: 'HTML'
+        , defaultFocus: true
+        , placeholder: '<iframe src=... or <a href=... embed code from another site'
+        }
+      )
     , el(ButtonOutline
       , { onClick: this.toggleImport }
       , 'Cancel'
-      )
-    , el(TextareaAutosize
-      , { defaultFocus: true
-        , placeholder: '<iframe src=... or <a href=... embed code from another site'
-        }
       )
     , el(ButtonOutline
       , { type: 'submit' }
@@ -118,10 +130,24 @@ class WidgetCta extends React.Component {
   importHTML (event) {
     event.preventDefault()
     const {value} = event.target.querySelector('textarea')
-    console.log(event.target, value)
-    // TODO parse dat
+    if (!value) return
+    const extract = extractLink.exec(value)
+    if (!extract || !extract[1] || !extract[2]) return
+    const tag = extract[1]
+    const link = extract[2]
+    if (tag === 'iframe') {
+      this.onChange(['openAsModal'], true)
+    }
+    if (link) {
+      this.onChange(['url'], link)
+    }
+    this.setState({showImport: false})
   }
 }
+WidgetCta.propTypes =
+  { initialBlock: React.PropTypes.object.isRequired
+  , id: React.PropTypes.string.isRequired
+  }
 WidgetCta.contextTypes =
   { store: React.PropTypes.object }
 
