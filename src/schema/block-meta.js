@@ -126,8 +126,10 @@ function makeTitleDescription (tag, metadata) {
 }
 
 function makeCTA (metadata) {
-  const {label, url} = metadata
   const dataString = makeDataString(metadata)
+  const {url} = metadata
+  let {label} = metadata
+  label = label || 'Open'
   if (url) {
     return `<a href="${url}" data-role="cta" ${dataString}>${encode(label)}</a>`
   }
@@ -140,7 +142,10 @@ function makeDataString (metadata) {
   for (let i = 0, len = fields.length; i < len; i++) {
     const field = fields[i]
     if (!metadata[field]) continue
-    str += `data-${field}="${encode(metadata[field])}" `
+    if (str !== '') {
+      str += ' '
+    }
+    str += `data-${field}="${encode(metadata[field])}"`
   }
   return str
 }
