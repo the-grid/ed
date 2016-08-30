@@ -51,6 +51,14 @@ class TextareaAutosize extends React.Component {
   componentDidUpdate () {
     this.boundResize()
   }
+  componentWillReceiveProps (props) {
+    const {defaultValue, validator} = props
+    let valid = true
+    if (validator) {
+      valid = validator(defaultValue)
+    }
+    this.setState({value: defaultValue, valid})
+  }
   render () {
     const {label, placeholder} = this.props
     const {value, valid} = this.state
@@ -84,7 +92,7 @@ class TextareaAutosize extends React.Component {
     const {value, valid} = this.state
     if (!value) return
     if (!valid) {
-      return el('span', {}, ' - must be a valid url starting with "http" or "https"')
+      return el('span', {}, ' - must be a valid url (http...)')
     }
     return el('a'
     , { href: value
