@@ -1,5 +1,9 @@
 ## dev
 
+## 0.20.0 - 2016-08-31
+
+* Menu to add & widget to edit basic link CTA. Command key `ed_add_cta`
+
 ## 0.19.5 - 2016-08-20
 
 * [ed-userhtml 0.1.0](https://github.com/the-grid/ed-userhtml/blob/master/CHANGES.md#010-2016-08-23)
