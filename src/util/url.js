@@ -5,6 +5,10 @@ export function isUrl (text) {
   return text.match(isUrlRegex)
 }
 
+export function isUrlOrBlank (text) {
+  return (isUrl(text) || text === '')
+}
+
 export function findUrl (text) {
   return text.match(findUrlRegex)
 }

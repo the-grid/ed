@@ -52,6 +52,12 @@ const blockMetaSchema =
     , publisher: true
     , via: true
     }
+  , cta:
+    { label: true
+    , link: true
+    , openAsModal: true
+    , makeHtml: makeCTA
+    }
   , default:
     { title: true
     , description: true
@@ -117,6 +123,28 @@ function makeTitleDescription (tag, metadata) {
     htmlString = `<${tag}>${htmlString}</${tag}>`
   }
   return htmlString
+}
+
+function makeCTA (metadata) {
+  const dataString = makeDataString(metadata)
+  const {url} = metadata
+  let {label} = metadata
+  label = label || 'Open'
+  if (url) {
+    return `<a href="${url}" data-role="cta"${dataString}>${encode(label)}</a>`
+  }
+  return `<button data-role="cta"${dataString}>${encode(label)}</button>`
+}
+
+function makeDataString (metadata) {
+  const fields = ['type', 'item', 'cta', 'price']
+  let str = ''
+  for (let i = 0, len = fields.length; i < len; i++) {
+    const field = fields[i]
+    if (!metadata[field]) continue
+    str += ` data-${field}="${encode(metadata[field])}"`
+  }
+  return str
 }
 
 export default blockMetaSchema

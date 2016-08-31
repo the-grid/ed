@@ -1,7 +1,7 @@
 require('./textarea-autosize.css')
 
 import React, {createElement as el} from 'react'
-import {sans} from './rebass-theme'
+import {sans, colors} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
@@ -11,7 +11,7 @@ const containerStyle =
 const labelStyle = {}
 
 const labelStyleError =
-  { color: 'red'
+  { color: colors.error
   }
 
 const areaStyle =
@@ -51,6 +51,14 @@ class TextareaAutosize extends React.Component {
   componentDidUpdate () {
     this.boundResize()
   }
+  componentWillReceiveProps (props) {
+    const {defaultValue, validator} = props
+    let valid = true
+    if (validator) {
+      valid = validator(defaultValue)
+    }
+    this.setState({value: defaultValue, valid})
+  }
   render () {
     const {label, placeholder} = this.props
     const {value, valid} = this.state
@@ -84,7 +92,7 @@ class TextareaAutosize extends React.Component {
     const {value, valid} = this.state
     if (!value) return
     if (!valid) {
-      return el('span', {}, ' - must be a valid url starting with "http"')
+      return el('span', {}, ' - must be a valid url (http...)')
     }
     return el('a'
     , { href: value

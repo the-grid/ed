@@ -8,7 +8,7 @@ import BlockMeta from '../../src/schema/block-meta'
 describe('BlockMeta', function () {
   it('has expected types', function () {
     expect(BlockMeta).to.have.all.keys([
-      'image', 'video', 'quote', 'article', 'default'
+      'image', 'video', 'quote', 'article', 'cta', 'default'
     ])
   })
 
@@ -59,6 +59,26 @@ describe('BlockMeta', function () {
     })
     it('gives html that survives html-flatten', function (done) {
       survivesHtmlFlatten(article, done)
+    })
+  })
+
+  describe('Type cta', function () {
+    const cta =
+      { type: 'cta'
+      , metadata:
+        { label: 'label yö'
+        , url: 'http://fff'
+        }
+      }
+
+    it('gives expected html out', function () {
+      const html = BlockMeta.cta.makeHtml(cta.metadata)
+      expect(html).to.equal(
+        '<a href="http://fff" data-role="cta">label y&ouml;</a>'
+      )
+    })
+    it('gives html that survives html-flatten', function (done) {
+      survivesHtmlFlatten(cta, done)
     })
   })
 })

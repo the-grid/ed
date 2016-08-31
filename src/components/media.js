@@ -3,10 +3,12 @@ import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
+import WidgetCta from './widget-cta'
 import rebassTheme from './rebass-theme'
 
 const Components =
   { placeholder: Placeholder
+  , cta: WidgetCta
   , attribution: AttributionEditor
   }
 

@@ -25,11 +25,14 @@ export const menuLocation = makeMenu('Map', 'location')
 
 export const menuCode = makeMenu('Code', 'code')
 
+export const menuCta = makeMenu('Call To Action', 'cta')
+
 export const menuUserhtml = makeMenu('Embed HTML', 'interactive', 'userhtml')
 
 export const menuMedia = new Dropdown(
   [ menuLocation
   , menuCode
+  , menuCta
   , menuUserhtml
   ]
   , {label: 'Add...'}

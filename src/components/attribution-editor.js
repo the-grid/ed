@@ -7,6 +7,7 @@ import Progress from 'rebass/dist/Progress'
 import Message from 'rebass/dist/Message'
 import Button from 'rebass/dist/Button'
 import Space from 'rebass/dist/Space'
+import {widgetStyle} from './rebass-theme'
 
 import Image from './image'
 import DropdownGroup from './dropdown-group'
@@ -55,13 +56,7 @@ class AttributionEditor extends React.Component {
 
     return el('div'
       , { className: 'AttributionEditor'
-        , style:
-          { padding: '1rem 1rem 0'
-          , background: '#fff'
-          , border: '1px solid #ddd'
-          , borderRadius: 2
-          , position: 'relative'
-          }
+        , style: widgetStyle
         , onDragOver: this.boundOnDragOver
         , onDragEnter: this.boundOnDragEnter
         , onDragLeave: this.boundOnDragLeave

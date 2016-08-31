@@ -8,6 +8,7 @@ const MEDIA_TYPES =
   , 'placeholder'
   , 'share'
   , 'video'
+  , 'cta'
   ]
 const HTML_TYPES =
   [ 'blockquote'
