@@ -42,6 +42,26 @@ describe('WidgetCta', function () {
       expect(extract).to.deep.equal({tag: 'iframe', link: 'https://embed...'})
     })
   })
+  describe('extract from @qfox\' weird cases', function () {
+    it('gives expected with spaces', function () {
+      const extract = extractLink('< iframe src = "https://embed..."></iframe>')
+      expect(extract).to.deep.equal({tag: 'iframe', link: 'https://embed...'})
+    })
+    it('gives expected with no quotes', function () {
+      const extract = extractLink('<iframe src=https://embed... other="hmm"></iframe>')
+      expect(extract).to.deep.equal({tag: 'iframe', link: 'https://embed...'})
+    })
+    it('gives expected with spaces and no quotes', function () {
+      const extract = extractLink('<  iframe  src   =   https://embed... other="hmm"></iframe>')
+      expect(extract).to.deep.equal({tag: 'iframe', link: 'https://embed...'})
+    })
+  })
+  describe('extract without http in link', function () {
+    it('gives null', function () {
+      const extract = extractLink('<iframe src="/foo"></iframe>')
+      expect(extract).to.be.null
+    })
+  })
   describe('extract without a or iframe', function () {
     it('gives null', function () {
       const extract = extractLink('abc <img src="http://img..." /> 123')

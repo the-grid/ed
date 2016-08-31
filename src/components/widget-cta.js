@@ -11,8 +11,8 @@ import {widgetLeftStyle} from './rebass-theme'
 
 // Gets src or href from iframe or a
 // http://www.regexpal.com/ test string:
-// asfd  dfadf ads <iframe  a="ffff" src="fooo" sss></iframe> <a hRef='http://,,,'>thing!</a> asdf
-const regexExtractLink = /<(iframe|a)\s+[^>]*(?:src|href)=["'](\S+)["'][^>]*>/i
+// abc <iframe a="ffff" src="fooo" sss></iframe> <a hRef='http://,,,'>thing!</a> asdf < iframe   src =     http...></iframe>
+const regexExtractLink = /<\s*(iframe|a)\s+[^>]*(?:src|href)\s*=[\s"']*(http[^"'\s>]+)[\s"']*[^>]*>/i
 
 export function extractLink (htmlString) {
   const extract = regexExtractLink.exec(htmlString)
