@@ -7,7 +7,7 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 import TextareaAutosize from './textarea-autosize'
 import {isUrlOrBlank} from '../util/url'
-import {widgetLeftStyle} from './rebass-theme'
+import {widgetLeftStyle, colors} from './rebass-theme'
 
 // Gets src or href from iframe or a
 // http://www.regexpal.com/ test string:
@@ -32,6 +32,7 @@ class WidgetCta extends React.Component {
       , url
       , openAsModal
       , showImport: false
+      , importStatus: ''
       }
 
     this.changeLabel = (event) => {
@@ -45,7 +46,11 @@ class WidgetCta extends React.Component {
     }
     this.toggleImport = () => {
       const {showImport} = this.state
-      this.setState({showImport: !showImport})
+      this.setState(
+        { showImport: !showImport
+        , importStatus: ''
+        }
+      )
     }
     this.boundImportHTML = this.importHTML.bind(this)
   }
@@ -108,7 +113,7 @@ class WidgetCta extends React.Component {
     this.setState({label, url, openAsModal})
   }
   renderImport () {
-    const {showImport} = this.state
+    const {showImport, importStatus} = this.state
     if (!showImport) {
       return el(ButtonOutline
       , { onClick: this.toggleImport }
@@ -120,6 +125,7 @@ class WidgetCta extends React.Component {
     , { onSubmit: this.boundImportHTML }
     , el(TextareaAutosize
       , { label: 'HTML'
+        , defaultValue: ''
         , defaultFocus: true
         , placeholder: '<iframe src=... or <a href=... embed code from another site'
         }
@@ -132,6 +138,7 @@ class WidgetCta extends React.Component {
       , { type: 'submit' }
       , 'Import'
       )
+    , el('span', {style: {color: colors.error}}, importStatus)
     )
   }
   importHTML (event) {
@@ -139,7 +146,10 @@ class WidgetCta extends React.Component {
     const {value} = event.target.querySelector('textarea')
     if (!value) return
     const extract = extractLink(value)
-    if (!extract) return
+    if (!extract) {
+      this.setState({importStatus: " We didn't find the link in this html."})
+      return
+    }
     const {tag, link} = extract
     if (tag === 'iframe') {
       this.onChange(['openAsModal'], true)
@@ -147,7 +157,7 @@ class WidgetCta extends React.Component {
     if (link) {
       this.onChange(['url'], link)
     }
-    this.setState({showImport: false})
+    this.setState({showImport: false, importStatus: ''})
   }
 }
 WidgetCta.propTypes =

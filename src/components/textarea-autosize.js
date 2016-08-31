@@ -1,7 +1,7 @@
 require('./textarea-autosize.css')
 
 import React, {createElement as el} from 'react'
-import {sans} from './rebass-theme'
+import {sans, colors} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans
@@ -11,7 +11,7 @@ const containerStyle =
 const labelStyle = {}
 
 const labelStyleError =
-  { color: 'red'
+  { color: colors.error
   }
 
 const areaStyle =

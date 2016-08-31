@@ -3,9 +3,7 @@ import rebassDefaults from 'rebass/dist/config'
 export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif'
 // const serif = 'Georgia, Times, serif'
 
-export const colors =
-  { background: 'white'
-  }
+export const colors = rebassDefaults.colors
 
 export const widgetStyle =
   { padding: '1rem 1rem 0'
