@@ -131,9 +131,9 @@ function makeCTA (metadata) {
   let {label} = metadata
   label = label || 'Open'
   if (url) {
-    return `<a href="${url}" data-role="cta" ${dataString}>${encode(label)}</a>`
+    return `<a href="${url}" data-role="cta"${dataString}>${encode(label)}</a>`
   }
-  return `<button data-role="cta" ${dataString}>${encode(label)}</button>`
+  return `<button data-role="cta"${dataString}>${encode(label)}</button>`
 }
 
 function makeDataString (metadata) {
@@ -142,10 +142,7 @@ function makeDataString (metadata) {
   for (let i = 0, len = fields.length; i < len; i++) {
     const field = fields[i]
     if (!metadata[field]) continue
-    if (str !== '') {
-      str += ' '
-    }
-    str += `data-${field}="${encode(metadata[field])}"`
+    str += ` data-${field}="${encode(metadata[field])}"`
   }
   return str
 }

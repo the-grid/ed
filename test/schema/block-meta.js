@@ -74,7 +74,7 @@ describe('BlockMeta', function () {
     it('gives expected html out', function () {
       const html = BlockMeta.cta.makeHtml(cta.metadata)
       expect(html).to.equal(
-        '<a href="http://fff" data-role="cta" >label y&ouml;</a>'
+        '<a href="http://fff" data-role="cta">label y&ouml;</a>'
       )
     })
     // it('gives html that survives html-flatten', function (done) {
