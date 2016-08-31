@@ -77,9 +77,9 @@ describe('BlockMeta', function () {
         '<a href="http://fff" data-role="cta">label y&ouml;</a>'
       )
     })
-    // it('gives html that survives html-flatten', function (done) {
-    //   survivesHtmlFlatten(cta, done)
-    // })
+    it('gives html that survives html-flatten', function (done) {
+      survivesHtmlFlatten(cta, done)
+    })
   })
 })
 
