@@ -12,7 +12,15 @@ import {widgetLeftStyle} from './rebass-theme'
 // Gets src or href from iframe or a
 // http://www.regexpal.com/ test string:
 // asfd  dfadf ads <iframe  a="ffff" src="fooo" sss></iframe> <a hRef='http://,,,'>thing!</a> asdf
-const extractLink = /<(iframe|a)\s+[^>]*(?:src|href)=["'](\S+)["'][^>]*>/i
+const regexExtractLink = /<(iframe|a)\s+[^>]*(?:src|href)=["'](\S+)["'][^>]*>/i
+
+export function extractLink (htmlString) {
+  const extract = regexExtractLink.exec(htmlString)
+  if (!extract || !extract[1] || !extract[2]) return null
+  const tag = extract[1].toLowerCase()
+  const link = extract[2]
+  return {tag, link}
+}
 
 
 class WidgetCta extends React.Component {
@@ -130,10 +138,9 @@ class WidgetCta extends React.Component {
     event.preventDefault()
     const {value} = event.target.querySelector('textarea')
     if (!value) return
-    const extract = extractLink.exec(value)
-    if (!extract || !extract[1] || !extract[2]) return
-    const tag = extract[1]
-    const link = extract[2]
+    const extract = extractLink(value)
+    if (!extract) return
+    const {tag, link} = extract
     if (tag === 'iframe') {
       this.onChange(['openAsModal'], true)
     }
