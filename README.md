@@ -150,6 +150,9 @@ Demo: [./demo/demo.js](./demo/demo.js)
 
 ## commands
 
+With `onCommandsChanged` prop, app will get an object containing these commandName keys.
+Values will be one of these strings: `inactive`, `active`, `disabled`.
+
 Apps can apply formatting / editing commands with `ed.execCommand(commandName)`
 
 Supported `commandName` keys:
