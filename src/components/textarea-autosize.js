@@ -61,7 +61,13 @@ class TextareaAutosize extends React.Component {
   }
   render () {
     const {label, placeholder} = this.props
+    let {inputMode, autoCapitalize} = this.props
     const {value, valid} = this.state
+
+    if (label === 'Link') {
+      inputMode = 'url'
+      autoCapitalize = 'none'
+    }
 
     return el('div'
     , { className: `TextareaAutosize ${this.props.className}`
@@ -77,6 +83,8 @@ class TextareaAutosize extends React.Component {
           , style: areaStyle
           , value: value || ''
           , placeholder
+          , inputMode
+          , autoCapitalize
           , onChange: this.boundOnChange
           , rows: 1
           , onFocus: this.boundResize
@@ -144,6 +152,8 @@ TextareaAutosize.propTypes =
   , defaultFocus: React.PropTypes.bool
   , label: React.PropTypes.string
   , placeholder: React.PropTypes.string
+  , inputMode: React.PropTypes.string
+  , autoCapitalize: React.PropTypes.string
   , onChange: React.PropTypes.func
   , onKeyDown: React.PropTypes.func
   , multiline: React.PropTypes.bool
@@ -151,5 +161,7 @@ TextareaAutosize.propTypes =
   }
 TextareaAutosize.defaultProps =
   { multiline: false
+  , inputMode: ''
+  , autoCapitalize: 'sentences'
   }
 export default React.createFactory(TextareaAutosize)
