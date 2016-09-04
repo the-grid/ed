@@ -1,5 +1,9 @@
 ## dev
 
+## 0.21.3 - 2016-09-04
+
+* Link inputs `autocapitalize='none'` to help with (#272) on mobile
+
 ## 0.20.2 - 2016-09-04
 
 * Attempt to suppress Safari contenteditable formatting ("BIU" tooltip)
