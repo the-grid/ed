@@ -2,6 +2,7 @@ const isUrlRegex = /^https?:\/\/[^\s]+\.[^\s]+$/
 const findUrlRegex = /https?:\/\/[^\s]+\.[^\s]+/
 
 export function isUrl (text) {
+  if (!text) return false
   return text.match(isUrlRegex)
 }
 

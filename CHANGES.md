@@ -1,5 +1,9 @@
 ## dev
 
+## 0.20.1 - 2016-09-04
+
+* JS safety with valid url testing
+
 ## 0.20.0 - 2016-08-31
 
 * Menu to add & widget to edit basic link CTA. Command key `ed_add_cta`
