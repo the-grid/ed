@@ -21,6 +21,9 @@
   padding: 1rem;
   white-space: pre-wrap;
   max-width: 856px;
+
+  -webkit-user-modify: read-write-plaintext-only;
+  user-modify: read-write-plaintext-only;
 }
 
 .ProseMirror-content:after {

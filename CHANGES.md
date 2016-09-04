@@ -1,5 +1,9 @@
 ## dev
 
+## 0.20.2 - 2016-09-04
+
+* Attempt to suppress Safari contenteditable formatting ("BIU" tooltip)
+
 ## 0.20.1 - 2016-09-04
 
 * JS safety with valid url testing
