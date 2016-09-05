@@ -81,7 +81,7 @@ describe('DocToGrid', function () {
           { id: 'image-0000'
           , type: 'image'
           , metadata: {starred: true}
-          , title: 'Wat.'
+          , foo: 'Wat.'
           , cover:
             { src: 'https://...'
             , width: 10

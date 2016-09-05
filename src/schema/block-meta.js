@@ -72,7 +72,8 @@ const blockMetaSchema =
     }
   }
 
-function makeImage (metadata, cover) {
+function makeImage (block) {
+  const {metadata, cover} = block
   let htmlString = '<img'
   if (cover && cover.src) {
     htmlString += ` src="${cover.src}"`
@@ -101,7 +102,8 @@ function makeImage (metadata, cover) {
 //   return `<blockquote>${encode(metadata.description)}</blockquote>`
 // }
 
-function makeArticle (metadata, cover) {
+function makeArticle (block) {
+  const {metadata, cover} = block
   let htmlString = '<article>'
   if (cover && cover.src) {
     htmlString += `<img src="${cover.src}">`
@@ -125,10 +127,10 @@ function makeTitleDescription (tag, metadata) {
   return htmlString
 }
 
-function makeCTA (metadata) {
   const dataString = makeDataString(metadata)
   const {url} = metadata
   let {label} = metadata
+function makeCTA (block) {
   label = label || 'Open'
   if (url) {
     return `<a href="${url}" data-role="cta"${dataString}>${encode(label)}</a>`
@@ -136,13 +138,13 @@ function makeCTA (metadata) {
   return `<button data-role="cta"${dataString}>${encode(label)}</button>`
 }
 
-function makeDataString (metadata) {
-  const fields = ['type', 'item', 'cta', 'price']
+function makeDataString (block) {
+  const fields = ['cta', 'price'] // TODO type? item?
   let str = ''
   for (let i = 0, len = fields.length; i < len; i++) {
     const field = fields[i]
-    if (!metadata[field]) continue
-    str += ` data-${field}="${encode(metadata[field])}"`
+    if (!block[field]) continue
+    str += ` data-${field}="${encode(block[field])}"`
   }
   return str
 }

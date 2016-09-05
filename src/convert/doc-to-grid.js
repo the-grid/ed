@@ -104,7 +104,7 @@ export function metaToHtml (block) {
   const {type} = block
   const schema = BlockMetaSchema[type]
   if (schema && schema.makeHtml) {
-    return schema.makeHtml(block.metadata, block.cover)
+    return schema.makeHtml(block)
   }
 }
 
