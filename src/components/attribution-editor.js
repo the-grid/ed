@@ -263,7 +263,7 @@ class AttributionEditor extends React.Component {
     const {store} = this.context
     const {id} = this.props
     // Send change up to store
-    const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+    const block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
     // Send change to view
     this.setState({block})
   }
@@ -317,25 +317,25 @@ class AttributionEditor extends React.Component {
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
         return
       case 'isBasedOnUrl':
-        path = ['isBasedOnUrl']
+        path = ['metadata', 'isBasedOnUrl']
         value = ''
-        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
         break
       case 'author':
-        path = ['author']
+        path = ['metadata', 'author']
         // TODO smarter when we support multiple
         value = [{}]
-        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
         break
       case 'via':
-        path = ['via']
+        path = ['metadata', 'via']
         value = {}
-        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
         break
       case 'publisher':
-        path = ['publisher']
+        path = ['metadata', 'publisher']
         value = {}
-        block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+        block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
         break
       default:
         return
@@ -388,7 +388,7 @@ function renderTextField (key, label, value, onChange) {
     , placeholder: `Enter ${key}`
     , defaultValue: value
     , key: key
-    , onChange: makeChange([key], onChange)
+    , onChange: makeChange(['metadata', key], onChange)
     , style: {width: '100%'}
     }
   )
@@ -398,23 +398,23 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
   let menus = []
   if (schema.isBasedOnUrl && metadata.isBasedOnUrl != null) {
     menus.push(
-      renderCreditEditor(true, 'isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}, onChange, ['isBasedOnUrl'])
+      renderCreditEditor(true, 'isBasedOnUrl', 'Link', {url: metadata.isBasedOnUrl}, onChange, ['metadata', 'isBasedOnUrl'])
     )
   }
   // TODO support >1 author
   if (schema.author && metadata.author && metadata.author[0]) {
     menus.push(
-      renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['author', 0])
+      renderCreditEditor(false, 'author.0', 'Credit', metadata.author[0], onChange, ['metadata', 'author', 0])
     )
   }
   if (schema.via && metadata.via) {
     menus.push(
-      renderCreditEditor(false, 'via', 'Via', metadata.via, onChange, ['via'])
+      renderCreditEditor(false, 'via', 'Via', metadata.via, onChange, ['metadata', 'via'])
     )
   }
   if (schema.publisher && metadata.publisher) {
     menus.push(
-      renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['publisher'])
+      renderCreditEditor(false, 'publisher', 'Publisher', metadata.publisher, onChange, ['metadata', 'publisher'])
     )
   }
   if (cover || schema.changeCover) {

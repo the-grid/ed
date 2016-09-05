@@ -65,10 +65,8 @@ describe('BlockMeta', function () {
   describe('Type cta', function () {
     const cta =
       { type: 'cta'
-      , metadata:
-        { label: 'label yö'
-        , url: 'http://fff'
-        }
+      , label: 'label yö'
+      , url: 'http://fff'
       }
 
     it('gives expected html out', function () {

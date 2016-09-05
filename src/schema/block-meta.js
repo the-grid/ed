@@ -127,10 +127,10 @@ function makeTitleDescription (tag, metadata) {
   return htmlString
 }
 
-  const dataString = makeDataString(metadata)
-  const {url} = metadata
-  let {label} = metadata
 function makeCTA (block) {
+  const {url} = block
+  let {label} = block
+  const dataString = makeDataString(block)
   label = label || 'Open'
   if (url) {
     return `<a href="${url}" data-role="cta"${dataString}>${encode(label)}</a>`

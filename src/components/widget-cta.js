@@ -26,14 +26,10 @@ export function extractLink (htmlString) {
 class WidgetCta extends React.Component {
   constructor (props) {
     super(props)
-    const {label, url, openAsModal} = props.initialBlock.metadata
-    this.state =
-      { label
-      , url
-      , openAsModal
-      , showImport: false
-      , importStatus: ''
-      }
+    let state = this.stateFromBlock(props.initialBlock)
+    state.showImport = false
+    state.importStatus = ''
+    this.state = state
 
     this.changeLabel = (event) => {
       this.onChange(['label'], event.target.value)
@@ -42,7 +38,7 @@ class WidgetCta extends React.Component {
       this.onChange(['url'], event.target.value)
     }
     this.changeModal = (event) => {
-      this.onChange(['openAsModal'], event.target.checked)
+      this.onChange(['metadata', 'openAsModal'], event.target.checked)
     }
     this.toggleImport = () => {
       const {showImport} = this.state
@@ -55,9 +51,17 @@ class WidgetCta extends React.Component {
     this.boundImportHTML = this.importHTML.bind(this)
   }
   componentWillReceiveProps (props) {
-    if (!props.initialBlock || !props.initialBlock.metadata) return
-    const {label, url, openAsModal} = props.initialBlock.metadata
-    this.setState({label, url, openAsModal})
+    if (!props.initialBlock) return
+    this.setState(this.stateFromBlock(props.initialBlock))
+  }
+  stateFromBlock (block) {
+    if (!block) return {}
+    const {label, url, metadata} = block
+    let openAsModal = false
+    if (metadata && metadata.openAsModal === true) {
+      openAsModal = true
+    }
+    return {label, url, openAsModal}
   }
   render () {
     const {label, url, openAsModal} = this.state
@@ -107,10 +111,9 @@ class WidgetCta extends React.Component {
     const {store} = this.context
     const {id} = this.props
     // Send change up to store
-    const block = store.routeChange('MEDIA_BLOCK_UPDATE_META', {id, path, value})
+    const block = store.routeChange('MEDIA_BLOCK_UPDATE_FIELD', {id, path, value})
     // Send change to view
-    const {label, url, openAsModal} = block.metadata
-    this.setState({label, url, openAsModal})
+    this.setState(this.stateFromBlock(block))
   }
   renderImport () {
     const {showImport, importStatus} = this.state
@@ -152,7 +155,7 @@ class WidgetCta extends React.Component {
     }
     const {tag, link} = extract
     if (tag === 'iframe') {
-      this.onChange(['openAsModal'], true)
+      this.onChange(['metadata', 'openAsModal'], true)
     }
     if (link) {
       this.onChange(['url'], link)

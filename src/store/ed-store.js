@@ -51,8 +51,8 @@ export default class EdStore {
         this._updateMediaBlock(payload)
         this.trigger('change')
         break
-      case 'MEDIA_BLOCK_UPDATE_META':
-        const mutatedBlock = this._updateMetaByPath(payload)
+      case 'MEDIA_BLOCK_UPDATE_FIELD':
+        const mutatedBlock = this._updateFieldByPath(payload)
         this.trigger('change')
         return mutatedBlock
       case 'MEDIA_BLOCK_REMOVE':
@@ -147,16 +147,16 @@ export default class EdStore {
       events[i](payload)
     }
   }
-  _updateMetaByPath ({id, path, value}) {
+  _updateFieldByPath ({id, path, value}) {
     let block = this.getBlock(id)
     if (!block) {
       throw new Error('Can not update this block')
     }
     if (!path || !path.length) {
-      throw new Error('Invalid metadata update path')
+      throw new Error('Invalid update path')
     }
     // MUTATION
-    let parent = block.metadata
+    let parent = block
     for (let i = 0, length = path.length; i < length - 1; i++) {
       const key = path[i]
       if (!parent[key]) {
@@ -166,6 +166,8 @@ export default class EdStore {
     }
     const key = path[path.length - 1]
     parent[key] = value
+
+    console.log(key, parent, block)
 
     if (value === undefined) {
       if (key === 0) {

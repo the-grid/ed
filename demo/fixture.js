@@ -580,10 +580,10 @@ let userhtml = {
 let cta = {
   type: 'cta',
   html: '...',
+  url: 'https://app.meemoo.org/',
+  label: 'Try it now!',
   metadata: {
     starred: true,
-    url: 'https://app.meemoo.org/',
-    label: 'Try it now!'
   },
   id: 'uuid-cta'
 }
