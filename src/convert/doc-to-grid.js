@@ -59,10 +59,15 @@ function trimContent (content) {
     let cleaned = _.pick(item
     , [ 'id'
       , 'type'
+      , 'item'
       , 'html'
       , 'text'
       , 'metadata'
       , 'cover'
+      , 'cta'
+      , 'price'
+      , 'label'
+      , 'url'
       ]
     )
     if (cleaned.cover) {
