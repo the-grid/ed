@@ -583,7 +583,7 @@ let cta = {
   url: 'https://app.meemoo.org/',
   label: 'Try it now!',
   metadata: {
-    starred: true,
+    starred: true
   },
   id: 'uuid-cta'
 }
