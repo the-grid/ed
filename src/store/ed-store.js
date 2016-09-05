@@ -167,8 +167,6 @@ export default class EdStore {
     const key = path[path.length - 1]
     parent[key] = value
 
-    console.log(key, parent, block)
-
     if (value === undefined) {
       if (key === 0) {
         // HACK only for author array

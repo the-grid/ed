@@ -51,8 +51,9 @@ class WidgetCta extends React.Component {
     this.boundImportHTML = this.importHTML.bind(this)
   }
   componentWillReceiveProps (props) {
-    if (!props.initialBlock) return
-    this.setState(this.stateFromBlock(props.initialBlock))
+    // TODO - this but ignore stale data from API???
+    // if (!props.initialBlock) return
+    // this.setState(this.stateFromBlock(props.initialBlock))
   }
   stateFromBlock (block) {
     if (!block) return {}
