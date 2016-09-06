@@ -1,5 +1,10 @@
 ## dev
 
+## 0.21.1 - 2016-09-06
+
+* Fix menu sizing (#275)
+* Show image title and description. Matches how DS uses image block title. (#275)
+
 ## 0.21.0 - 2016-09-05
 
 * Whitelist of transformations that are accepted from `setContent` ... usually these updates were stale API data.
