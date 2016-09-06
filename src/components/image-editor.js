@@ -25,9 +25,9 @@ export default function ImageEditor (props, context) {
   if (hasCover) {
     toggles = el('div'
     , {}
-    , renderToggle('filter', 'Allow filters', filter, onChange, ['coverPrefs', 'filter'], siteCoverPrefs.filter)
-    , renderToggle('crop', 'Allow cropping', crop, onChange, ['coverPrefs', 'crop'], siteCoverPrefs.crop)
-    , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['coverPrefs', 'overlay'], siteCoverPrefs.overlay)
+    , renderToggle('filter', 'Allow filters', filter, onChange, ['metadata', 'coverPrefs', 'filter'], siteCoverPrefs.filter)
+    , renderToggle('crop', 'Allow cropping', crop, onChange, ['metadata', 'coverPrefs', 'crop'], siteCoverPrefs.crop)
+    , renderToggle('overlay', 'Allow overlay', overlay, onChange, ['metadata', 'coverPrefs', 'overlay'], siteCoverPrefs.overlay)
     )
   }
 
@@ -46,7 +46,7 @@ export default function ImageEditor (props, context) {
 
 function renderTextFields (type, title, onChange) {
   if (type !== 'image') return
-  return renderTextField('title', 'Image Hover Title', title, onChange, ['title'], true, '')
+  return renderTextField('title', 'Image Hover Title', title, onChange, ['metadata', 'title'], true, '')
   // TODO alt text: depends on API
   // html-flatten expects caption to be saved in html alt
 }

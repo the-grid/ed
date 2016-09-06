@@ -1,11 +1,15 @@
 ## dev
 
-## 0.21.4 - 2016-09-05
+## 0.20.5 - 2016-09-05
+
+* Fix image dropdown saving for 0.20.4 changes
+
+## 0.20.4 - 2016-09-05
 
 * Fix where CTA widget read / write metadata
 * EXPERIMENTAL - Ignore updates "from above" in CTA widget (can be API data some keystrokes behind current state)
 
-## 0.21.3 - 2016-09-04
+## 0.20.3 - 2016-09-04
 
 * Link inputs `autocapitalize='none'` to help with (#272) on mobile
 
