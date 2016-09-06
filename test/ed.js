@@ -180,6 +180,25 @@ describe('Ed', function () {
       expect(content[4].type.name).to.equal('paragraph')
     })
 
+    it('does not overwrite current metadata with stale', function () {
+      // Inject new image block
+      ed.setContent(
+        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}}
+        ]
+      )
+      let content = ed.getContent()
+      expect(content.length).to.equal(4)
+      expect(content[0].type).to.equal('image')
+      expect(content[0].metadata.title).to.equal('the title')
+      // Set stale data, like from API
+      ed.setContent(
+        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}}
+        ]
+      )
+      content = ed.getContent()
+      expect(content[0].metadata.title).to.equal('the title')
+    })
+
     it('inject placeholder blocks via insertPlaceholders', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)

@@ -227,7 +227,7 @@ function APIToEditor () {
   } catch (e) {
     return console.warn('bad json')
   }
-  setup({initialContent: json, menu})
+  ed.setContent(json)
 }
 document.querySelector('#hydrate').onclick = APIToEditor
 
