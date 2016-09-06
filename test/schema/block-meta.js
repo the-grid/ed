@@ -17,7 +17,7 @@ describe('BlockMeta', function () {
       { type: 'image'
       , metadata:
         { title: 'Title'
-        , caption: 'Description yö'
+        , description: 'Description yö'
         }
       , cover:
         { src: 'http://....jpg'

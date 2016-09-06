@@ -10,12 +10,10 @@ export default function ImageEditor (props, context) {
   const {hasCover
     , allowCoverChange
     , allowCoverRemove
-    , title
     , siteCoverPrefs
     , filter
     , crop
     , overlay
-    , type
     , onChange
     , onUploadRequest
     , onCoverRemove
@@ -34,37 +32,13 @@ export default function ImageEditor (props, context) {
   return el('div'
   , { style:
       { padding: '1rem'
-      , width: 360
+      , width: 288
       , maxWidth: '100%'
       }
     }
-  , renderTextFields(type, title, onChange)
   , toggles
   , (allowCoverChange ? renderUploadButton(onUploadRequest) : null)
   , (allowCoverRemove ? renderRemoveButton(onCoverRemove) : null)
-  )
-}
-
-function renderTextFields (type, title, onChange) {
-  if (type !== 'image') return
-  return renderTextField('title', 'Image Hover Title', title, onChange, ['metadata', 'title'], true, '')
-  // TODO alt text: depends on API
-  // html-flatten expects caption to be saved in html alt
-}
-
-function renderTextField (key, label, value, onChange, path, defaultFocus, placeholder) {
-  return el(TextareaAutosize
-  , { className: `ImageEditor-${key}`
-    , label
-    , defaultValue: value
-    , defaultFocus
-    , key: key
-    , name: key
-    , multiLine: true
-    , style: {width: '100%'}
-    , onChange: makeChange(path, onChange)
-    , placeholder
-    }
   )
 }
 

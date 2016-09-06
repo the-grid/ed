@@ -3,9 +3,9 @@ import encode from '../util/encode'
 
 const blockMetaSchema =
   { image:
-    { title: false
-    , description: false
-    , caption: true
+    { title: true
+    , description: true
+    , caption: false
     , isBasedOnUrl: true
     , cover: true
     , changeCover: true
@@ -81,8 +81,8 @@ function makeImage (block) {
   if (metadata && metadata.title) {
     htmlString += ` title="${encode(metadata.title)}"`
   }
-  if (metadata && metadata.caption) {
-    htmlString += ` alt="${encode(metadata.caption)}"`
+  if (metadata && metadata.description) {
+    htmlString += ` alt="${encode(metadata.description)}"`
   }
   htmlString += '>'
   return htmlString
