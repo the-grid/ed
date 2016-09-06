@@ -26,6 +26,12 @@ const { makeParagraph
   , toggleStrong
   } = menuItems
 
+// Customise labels
+makeHead1.spec.label = 'h1 - Main title'
+makeHead2.spec.label = 'h2 - Section heading'
+makeHead3.spec.label = 'h3 - Subsection heading'
+makeParagraph.spec.label = 'p - Body text'
+
 // Disable these menus on media block selection
 function enableIsText (pm) {
   if (pm.selection && pm.selection.node && !pm.selection.node.isTextblock) {

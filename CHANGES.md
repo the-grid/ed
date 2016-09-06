@@ -1,5 +1,9 @@
 ## dev
 
+## 0.21.2 - 2016-09-06
+
+* Descriptive type labels: h1 - Main title, h2 - Section heading, h3 - Subsection heading, p - Body text
+
 ## 0.21.1 - 2016-09-06
 
 * Fix menu sizing (#275)
