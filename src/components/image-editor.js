@@ -34,7 +34,8 @@ export default function ImageEditor (props, context) {
   return el('div'
   , { style:
       { padding: '1rem'
-      , minWidth: 360
+      , width: 360
+      , maxWidth: '100%'
       }
     }
   , renderTextFields(type, title, onChange)
