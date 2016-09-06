@@ -1,6 +1,5 @@
 import {createElement as el} from 'react'
 
-import TextareaAutosize from './textarea-autosize'
 import Checkbox from 'rebass/dist/Checkbox'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 import ButtonConfirm from './button-confirm'
