@@ -1,5 +1,9 @@
 ## dev
 
+## 0.21.0 - 2016-09-05
+
+* Whitelist of transformations that are accepted from `setContent` ... usually these updates were stale API data.
+
 ## 0.20.5 - 2016-09-05
 
 * Fix image dropdown saving for 0.20.4 changes

@@ -467,7 +467,6 @@ export default class EdStore {
   }
   setContent (content) {
     this._applyTransform(content)
-    this._initializeContent(content)
     // Let widgets know to update
     this.trigger('media.update')
   }
@@ -483,7 +482,7 @@ export default class EdStore {
         this._insertBlocks(i, [block])
         continue
       }
-      if (currentBlock.type !== type) {
+      if (this._applyTransformCheckBlock(currentBlock, block)) {
         const index = indexOfId(this.pm.doc, id)
         if (index === -1) {
           continue
@@ -492,5 +491,12 @@ export default class EdStore {
         continue
       }
     }
+  }
+  // Whitelisted changes that we accept from API... otherwise could be stale data
+  _applyTransformCheckBlock (currentBlock, block) {
+    if (currentBlock.type !== block.type) return true
+    if (!currentBlock.cover && block.cover) return true
+    if (currentBlock.cover && block.cover && currentBlock.cover.src !== block.cover.src) return true
+    return false
   }
 }
