@@ -1,4 +1,7 @@
 ## dev
+* CTA widget
+  * Change checkbox wording to "Link can open in frame"
+  * Change field to `block.metadata.canFrame`
 * UNSUPPORTED widget - clients can have different versions of Ed, so it is important to show placeholders for unsupported blocks (#271)
 
 ## 0.21.2 - 2016-09-06

@@ -38,7 +38,7 @@ class WidgetCta extends React.Component {
       this.onChange(['url'], event.target.value)
     }
     this.changeModal = (event) => {
-      this.onChange(['metadata', 'openAsModal'], event.target.checked)
+      this.onChange(['metadata', 'canFrame'], event.target.checked)
     }
     this.toggleImport = () => {
       const {showImport} = this.state
@@ -58,14 +58,14 @@ class WidgetCta extends React.Component {
   stateFromBlock (block) {
     if (!block) return {}
     const {label, url, metadata} = block
-    let openAsModal = false
-    if (metadata && metadata.openAsModal === true) {
-      openAsModal = true
+    let canFrame = false
+    if (metadata && metadata.canFrame === true) {
+      canFrame = true
     }
-    return {label, url, openAsModal}
+    return {label, url, canFrame}
   }
   render () {
-    const {label, url, openAsModal} = this.state
+    const {label, url, canFrame} = this.state
 
     return el('div'
     , { className: 'WidgetCta'
@@ -94,10 +94,10 @@ class WidgetCta extends React.Component {
           }
         )
       , el(Checkbox
-        , { key: 'openAsModal'
-          , label: 'Open link as modal iframe'
-          , name: 'openAsModal'
-          , checked: (openAsModal === true)
+        , { key: 'canFrame'
+          , label: 'Link can open in frame'
+          , name: 'canFrame'
+          , checked: (canFrame === true)
           , onChange: this.changeModal
           }
         )
@@ -156,7 +156,7 @@ class WidgetCta extends React.Component {
     }
     const {tag, link} = extract
     if (tag === 'iframe') {
-      this.onChange(['metadata', 'openAsModal'], true)
+      this.onChange(['metadata', 'canFrame'], true)
     }
     if (link) {
       this.onChange(['url'], link)
