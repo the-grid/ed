@@ -213,6 +213,7 @@ class AttributionEditor extends React.Component {
         , rel: 'noreferrer noopener'
         , style:
           { textDecoration: 'inherit'
+          , textTransform: 'uppercase'
           }
         }
         , type + ' '

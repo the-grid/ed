@@ -4,12 +4,17 @@ import _ from '../util/lodash'
 import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
 import WidgetCta from './widget-cta'
+import WidgetUnsupported from './widget-unsupported'
 import rebassTheme from './rebass-theme'
 
 const Components =
   { placeholder: Placeholder
   , cta: WidgetCta
-  , attribution: AttributionEditor
+  , image: AttributionEditor
+  , video: AttributionEditor
+  , article: AttributionEditor
+  , interactive: AttributionEditor
+  , unsupported: WidgetUnsupported
   }
 
 
@@ -44,7 +49,7 @@ class Media extends React.Component {
     const {coverPrefs} = this.props
     const {initialBlock, id} = this.state
     const {type} = initialBlock
-    let Component = Components[type] || Components.attribution
+    let Component = Components[type] || Components.unsupported
     return el(Component
     , { initialBlock
       , id

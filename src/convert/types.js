@@ -1,15 +1,15 @@
-const MEDIA_TYPES =
-  [ 'article'
-  , 'audio'
-  , 'code'
-  , 'image'
-  , 'interactive'
-  , 'location'
-  , 'placeholder'
-  , 'share'
-  , 'video'
-  , 'cta'
-  ]
+// const MEDIA_TYPES =
+//   [ 'article'
+//   , 'audio'
+//   , 'code'
+//   , 'image'
+//   , 'interactive'
+//   , 'location'
+//   , 'placeholder'
+//   , 'share'
+//   , 'video'
+//   , 'cta'
+//   ]
 const HTML_TYPES =
   [ 'blockquote'
   , 'h1'
@@ -32,7 +32,8 @@ function contains (array, string) {
 
 
 export function isMediaType (type) {
-  return contains(MEDIA_TYPES, type)
+  // return contains(MEDIA_TYPES, type)
+  return !isHTMLType(type)
 }
 
 export function isHTMLType (type) {

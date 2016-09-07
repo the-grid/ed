@@ -598,6 +598,19 @@ let post = {
     },
     {
       'type': 'text',
+      'html': '<p>An unknown block type... important to keep place in doc flow:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      type: 'unsupported-boo',
+      id: 'uuid-unsupported',
+      metadata: {
+        starred: true,
+        isBasedOnUrl: 'https://meemoo.org/'
+      }
+    },
+    {
+      'type': 'text',
       'html': '<p>It\'s a link cta:</p>',
       'metadata': {'starred': true}
     },

@@ -55,7 +55,7 @@ const blockMetaSchema =
   , cta:
     { label: true
     , link: true
-    , openAsModal: true
+    , canFrame: true
     , makeHtml: makeCTA
     }
   , default:
