@@ -1,4 +1,7 @@
-## dev
+# 1.0.0 🎉 - 2016-09-07
+
+Tagging 1.0.0 in celebration of launching The Grid
+
 * CTA widget
   * Change checkbox wording to "Link can open in frame"
   * Change field to `block.metadata.canFrame`
