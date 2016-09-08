@@ -6,7 +6,7 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 function hasParentWithClassName (el, className) {
   while (el && el.parentNode) {
-    if (el.className === className) {
+    if (el.classList.contains(className)) {
       return true
     }
     el = el.parentNode
@@ -144,9 +144,11 @@ class DropdownGroup extends React.Component {
   }
   closeMenu (event) {
     // Hack since we can't stopPropagation to body
-    if (event.type === 'click' && hasParentWithClassName(event.srcElement, 'DropdownGroup')) {
+    if (event.type === 'click' && hasParentWithClassName(event.target, 'DropdownGroup')) {
+      // Keep open
       return
     }
+    // Close menu
     const {openMenu} = this.state
     if (openMenu != null) {
       this.setState({openMenu: null})

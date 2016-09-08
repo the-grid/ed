@@ -1,6 +1,11 @@
 ### dev
 
+
+
+### 1.0.1 - 2016-09-08
+
 * ed-userhtml 0.2.1 adds height input, fixes text getting stripped by API
+* Fix overeager menu dismissing (#277)
 
 # 1.0.0 🎉 - 2016-09-07
 
