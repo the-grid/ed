@@ -1,3 +1,7 @@
+### dev
+
+* ed-userhtml 0.2.0 adds height input, fixes text getting stripped by API
+
 # 1.0.0 🎉 - 2016-09-07
 
 Tagging 1.0.0 in celebration of launching The Grid
