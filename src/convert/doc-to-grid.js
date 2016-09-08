@@ -68,6 +68,7 @@ function trimContent (content) {
       , 'price'
       , 'label'
       , 'url'
+      , 'height'
       ]
     )
     if (cleaned.cover) {
