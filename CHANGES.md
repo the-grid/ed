@@ -19,11 +19,11 @@ Tagging 1.0.0 in celebration of launching The Grid
   * Change field to `block.metadata.canFrame`
 * UNSUPPORTED widget - clients can have different versions of Ed, so it is important to show placeholders for unsupported blocks (#271)
 
-## 0.21.2 - 2016-09-06
+### 0.21.2 - 2016-09-06
 
 * Descriptive type labels: h1 - Main title, h2 - Section heading, h3 - Subsection heading, p - Body text
 
-## 0.21.1 - 2016-09-06
+### 0.21.1 - 2016-09-06
 
 * Fix menu sizing (#275)
 * Show image title and description. Matches how DS uses image block title. (#275)
@@ -32,24 +32,24 @@ Tagging 1.0.0 in celebration of launching The Grid
 
 * Whitelist of transformations that are accepted from `setContent` ... usually these updates were stale API data.
 
-## 0.20.5 - 2016-09-05
+### 0.20.5 - 2016-09-05
 
 * Fix image dropdown saving for 0.20.4 changes
 
-## 0.20.4 - 2016-09-05
+### 0.20.4 - 2016-09-05
 
 * Fix where CTA widget read / write metadata
 * EXPERIMENTAL - Ignore updates "from above" in CTA widget (can be API data some keystrokes behind current state)
 
-## 0.20.3 - 2016-09-04
+### 0.20.3 - 2016-09-04
 
 * Link inputs `autocapitalize='none'` to help with (#272) on mobile
 
-## 0.20.2 - 2016-09-04
+### 0.20.2 - 2016-09-04
 
 * Attempt to suppress Safari contenteditable formatting ("BIU" tooltip)
 
-## 0.20.1 - 2016-09-04
+### 0.20.1 - 2016-09-04
 
 * JS safety with valid url testing
 
@@ -57,23 +57,23 @@ Tagging 1.0.0 in celebration of launching The Grid
 
 * Menu to add & widget to edit basic link CTA. Command key `ed_add_cta`
 
-## 0.19.5 - 2016-08-20
+### 0.19.5 - 2016-08-20
 
 * [ed-userhtml 0.1.0](https://github.com/the-grid/ed-userhtml/blob/master/CHANGES.md#010-2016-08-23)
 
-## 0.19.4 - 2016-08-20
+### 0.19.4 - 2016-08-20
 
 * Whitelist `block.text` to match what ced outputs.
 
-## 0.19.3 - 2016-08-16
+### 0.19.3 - 2016-08-16
 
 * NEW -- [ed-userhtml](https://github.com/the-grid/ed-userhtml) widget for interactive/userhtml blocks
 
-## 0.19.2 - 2016-08-04
+### 0.19.2 - 2016-08-04
 
 * ▶ Link for video, audio, interactive in top-right of blocks, opens in new window. (#260)
 
-## 0.19.1 - 2016-08-01
+### 0.19.1 - 2016-08-01
 
 * FIX -- `ed.setCoverPreview` fixed
 
@@ -81,13 +81,13 @@ Tagging 1.0.0 in celebration of launching The Grid
 
 * NEW -- optional `props.coverPrefs: {filter, crop, overlay}` for site-wide cover preferences. Boolean, default true. (#223)
 
-## 0.18.2 - 2016-07-29
+### 0.18.2 - 2016-07-29
 
 * FIX -- [ProseMirror 0.9.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#091-2016-07-29) -- fixes paste hr and media blocks (#252)
 * Update React to 15.2.1
 * Update more dependencies
 
-## 0.18.1 - 2016-07-15
+### 0.18.1 - 2016-07-15
 
 * Perf boost for when setContent is hit with old news
 
@@ -100,42 +100,42 @@ Tagging 1.0.0 in celebration of launching The Grid
 * `ed.updateProgress(id, {progress: null})` will now remove progress bar
 * `ed.updateProgress(id, {failed: true})` will now show an error message and retry button
 
-## 0.17.8 - 2016-07-14
+### 0.17.8 - 2016-07-14
 
 * Dismiss meta dropdown by clicking out of menu or focusing editable (#229)
 
-## 0.17.7 - 2016-07-13
+### 0.17.7 - 2016-07-13
 
 * Patch [ProseMirror 0.8.3](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#083-2016-06-28)
 
-## 0.17.6 - 2016-06-27
+### 0.17.6 - 2016-06-27
 
 * Updates ed-location to 2.0.0, which outputs block html as an iframe of a [simple map viewer](https://the-grid.github.io/ed-location/?latitude=68.55260186877743&longitude=22.666168212890625&zoom=5&address=Enonteki%C3%B6%2C%20Lappi%2C%20Finland)
 
-## 0.17.5 - 2016-06-24
+### 0.17.5 - 2016-06-24
 
 * Swallow file drop on iframe widgets (won't redirect editor to local image)
 * Drop style tweak
 
-## 0.17.4 - 2016-06-23
+### 0.17.4 - 2016-06-23
 
 * NEW -- Images can be removed from `article` blocks (#243)
 * Less-chunky metadata editing on small screens (#236)
 * Disable ProseMirror format menu on media block selection
 * Indicator to drop file on block (#235)
 
-## 0.17.3 - 2016-06-22
+### 0.17.3 - 2016-06-22
 
 * UI in menus add code and location blocks (#245)
   * `ed_add_code` and `ed_add_location` added to [commands](https://github.com/the-grid/ed#commands)
 * Show coverPrefs when there is a cover. Show upload when that's allowed.
 * `getContent` whitelist cover unsalvageable, so `{id, type, html, metadata, cover: {src, width, height, unsalvageable}}`
 
-## 0.17.2 - 2016-06-21
+### 0.17.2 - 2016-06-21
 
 * Use rsync for `npm run copycss`
 
-## 0.17.1 - 2016-06-21
+### 0.17.1 - 2016-06-21
 
 * Copy css to dist with build
 
@@ -157,7 +157,7 @@ Tagging 1.0.0 in celebration of launching The Grid
 * `props.widgetPath` for the iframe widget base directory. Defaults to `'./node_modules/'`
 * Add `location` widget (no UI to add yet)
 
-## 0.14.1 - 2016-06-08
+### 0.14.1 - 2016-06-08
 
 * Focus new iframe widget (type ``` to test with code block)
 * NEW -- optional `options.onDropFileOnBlock(id, file)` to a block's cover
@@ -166,7 +166,7 @@ Tagging 1.0.0 in celebration of launching The Grid
 
 * NEW -- optional `options.onDropFiles(index, files)` to drop files into editor flow
 
-## 0.13.2 - 2016-06-02
+### 0.13.2 - 2016-06-02
 
 * Render image with hover `title`
 * Attribution `via` can be added and edited (#114)
@@ -175,7 +175,7 @@ Tagging 1.0.0 in celebration of launching The Grid
 * Media / attribution style tweak, put image back in box (#226)
 * Remove attribution (#225)
 
-## 0.13.1 - 2016-05-31
+### 0.13.1 - 2016-05-31
 
 * "Image" menu on blocks
   * "Upload New Image" button moved here
@@ -194,26 +194,26 @@ Tagging 1.0.0 in celebration of launching The Grid
   * See Readme and Demo
 * Added blocks with various states to [/#fixture](https://the-grid.github.io/ed/#fixture), to help with dev and styling
 
-## 0.12.7 - 2016-05-28
+### 0.12.7 - 2016-05-28
 
 * Build fix "It looks like you're using a minified copy of the development build of React" error.
 
-## 0.12.6 - 2016-05-28
+### 0.12.6 - 2016-05-28
 
 * Fix negative margin in block without cover
 * Update block cover from app (#216)
 
-## 0.12.5 - 2016-05-27
+### 0.12.5 - 2016-05-27
 
 * On conversion to full post, scroll to focused title
 
-## 0.12.4 - 2016-05-27
+### 0.12.4 - 2016-05-27
 
 * Space media with blank `p`: easier focus on mobile
 * Skip empty blocks with `getContent` (#204)
 * Focus on load
 
-## 0.12.3 - 2016-05-26
+### 0.12.3 - 2016-05-26
 
 * Add label to Author & Publisher dropdown (#203)
 * Validate urls added as attribution; don't trigger change events while invalid (#129)
@@ -223,12 +223,12 @@ Tagging 1.0.0 in celebration of launching The Grid
   * reshow buttons if `hr` or cover image is removed
   * focus editable after click
 
-## 0.12.2 - 2016-05-25
+### 0.12.2 - 2016-05-25
 
 * Style fix for attribution buttons (#205)
 * Placeholder plugin for empty h1 and paragraph (#202)
 
-## 0.12.1 - 2016-05-24
+### 0.12.1 - 2016-05-24
 
 * Fix gh-pages code editor includes
 
@@ -258,33 +258,33 @@ Major fixes, but API is stable from 0.10.x tag.
 * Change fold copy
 * Change integration-points for Webapp, so that attribution-editor can have updatetable progressbars (subject to change in future)
 
-## 0.10.7 - 2016-04-22
+### 0.10.7 - 2016-04-22
 
 * Styling small screen button 100% width
 
-## 0.10.6 - 2016-04-21
+### 0.10.6 - 2016-04-21
 
 * Styling for small screen first (#187)
 
-## 0.10.5 - 2016-04-19
+### 0.10.5 - 2016-04-19
 
 * FIX -- "Upload Image" button was triggering `onShareFile` callback twice (#179)
 
-## 0.10.4 - 2016-04-19
+### 0.10.4 - 2016-04-19
 
 * Functions in [block schema](./src/schema/block-meta.js) for regenerating html on metadata changes. (#182)
 * Styling meta titles for small screens (#176)
 
-## 0.10.3 - 2016-04-18
+### 0.10.3 - 2016-04-18
 
 * Styling covers like cards (#177)
 
-## 0.10.2 - 2016-04-17
+### 0.10.2 - 2016-04-17
 
 * Autofocus fold textarea
 * FIX -- React issue with fold textarea-autosize (#176)
 
-## 0.10.1 - 2016-04-15
+### 0.10.1 - 2016-04-15
 
 * [ProseMirror 0.6.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#061-2016-04-15) -- iOS and Android :heart:
 * Fixed `ed.execCommand('ed_upload_image')`
@@ -295,16 +295,16 @@ Major fixes, but API is stable from 0.10.x tag.
 * NEW -- `options.onCommandsChanged` to get changing commands in a native toolbar (#173)
 * NEW -- `ed.execCommand` to apply a command from an app
 
-## 0.9.3 - 2016-04-15
+### 0.9.3 - 2016-04-15
 
 * FIX -- Range errors around media divs 
 * NEW -- `options.onMount` called once editable and widgets are initialized
 
-## 0.9.2 - 2016-04-13
+### 0.9.2 - 2016-04-13
 
 * FIX -- "Upload Image" button in Firefox works now
 
-## 0.9.1 - 2016-04-13
+### 0.9.1 - 2016-04-13
 
 * [ProseMirror 0.6.0](https://discuss.prosemirror.net/t/release-0-6-0/284)
 * Upload image toolbar button doesn't need to be on blank line
@@ -316,16 +316,16 @@ Major fixes, but API is stable from 0.10.x tag.
   * Type above fold then share photo: photo is above fold and text becomes a paragraph below
   * Start typing above the fold, then click "Add More" to reveal full editor
 
-## 0.8.3 - 2016-04-01
+### 0.8.3 - 2016-04-01
 
 * Style above and below fold media @narrowdesign
 
-## 0.8.2 - 2016-04-01
+### 0.8.2 - 2016-04-01
 
 * Dependencies (react, babel, lodash)
 * ced 0.1.2 -- fixes firefox not showing language dropdown, and overzealous encoding
 
-## 0.8.1 - 2016-03-31
+### 0.8.1 - 2016-03-31
 
 * FIX -- setCoverPreview was trigging fold block change when it shouldn't have (#150)
 
@@ -339,18 +339,18 @@ Major fixes, but API is stable from 0.10.x tag.
   * Preview takes precedence over content array version of `cover.src`
   * Setting src `null` will show real cover
 
-## 0.7.3 - 2016-03-24
+### 0.7.3 - 2016-03-24
 
 * @narrowdesign 1st style/ux pass (#139)
 * ProseMirror 0.5.1
 * FIX -- iframe cut / paste works (#19)
 * FIX -- all media copy / paste works (#140)
 
-## 0.7.2 - 2016-03-22
+### 0.7.2 - 2016-03-22
 
 * Hotfix demo for 0.7.0 change to `ed.updatePlaceholder` arguments
 
-## 0.7.1 - 2016-03-22
+### 0.7.1 - 2016-03-22
 
 * Update to [ProseMirror 0.5.0](https://discuss.prosemirror.net/t/release-0-5-0/246)
   * Fixes (re)focus showing empty block menu (#125)
@@ -361,11 +361,11 @@ Major fixes, but API is stable from 0.10.x tag.
 * BREAKING - changed arguments for `ed.updatePlaceholder` to `id, {status, progress, failed}`
   * Placholder block `metadata.failed` will show in red and have an "×" button to remove
 
-## 0.6.2 - 2016-03-20
+### 0.6.2 - 2016-03-20
 
 * Hotfix `ed.getContent()` on :iphone: (#105)
 
-## 0.6.1 - 2016-03-18
+### 0.6.1 - 2016-03-18
 
 * Demo starts blank to test the initial flow
 * Demo [/#fixture](https://the-grid.github.io/ed/#fixture) loads the fixture: useful for reloading and debugging
@@ -394,35 +394,35 @@ Major fixes, but API is stable from 0.10.x tag.
 * BREAKING -- `options.[menuBar|menuTip]` made camelCase
 * BREAKING -- no more `options.onAutosave`: apps will do that logic
 
-## 0.4.7 - 2016-03-01
+### 0.4.7 - 2016-03-01
 
 * Popovers don't autohide on scroll, makes meta editing easier on Android
 * :apple: Pulldown negative scroll accounted for with menu (#98)
 
-## 0.4.6 - 2016-02-29
+### 0.4.6 - 2016-02-29
 
 * Space first, last, and subsequent media blocks with empty paragraphs (#94)
 * Tap editable bottom padding focuses end... works better than tap-add-text plugin
 * Tests and logic to convert irregular Grid types `quote` and `text` (#93)
 
-## 0.4.5 - 2016-02-29
+### 0.4.5 - 2016-02-29
 
 * :apple: Smoother "fixed" menu hack
 
-## 0.4.4 - 2016-02-27
+### 0.4.4 - 2016-02-27
 
 * :apple: FIX -- in iOS only menubar sticky by `absolute`, not `fixed` (#69 try again)
 
-## 0.4.3 - 2016-02-26
+### 0.4.3 - 2016-02-26
 
 * :apple: FIX -- menubar sticky by CSS, not JS (#69)
 
-## 0.4.2 - 2016-02-25
+### 0.4.2 - 2016-02-25
 
 * [ProseMirror 0.4.0](https://discuss.prosemirror.net/t/release-0-4-0/195)
 * FIX -- `setContent` could merge with outdated cached version of content (#72)
 
-## 0.4.1 - 2016-02-22
+### 0.4.1 - 2016-02-22
 
 * NEW -- tap under PM content to add and focus a new text block
 
@@ -432,7 +432,7 @@ Major fixes, but API is stable from 0.10.x tag.
   * `ed.insertPlaceholders(index, count)` will insert placeholders and return an array or new block ids
   * `ed.updatePlaceholder(id, status, progress)` will update a placeholder widget (`progress` is optional, 0-100)
 
-## 0.3.2 - 2016-02-19
+### 0.3.2 - 2016-02-19
 
 * PM is initialized with initialContent (simplifies constructor and tests)
 * FIX -- Metadata changes also bounce onAutosave
@@ -443,7 +443,7 @@ Major fixes, but API is stable from 0.10.x tag.
 * NEW -- Placeholder blocks can now have `metadata.progress` (0-100) for a progress bar.
 * Couple `ed.plugin.widget` events to make tests more solid.
 
-## 0.3.1 - 2016-02-16
+### 0.3.1 - 2016-02-16
 
 * Widgets now reinitialize when block type changes.
 
@@ -458,7 +458,7 @@ Major fixes, but API is stable from 0.10.x tag.
 * Fixed placeholder merging logic: `setContent` can only add placeholders or convert them to real blocks.
 * Tests!
 
-## 0.1.1 - 2016-02-15
+### 0.1.1 - 2016-02-15
 
 * Padding tweaks for menubar
 * "Upload Image" button in menubar
@@ -470,38 +470,38 @@ Major fixes, but API is stable from 0.10.x tag.
 * BREAKING -- Ed is now responsible for creating and inserting the placeholder before hitting `.onShareUrl` ([demo](./demo/demo.js)).
 
 
-## 0.0.40 - 2016-02-12
+### 0.0.40 - 2016-02-12
 
 * Fix selection when `setContent` splices in non-focusable Media nodes.
 
-## 0.0.39 - 2016-02-09
+### 0.0.39 - 2016-02-09
 
 * Fix "Upload Image" in new line menu.
 
-## 0.0.38 - 2016-02-09
+### 0.0.38 - 2016-02-09
 
 * Ed `options.imgfloConfig = {server, key, secret}` for sizing and proxying images through imgflo
   * If not present (as in demo), will continue to load images directly
   * All images are proxied (currently `block.cover.src` and `block.metadata.author[n].avatar`)
 * Metadata editing works, triggering same `ed.onChange` as other edits
 
-## 0.0.37 - 2016-02-07
+### 0.0.37 - 2016-02-07
 
 * [ProseMirror 0.3.0](https://discuss.prosemirror.net/t/release-0-3-0/160)
 
-## 0.0.35 - 2016-02-02
+### 0.0.35 - 2016-02-02
 
 * No interface changes. Tweaks to demo file input dance.
 
-## 0.0.34 - 2016-01-31
+### 0.0.34 - 2016-01-31
 
 * [Demo implementation](./demo/demo.js) of Ed's `options.onShareUrl`
 * [Placeholder component](./src/plugins/components/placeholder.js) to show placeholder metadata.status for uploads and shares
 
-## 0.0.33 - 2016-01-29
+### 0.0.33 - 2016-01-29
 
 * Updated to [ProseMirror 0.2.0](https://discuss.prosemirror.net/t/release-0-2-0/154/1)
 
-## 0.0.32 - 2016-01-29
+### 0.0.32 - 2016-01-29
 
 * [Demo implementation](./demo/demo.js) of Ed's `options.onShareFile`
