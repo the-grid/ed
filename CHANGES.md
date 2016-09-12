@@ -1,6 +1,9 @@
 ### dev
 
 
+### 1.0.2 - 2016-09-12
+
+* [ProseMirror 0.10.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#0101-2016-09-12)
 
 ### 1.0.1 - 2016-09-08
 
