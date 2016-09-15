@@ -162,7 +162,7 @@
 }
 
 .ProseMirror-content hr::after {
-  content: 'Above this line will render on the home page.';
+  content: 'Below this line will render on the item page.';
   display: block;
   position: relative;
   opacity: 0.5;
