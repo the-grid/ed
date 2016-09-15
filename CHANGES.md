@@ -1,5 +1,6 @@
 ### dev
 
+* Fold wording - "Below this line will render on the item page."
 
 ### 1.0.2 - 2016-09-12
 
