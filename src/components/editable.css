@@ -162,7 +162,7 @@
 }
 
 .ProseMirror-content hr::after {
-  content: 'Adding content below this line will make a separate page for this post.';
+  content: 'Above this line will render on the home page.';
   display: block;
   position: relative;
   opacity: 0.5;
