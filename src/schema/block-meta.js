@@ -151,7 +151,7 @@ function makeDataString (block) {
 }
 
 function makeQuote (block) {
-  if (block.metadata && block.metadata.description) {
+  if (block.metadata && block.metadata.hasOwnProperty('description')) {
     return `<blockquote>${encode(block.metadata.description)}</blockquote>`
   }
   if (block.html) {
