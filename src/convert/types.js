@@ -6,6 +6,7 @@
 //   , 'interactive'
 //   , 'location'
 //   , 'placeholder'
+//   , 'quote'
 //   , 'share'
 //   , 'video'
 //   , 'cta'
@@ -21,7 +22,6 @@ const HTML_TYPES =
   , 'list'
   , 'ol'
   , 'p'
-  , 'quote'
   , 'text'
   , 'ul'
   ]

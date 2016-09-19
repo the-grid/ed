@@ -11,7 +11,7 @@ describe('GridToDoc', function () {
       , {type: 'text', html: '<p>paragraph 1</p>', metadata: {starred: true}}
       , {type: 'h2', html: '<h2>heading 2</h2>'}
       , {type: 'h3', html: '<h3>heading 3</h3>'}
-      , {type: 'quote', html: '<blockquote>bq</blockquote>'}
+      , {id: 'quote-0000', type: 'quote', html: '<blockquote>bq</blockquote>'}
       , {id: 'video-0000', type: 'video'}
       ]
 
@@ -45,13 +45,16 @@ describe('GridToDoc', function () {
           , 'attrs': {'level': 3}
           , 'content': [{'type': 'text', 'text': 'heading 3'}]
           }
-        , { 'type': 'blockquote'
-          , 'content':
-            [ { 'type': 'paragraph'
-              , 'content': [{'type': 'text', 'text': 'bq'}]
-              }
-            ]
+        , { 'type': 'media'
+          , 'attrs':
+            { 'id': 'quote-0000'
+            , 'type': 'quote'
+            , 'widget': 'quote'
+            , initialHeight: 72
+            , initialFocus: false
+            }
           }
+        , { 'type': 'paragraph' }
         , { 'type': 'media'
           , 'attrs':
             { 'id': 'video-0000'

@@ -49,13 +49,13 @@ class AttributionEditor extends React.Component {
   render () {
     const {coverPrefs} = this.props
     const {block} = this.state
-    const {type, metadata, cover} = block
+    const {type, metadata, cover, html} = block
     const schema = blockMetaSchema[type] || blockMetaSchema.default
 
     const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove, coverPrefs)
 
     return el('div'
-      , { className: 'AttributionEditor'
+      , { className: `AttributionEditor AttributionEditor-${type}`
         , style: widgetStyle
         , onDragOver: this.boundOnDragOver
         , onDragEnter: this.boundOnDragEnter
@@ -73,7 +73,7 @@ class AttributionEditor extends React.Component {
             { position: 'relative'
             }
           }
-        , renderFields(schema, metadata, this.boundOnChange)
+        , renderFields(schema, metadata, this.boundOnChange, type, html)
         , el('div'
           , { className: 'AttributionEditor-links'
             , style:
@@ -369,13 +369,24 @@ function makeChange (path, onChange) {
   }
 }
 
-function renderFields (schema, metadata = {}, onChange) {
+function renderFields (schema, metadata = {}, onChange, type, html) {
   let fields = []
   if (schema.title) {
     fields.push(renderTextField('title', 'TITLE', metadata.title, onChange))
   }
   if (schema.description) {
-    fields.push(renderTextField('description', 'DESCRIPTION', metadata.description, onChange))
+    let placeholder = 'Enter description'
+    if (type === 'quote') {
+      placeholder = 'Enter quote'
+    }
+    let value = metadata.description
+    if (type === 'quote' && !metadata.hasOwnProperty('description') && html) {
+      // HACK :see_no_evil:
+      const dummy = document.createElement('div')
+      dummy.innerHTML = html
+      value = dummy.textContent
+    }
+    fields.push(renderTextField('description', 'DESCRIPTION', value, onChange, placeholder))
   }
   if (schema.caption) {
     fields.push(renderTextField('caption', 'CAPTION', metadata.caption, onChange))
@@ -383,10 +394,10 @@ function renderFields (schema, metadata = {}, onChange) {
   return fields
 }
 
-function renderTextField (key, label, value, onChange) {
+function renderTextField (key, label, value, onChange, placeholder) {
   return el(TextareaAutosize
   , { className: `AttributionEditor-${key}`
-    , placeholder: `Enter ${key}`
+    , placeholder: placeholder || `Enter ${key}`
     , defaultValue: value
     , key: key
     , onChange: makeChange(['metadata', key], onChange)

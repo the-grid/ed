@@ -14,6 +14,7 @@ const Components =
   , video: AttributionEditor
   , article: AttributionEditor
   , interactive: AttributionEditor
+  , quote: AttributionEditor
   , unsupported: WidgetUnsupported
   }
 

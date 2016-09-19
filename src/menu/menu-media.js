@@ -1,4 +1,4 @@
-import {MenuItem, Dropdown} from 'prosemirror/dist/menu/menu'
+import {MenuItem, Dropdown, icons} from 'prosemirror/dist/menu/menu'
 import {focusedIndex, isCollapsed} from '../util/pm'
 
 function select (pm) {
@@ -12,14 +12,22 @@ function makeMenu (label, type, widgetType) {
     pm.ed.routeChange('ADD_MEDIA', {index, type, widgetType})
   }
 
+  let icon
+  if (type === 'quote') {
+    icon = icons.blockquote
+  }
+
   return new MenuItem(
     { label
     , title: `make new ${widgetType || type} block`
     , run
     , select
+    , icon
     }
   )
 }
+
+export const menuQuote = makeMenu('Quote', 'quote')
 
 export const menuLocation = makeMenu('Map', 'location')
 

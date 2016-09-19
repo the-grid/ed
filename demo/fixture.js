@@ -6,12 +6,12 @@ let tweet = {
   'id': 'uuid-tweet',
   'item': '926db660-ed6c-43f6-b838-56ac6a527034',
   'type': 'quote',
-  'html': `<blockquote>${getHappyLittlePhrase()}</blockquote>`,
+  'html': `<blockquote>https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.</blockquote>`,
   'score': 0,
   'created_at': '2015-02-23T21:10:10.383Z',
   'updated_at': null,
   'metadata': {
-    'starred': false,
+    'starred': true,
     'author': [{
       'name': 'jasonfried',
       'url': 'http://twitter.com/jasonfried',
@@ -36,7 +36,7 @@ let tweet = {
       'domain': 'twitter.com'
     },
     'keywords': ['jasonfried', 'thegridio', 'https', 'thegrid', 'dracula_x', 'conceptually', 'location', 'websites', 'sure', 'waynepelletier'],
-    'description': 'https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.',
+    // 'description': 'https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.',
     'inLanguage': 'English',
     '@type': 'Comment',
     'app_links': [],
@@ -596,6 +596,7 @@ let post = {
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       'metadata': {'starred': true}
     },
+    tweet,
     {
       'type': 'text',
       'html': '<p>An unknown block type... important to keep place in doc flow:</p>',
@@ -739,7 +740,6 @@ let post = {
       'html': `<h2>${getHappyLittlePhrase()}</h2>`
     },
     article,
-    tweet,
     {
       'id': 'abc-00000000-h3',
       'type': 'h3',

@@ -114,7 +114,7 @@ describe('PluginWidget', function () {
         const widget = plugin.widgets['0000']
         expect(widget).to.exist
         expect(widget.type).to.equal('image')
-        expect(widget.el.firstChild.className).to.equal('AttributionEditor')
+        expect(widget.el.firstChild.className).to.equal('AttributionEditor AttributionEditor-image')
         done()
       })
 

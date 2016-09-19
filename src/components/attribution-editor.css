@@ -18,6 +18,31 @@
   opacity: 1 !important;
 }
 
+
+.AttributionEditor-quote {
+  border-width: 0 0 0 1px !important;
+  padding: 0 0 0 64px !important;
+}
+
+.AttributionEditor-quote:before {
+  font-size: 96px;
+  line-height: 100%;
+
+  color: hsl(0, 0%, 80%);
+
+  content: '“';
+  font-family: Georgia;
+  position: absolute;
+  margin-top: 0;
+  left: 10px;
+}
+
+.AttributionEditor-quote .AttributionEditor-description textarea {
+  font-size: 24px !important;
+  line-height: 1.45 !important;
+}
+
+
 @media screen and (max-width: 500px){
   .AttributionEditor .Menu {
     width: 100%;

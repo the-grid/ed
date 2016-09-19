@@ -5,7 +5,6 @@ import {Schema} from 'prosemirror/dist/model'
 
 import { Doc
   , Heading
-  , BlockQuote
   , Paragraph
   , HorizontalRule
   , BulletList
@@ -29,7 +28,7 @@ const EdSchema = new Schema(
   { nodes:
     { doc: {type: Doc, content: '(block | topblock)+'}
     , paragraph: {type: Paragraph, content: 'inline<_>*', group: 'block'}
-    , blockquote: {type: BlockQuote, content: 'block+', group: 'topblock'}
+    // , blockquote: {type: BlockQuote, content: 'block+', group: 'topblock'}
     , ordered_list: {type: OrderedList, content: 'list_item+', group: 'block'}
     , bullet_list: {type: BulletList, content: 'list_item+', group: 'block'}
     , horizontal_rule: {type: HorizontalRule, group: 'topblock'}

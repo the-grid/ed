@@ -42,7 +42,7 @@ const blockMetaSchema =
     }
   , quote:
     { title: false
-    , description: false
+    , description: true
     , caption: false
     , isBasedOnUrl: true
     , cover: false
@@ -51,6 +51,7 @@ const blockMetaSchema =
     , author: true
     , publisher: true
     , via: true
+    , makeHtml: makeQuote
     }
   , cta:
     { label: true
@@ -147,6 +148,16 @@ function makeDataString (block) {
     str += ` data-${field}="${encode(block[field])}"`
   }
   return str
+}
+
+function makeQuote (block) {
+  if (block.metadata && block.metadata.description) {
+    return `<blockquote>${encode(block.metadata.description)}</blockquote>`
+  }
+  if (block.html) {
+    return block.html
+  }
+  return '<blockquote></blockquote>'
 }
 
 export default blockMetaSchema
