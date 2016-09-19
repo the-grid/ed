@@ -1,6 +1,15 @@
 ### dev
 
 
+## 1.1.0 - 2016-09-19
+
+* Fold wording - "Below this line will render on the item page."
+* BREAKING - `quote` blocks treated as media, so we can read and write attribution; formatting will be lost (#279)
+  * Remove `blockquote:wrap` command
+  * Add `ed_add_quote` command
+  * DEBT - the hack to get the text from `metadata.description` or `html` is 🙈 ... ideally we would support formatting and attribution, but for now it is a choice
+    * (New "debt" tag in changelog: hopefully these items will be paid off (made nice) in later versions)
+
 ### 1.0.2 - 2016-09-12
 
 * [ProseMirror 0.10.1](https://github.com/ProseMirror/prosemirror/blob/master/CHANGELOG.md#0101-2016-09-12)

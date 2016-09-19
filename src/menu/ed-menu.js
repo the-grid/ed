@@ -11,6 +11,7 @@ import { menuMedia
   , menuLocation
   , menuUserhtml
   , menuCta
+  , menuQuote
   } from './menu-media'
 
 const menuItems = buildMenuItems(EdSchema)
@@ -18,7 +19,6 @@ const { makeParagraph
   , makeHead1
   , makeHead2
   , makeHead3
-  , wrapBlockQuote
   , wrapBulletList
   , wrapOrderedList
   , toggleEm
@@ -55,7 +55,6 @@ export const edCommands =
   , 'heading:make3': makeHead3
   , 'bullet_list:wrap': wrapBulletList
   , 'ordered_list:wrap': wrapOrderedList
-  , 'blockquote:wrap': wrapBlockQuote
   , 'lift': liftItem
   , 'undo': undoItem
   , 'redo': redoItem
@@ -64,6 +63,7 @@ export const edCommands =
   , 'ed_add_location': menuLocation
   , 'ed_add_userhtml': menuUserhtml
   , 'ed_add_cta': menuCta
+  , 'ed_add_quote': menuQuote
   }
 
 const typeDropdown = new Dropdown(
@@ -79,7 +79,7 @@ export const edBlockMenu =
   [ [ typeDropdown ]
   , [ wrapBulletList
     , wrapOrderedList
-    , wrapBlockQuote
+    , menuQuote
     , liftItem
     ]
   , [ menuImage ]

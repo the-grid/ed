@@ -15,13 +15,11 @@ export default class PluginContentHints {
     this.pm = pm
     this.ed = options.ed
 
-    window.addEventListener('resize', this.debouncedDocChanged)
     this.updater = pm.updateScheduler([pm.on.change], this.debouncedDocChanged)
     this.updater.force()
   }
   detach () {
     this.updater.detach()
-    window.removeEventListener('resize', this.debouncedDocChanged)
   }
   onDocChanged () {
     // Should use debounced version

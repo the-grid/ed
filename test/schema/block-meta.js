@@ -79,6 +79,23 @@ describe('BlockMeta', function () {
       survivesHtmlFlatten(cta, done)
     })
   })
+
+  describe('Type quote', function () {
+    const quote =
+      { type: 'quote'
+      , metadata: { description: 'quö' }
+      }
+
+    it('gives expected html out', function () {
+      const html = BlockMeta.quote.makeHtml(quote)
+      expect(html).to.equal(
+        '<blockquote>qu&ouml;</blockquote>'
+      )
+    })
+    it('gives html that survives html-flatten', function (done) {
+      survivesHtmlFlatten(quote, done)
+    })
+  })
 })
 
 function survivesHtmlFlatten (block, done) {

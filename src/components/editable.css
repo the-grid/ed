@@ -92,32 +92,6 @@
   font-size: 20px !important;
 }
 
-.ProseMirror-content blockquote {
-  font-size: 110%;
-  line-height: 1.45 !important;
-}
-
-.ProseMirror-content > blockquote {
-  color: hsl(0,0%,30%);
-  position: relative;
-  padding-left: 1.5em;
-  border-left: none;
-  margin-left: 0;
-  margin-right: 0;
-}
-.ProseMirror-content > blockquote:before {
-  font-size: 250%;
-  line-height: 100%;
-
-  color: hsl(0, 0%, 70%);
-
-  content: '“';
-  font-family: Georgia;
-  position: absolute;
-  margin-top: 0;
-  left: 0;
-}
-
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
   margin-top: 0.3em;
   padding-top: 0px;
@@ -162,7 +136,7 @@
 }
 
 .ProseMirror-content hr::after {
-  content: 'Adding content below this line will make a separate page for this post.';
+  content: 'Below this line will render on the item page.';
   display: block;
   position: relative;
   opacity: 0.5;

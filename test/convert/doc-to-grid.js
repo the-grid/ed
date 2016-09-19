@@ -15,7 +15,6 @@ describe('DocToGrid', function () {
       , {type: 'h2', html: '<h2>heading 2</h2>', metadata: { starred: false }}
       , {type: 'h3', html: '<h3>heading 3</h3>', metadata: { starred: false }}
       , {id: 'video-0000', type: 'video', metadata: {starred: false}}
-      , {type: 'quote', html: '<blockquote><p>bq</p></blockquote>', metadata: { starred: false }}
       ]
     const map = {}
     for (let i = 0, len = content.length; i < len; i++) {
@@ -59,13 +58,6 @@ describe('DocToGrid', function () {
             , 'widget': 'video'
             , 'height': 50
             }
-          }
-        , { 'type': 'blockquote'
-          , 'content':
-            [ { 'type': 'paragraph'
-              , 'content': [{'type': 'text', 'text': 'bq'}]
-              }
-            ]
           }
         ]
       }

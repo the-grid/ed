@@ -167,7 +167,6 @@ heading:make2
 heading:make3
 bullet_list:wrap
 ordered_list:wrap
-blockquote:wrap
 lift
 undo
 redo
@@ -176,6 +175,7 @@ ed_add_code
 ed_add_location
 ed_add_userhtml
 ed_add_cta
+ed_add_quote
 ```
 
 # dev
