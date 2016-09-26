@@ -5,7 +5,6 @@ import TextareaAutosize from './textarea-autosize'
 import {isUrlOrBlank} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
-import ButtonOutline from 'rebass/dist/ButtonOutline'
 import ButtonConfirm from './button-confirm'
 
 
