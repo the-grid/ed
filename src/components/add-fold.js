@@ -23,7 +23,7 @@ class AddFold extends React.Component {
     if (hasFold) return null
 
     return el(ButtonOutline
-    , { className: 'AddFold'
+    , { id: 'AddFold'
       , style: buttonStyle
       , onClick: this.boundAddFold
       , rounded: true

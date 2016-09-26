@@ -29,7 +29,7 @@ class AddCover extends React.Component {
     if (hasCover) return null
 
     return el(ButtonOutline
-    , { className: 'AddCover'
+    , { id: 'AddCover'
       , style: buttonStyle
       , onClick: this.boundAddImage
       , rounded: true
