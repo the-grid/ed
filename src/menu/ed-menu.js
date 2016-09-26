@@ -87,9 +87,9 @@ export const edBlockMenu =
   ]
 
 export const edInlineMenu =
-  [ [ toggleEm
+  [ [ toggleStrong
+    , toggleEm
     , toggleLink
-    , toggleStrong
     ]
   ]
 
