@@ -16,7 +16,7 @@ function select (pm) {
 function render (pm) {
   const el = elt('div'
   , { class: 'EdMenuText' }
-  , 'Upload Image'
+  , 'Image'
   )
   el.addEventListener('mousedown', function (event) {
     // HACK around #44
@@ -30,7 +30,7 @@ function render (pm) {
 }
 
 const menuImage = new MenuItem(
-  { label: 'Upload Image'
+  { label: 'Image'
   , title: 'upload image(s) above this block'
   , run
   , select
