@@ -1,6 +1,6 @@
 ### dev
 
-## 1.1.1 - 2016-09-26
+### 1.1.1 - 2016-09-26
 
 * Confirm remove attribution
 * Menu:
