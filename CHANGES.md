@@ -1,5 +1,12 @@
 ### dev
 
+## 1.1.1 - 2016-09-26
+
+* Confirm remove attribution
+* Menu:
+  * move bold before italic
+  * center icons
+  * more compact for small screens (#281)
 
 ## 1.1.0 - 2016-09-19
 
