@@ -6,6 +6,7 @@ import {isUrlOrBlank} from '../util/url'
 
 import Avatar from 'rebass/dist/Avatar'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
+import ButtonConfirm from './button-confirm'
 
 
 export default function CreditEditor (props, context) {
@@ -49,13 +50,14 @@ function renderAvatar (avatar, imgfloConfig) {
 }
 
 function renderRemove (onChange, path) {
-  return el(ButtonOutline
+  return el(ButtonConfirm
   , { onClick: makeRemove(onChange, path)
     , style: {float: 'right'}
     , theme: 'warning'
     , title: 'delete attribution from block'
+    , label: 'Remove'
+    , confirm: 'Remove: Are you sure?'
     }
-  , 'Remove'
   )
 }
 
