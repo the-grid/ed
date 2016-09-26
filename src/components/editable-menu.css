@@ -1,3 +1,7 @@
+.ProseMirror-menubar {
+  text-align: center;
+}
+
 .ProseMirror-menuitem {
   cursor: pointer;
 }
