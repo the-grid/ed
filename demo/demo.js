@@ -9,6 +9,7 @@ let ed
 const fixtureContent = fixture.content
 const isTouchDevice = ('ontouchstart' in window)
 let menu = isTouchDevice ? 'bar' : 'tip'
+// menu = 'bar'
 
 let apiJSON = document.querySelector('#debug-api')
 
