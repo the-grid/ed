@@ -1,5 +1,8 @@
 ### dev
 
+### 1.1.2 - 2016-09-27
+
+* With tooltip menu, recommend >= 48px margin at top of host page / element (menu potentially offscreen with style tweaks in last patch)
 * Allow bold, italic, link with whole block selected (#283)
 
 ### 1.1.1 - 2016-09-26
