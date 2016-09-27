@@ -1,9 +1,5 @@
 import {MenuItem, Dropdown, icons} from 'prosemirror/dist/menu/menu'
-import {focusedIndex, isCollapsed} from '../util/pm'
-
-function select (pm) {
-  return isCollapsed(pm)
-}
+import {focusedIndex} from '../util/pm'
 
 function makeMenu (label, type, widgetType) {
   function run (pm) {
@@ -21,7 +17,6 @@ function makeMenu (label, type, widgetType) {
     { label
     , title: `make new ${widgetType || type} block`
     , run
-    , select
     , icon
     }
   )
