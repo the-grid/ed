@@ -1,5 +1,10 @@
 ### dev
 
+### 1.1.3 - 2016-09-27
+
+* Add needed margin-top when tooltip menu is enabled
+* Don't hide image, add media menu items (less bounce in menu bar)
+
 ### 1.1.2 - 2016-09-27
 
 * With tooltip menu, recommend >= 48px margin at top of host page / element (menu potentially offscreen with style tweaks in last patch)
