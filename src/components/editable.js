@@ -35,7 +35,7 @@ class Editable extends React.Component {
 
     return el('div'
     , { className: 'Editable'
-      , style: 
+      , style:
         { position: 'relative' /* So widgets can position selves */
         , marginTop: (menuTip ? 48 : 0)
         }
