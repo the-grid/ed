@@ -72,7 +72,7 @@ const typeDropdown = new Dropdown(
   , makeHead2
   , makeHead3
   ]
-  , {label: 'Type...'}
+  , {label: 'Type'}
 )
 
 export const edBlockMenu =
@@ -87,9 +87,9 @@ export const edBlockMenu =
   ]
 
 export const edInlineMenu =
-  [ [ toggleEm
+  [ [ toggleStrong
+    , toggleEm
     , toggleLink
-    , toggleStrong
     ]
   ]
 

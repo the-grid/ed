@@ -1,3 +1,7 @@
+.ProseMirror-menubar {
+  text-align: center;
+}
+
 .ProseMirror-menuitem {
   cursor: pointer;
 }
@@ -5,7 +9,7 @@
 .ProseMirror-menubar .ProseMirror-icon,
 .ProseMirror-menubar .ProseMirror-menu-dropdown,
 .ProseMirror-menubar .EdMenuText {
-  padding: 0.75rem 1rem;
+  padding: 10px 12px;
 }
 
 .ProseMirror-menubar .ProseMirror-menu-dropdown {

@@ -31,9 +31,9 @@ describe('PluginContentHints', function () {
     })
 
     it('has buttons for content hints', function () {
-      const foldEl = mount.querySelector('.AddFold')
+      const foldEl = mount.querySelector('#AddFold')
       expect(foldEl).to.exist
-      const coverEl = mount.querySelector('.AddCover')
+      const coverEl = mount.querySelector('#AddCover')
       expect(coverEl).to.exist
     })
   })
@@ -65,9 +65,9 @@ describe('PluginContentHints', function () {
     })
 
     it('does not have button for fold hint', function () {
-      const foldEl = mount.querySelector('.AddFold')
+      const foldEl = mount.querySelector('#AddFold')
       expect(foldEl).to.not.exist
-      const coverEl = mount.querySelector('.AddCover')
+      const coverEl = mount.querySelector('#AddCover')
       expect(coverEl).to.exist
     })
   })
@@ -99,9 +99,9 @@ describe('PluginContentHints', function () {
     })
 
     it('does not have button for cover hint', function () {
-      const foldEl = mount.querySelector('.AddFold')
+      const foldEl = mount.querySelector('#AddFold')
       expect(foldEl).to.exist
-      const coverEl = mount.querySelector('.AddCover')
+      const coverEl = mount.querySelector('#AddCover')
       expect(coverEl).to.not.exist
     })
   })

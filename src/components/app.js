@@ -78,9 +78,8 @@ export default class App extends React.Component {
   render () {
     return el('div'
     , {className: 'Ed'}
-    , el(AddCover, {})
     , this.renderContent()
-    , el(AddFold, {})
+    , this.renderHints()
     )
   }
   renderContent () {
@@ -113,6 +112,14 @@ export default class App extends React.Component {
         , coverPrefs
         }
       )
+    )
+  }
+  renderHints () {
+    return el('div'
+    , { className: 'Ed-Hints'
+      }
+    , el(AddCover, {})
+    , el(AddFold, {})
     )
   }
   onDragOver (event) {

@@ -43,5 +43,5 @@ export const menuMedia = new Dropdown(
   , menuCta
   , menuUserhtml
   ]
-  , {label: 'Add...'}
+  , {label: 'Add'}
 )

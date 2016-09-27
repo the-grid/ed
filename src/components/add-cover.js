@@ -8,13 +8,6 @@ export const buttonStyle =
   , margin: '0.25em 0.5em'
   }
 
-export const containerStyle =
-  { margin: '0 auto'
-  , position: 'relative'
-  , textAlign: 'center'
-  , padding: '0.75em'
-  }
-
 class AddCover extends React.Component {
   constructor (props, context) {
     super(props)
@@ -35,16 +28,9 @@ class AddCover extends React.Component {
     const {hasCover} = this.state
     if (hasCover) return null
 
-    return el('div'
-    , { className: 'AddCover'
-      , style: containerStyle
-      }
-    , this.renderAddImage()
-    )
-  }
-  renderAddImage () {
     return el(ButtonOutline
-    , { style: buttonStyle
+    , { id: 'AddCover'
+      , style: buttonStyle
       , onClick: this.boundAddImage
       , rounded: true
       }

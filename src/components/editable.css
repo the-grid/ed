@@ -17,7 +17,7 @@
 .ProseMirror-content {
   font-family: Georgia, Times, serif;
   border: none;
-  margin: 40px auto;
+  margin: 0 auto 40px auto;
   padding: 1rem;
   white-space: pre-wrap;
   max-width: 856px;
