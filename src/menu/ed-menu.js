@@ -76,7 +76,11 @@ const typeDropdown = new Dropdown(
 )
 
 export const edBlockMenu =
-  [ [ typeDropdown ]
+  [ [ toggleStrong
+    , toggleEm
+    , toggleLink
+    ]
+  , [ typeDropdown ]
   , [ wrapBulletList
     , wrapOrderedList
     , menuQuote
@@ -93,6 +97,5 @@ export const edInlineMenu =
     ]
   ]
 
-export const edBarMenu = edInlineMenu
-  .concat(edBlockMenu)
+export const edBarMenu = edBlockMenu
   .concat([[undoItem, redoItem]])

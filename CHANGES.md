@@ -1,5 +1,7 @@
 ### dev
 
+* Allow bold, italic, link with whole block selected (#283)
+
 ### 1.1.1 - 2016-09-26
 
 * Confirm remove attribution
