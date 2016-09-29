@@ -7,9 +7,6 @@ import gremlinProsemirror from './gremlin-prosemirror'
 
 let ed
 const fixtureContent = fixture.content
-const isTouchDevice = ('ontouchstart' in window)
-let menu = isTouchDevice ? 'bar' : 'tip'
-// menu = 'bar'
 
 let apiJSON = document.querySelector('#debug-api')
 
@@ -26,8 +23,6 @@ function setup (options) {
   }
   const props =
     { initialContent: (options.initialContent || [])
-    , menuTip: (options.menu === 'tip')
-    , menuBar: (options.menu === 'bar')
     , onChange: () => { console.log('change') }
     , onMount: () => { console.log('mount') }
     , onShareFile: onShareFileDemo
@@ -54,7 +49,7 @@ function setup (options) {
   initializePlaceholderMetadata(props.initialContent)
 }
 const initialContent = (window.location.hash === '#fixture' ? fixtureContent : [])
-setup({menu, initialContent})
+setup({initialContent})
 
 // onShareFile upload demo
 let input
@@ -207,19 +202,6 @@ toggleDebug.onclick = () => {
   showDebug = !showDebug
 }
 
-// Switch menu
-let toggleMenu = document.querySelector('#menu')
-toggleMenu.onclick = function (event) {
-  if (menu === 'tip') {
-    menu = 'bar'
-    toggleMenu.textContent = 'Switch to menu tooltip'
-  } else {
-    menu = 'tip'
-    toggleMenu.textContent = 'Switch to menu bar'
-  }
-  setup({menu})
-}
-
 // Hydrate
 function APIToEditor () {
   let json
@@ -265,7 +247,7 @@ bangOnContent.click()
 // Load full post
 function loadFixture () {
   window.location.hash = '#fixture'
-  setup({menu, initialContent: fixtureContent})
+  setup({initialContent: fixtureContent})
 }
 document.querySelector('#fixture').onclick = loadFixture
 

@@ -5,8 +5,8 @@ import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
 import {Plugin} from 'prosemirror/dist/edit/plugin'
 
-import {menuBar as pluginMenuBar, tooltipMenu as pluginMenuTip} from 'prosemirror/dist/menu'
-import {edBlockMenu, edInlineMenu, edBarMenu} from '../menu/ed-menu'
+import {menuBar as pluginMenuBar} from 'prosemirror/dist/menu'
+import {edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 import EdKeymap from '../inputrules/ed-keymap'
@@ -31,13 +31,11 @@ class Editable extends React.Component {
     throw new Error('Can not setState of Editable')
   }
   render () {
-    const { menuTip } = this.props
-
     return el('div'
     , { className: 'Editable'
       , style:
         { position: 'relative' /* So widgets can position selves */
-        , marginTop: (menuTip ? 48 : 0)
+        , marginTop: 48
         }
       }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
@@ -47,8 +45,6 @@ class Editable extends React.Component {
   componentDidMount () {
     const {mirror, plugins} = this.refs
     const { initialContent
-      , menuBar
-      , menuTip
       , onChange
       , onCommandsChanged
       , widgetPath
@@ -71,26 +67,15 @@ class Editable extends React.Component {
       , PluginContentHints
       , PluginPlaceholder
       ]
-    if (menuBar) {
-      let menu = pluginMenuBar.config(
-        { float: false
-        , content: edBarMenu
-        }
-      )
-      pmOptions.plugins.push(menu)
-      edPluginClasses.push(PluginFixedMenuHack)
-    }
-    if (menuTip) {
-      let menu = pluginMenuTip.config(
-        { showLinks: true
-        , selectedBlockMenu: true
-        , inlineContent: edInlineMenu
-        , blockContent: edBlockMenu
-        , selectedBlockContent: edBlockMenu
-        }
-      )
-      pmOptions.plugins.push(menu)
-    }
+
+    let menu = pluginMenuBar.config(
+      { float: false
+      , content: edBarMenu
+      }
+    )
+    pmOptions.plugins.push(menu)
+    edPluginClasses.push(PluginFixedMenuHack)
+
     if (onCommandsChanged) {
       edPluginClasses.push(PluginCommandsInterface)
     }
@@ -153,8 +138,6 @@ Editable.propTypes =
   , onDropFiles: React.PropTypes.func
   , onEditableInit: React.PropTypes.func
   , onCommandsChanged: React.PropTypes.func
-  , menuBar: React.PropTypes.bool
-  , menuTip: React.PropTypes.bool
   , widgetPath: React.PropTypes.string
   , coverPrefs: React.PropTypes.object
   }

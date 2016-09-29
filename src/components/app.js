@@ -84,8 +84,6 @@ export default class App extends React.Component {
   }
   renderContent () {
     const { initialContent
-      , menuBar
-      , menuTip
       , onShareFile
       , onShareUrl
       , onCommandsChanged
@@ -101,8 +99,6 @@ export default class App extends React.Component {
       }
     , el(Editable
       , { initialContent
-        , menuBar
-        , menuTip
         , onChange: this.routeChange
         , onShareFile
         , onShareUrl
@@ -179,8 +175,6 @@ App.propTypes =
   , onDropFiles: React.PropTypes.func
   , onCommandsChanged: React.PropTypes.func
   , onRequestCoverUpload: React.PropTypes.func.isRequired
-  , menuBar: React.PropTypes.bool
-  , menuTip: React.PropTypes.bool
   , imgfloConfig: React.PropTypes.object
   , widgetPath: React.PropTypes.string
   , coverPrefs: React.PropTypes.object

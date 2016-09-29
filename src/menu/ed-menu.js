@@ -90,12 +90,5 @@ export const edBlockMenu =
   , [ menuMedia ]
   ]
 
-export const edInlineMenu =
-  [ [ toggleStrong
-    , toggleEm
-    , toggleLink
-    ]
-  ]
-
 export const edBarMenu = edBlockMenu
   .concat([[undoItem, redoItem]])
