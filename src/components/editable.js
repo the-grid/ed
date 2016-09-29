@@ -31,13 +31,11 @@ class Editable extends React.Component {
     throw new Error('Can not setState of Editable')
   }
   render () {
-    const { menuTip } = this.props
-
     return el('div'
     , { className: 'Editable'
       , style:
         { position: 'relative' /* So widgets can position selves */
-        , marginTop: (menuTip ? 48 : 0)
+        , marginTop: 48
         }
       }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
