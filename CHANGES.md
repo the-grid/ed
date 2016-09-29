@@ -1,5 +1,9 @@
 ### dev
 
+## 1.2.0 - 2016-09-29
+
+* Disable tooltip (to potentially revisit later) (#289)
+
 ### 1.1.3 - 2016-09-27
 
 * Add needed margin-top when tooltip menu is enabled
