@@ -104,7 +104,7 @@ export default class EdStore {
     this.editableView = editableView
     this.pm = editableView.pm
 
-    this.pm.focus()
+    this.pm.editor.focus()
   }
   _initializeContent (content) {
     for (let i = 0, len = content.length; i < len; i++) {
@@ -463,7 +463,7 @@ export default class EdStore {
     this.pm.scrollIntoView()
   }
   getContent () {
-    return DocToGrid(this.pm.doc, this._content)
+    return DocToGrid(this.pm.editor.state.doc, this._content)
   }
   setContent (content) {
     this._applyTransform(content)

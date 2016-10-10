@@ -1,7 +1,7 @@
 // Added as plugin
 
-import inputRules from 'prosemirror/dist/inputrules'
-import {buildInputRules} from 'prosemirror/dist/example-setup'
+import {inputRules, allInputRules} from 'prosemirror-inputrules'
+import {buildInputRules} from 'prosemirror-example-setup'
 import EdSchema from '../schema/ed-schema-full'
 import inputCode from './input-code'
 import iosDoubleSpace from './ios-double-space'
@@ -15,8 +15,8 @@ if (isIOS) {
   edRules.push(iosDoubleSpace)
 }
 
-const rules = inputRules.allInputRules.concat(edRules)
+const rules = allInputRules.concat(edRules)
 
-const EdInputRules = inputRules.inputRules.config({rules})
+const EdInputRules = inputRules({rules})
 
 export default EdInputRules

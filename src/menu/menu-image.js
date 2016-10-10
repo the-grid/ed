@@ -1,5 +1,5 @@
-import {elt} from 'prosemirror/dist/util/dom'
-import {MenuItem} from 'prosemirror/dist/menu/menu'
+import crel from 'crel'
+import {MenuItem} from 'prosemirror-menu'
 import {focusedIndex} from '../util/pm'
 
 
@@ -10,7 +10,7 @@ function run (pm) {
 }
 
 function render (pm) {
-  const el = elt('div'
+  const el = crel('div'
   , { class: 'EdMenuText' }
   , 'Image'
   )

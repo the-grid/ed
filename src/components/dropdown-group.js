@@ -1,3 +1,5 @@
+/* eslint react/no-find-dom-node: [0] */
+
 import React, {createElement as el} from 'react'
 import ReactDOM from 'react-dom'
 

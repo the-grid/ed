@@ -1,24 +1,26 @@
+require('prosemirror-menu/style/menu.css')
+require('prosemirror-view/style/prosemirror.css')
 require('./editable.css')
 require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
-import {ProseMirror} from 'prosemirror/dist/edit/main'
-import {Plugin} from 'prosemirror/dist/edit/plugin'
+import {EditorState, Plugin} from 'prosemirror-state'
 
-import {menuBar as pluginMenuBar} from 'prosemirror/dist/menu'
+import {MenuBarEditorView} from 'prosemirror-menu'
 import {edBarMenu} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
-import EdKeymap from '../inputrules/ed-keymap'
+// import EdKeymap from '../inputrules/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
 import EdInputRules from '../inputrules/ed-input-rules'
+import EdCommands from '../commands/ed-commands'
 import {posToIndex} from '../util/pm'
 
 import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
-import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
+// import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 import PluginCommandsInterface from '../plugins/commands-interface'
 
 
@@ -51,14 +53,27 @@ class Editable extends React.Component {
       , coverPrefs } = this.props
     const {store} = this.context
 
+    const state = EditorState.create(
+      { schema: EdSchemaFull
+      , doc: GridToDoc(initialContent)
+      // , plugins: [ EdInputRules ]
+      , plugins: [ EdInputRules, EdCommands ]
+      }
+    )
+
+    let view
+
+    function applyAction (action) {
+      view.updateState(view.editor.state.applyAction(action))
+    }
+
     // PM setup
     let pmOptions =
-      { place: mirror
+      { state
       , autoInput: true
-      // , commands: commands
-      , doc: GridToDoc(initialContent)
-      , schema: EdSchemaFull
-      , plugins: [ EdInputRules ]
+      , floatingMenu: true
+      , menuContent: edBarMenu
+      , onAction: applyAction
       }
 
     let edPluginClasses =
@@ -66,15 +81,8 @@ class Editable extends React.Component {
       , PluginShareUrl
       , PluginContentHints
       , PluginPlaceholder
+      // , PluginFixedMenuHack
       ]
-
-    let menu = pluginMenuBar.config(
-      { float: false
-      , content: edBarMenu
-      }
-    )
-    pmOptions.plugins.push(menu)
-    edPluginClasses.push(PluginFixedMenuHack)
 
     if (onCommandsChanged) {
       edPluginClasses.push(PluginCommandsInterface)
@@ -90,22 +98,20 @@ class Editable extends React.Component {
 
     edPluginClasses.forEach(function (plugin) {
       const p = new Plugin(plugin, pluginOptions)
-      pmOptions.plugins.push(p)
+      pmOptions.state.plugins.push(p)
     })
 
-    this.pm = new ProseMirror(pmOptions)
+    view = this.pm = new MenuBarEditorView(mirror, pmOptions)
     this.pm.ed = store
 
-    this.pm.on.change.add(() => {
-      onChange('EDITABLE_CHANGE', this.pm)
-    })
+    // this.pm.on.change.add(() => {
+    //   onChange('EDITABLE_CHANGE', this.pm)
+    // })
 
-    this.pm.on.domDrop.add(this.boundOnDrop)
+    // this.pm.on.domDrop.add(this.boundOnDrop)
 
-    this.pm.addKeymap(EdKeymap)
+    // this.pm.addKeymap(EdKeymap)
 
-
-    // this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
 
     onChange('EDITABLE_INITIALIZE', this)
   }

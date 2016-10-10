@@ -1,4 +1,4 @@
-import {InputRule} from 'prosemirror/dist/inputrules'
+import {InputRule} from 'prosemirror-inputrules'
 import {focusedIndex} from '../util/pm'
 
 const inputCode =

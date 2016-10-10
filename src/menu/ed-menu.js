@@ -2,8 +2,8 @@ import { Dropdown
   , undoItem
   , redoItem
   , liftItem
-  } from 'prosemirror/dist/menu/menu'
-import { buildMenuItems } from 'prosemirror/dist/example-setup'
+  } from 'prosemirror-menu'
+import { buildMenuItems } from 'prosemirror-example-setup'
 import EdSchema from '../schema/ed-schema-full'
 import menuImage from './menu-image'
 import { menuMedia

@@ -1,4 +1,4 @@
-import {InputRule} from 'prosemirror/dist/inputrules'
+import {InputRule} from 'prosemirror-inputrules'
 
 let lastSpace = 0
 function check (pm, match, pos) {

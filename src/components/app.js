@@ -173,7 +173,9 @@ App.propTypes =
   , onShareFile: React.PropTypes.func.isRequired
   , onShareUrl: React.PropTypes.func.isRequired
   , onDropFiles: React.PropTypes.func
+  , onDropFileOnBlock: React.PropTypes.func
   , onCommandsChanged: React.PropTypes.func
+  , onMount: React.PropTypes.func
   , onRequestCoverUpload: React.PropTypes.func.isRequired
   , imgfloConfig: React.PropTypes.object
   , widgetPath: React.PropTypes.string

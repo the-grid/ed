@@ -1,4 +1,4 @@
-import {buildKeymap} from 'prosemirror/dist/example-setup'
+import {buildKeymap} from 'prosemirror-example-setup'
 import EdSchema from '../schema/ed-schema-full'
 
 

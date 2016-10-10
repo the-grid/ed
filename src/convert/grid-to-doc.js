@@ -1,3 +1,5 @@
+import {DOMParser} from 'prosemirror-model'
+
 import EdSchema from '../schema/ed-schema-full'
 
 import {isMediaType, isHTMLType} from './types'
@@ -24,7 +26,7 @@ export default function (items) {
       if (el) container.appendChild(el)
     })
   }
-  return EdSchema.parseDOM(container)
+  return DOMParser.fromSchema(EdSchema).parse(container)
 }
 
 

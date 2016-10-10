@@ -1,4 +1,4 @@
-/*eslint quotes: [0], comma-style: [0]*/
+/* eslint quotes: [0], comma-style: [0] */
 
 import getHappyLittlePhrase from 'bob-ross-lipsum'
 

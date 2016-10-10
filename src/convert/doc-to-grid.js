@@ -1,9 +1,15 @@
+import {DOMSerializer} from 'prosemirror-model'
+import EdSchema from '../schema/ed-schema-full'
+
 import {isMediaType} from './types'
 import BlockMetaSchema from '../schema/block-meta'
 import _ from '../util/lodash'
 
+const serializer = DOMSerializer.fromSchema(EdSchema)
+
+
 export default function (doc, apiContentMap) {
-  const fragment = doc.content.toDOM()
+  const fragment = serializer.serializeFragment(doc.content)
   const dom = document.createElement('div')
   dom.appendChild(fragment)
 
