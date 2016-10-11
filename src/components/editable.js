@@ -65,6 +65,9 @@ class Editable extends React.Component {
 
     function applyAction (action) {
       view.updateState(view.editor.state.applyAction(action))
+      if (action.type === 'transform') {
+        onChange('EDITABLE_CHANGE', this.pm)
+      }
     }
 
     // PM setup
@@ -73,6 +76,7 @@ class Editable extends React.Component {
       , autoInput: true
       , floatingMenu: true
       , menuContent: edBarMenu
+      , spellcheck: true
       , onAction: applyAction
       }
 

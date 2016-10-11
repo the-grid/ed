@@ -119,6 +119,8 @@
 }
 
 .ProseMirror-prompt {
+  /* fixme */
+  position: absolute;
   padding: 1em;
 }
 
