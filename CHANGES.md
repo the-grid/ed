@@ -1,5 +1,9 @@
 ### dev
 
+## 1.2.1 - 2016-10-19
+
+* Don't show cover image if marked unsalvageable. (#294)
+
 ## 1.2.0 - 2016-09-29
 
 * BREAKING - Remove `menuTip` and `menuBar` props and tooltip menu (to potentially revisit later) (#289)
