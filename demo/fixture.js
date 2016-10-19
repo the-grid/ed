@@ -677,7 +677,10 @@ let post = {
       'type': 'image',
       'html': '',
       'metadata': {starred: true, caption: 'Sometimes images go away :-('},
-      'cover': {unsalvageable: true}
+      'cover':
+        { unsalvageable: true
+        , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'
+        }
     },
     {
       'type': 'text',

@@ -105,6 +105,7 @@ class AttributionEditor extends React.Component {
     const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
+    if (cover.unsalvageable) return
     let src, width, height, title
     if (cover) {
       src = cover.src
@@ -148,7 +149,7 @@ class AttributionEditor extends React.Component {
 
     return el(Message
     , {theme: 'error'}
-    , 'We were unable to find the image originally saved with this block.'
+    , 'We were unable to measure this image.'
     , el(Space, {auto: true})
     , upload
     )
