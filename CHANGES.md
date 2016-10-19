@@ -1,6 +1,6 @@
 ### dev
 
-## 1.2.1 - 2016-10-19
+### 1.2.1 - 2016-10-19
 
 * Don't show cover image if marked unsalvageable. (#294)
 
