@@ -1,5 +1,8 @@
 .ProseMirror-menubar {
-  text-align: center;
+  max-width: 856px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
 }
 
 .ProseMirror-menuitem {

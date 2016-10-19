@@ -6,7 +6,6 @@ function onScroll (event) {
     this.menuEl.style.top = '0px'
     return
   }
-  this.menuEl.style.position = 'absolute'
   this.menuEl.style.top = (0 - contentTop) + 'px'
 }
 
@@ -33,6 +32,7 @@ export default class FixedMenuBarHack {
     // Padding for all
     this.spaceContent = _.debounce(spaceContent, 250).bind(this)
     const {selectionChange} = pm.on
+    console.log(selectionChange)
     this.updater = pm.updateScheduler([selectionChange], this.spaceContent)
     this.updater.force()
 
@@ -41,6 +41,8 @@ export default class FixedMenuBarHack {
     this.onScroll = onScroll.bind(this)
     window.addEventListener('scroll', this.onScroll)
     window.addEventListener('resize', this.spaceContent)
+    this.onScroll()
+    this.spaceContent()
   }
   detach () {
     if (!this.menuEl) {

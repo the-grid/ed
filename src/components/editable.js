@@ -20,7 +20,7 @@ import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
-// import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
+import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 import PluginCommandsInterface from '../plugins/commands-interface'
 
 
@@ -37,7 +37,6 @@ class Editable extends React.Component {
     , { className: 'Editable'
       , style:
         { position: 'relative' /* So widgets can position selves */
-        , marginTop: 48
         }
       }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
@@ -56,7 +55,6 @@ class Editable extends React.Component {
     const state = EditorState.create(
       { schema: EdSchemaFull
       , doc: GridToDoc(initialContent)
-      // , plugins: [ EdInputRules ]
       , plugins: [ EdInputRules, EdCommands ]
       }
     )
@@ -74,7 +72,7 @@ class Editable extends React.Component {
     let pmOptions =
       { state
       , autoInput: true
-      , floatingMenu: true
+      , floatingMenu: false
       , menuContent: edBarMenu
       , spellcheck: true
       , onAction: applyAction
@@ -85,7 +83,7 @@ class Editable extends React.Component {
       , PluginShareUrl
       , PluginContentHints
       , PluginPlaceholder
-      // , PluginFixedMenuHack
+      , PluginFixedMenuHack
       ]
 
     if (onCommandsChanged) {
