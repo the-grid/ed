@@ -35,6 +35,7 @@ function setup (options) {
     , imgfloConfig: null
     , widgetPath: './node_modules/'
     , coverPrefs: { filter: false }
+    , menuBar: true
     , ref:
         function (mounted) {
           ed = mounted

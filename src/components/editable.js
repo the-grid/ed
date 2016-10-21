@@ -45,6 +45,7 @@ class Editable extends React.Component {
   componentDidMount () {
     const {mirror, plugins} = this.refs
     const { initialContent
+      , menuBar
       , onChange
       , onCommandsChanged
       , widgetPath
@@ -68,13 +69,15 @@ class Editable extends React.Component {
       , PluginPlaceholder
       ]
 
-    let menu = pluginMenuBar.config(
-      { float: false
-      , content: edBarMenu
-      }
-    )
-    pmOptions.plugins.push(menu)
-    edPluginClasses.push(PluginFixedMenuHack)
+    if (menuBar) {
+      let menu = pluginMenuBar.config(
+        { float: false
+        , content: edBarMenu
+        }
+      )
+      pmOptions.plugins.push(menu)
+      edPluginClasses.push(PluginFixedMenuHack)
+    }
 
     if (onCommandsChanged) {
       edPluginClasses.push(PluginCommandsInterface)
@@ -132,6 +135,7 @@ class Editable extends React.Component {
 Editable.contextTypes = {store: React.PropTypes.object}
 Editable.propTypes =
   { initialContent: React.PropTypes.array.isRequired
+  , menuBar: React.PropTypes.bool
   , onChange: React.PropTypes.func.isRequired
   , onShareFile: React.PropTypes.func
   , onShareUrl: React.PropTypes.func
