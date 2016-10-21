@@ -35,7 +35,6 @@ class Editable extends React.Component {
     , { className: 'Editable'
       , style:
         { position: 'relative' /* So widgets can position selves */
-        , marginTop: 48
         }
       }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
