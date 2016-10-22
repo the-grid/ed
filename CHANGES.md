@@ -1,5 +1,10 @@
 ### dev
 
+### 1.2.2 - 2016-10-21
+
+* Restore `menuBar` prop to enable/disable the menu bar.
+* Align menu items with content
+
 ### 1.2.1 - 2016-10-19
 
 * Don't show cover image if marked unsalvageable. (#294)

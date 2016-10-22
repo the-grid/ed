@@ -51,6 +51,8 @@ available to use like this:
   var ed = window.TheGridEd.mountApp(container, {
     // REQUIRED -- Content array from post
     initialContent: [],
+    // OPTIONAL (default true) enable or disable the default menu
+    menuBar: true,
     // REQUIRED -- Hit on every change
     onChange: function () {
       /* App can show "unsaved changes" in UI */
