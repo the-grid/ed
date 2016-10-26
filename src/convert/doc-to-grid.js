@@ -13,14 +13,15 @@ export default function (doc, apiContentMap) {
     const child = dom.children[i]
     const id = child.getAttribute('grid-id') || null
     let type = child.getAttribute('grid-type') || child.tagName.toLowerCase()
+
+    if (isHR(child)) {
+      type = 'hr'
+      // Fold = first hr (for now)
+      starred = false
+    }
+
     type = translateIrregularGridTypes(type)
     const isMedia = isMediaType(type)
-
-    // The Fold
-    if (isTheFold(child)) {
-      starred = false
-      continue
-    }
 
     let apiBlock = apiContentMap[id]
     if (!apiBlock) {
@@ -28,6 +29,9 @@ export default function (doc, apiContentMap) {
     }
     if (!isMedia) {
       apiBlock.html = child.outerHTML
+      if (type === 'hr') {
+        apiBlock.html = '<hr>'
+      }
       // Skip empty blocks in output content
       if (isEmpty(type, apiBlock.html)) {
         continue
@@ -84,7 +88,7 @@ function trimContent (content) {
   })
 }
 
-function isTheFold (el) {
+function isHR (el) {
   return (el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR')
 }
 

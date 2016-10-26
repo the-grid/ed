@@ -440,6 +440,7 @@ describe('Ed', function () {
             , metadata: { starred: true }
             , html: '<img>'
             }
+          , { type: 'hr', html: '<hr>', metadata: { starred: false } }
           , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} }
           ]
         expect(content).to.deep.equal(expected)

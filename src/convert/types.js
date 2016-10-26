@@ -19,6 +19,7 @@ const HTML_TYPES =
   , 'h4'
   , 'h5'
   , 'h6'
+  , 'hr'
   , 'list'
   , 'ol'
   , 'p'

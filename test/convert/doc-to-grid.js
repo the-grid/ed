@@ -12,6 +12,7 @@ describe('DocToGrid', function () {
       [ {type: 'h1', html: '<h1>heading 1</h1>', metadata: {starred: true}}
       , {id: 'image-0000', type: 'image', metadata: {starred: true}}
       , {type: 'text', html: '<p>paragraph 1</p>', metadata: {starred: true}}
+      , { type: 'hr', html: '<hr>', metadata: { starred: false } }
       , {type: 'h2', html: '<h2>heading 2</h2>', metadata: { starred: false }}
       , {type: 'h3', html: '<h3>heading 3</h3>', metadata: { starred: false }}
       , {id: 'video-0000', type: 'video', metadata: {starred: false}}
