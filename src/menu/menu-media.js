@@ -1,4 +1,4 @@
-import {MenuItem, Dropdown, icons} from 'prosemirror/dist/menu/menu'
+import {MenuItem, icons} from 'prosemirror/dist/menu/menu'
 import {focusedIndex} from '../util/pm'
 
 function makeMenu (label, type, widgetType) {
@@ -31,12 +31,3 @@ export const menuCode = makeMenu('Code', 'code')
 export const menuCta = makeMenu('Call To Action', 'cta')
 
 export const menuUserhtml = makeMenu('Embed HTML', 'interactive', 'userhtml')
-
-export const menuMedia = new Dropdown(
-  [ menuLocation
-  , menuCode
-  , menuCta
-  , menuUserhtml
-  ]
-  , {label: 'Add'}
-)
