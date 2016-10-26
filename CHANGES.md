@@ -1,5 +1,11 @@
 ### dev
 
+## 1.3.0 - 2016-10-26
+
+* Section divider support as `hr`
+  * "Horizontal rule" added to "Add" menu
+  * `horizontal_rule:insert` command added
+
 ### 1.2.2 - 2016-10-21
 
 * Restore `menuBar` prop to enable/disable the menu bar.
