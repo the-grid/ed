@@ -41,6 +41,7 @@ describe('determineFold', function () {
         , {id: 'image-0001', type: 'image'}
         , {type: 'text', html: '<p>paragraph 1</p>'}
         ]
+      , hasHR: false
       }
 
     it('correctly splits content', function () {
