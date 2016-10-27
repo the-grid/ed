@@ -12,12 +12,16 @@ export default function (items) {
   let {starred, unstarred} = determineFold(items)
   starred = spaceContent(starred)
   let elements = itemsToEls(starred)
+  let hrCount = 0
   elements.forEach(function (el) {
     if (el) container.appendChild(el)
+    if (el.tagName === 'hr') hrCount++
   })
   if (unstarred.length > 0) {
-    const hr = document.createElement('hr')
-    container.appendChild(hr)
+    if (hrCount < 1) {
+      const hr = document.createElement('hr')
+      container.appendChild(hr)
+    }
     unstarred = spaceContent(unstarred)
     elements = itemsToEls(unstarred)
     elements.forEach(function (el) {

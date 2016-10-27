@@ -1,5 +1,9 @@
 ### dev
 
+## 1.3.1 - 2016-10-26
+
+* Fix doubled hr (#299)
+
 ## 1.3.0 - 2016-10-26
 
 * Section divider support as `hr`
