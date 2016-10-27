@@ -166,6 +166,7 @@ heading:make2
 heading:make3
 bullet_list:wrap
 ordered_list:wrap
+horizontal_rule:insert
 lift
 undo
 redo

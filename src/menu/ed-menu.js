@@ -6,8 +6,7 @@ import { Dropdown
 import { buildMenuItems } from 'prosemirror/dist/example-setup'
 import EdSchema from '../schema/ed-schema-full'
 import menuImage from './menu-image'
-import { menuMedia
-  , menuCode
+import { menuCode
   , menuLocation
   , menuUserhtml
   , menuCta
@@ -21,6 +20,7 @@ const { makeParagraph
   , makeHead3
   , wrapBulletList
   , wrapOrderedList
+  , insertHorizontalRule
   , toggleEm
   , toggleLink
   , toggleStrong
@@ -55,6 +55,7 @@ export const edCommands =
   , 'heading:make3': makeHead3
   , 'bullet_list:wrap': wrapBulletList
   , 'ordered_list:wrap': wrapOrderedList
+  , 'horizontal_rule:insert': insertHorizontalRule
   , 'lift': liftItem
   , 'undo': undoItem
   , 'redo': redoItem
@@ -75,6 +76,16 @@ const typeDropdown = new Dropdown(
   , {label: 'Type'}
 )
 
+const addDropdown = new Dropdown(
+  [ insertHorizontalRule
+  , menuLocation
+  , menuCode
+  , menuCta
+  , menuUserhtml
+  ]
+  , {label: 'Add'}
+)
+
 export const edBlockMenu =
   [ [ toggleStrong
     , toggleEm
@@ -87,7 +98,7 @@ export const edBlockMenu =
     , liftItem
     ]
   , [ menuImage ]
-  , [ menuMedia ]
+  , [ addDropdown ]
   ]
 
 export const edBarMenu = edBlockMenu
