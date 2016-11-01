@@ -73,8 +73,6 @@ class Editable extends React.Component {
     let pmOptions =
       { state,
         autoInput: true,
-        floatingMenu: false,
-        menuContent: edBarMenu,
         spellcheck: true,
         onAction: applyAction
       }
@@ -88,12 +86,8 @@ class Editable extends React.Component {
       ]
 
     if (menuBar) {
-      let menu = pluginMenuBar.config(
-        { float: false,
-          content: edBarMenu
-        }
-      )
-      pmOptions.plugins.push(menu)
+      pmOptions.menuContent = edBarMenu
+      pmOptions.floatingMenu = false
       edPluginClasses.push(PluginFixedMenuHack)
     }
 

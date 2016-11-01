@@ -1,4 +1,4 @@
-import {MenuItem, icons} from 'prosemirror/dist/menu/menu'
+import {MenuItem, icons} from 'prosemirror-menu'
 import {focusedIndex} from '../util/pm'
 
 function makeMenu (label, type, widgetType) {
