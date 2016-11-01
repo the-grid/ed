@@ -3,6 +3,7 @@
   margin: 0 auto;
   position: absolute;
   top: 0;
+  padding: 0rem 0.25rem;
 }
 
 .ProseMirror-menuitem {
@@ -12,7 +13,7 @@
 .ProseMirror-menubar .ProseMirror-icon,
 .ProseMirror-menubar .ProseMirror-menu-dropdown,
 .ProseMirror-menubar .EdMenuText {
-  padding: 10px 12px;
+  padding: 0.5rem 0.75rem;
 }
 
 .ProseMirror-menubar .ProseMirror-menu-dropdown {
@@ -50,4 +51,10 @@
 
 .ProseMirror-tooltip .ProseMirror-menuseparator {
   margin: 0 6px;
+}
+
+@media screen and (min-width: 728px) {
+  .ProseMirror-menubar {
+    padding: 0rem 2.25rem;
+  }
 }

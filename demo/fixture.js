@@ -596,7 +596,6 @@ let post = {
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
       'metadata': {'starred': true}
     },
-    tweet,
     {
       'type': 'text',
       'html': '<p>An unknown block type... important to keep place in doc flow:</p>',
@@ -612,10 +611,26 @@ let post = {
     },
     {
       'type': 'text',
+      'html': '<p>An `hr` block divider:</p>',
+      'metadata': {'starred': true}
+    },
+    {
+      'type': 'hr',
+      'html': '<hr>',
+      'metadata': {'starred': true}
+    },
+    {
+      'type': 'text',
       'html': '<p>It\'s a link cta:</p>',
       'metadata': {'starred': true}
     },
     cta,
+    {
+      'type': 'text',
+      'html': '<p>Quote from tweet:</p>',
+      'metadata': {'starred': true}
+    },
+    tweet,
     {
       'type': 'text',
       'html': '<p>Look it\'s userhtml:</p>',
@@ -677,7 +692,10 @@ let post = {
       'type': 'image',
       'html': '',
       'metadata': {starred: true, caption: 'Sometimes images go away :-('},
-      'cover': {unsalvageable: true}
+      'cover':
+        { unsalvageable: true
+        , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'
+        }
     },
     {
       'type': 'text',

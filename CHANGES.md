@@ -1,5 +1,28 @@
 ### dev
 
+### 1.3.2 - 2016-10-26
+
+* Fix doubled hr again (#299)
+
+### 1.3.1 - 2016-10-26
+
+* Fix doubled hr (#299)
+
+## 1.3.0 - 2016-10-26
+
+* Section divider support as `hr`
+  * "Horizontal rule" added to "Add" menu
+  * `horizontal_rule:insert` command added
+
+### 1.2.2 - 2016-10-21
+
+* Restore `menuBar` prop to enable/disable the menu bar.
+* Align menu items with content
+
+### 1.2.1 - 2016-10-19
+
+* Don't show cover image if marked unsalvageable. (#294)
+
 ## 1.2.0 - 2016-09-29
 
 * BREAKING - Remove `menuTip` and `menuBar` props and tooltip menu (to potentially revisit later) (#289)

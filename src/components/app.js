@@ -84,6 +84,7 @@ export default class App extends React.Component {
   }
   renderContent () {
     const { initialContent
+      , menuBar
       , onShareFile
       , onShareUrl
       , onCommandsChanged
@@ -99,6 +100,7 @@ export default class App extends React.Component {
       }
     , el(Editable
       , { initialContent
+        , menuBar
         , onChange: this.routeChange
         , onShareFile
         , onShareUrl
@@ -180,5 +182,9 @@ App.propTypes =
   , imgfloConfig: React.PropTypes.object
   , widgetPath: React.PropTypes.string
   , coverPrefs: React.PropTypes.object
+  , menuBar: React.PropTypes.bool
   }
-App.defaultProps = { widgetPath: './node_modules/' }
+App.defaultProps =
+  { widgetPath: './node_modules/'
+  , menuBar: true
+  }

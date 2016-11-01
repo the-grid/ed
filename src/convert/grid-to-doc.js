@@ -11,15 +11,17 @@ import IframeInfo from '../plugins/iframe-info'
 
 export default function (items) {
   const container = document.createElement('div')
-  let {starred, unstarred} = determineFold(items)
+  let {starred, unstarred, hasHR} = determineFold(items)
   starred = spaceContent(starred)
   let elements = itemsToEls(starred)
   elements.forEach(function (el) {
     if (el) container.appendChild(el)
   })
   if (unstarred.length > 0) {
-    const hr = document.createElement('hr')
-    container.appendChild(hr)
+    if (!hasHR) {
+      const hr = document.createElement('hr')
+      container.appendChild(hr)
+    }
     unstarred = spaceContent(unstarred)
     elements = itemsToEls(unstarred)
     elements.forEach(function (el) {
