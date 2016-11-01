@@ -26,10 +26,10 @@ function render (pm) {
 }
 
 const menuImage = new MenuItem(
-  { label: 'Image'
-  , title: 'upload image(s) above this block'
-  , run
-  , render
+  { label: 'Image',
+    title: 'upload image(s) above this block',
+    run,
+    render
   }
 )
 

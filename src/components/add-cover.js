@@ -2,10 +2,10 @@ import React, {createElement as el} from 'react'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 export const buttonStyle =
-  { textTransform: 'uppercase'
-  , borderRadius: 4
-  , padding: '10px 16px'
-  , margin: '0.25em 0.5em'
+  { textTransform: 'uppercase',
+    borderRadius: 4,
+    padding: '10px 16px',
+    margin: '0.25em 0.5em'
   }
 
 class AddCover extends React.Component {
@@ -29,11 +29,11 @@ class AddCover extends React.Component {
     if (hasCover) return null
 
     return el(ButtonOutline
-    , { id: 'AddCover'
-      , style: buttonStyle
-      , onClick: this.boundAddImage
-      , rounded: true
-      }
+    , { id: 'AddCover',
+      style: buttonStyle,
+      onClick: this.boundAddImage,
+      rounded: true
+    }
     , 'Add Image'
     )
   }

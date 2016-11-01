@@ -34,11 +34,11 @@ class Editable extends React.Component {
   }
   render () {
     return el('div'
-    , { className: 'Editable'
-      , style:
-        { position: 'relative' /* So widgets can position selves */
-        }
+    , { className: 'Editable',
+      style:
+      { position: 'relative' /* So widgets can position selves */
       }
+    }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
     , el('div', {className: 'Editable-Plugins', ref: 'plugins'})
     )
@@ -54,9 +54,9 @@ class Editable extends React.Component {
     const {store} = this.context
 
     const state = EditorState.create(
-      { schema: EdSchemaFull
-      , doc: GridToDoc(initialContent)
-      , plugins: [ EdInputRules, EdCommands ]
+      { schema: EdSchemaFull,
+        doc: GridToDoc(initialContent),
+        plugins: [ EdInputRules, EdCommands ]
       }
     )
 
@@ -71,26 +71,26 @@ class Editable extends React.Component {
 
     // PM setup
     let pmOptions =
-      { state
-      , autoInput: true
-      , floatingMenu: false
-      , menuContent: edBarMenu
-      , spellcheck: true
-      , onAction: applyAction
+      { state,
+        autoInput: true,
+        floatingMenu: false,
+        menuContent: edBarMenu,
+        spellcheck: true,
+        onAction: applyAction
       }
 
     let edPluginClasses =
-      [ PluginWidget
-      , PluginShareUrl
-      , PluginContentHints
-      , PluginPlaceholder
-      , PluginFixedMenuHack
+      [ PluginWidget,
+        PluginShareUrl,
+        PluginContentHints,
+        PluginPlaceholder,
+        PluginFixedMenuHack
       ]
 
     if (menuBar) {
       let menu = pluginMenuBar.config(
-        { float: false
-        , content: edBarMenu
+        { float: false,
+          content: edBarMenu
         }
       )
       pmOptions.plugins.push(menu)
@@ -102,11 +102,11 @@ class Editable extends React.Component {
     }
 
     const pluginOptions =
-      { ed: store
-      , editableView: this
-      , container: plugins
-      , widgetPath
-      , coverPrefs
+      { ed: store,
+        editableView: this,
+        container: plugins,
+        widgetPath,
+        coverPrefs
       }
 
     edPluginClasses.forEach(function (plugin) {
@@ -150,15 +150,15 @@ class Editable extends React.Component {
 }
 Editable.contextTypes = {store: React.PropTypes.object}
 Editable.propTypes =
-  { initialContent: React.PropTypes.array.isRequired
-  , menuBar: React.PropTypes.bool
-  , onChange: React.PropTypes.func.isRequired
-  , onShareFile: React.PropTypes.func
-  , onShareUrl: React.PropTypes.func
-  , onDropFiles: React.PropTypes.func
-  , onEditableInit: React.PropTypes.func
-  , onCommandsChanged: React.PropTypes.func
-  , widgetPath: React.PropTypes.string
-  , coverPrefs: React.PropTypes.object
-  }
+{ initialContent: React.PropTypes.array.isRequired,
+  menuBar: React.PropTypes.bool,
+  onChange: React.PropTypes.func.isRequired,
+  onShareFile: React.PropTypes.func,
+  onShareUrl: React.PropTypes.func,
+  onDropFiles: React.PropTypes.func,
+  onEditableInit: React.PropTypes.func,
+  onCommandsChanged: React.PropTypes.func,
+  widgetPath: React.PropTypes.string,
+  coverPrefs: React.PropTypes.object
+}
 export default React.createFactory(Editable)

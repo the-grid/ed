@@ -17,21 +17,21 @@ media.group = 'topblock'
 
 const EdSchema = new Schema(
   { nodes:
-    { doc: {content: '(block | topblock)+'}
-    , paragraph
-    , ordered_list
-    , bullet_list
-    , horizontal_rule
-    , heading
-    , media
-    , list_item
-    , text
-    , hard_break
-    }
-  , marks:
-    { em
-    , strong
-    , link
+  { doc: {content: '(block | topblock)+'},
+    paragraph,
+    ordered_list,
+    bullet_list,
+    horizontal_rule,
+    heading,
+    media,
+    list_item,
+    text,
+    hard_break
+  },
+    marks:
+    { em,
+      strong,
+      link
     }
   }
 )

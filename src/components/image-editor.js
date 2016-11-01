@@ -30,11 +30,11 @@ export default function ImageEditor (props, context) {
 
   return el('div'
   , { style:
-      { padding: '1rem'
-      , width: 288
-      , maxWidth: '100%'
-      }
-    }
+  { padding: '1rem',
+    width: 288,
+    maxWidth: '100%'
+  }
+  }
   , toggles
   , (allowCoverChange ? renderUploadButton(onUploadRequest) : null)
   , (allowCoverRemove ? renderRemoveButton(onCoverRemove) : null)
@@ -44,15 +44,15 @@ export default function ImageEditor (props, context) {
 function renderToggle (key, label, value, onChange, path, siteAllow) {
   const readOnly = (siteAllow === false)
   return el(Checkbox
-  , { key
-    , label: label + (readOnly ? ' (off site-wide)' : '')
-    , name: key
-    , checked: (siteAllow !== false && value !== false)
-    , style: (readOnly ? {opacity: 0.5} : {})
-    , readOnly
-    , disabled: readOnly
-    , onChange: makeChange(path, onChange, true)
-    }
+  , { key,
+    label: label + (readOnly ? ' (off site-wide)' : ''),
+    name: key,
+    checked: (siteAllow !== false && value !== false),
+    style: (readOnly ? {opacity: 0.5} : {}),
+    readOnly,
+    disabled: readOnly,
+    onChange: makeChange(path, onChange, true)
+  }
   )
 }
 
@@ -65,24 +65,24 @@ function makeChange (path, onChange, checked = false) {
 
 function renderUploadButton (onClick) {
   return el(ButtonOutline
-  , { onClick
-    , theme: 'warning'
-    , style: { width: '100%' }
-    }
+  , { onClick,
+    theme: 'warning',
+    style: { width: '100%' }
+  }
   , 'Upload New Image'
   )
 }
 
 function renderRemoveButton (onClick) {
   return el(ButtonConfirm
-  , { onClick
-    , label: 'Remove Image'
-    , confirm: 'Remove Image: Are you sure?'
-    , theme: 'warning'
-    , style:
-      { width: '100%'
-      , marginTop: '0.5rem'
-      }
+  , { onClick,
+    label: 'Remove Image',
+    confirm: 'Remove Image: Are you sure?',
+    theme: 'warning',
+    style:
+    { width: '100%',
+      marginTop: '0.5rem'
     }
+  }
   )
 }

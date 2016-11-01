@@ -8,14 +8,14 @@ import WidgetUnsupported from './widget-unsupported'
 import rebassTheme from './rebass-theme'
 
 const Components =
-  { placeholder: Placeholder
-  , cta: WidgetCta
-  , image: AttributionEditor
-  , video: AttributionEditor
-  , article: AttributionEditor
-  , interactive: AttributionEditor
-  , quote: AttributionEditor
-  , unsupported: WidgetUnsupported
+  { placeholder: Placeholder,
+    cta: WidgetCta,
+    image: AttributionEditor,
+    video: AttributionEditor,
+    article: AttributionEditor,
+    interactive: AttributionEditor,
+    quote: AttributionEditor,
+    unsupported: WidgetUnsupported
   }
 
 
@@ -40,9 +40,9 @@ class Media extends React.Component {
   }
   getChildContext () {
     return (
-      { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig)
-      , store: (this.context.store || this.props.store)
-      , rebass: rebassTheme
+      { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig),
+        store: (this.context.store || this.props.store),
+        rebass: rebassTheme
       }
     )
   }
@@ -52,10 +52,10 @@ class Media extends React.Component {
     const {type} = initialBlock
     let Component = Components[type] || Components.unsupported
     return el(Component
-    , { initialBlock
-      , id
-      , coverPrefs
-      }
+    , { initialBlock,
+      id,
+      coverPrefs
+    }
     )
   }
   updateBlock (updateId) {
@@ -80,18 +80,18 @@ class Media extends React.Component {
   }
 }
 Media.contextTypes =
-  { imgfloConfig: React.PropTypes.object
-  , store: React.PropTypes.object
-  }
+{ imgfloConfig: React.PropTypes.object,
+  store: React.PropTypes.object
+}
 Media.childContextTypes =
-  { imgfloConfig: React.PropTypes.object
-  , rebass: React.PropTypes.object
-  , store: React.PropTypes.object
-  }
+{ imgfloConfig: React.PropTypes.object,
+  rebass: React.PropTypes.object,
+  store: React.PropTypes.object
+}
 Media.propTypes =
-  { initialBlock: React.PropTypes.object.isRequired
-  , store: React.PropTypes.object.isRequired
-  , coverPrefs: React.PropTypes.object.isRequired
-  , imgfloConfig: React.PropTypes.object
-  }
+{ initialBlock: React.PropTypes.object.isRequired,
+  store: React.PropTypes.object.isRequired,
+  coverPrefs: React.PropTypes.object.isRequired,
+  imgfloConfig: React.PropTypes.object
+}
 export default React.createFactory(Media)

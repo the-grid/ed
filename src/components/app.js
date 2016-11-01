@@ -42,15 +42,15 @@ export default class App extends React.Component {
       , onCommandsChanged } = props
 
     this._store = new EdStore(
-      { initialContent
-      , onMount
-      , onChange
-      , onShareFile
-      , onShareUrl
-      , onRequestCoverUpload
-      , onDropFiles
-      , onDropFileOnBlock
-      , onCommandsChanged
+      { initialContent,
+        onMount,
+        onChange,
+        onShareFile,
+        onShareUrl,
+        onRequestCoverUpload,
+        onDropFiles,
+        onDropFileOnBlock,
+        onCommandsChanged
       }
     )
 
@@ -69,9 +69,9 @@ export default class App extends React.Component {
   getChildContext () {
     const {imgfloConfig} = this.props
     return (
-      { imgfloConfig: imgfloConfig
-      , rebass: rebassTheme
-      , store: this._store
+      { imgfloConfig: imgfloConfig,
+        rebass: rebassTheme,
+        store: this._store
       }
     )
   }
@@ -93,29 +93,29 @@ export default class App extends React.Component {
       , coverPrefs } = this.props
 
     return el('div'
-    , { className: 'Ed-Content'
-      , style:
-        { zIndex: 1
-        }
+    , { className: 'Ed-Content',
+      style:
+      { zIndex: 1
       }
+    }
     , el(Editable
-      , { initialContent
-        , menuBar
-        , onChange: this.routeChange
-        , onShareFile
-        , onShareUrl
-        , onCommandsChanged
-        , onDropFiles
-        , widgetPath
-        , coverPrefs
-        }
+      , { initialContent,
+        menuBar,
+        onChange: this.routeChange,
+        onShareFile,
+        onShareUrl,
+        onCommandsChanged,
+        onDropFiles,
+        widgetPath,
+        coverPrefs
+      }
       )
     )
   }
   renderHints () {
     return el('div'
     , { className: 'Ed-Hints'
-      }
+    }
     , el(AddCover, {})
     , el(AddFold, {})
     )
@@ -165,26 +165,26 @@ export default class App extends React.Component {
   }
 }
 App.childContextTypes =
-  { imgfloConfig: React.PropTypes.object
-  , store: React.PropTypes.object
-  , rebass: React.PropTypes.object
-  }
+{ imgfloConfig: React.PropTypes.object,
+  store: React.PropTypes.object,
+  rebass: React.PropTypes.object
+}
 App.propTypes =
-  { initialContent: React.PropTypes.array.isRequired
-  , onChange: React.PropTypes.func.isRequired
-  , onShareFile: React.PropTypes.func.isRequired
-  , onShareUrl: React.PropTypes.func.isRequired
-  , onDropFiles: React.PropTypes.func
-  , onDropFileOnBlock: React.PropTypes.func
-  , onCommandsChanged: React.PropTypes.func
-  , onMount: React.PropTypes.func
-  , onRequestCoverUpload: React.PropTypes.func.isRequired
-  , imgfloConfig: React.PropTypes.object
-  , widgetPath: React.PropTypes.string
-  , coverPrefs: React.PropTypes.object
-  , menuBar: React.PropTypes.bool
-  }
+{ initialContent: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onShareFile: React.PropTypes.func.isRequired,
+  onShareUrl: React.PropTypes.func.isRequired,
+  onDropFiles: React.PropTypes.func,
+  onDropFileOnBlock: React.PropTypes.func,
+  onCommandsChanged: React.PropTypes.func,
+  onMount: React.PropTypes.func,
+  onRequestCoverUpload: React.PropTypes.func.isRequired,
+  imgfloConfig: React.PropTypes.object,
+  widgetPath: React.PropTypes.string,
+  coverPrefs: React.PropTypes.object,
+  menuBar: React.PropTypes.bool
+}
 App.defaultProps =
-  { widgetPath: './node_modules/'
-  , menuBar: true
-  }
+{ widgetPath: './node_modules/',
+  menuBar: true
+}

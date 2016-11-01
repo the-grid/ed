@@ -25,9 +25,9 @@ class AttributionEditor extends React.Component {
   constructor (props) {
     super(props)
     this.state =
-      { block: props.initialBlock
-      , showDropIndicator: false
-      }
+    { block: props.initialBlock,
+      showDropIndicator: false
+    }
 
     this.boundOnDragOver = this.onDragOver.bind(this)
     this.boundOnDragEnter = this.onDragEnter.bind(this)
@@ -55,33 +55,33 @@ class AttributionEditor extends React.Component {
     const menus = renderMenus(type, schema, metadata, cover, this.boundOnChange, this.boundOnMoreClick, this.boundOnUploadRequest, this.boundOnCoverRemove, coverPrefs)
 
     return el('div'
-      , { className: `AttributionEditor AttributionEditor-${type}`
-        , style: widgetStyle
-        , onDragOver: this.boundOnDragOver
-        , onDragEnter: this.boundOnDragEnter
-        , onDragLeave: this.boundOnDragLeave
-        , onDrop: this.boundOnDrop
-        }
+      , { className: `AttributionEditor AttributionEditor-${type}`,
+        style: widgetStyle,
+        onDragOver: this.boundOnDragOver,
+        onDragEnter: this.boundOnDragEnter,
+        onDragLeave: this.boundOnDragLeave,
+        onDrop: this.boundOnDrop
+      }
       , this.renderPlay()
       , this.renderCover()
       , this.renderUnsalvageable()
       , this.renderFailed()
       , this.renderProgress()
       , el('div'
-        , { className: 'AttributionEditor-metadata'
-          , style:
-            { position: 'relative'
-            }
+        , { className: 'AttributionEditor-metadata',
+          style:
+          { position: 'relative'
           }
+        }
         , renderFields(schema, metadata, this.boundOnChange, type, html)
         , el('div'
-          , { className: 'AttributionEditor-links'
-            , style:
-              { margin: '1em -1em 0'
-              , position: 'relative'
-              , top: 1
-              }
+          , { className: 'AttributionEditor-links',
+            style:
+            { margin: '1em -1em 0',
+              position: 'relative',
+              top: 1
             }
+          }
           , el(DropdownGroup, {menus})
         )
       )
@@ -121,13 +121,13 @@ class AttributionEditor extends React.Component {
     if (!src) return
     let props = {src, width, height, title}
     return el('div'
-    , { className: 'AttributionEditor-cover'
-      , style:
-        { width: '100%'
-        , position: 'relative'
-        , marginBottom: '1rem'
-        }
+    , { className: 'AttributionEditor-cover',
+      style:
+      { width: '100%',
+        position: 'relative',
+        marginBottom: '1rem'
       }
+    }
     , el(Image, props)
     )
   }
@@ -138,11 +138,11 @@ class AttributionEditor extends React.Component {
     let upload = null
     if (this.canChangeCover()) {
       upload = el(Button
-      , { onClick: this.boundOnUploadRequest
-        , rounded: true
-        , color: 'error'
-        , backgroundColor: 'white'
-        }
+      , { onClick: this.boundOnUploadRequest,
+        rounded: true,
+        color: 'error',
+        backgroundColor: 'white'
+      }
       , 'Upload New Image'
       )
     }
@@ -163,11 +163,11 @@ class AttributionEditor extends React.Component {
     let upload = null
     if (this.canChangeCover()) {
       upload = el(Button
-      , { onClick: this.boundOnUploadRequest
-        , rounded: true
-        , color: 'error'
-        , backgroundColor: 'white'
-        }
+      , { onClick: this.boundOnUploadRequest,
+        rounded: true,
+        color: 'error',
+        backgroundColor: 'white'
+      }
       , 'Upload Image'
       )
     }
@@ -189,10 +189,10 @@ class AttributionEditor extends React.Component {
 
     const color = (failed === true ? 'error' : 'info')
     return el(Progress
-    , { value: progress / 100
-      , style: {margin: '8px 0'}
-      , color
-      }
+    , { value: progress / 100,
+      style: {margin: '8px 0'},
+      color
+    }
     )
   }
   renderPlay () {
@@ -203,20 +203,20 @@ class AttributionEditor extends React.Component {
 
     return el('div'
     , { style:
-        { textAlign: 'right'
-        , position: 'relative'
-        , top: '-0.5rem'
+    { textAlign: 'right',
+      position: 'relative',
+      top: '-0.5rem'
+    }
+    }
+    , el('a'
+      , { href: block.metadata.isBasedOnUrl,
+        target: '_blank',
+        rel: 'noreferrer noopener',
+        style:
+        { textDecoration: 'inherit',
+          textTransform: 'uppercase'
         }
       }
-    , el('a'
-      , { href: block.metadata.isBasedOnUrl
-        , target: '_blank'
-        , rel: 'noreferrer noopener'
-        , style:
-          { textDecoration: 'inherit'
-          , textTransform: 'uppercase'
-          }
-        }
         , type + ' '
         , el(PlayIcon)
       )
@@ -228,23 +228,23 @@ class AttributionEditor extends React.Component {
 
     return el('div'
     , { style:
-        { position: 'absolute'
-        , display: 'flex'
-        , justifyContent: 'center'
-        , alignItems: 'center'
-        , top: 0
-        , left: 0
-        , width: '100%'
-        , height: '100%'
-        , textAlign: 'center'
-        , fontSize: 36
-        , fontWeight: 600
-        , color: '#0088EE'
-        , padding: '1rem'
-        , backgroundColor: 'rgba(255, 255, 255, 0.9)'
-        , border: '12px #0088EE solid'
-        }
-      }
+    { position: 'absolute',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      textAlign: 'center',
+      fontSize: 36,
+      fontWeight: 600,
+      color: '#0088EE',
+      padding: '1rem',
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      border: '12px #0088EE solid'
+    }
+    }
     , 'Drop to replace this image'
     )
   }
@@ -301,9 +301,9 @@ class AttributionEditor extends React.Component {
     const {store} = this.context
     const {id} = this.props
     store.routeChange('MEDIA_BLOCK_DROP_FILE'
-    , { id
-      , file: event.dataTransfer.files[0]
-      }
+    , { id,
+      file: event.dataTransfer.files[0]
+    }
     )
     this.setState({showDropIndicator: false})
   }
@@ -351,15 +351,15 @@ class AttributionEditor extends React.Component {
 AttributionEditor.contextTypes =
   { store: React.PropTypes.object }
 AttributionEditor.childContextTypes =
-  { imgfloConfig: React.PropTypes.object
-  , rebass: React.PropTypes.object
-  , store: React.PropTypes.object
-  }
+{ imgfloConfig: React.PropTypes.object,
+  rebass: React.PropTypes.object,
+  store: React.PropTypes.object
+}
 AttributionEditor.propTypes =
-  { initialBlock: React.PropTypes.object.isRequired
-  , id: React.PropTypes.string.isRequired
-  , coverPrefs: React.PropTypes.object.isRequired
-  }
+{ initialBlock: React.PropTypes.object.isRequired,
+  id: React.PropTypes.string.isRequired,
+  coverPrefs: React.PropTypes.object.isRequired
+}
 export default React.createFactory(AttributionEditor)
 
 
@@ -397,13 +397,13 @@ function renderFields (schema, metadata = {}, onChange, type, html) {
 
 function renderTextField (key, label, value, onChange, placeholder) {
   return el(TextareaAutosize
-  , { className: `AttributionEditor-${key}`
-    , placeholder: placeholder || `Enter ${key}`
-    , defaultValue: value
-    , key: key
-    , onChange: makeChange(['metadata', key], onChange)
-    , style: {width: '100%'}
-    }
+  , { className: `AttributionEditor-${key}`,
+    placeholder: placeholder || `Enter ${key}`,
+    defaultValue: value,
+    key: key,
+    onChange: makeChange(['metadata', key], onChange),
+    style: {width: '100%'}
+  }
   )
 }
 
@@ -440,11 +440,11 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
   }
   menus.push(
     el(CreditAdd
-    , { schema
-      , metadata
-      , label: '...'
-      , onClick: onMoreClick
-      }
+    , { schema,
+      metadata,
+      label: '...',
+      onClick: onMoreClick
+    }
     )
   )
   return menus
@@ -452,36 +452,36 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
 
 function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
   return el(CreditEditor
-  , { className: `AttributionEditor-${key}`
-    , key: key
-    , label: label
-    , name: item.name
-    , url: item.url
-    , avatar: item.avatar
-    , path: path || [key]
-    , onChange
-    , onlyUrl
-    }
+  , { className: `AttributionEditor-${key}`,
+    key: key,
+    label: label,
+    name: item.name,
+    url: item.url,
+    avatar: item.avatar,
+    path: path || [key],
+    onChange,
+    onlyUrl
+  }
   )
 }
 
 function renderImageEditor (hasCover, allowCoverChange, allowCoverRemove, type, title, coverPrefs = {}, onChange, onUploadRequest, onCoverRemove, siteCoverPrefs) {
   const {filter, crop, overlay} = coverPrefs
   return el(ImageEditor
-  , { hasCover
-    , allowCoverChange
-    , allowCoverRemove
-    , title
-    , siteCoverPrefs
-    , filter
-    , crop
-    , overlay
-    , onChange
-    , onUploadRequest
-    , onCoverRemove
-    , type
-    , name: 'Image'
-    , label: 'Image'
-    }
+  , { hasCover,
+    allowCoverChange,
+    allowCoverRemove,
+    title,
+    siteCoverPrefs,
+    filter,
+    crop,
+    overlay,
+    onChange,
+    onUploadRequest,
+    onCoverRemove,
+    type,
+    name: 'Image',
+    label: 'Image'
+  }
   )
 }

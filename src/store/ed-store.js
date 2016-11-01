@@ -272,11 +272,11 @@ export default class EdStore {
     }
 
     const node = this.pm.schema.nodes.media.create(
-      { id
-      , type
-      , widget
-      , initialHeight
-      , initialFocus
+      { id,
+        type,
+        widget,
+        initialHeight,
+        initialFocus
       }
     )
     const pos = indexToPos(this.pm.doc, index)
@@ -319,11 +319,11 @@ export default class EdStore {
       }
 
       const node = this.pm.schema.nodes.media.create(
-        { id
-        , type
-        , widget
-        , initialHeight
-        , initialFocus
+        { id,
+          type,
+          widget,
+          initialHeight,
+          initialFocus
         }
       )
       const pos = indexToPos(this.pm.doc, index + i)
@@ -337,10 +337,10 @@ export default class EdStore {
   }
   _addMedia ({index, type, widgetType}) {
     let block =
-      { id: uuid.v4()
-      , type
-      , html: ''
-      , metadata: {}
+      { id: uuid.v4(),
+        type,
+        html: '',
+        metadata: {}
       }
     if (widgetType) {
       block.metadata.widget = widgetType
@@ -356,9 +356,9 @@ export default class EdStore {
       const id = uuid.v4()
       ids.push(id)
       const block =
-        { id
-        , type: 'placeholder'
-        , metadata: {starred}
+        { id,
+          type: 'placeholder',
+          metadata: {starred}
         }
       toInsert.push(block)
     }

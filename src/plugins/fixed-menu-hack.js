@@ -32,7 +32,6 @@ export default class FixedMenuBarHack {
     // Padding for all
     this.spaceContent = _.debounce(spaceContent, 250).bind(this)
     const {selectionChange} = pm.on
-    console.log(selectionChange)
     this.updater = pm.updateScheduler([selectionChange], this.spaceContent)
     this.updater.force()
 

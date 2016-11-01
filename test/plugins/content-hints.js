@@ -7,21 +7,21 @@ describe('PluginContentHints', function () {
   describe('With hints', function () {
     let mount, ed
     const fixture =
-      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
-      , {type: 'text', html: '<p></p>', metadata: {starred: true}}
+      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
+       {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
+       {type: 'text', html: '<p></p>', metadata: {starred: true}}
       ]
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
       ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        }
+      , { initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {}
+      }
       )
       ed._store.on('plugin.contenthints.initialized', done)
     })
@@ -41,21 +41,21 @@ describe('PluginContentHints', function () {
   describe('Without fold hint', function () {
     let mount, ed
     const fixture =
-      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
-      , {type: 'text', html: '<p></p>', metadata: {starred: false}}
+      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
+       {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
+       {type: 'text', html: '<p></p>', metadata: {starred: false}}
       ]
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
       ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        }
+      , { initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {}
+      }
       )
       ed._store.on('plugin.contenthints.initialized', done)
     })
@@ -75,21 +75,21 @@ describe('PluginContentHints', function () {
   describe('Without cover hint', function () {
     let mount, ed
     const fixture =
-      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
-      , {type: 'placeholder', metadata: {starred: true}}
+      [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
+       {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
+       {type: 'placeholder', metadata: {starred: true}}
       ]
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
       ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        }
+      , { initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {}
+      }
       )
       ed._store.on('plugin.contenthints.initialized', done)
     })

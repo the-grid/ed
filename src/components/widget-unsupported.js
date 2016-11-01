@@ -14,15 +14,15 @@ class WidgetUnsupported extends React.Component {
 
     return el('div'
     , { className: 'WidgetUnsupported'
-      }
+    }
     , el('div'
-      , { className: 'WidgetUnsupported-metadata'
-        , style: widgetLeftStyle
-        }
+      , { className: 'WidgetUnsupported-metadata',
+        style: widgetLeftStyle
+      }
       , el(Text
-        , { color: colors.midgray
-          , small: true
-          }
+        , { color: colors.midgray,
+          small: true
+        }
         , type.toUpperCase() + ' not available in this editor'
         , this.renderOpen()
         )
@@ -40,21 +40,21 @@ class WidgetUnsupported extends React.Component {
     , {}
     , ' ('
     , el('a'
-      , { href: initialBlock.metadata.isBasedOnUrl
-        , target: '_blank'
-        , rel: 'noreferrer noopener'
-        , style:
-          { textDecoration: 'inherit'
-          }
+      , { href: initialBlock.metadata.isBasedOnUrl,
+        target: '_blank',
+        rel: 'noreferrer noopener',
+        style:
+        { textDecoration: 'inherit'
         }
+      }
         , 'open link'
       )
     , ')'
     )
   }}
 WidgetUnsupported.propTypes =
-  { initialBlock: React.PropTypes.object.isRequired
-  , id: React.PropTypes.string.isRequired
-  }
+{ initialBlock: React.PropTypes.object.isRequired,
+  id: React.PropTypes.string.isRequired
+}
 
 export default React.createFactory(WidgetUnsupported)

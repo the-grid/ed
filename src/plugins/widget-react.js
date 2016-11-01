@@ -16,12 +16,12 @@ export default class WidgetReact extends WidgetBase {
   }
   mount () {
     const props =
-      { initialBlock: this.initialBlock
-      , id: this.initialBlock.id
-      , onChange: this.onChange
-      , imgfloConfig: this.ed.imgfloConfig
-      , store: this.ed
-      , coverPrefs: this.coverPrefs
+      { initialBlock: this.initialBlock,
+        id: this.initialBlock.id,
+        onChange: this.onChange,
+        imgfloConfig: this.ed.imgfloConfig,
+        store: this.ed,
+        coverPrefs: this.coverPrefs
       }
 
     this.mounted = ReactDOM.render(new Media(props), this.el)

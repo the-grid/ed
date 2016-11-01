@@ -68,7 +68,7 @@ class DropdownGroup extends React.Component {
   render () {
     return el('div'
     , { className: 'DropdownGroup'
-      }
+    }
     , this.renderButtons()
     , this.renderMenu()
     )
@@ -83,29 +83,29 @@ class DropdownGroup extends React.Component {
       const {name, label} = menus[i].props
       buttons.push(
         el(ButtonOutline
-        , { key: `button${i}`
-          , onClick: this.makeOpenMenu(i)
-          , theme: (openMenu === i ? 'primary' : theme)
-          , inverted: false
-          , style:
-            { borderWidth: 0
-            , boxShadow: 'none'
-            , outline: 'none'
-            }
-          , rounded: false
-          , title: `Edit ${label}`
-          }
+        , { key: `button${i}`,
+          onClick: this.makeOpenMenu(i),
+          theme: (openMenu === i ? 'primary' : theme),
+          inverted: false,
+          style:
+          { borderWidth: 0,
+            boxShadow: 'none',
+            outline: 'none'
+          },
+          rounded: false,
+          title: `Edit ${label}`
+        }
         , el('span'
           , { style:
-              { maxWidth: '15rem'
-              , verticalAlign: 'middle'
-              , display: 'inline-block'
-              , whiteSpace: 'pre'
-              , overflow: 'hidden'
-              , textOverflow: 'ellipsis'
-              , textTransform: 'uppercase'
-              }
-            }
+          { maxWidth: '15rem',
+            verticalAlign: 'middle',
+            display: 'inline-block',
+            whiteSpace: 'pre',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            textTransform: 'uppercase'
+          }
+          }
           , (name || label)
           )
         )
@@ -122,17 +122,17 @@ class DropdownGroup extends React.Component {
     return el('div'
     , { style:
         { position: 'relative' }
-      }
+    }
     , el(Menu
-      , { theme
-        , style:
-          { textAlign: 'left'
-          , position: 'absolute'
-          , top: -1
-          , right: -1
-          , zIndex: 100
-          }
+      , { theme,
+        style:
+        { textAlign: 'left',
+          position: 'absolute',
+          top: -1,
+          right: -1,
+          zIndex: 100
         }
+      }
       , menus[openMenu]
       )
     )
@@ -158,9 +158,9 @@ class DropdownGroup extends React.Component {
   }
 }
 DropdownGroup.propTypes =
-  { menus: React.PropTypes.array.isRequired
-  , theme: React.PropTypes.string
-  }
+{ menus: React.PropTypes.array.isRequired,
+  theme: React.PropTypes.string
+}
 DropdownGroup.defaultProps =
   { theme: 'secondary' }
 export default React.createFactory(DropdownGroup)

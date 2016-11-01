@@ -693,9 +693,9 @@ let post = {
       'html': '',
       'metadata': {starred: true, caption: 'Sometimes images go away :-('},
       'cover':
-        { unsalvageable: true
+      { unsalvageable: true
         , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'
-        }
+      }
     },
     {
       'type': 'text',
@@ -723,10 +723,10 @@ let post = {
     { id: '0000-failed'
     , type: 'placeholder'
     , metadata:
-      { starred: true
+    { starred: true
       , status: 'Hmmm...'
       , failed: true
-      }
+    }
     },
     {
       'id': 'abc-00000000-h1',

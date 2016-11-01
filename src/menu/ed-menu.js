@@ -46,59 +46,59 @@ makeHead3.spec.select = enableIsText
 
 
 export const edCommands =
-  { 'strong:toggle': toggleStrong
-  , 'em:toggle': toggleEm
-  , 'link:toggle': toggleLink
-  , 'paragraph:make': makeParagraph
-  , 'heading:make1': makeHead1
-  , 'heading:make2': makeHead2
-  , 'heading:make3': makeHead3
-  , 'bullet_list:wrap': wrapBulletList
-  , 'ordered_list:wrap': wrapOrderedList
-  , 'horizontal_rule:insert': insertHorizontalRule
-  , 'lift': liftItem
-  , 'undo': undoItem
-  , 'redo': redoItem
-  , 'ed_upload_image': menuImage
-  , 'ed_add_code': menuCode
-  , 'ed_add_location': menuLocation
-  , 'ed_add_userhtml': menuUserhtml
-  , 'ed_add_cta': menuCta
-  , 'ed_add_quote': menuQuote
+  { 'strong:toggle': toggleStrong,
+    'em:toggle': toggleEm,
+    'link:toggle': toggleLink,
+    'paragraph:make': makeParagraph,
+    'heading:make1': makeHead1,
+    'heading:make2': makeHead2,
+    'heading:make3': makeHead3,
+    'bullet_list:wrap': wrapBulletList,
+    'ordered_list:wrap': wrapOrderedList,
+    'horizontal_rule:insert': insertHorizontalRule,
+    'lift': liftItem,
+    'undo': undoItem,
+    'redo': redoItem,
+    'ed_upload_image': menuImage,
+    'ed_add_code': menuCode,
+    'ed_add_location': menuLocation,
+    'ed_add_userhtml': menuUserhtml,
+    'ed_add_cta': menuCta,
+    'ed_add_quote': menuQuote
   }
 
 const typeDropdown = new Dropdown(
-  [ makeParagraph
-  , makeHead1
-  , makeHead2
-  , makeHead3
+  [ makeParagraph,
+    makeHead1,
+    makeHead2,
+    makeHead3
   ]
   , {label: 'Type'}
 )
 
 const addDropdown = new Dropdown(
-  [ insertHorizontalRule
-  , menuLocation
-  , menuCode
-  , menuCta
-  , menuUserhtml
+  [ insertHorizontalRule,
+    menuLocation,
+    menuCode,
+    menuCta,
+    menuUserhtml
   ]
   , {label: 'Add'}
 )
 
 export const edBlockMenu =
-  [ [ toggleStrong
-    , toggleEm
-    , toggleLink
-    ]
-  , [ typeDropdown ]
-  , [ wrapBulletList
-    , wrapOrderedList
-    , menuQuote
-    , liftItem
-    ]
-  , [ menuImage ]
-  , [ addDropdown ]
+  [ [ toggleStrong,
+    toggleEm,
+    toggleLink
+  ],
+   [ typeDropdown ],
+    [ wrapBulletList,
+      wrapOrderedList,
+      menuQuote,
+      liftItem
+    ],
+   [ menuImage ],
+   [ addDropdown ]
   ]
 
 export const edBarMenu = edBlockMenu

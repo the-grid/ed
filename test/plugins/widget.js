@@ -5,34 +5,34 @@ import {mountApp, unmountApp} from '../../src/ed'
 describe('PluginWidget', function () {
   let mount, ed, plugin
   const fixture =
-    [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
-    , { id: '0001'
-      , type: 'placeholder'
-      , metadata: {starred: true}
-      }
-    , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
-    , { id: '0000'
-      , type: 'placeholder'
-      , metadata: {starred: true}
-      }
-    , {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
+    [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
+      { id: '0001',
+        type: 'placeholder',
+        metadata: {starred: true}
+      },
+     {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
+      { id: '0000',
+        type: 'placeholder',
+        metadata: {starred: true}
+      },
+     {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
     ]
 
   beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
     ed = mountApp(mount
-    , { initialContent: fixture
-      , onChange: function () {}
-      , onShareUrl: function () {}
-      , onShareFile: function () {}
-      , onRequestCoverUpload: function () {}
-      , onMount:
+    , { initialContent: fixture,
+      onChange: function () {},
+      onShareUrl: function () {},
+      onShareFile: function () {},
+      onRequestCoverUpload: function () {},
+      onMount:
           function (p) {
             plugin = p
             done()
           }
-      }
+    }
     )
     ed.updateProgress('0001', {status: 'Status'})
     ed.updateProgress('0000', {status: 'Status'})
@@ -119,8 +119,8 @@ describe('PluginWidget', function () {
       })
 
       ed.setContent([
-        { id: '0000'
-        , type: 'image'
+        { id: '0000',
+          type: 'image'
         }
       ])
 

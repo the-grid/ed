@@ -13,11 +13,11 @@ class ButtonConfirm extends React.Component {
     const {open} = this.state
 
     return el(ButtonOutline
-    , { children: (open ? confirm : label)
-      , onClick: (open ? onClick : this.boundOnConfirm)
-      , theme
-      , style
-      }
+    , { children: (open ? confirm : label),
+      onClick: (open ? onClick : this.boundOnConfirm),
+      theme,
+      style
+    }
     )
   }
   onConfirm () {
@@ -25,10 +25,10 @@ class ButtonConfirm extends React.Component {
   }
 }
 ButtonConfirm.propTypes =
-  { confirm: React.PropTypes.string.isRequired
-  , label: React.PropTypes.string.isRequired
-  , theme: React.PropTypes.string
-  , style: React.PropTypes.object
-  , onClick: React.PropTypes.func.isRequired
-  }
+{ confirm: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired,
+  theme: React.PropTypes.string,
+  style: React.PropTypes.object,
+  onClick: React.PropTypes.func.isRequired
+}
 export default React.createFactory(ButtonConfirm)

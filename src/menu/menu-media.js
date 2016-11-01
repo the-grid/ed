@@ -14,10 +14,10 @@ function makeMenu (label, type, widgetType) {
   }
 
   return new MenuItem(
-    { label
-    , title: `make new ${widgetType || type} block`
-    , run
-    , icon
+    { label,
+      title: `make new ${widgetType || type} block`,
+      run,
+      icon
     }
   )
 }

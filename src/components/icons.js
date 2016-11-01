@@ -7,32 +7,32 @@ import React, {createElement as el} from 'react'
 export function Play (props) {
   const {fill, width, height} = props
   return el('svg'
-  , { viewBox: '0 0 32 32'
-    , fill
-    , width
-    , height
-    }
+  , { viewBox: '0 0 32 32',
+    fill,
+    width,
+    height
+  }
   , el('path'
     , { d: 'M4 4 L28 16 L4 28 z'
-      }
+    }
     )
   )
 }
 Play.defaultProps =
-  { fill: 'currentColor'
-  , width: '0.9em'
-  , height: '0.9em'
-  }
+{ fill: 'currentColor',
+  width: '0.9em',
+  height: '0.9em'
+}
 Play.propTypes =
-  { fill: React.PropTypes.string
-  , width: React.PropTypes.oneOfType(
-      [ React.PropTypes.string
-      , React.PropTypes.number
-      ]
+{ fill: React.PropTypes.string,
+  width: React.PropTypes.oneOfType(
+    [ React.PropTypes.string,
+      React.PropTypes.number
+    ]
+    ),
+  height: React.PropTypes.oneOfType(
+    [ React.PropTypes.string,
+      React.PropTypes.number
+    ]
     )
-  , height: React.PropTypes.oneOfType(
-      [ React.PropTypes.string
-      , React.PropTypes.number
-      ]
-    )
-  }
+}

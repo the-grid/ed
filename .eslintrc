@@ -8,7 +8,6 @@
 , "rules":
   { "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}]
   , "no-console": 2
-  , "comma-style": [2, "first"]
   , "camelcase": 0
   }
 , "plugins": ["react"]

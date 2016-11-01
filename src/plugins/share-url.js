@@ -34,11 +34,11 @@ export default class ShareUrl {
     // Make share
     const id = uuid.v4()
     const block =
-      { id
-      , type: 'placeholder'
-      , metadata:
-        { status: `Sharing... ${url}`
-        , percent: 0
+      { id,
+        type: 'placeholder',
+        metadata:
+        { status: `Sharing... ${url}`,
+          percent: 0
         }
       }
     this.ed.routeChange('PLUGIN_URL', {index, id, block, url})

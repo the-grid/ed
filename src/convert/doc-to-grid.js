@@ -67,27 +67,27 @@ export default function (doc, apiContentMap) {
 function trimContent (content) {
   return _.map(content, function (item) {
     let cleaned = _.pick(item
-    , [ 'id'
-      , 'type'
-      , 'item'
-      , 'html'
-      , 'text'
-      , 'metadata'
-      , 'cover'
-      , 'cta'
-      , 'price'
-      , 'label'
-      , 'url'
-      , 'height'
-      ]
+    , [ 'id',
+      'type',
+      'item',
+      'html',
+      'text',
+      'metadata',
+      'cover',
+      'cta',
+      'price',
+      'label',
+      'url',
+      'height'
+    ]
     )
     if (cleaned.cover) {
       cleaned.cover = _.pick(cleaned.cover
-      , [ 'src'
-        , 'width'
-        , 'height'
-        , 'unsalvageable'
-        ]
+      , [ 'src',
+        'width',
+        'height',
+        'unsalvageable'
+      ]
       )
     }
     return cleaned

@@ -14,12 +14,12 @@ describe('BlockMeta', function () {
 
   describe('Type image', function () {
     const image =
-      { type: 'image'
-      , metadata:
-        { title: 'Title'
-        , description: 'Description yö'
-        }
-      , cover:
+      { type: 'image',
+        metadata:
+        { title: 'Title',
+          description: 'Description yö'
+        },
+        cover:
         { src: 'http://....jpg'
         }
       }
@@ -37,12 +37,12 @@ describe('BlockMeta', function () {
 
   describe('Type article', function () {
     const article =
-      { type: 'article'
-      , metadata:
-        { title: 'Title yö'
-        , description: 'Description'
-        }
-      , cover:
+      { type: 'article',
+        metadata:
+        { title: 'Title yö',
+          description: 'Description'
+        },
+        cover:
         { src: 'http://....jpg'
         }
       }
@@ -64,9 +64,9 @@ describe('BlockMeta', function () {
 
   describe('Type cta', function () {
     const cta =
-      { type: 'cta'
-      , label: 'label yö'
-      , url: 'http://fff'
+      { type: 'cta',
+        label: 'label yö',
+        url: 'http://fff'
       }
 
     it('gives expected html out', function () {
@@ -82,8 +82,8 @@ describe('BlockMeta', function () {
 
   describe('Type quote', function () {
     const quote =
-      { type: 'quote'
-      , metadata: { description: 'quö' }
+      { type: 'quote',
+        metadata: { description: 'quö' }
       }
 
     it('gives expected html out', function () {

@@ -12,22 +12,22 @@ import WidgetIframe from './widget-iframe'
 import WidgetReact from './widget-react'
 
 const WIDGET_TYPES =
-  { code: WidgetIframe
-  , location: WidgetIframe
-  , userhtml: WidgetIframe
-  , placeholder: WidgetReact
-  , cta: WidgetReact
-  , default: WidgetReact
+  { code: WidgetIframe,
+    location: WidgetIframe,
+    userhtml: WidgetIframe,
+    placeholder: WidgetReact,
+    cta: WidgetReact,
+    default: WidgetReact
   }
 
 // Functions to bind in class constructor
 
 function initializeBlock (id, type) {
   const block =
-    { id
-    , type
-    , html: ''
-    , metadata: {}
+    { id,
+      type,
+      html: '',
+      metadata: {}
     }
   this.ed._initializeContent([block])
   return this.ed.getBlock(id)
@@ -51,8 +51,8 @@ function onIframeMessage (message) {
         throw new Error('Iframe height message with non-numeric payload')
       }
       this.scheduledHeightUpdates.push(
-        { id: message.data.id
-        , height: message.data.payload
+        { id: message.data.id,
+          height: message.data.payload
         }
       )
       this.triggerUpdate()
@@ -140,10 +140,10 @@ export default class PluginWidget {
       }
       inDoc.push(id)
       const rectangle =
-        { top: el.offsetTop
-        , left: el.offsetLeft
-        , width: el.offsetWidth
-        , height: el.offsetHeight
+        { top: el.offsetTop,
+          left: el.offsetLeft,
+          width: el.offsetWidth,
+          height: el.offsetHeight
         }
       const widget = this.widgets[id]
       let needsReInit = false
@@ -165,8 +165,8 @@ export default class PluginWidget {
       const innerHeight = widget.getHeight()
       if (innerHeight !== widget.height) {
         toChangeHeight.push(
-          { id: id
-          , height: innerHeight
+          { id: id,
+            height: innerHeight
           }
         )
       }
@@ -225,16 +225,16 @@ export default class PluginWidget {
     }
 
     this.widgets[id] = new Widget(
-      { ed: this.ed
-      , id
-      , type
-      , widgetType
-      , initialBlock
-      , widgetContainer: this.el
-      , initialRectangle: rectangle
-      , initialFocus
-      , widgetPath: this.widgetPath
-      , coverPrefs: this.coverPrefs
+      { ed: this.ed,
+        id,
+        type,
+        widgetType,
+        initialBlock,
+        widgetContainer: this.el,
+        initialRectangle: rectangle,
+        initialFocus,
+        widgetPath: this.widgetPath,
+        coverPrefs: this.coverPrefs
       }
     )
 

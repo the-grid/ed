@@ -35,14 +35,14 @@ function makeLinks (schema, metadata = {}, onClick) {
 function makeLink (key, label, onClick, confirm = false) {
   const Component = (confirm ? NavItemConfirm : NavItem)
   return el(Component
-  , { key
-    , children: label
-    , label
-    , confirm: (confirm ? 'Are you sure?' : null)
-    , theme: (confirm ? 'warning' : 'primary')
-    , style: { display: 'block' }
-    , onClick: makeClick(key, onClick)
-    }
+  , { key,
+    children: label,
+    label,
+    confirm: (confirm ? 'Are you sure?' : null),
+    theme: (confirm ? 'warning' : 'primary'),
+    style: { display: 'block' },
+    onClick: makeClick(key, onClick)
+  }
   )
 }
 

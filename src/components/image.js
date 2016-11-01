@@ -14,8 +14,8 @@ export default function Image (props, context) {
   const {width, height} = props
   if (context && context.imgfloConfig) {
     const params =
-      { input: src
-      , width: getSize(width, height)
+      { input: src,
+        width: getSize(width, height)
       }
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }

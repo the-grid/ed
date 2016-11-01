@@ -22,21 +22,21 @@ function setup (options) {
     apiJSON.value = JSON.stringify(options.initialContent, null, 2)
   }
   const props =
-    { initialContent: (options.initialContent || [])
-    , onChange: () => { console.log('change') }
-    , onMount: () => { console.log('mount') }
-    , onShareFile: onShareFileDemo
-    , onShareUrl: onShareUrlDemo
-    , onRequestCoverUpload: onRequestCoverUploadDemo
-    , onPlaceholderCancel: onPlaceholderCancelDemo
-    , onCommandsChanged: (commands) => {}
-    , onDropFiles: onDropFilesDemo
-    , onDropFileOnBlock: onDropFileOnBlockDemo
-    , imgfloConfig: null
-    , widgetPath: './node_modules/'
-    , coverPrefs: { filter: false }
-    , menuBar: true
-    , ref:
+    { initialContent: (options.initialContent || []),
+      onChange: () => { console.log('change') },
+      onMount: () => { console.log('mount') },
+      onShareFile: onShareFileDemo,
+      onShareUrl: onShareUrlDemo,
+      onRequestCoverUpload: onRequestCoverUploadDemo,
+      onPlaceholderCancel: onPlaceholderCancelDemo,
+      onCommandsChanged: (commands) => {},
+      onDropFiles: onDropFilesDemo,
+      onDropFileOnBlock: onDropFileOnBlockDemo,
+      imgfloConfig: null,
+      widgetPath: './node_modules/',
+      coverPrefs: { filter: false },
+      menuBar: true,
+      ref:
         function (mounted) {
           ed = mounted
           console.log(ed)
@@ -113,10 +113,10 @@ function filesUploadSim (index, files) {
       const updatedBlocks = ids.map(function (id, index) {
         ed.updateProgress(id, {progress: null})
         return (
-          { id
-          , type: 'image'
-          , metadata: {title: names[index]}
-          }
+        { id,
+          type: 'image',
+          metadata: {title: names[index]}
+        }
         )
       })
       ed.setContent(updatedBlocks)
@@ -142,27 +142,27 @@ function onShareUrlDemo (share) {
     function () {
       console.log('Share: mount block')
       ed.setContent([
-        { id: block
-        , type: 'article'
-        , metadata:
-          { title: 'Shared article title'
-          , description: `Simulated share from ${url}`
+        { id: block,
+          type: 'article',
+          metadata:
+          { title: 'Shared article title',
+            description: `Simulated share from ${url}`
           }
         }
       ])
       window.setTimeout(function () {
         console.log('Share: mount block + cover')
         ed.setContent([
-          { id: block
-          , type: 'article'
-          , metadata:
-            { title: 'Shared article title + cover'
-            , description: `Simulated share from ${url}`
-            }
-          , cover:
-            { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png'
-            , width: 400
-            , height: 474
+          { id: block,
+            type: 'article',
+            metadata:
+            { title: 'Shared article title + cover',
+              description: `Simulated share from ${url}`
+            },
+            cover:
+            { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
+              width: 400,
+              height: 474
             }
           }
         ])
