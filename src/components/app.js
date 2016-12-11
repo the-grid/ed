@@ -181,6 +181,8 @@ App.propTypes =
   , widgetPath: React.PropTypes.string
   , coverPrefs: React.PropTypes.object
   , menuBar: React.PropTypes.bool
+  , onMount: React.PropTypes.func
+  , onDropFileOnBlock: React.PropTypes.func
   }
 App.defaultProps =
   { widgetPath: './node_modules/'
