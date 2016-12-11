@@ -37,7 +37,6 @@
     "prosemirror": "^0.10.1",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-tap-event-plugin": "^1.0.0",
     "rebass": "^0.3.3",
     "uuid": "^2.0.2"
   },
