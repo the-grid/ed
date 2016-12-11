@@ -1,5 +1,9 @@
 ### dev
 
+### 1.3.3 - 2016-12-11
+
+* ed-location 2.0.1 fixes bug that lost coordinates in middle of ocean
+
 ### 1.3.2 - 2016-10-26
 
 * Fix doubled hr again (#299)

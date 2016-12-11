@@ -29,7 +29,7 @@
   "homepage": "https://github.com/the-grid/ed#readme",
   "dependencies": {
     "@the-grid/ced": "^0.1.2",
-    "@the-grid/ed-location": "^2.0.0",
+    "@the-grid/ed-location": "^2.0.1",
     "@the-grid/ed-userhtml": "^0.2.1",
     "he": "^1.1.0",
     "imgflo-url": "^1.1.0",
