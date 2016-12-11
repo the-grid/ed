@@ -10,6 +10,7 @@
   , "no-console": 2
   , "comma-style": [2, "first"]
   , "camelcase": 0
+  , "indent": 0
   }
 , "plugins": ["react"]
 , "extends": ["standard", "plugin:react/recommended"]
