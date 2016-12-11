@@ -1,4 +1,3 @@
-import '../util/react-tap-hack'
 import _ from '../util/lodash'
 import uuid from 'uuid'
 
