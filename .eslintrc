@@ -9,6 +9,7 @@
   { "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}]
   , "no-console": 2
   , "camelcase": 0
+  , "indent": 0
   }
 , "plugins": ["react"]
 , "extends": ["standard", "plugin:react/recommended"]

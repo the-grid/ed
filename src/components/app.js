@@ -170,20 +170,20 @@ App.childContextTypes =
   rebass: React.PropTypes.object
 }
 App.propTypes =
-{ initialContent: React.PropTypes.array.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  onShareFile: React.PropTypes.func.isRequired,
-  onShareUrl: React.PropTypes.func.isRequired,
-  onDropFiles: React.PropTypes.func,
-  onDropFileOnBlock: React.PropTypes.func,
-  onCommandsChanged: React.PropTypes.func,
-  onMount: React.PropTypes.func,
-  onRequestCoverUpload: React.PropTypes.func.isRequired,
-  imgfloConfig: React.PropTypes.object,
-  widgetPath: React.PropTypes.string,
-  coverPrefs: React.PropTypes.object,
-  menuBar: React.PropTypes.bool
-}
+  { initialContent: React.PropTypes.array.isRequired
+  , onChange: React.PropTypes.func.isRequired
+  , onShareFile: React.PropTypes.func.isRequired
+  , onShareUrl: React.PropTypes.func.isRequired
+  , onDropFiles: React.PropTypes.func
+  , onCommandsChanged: React.PropTypes.func
+  , onRequestCoverUpload: React.PropTypes.func.isRequired
+  , imgfloConfig: React.PropTypes.object
+  , widgetPath: React.PropTypes.string
+  , coverPrefs: React.PropTypes.object
+  , menuBar: React.PropTypes.bool
+  , onMount: React.PropTypes.func
+  , onDropFileOnBlock: React.PropTypes.func
+  }
 App.defaultProps =
 { widgetPath: './node_modules/',
   menuBar: true

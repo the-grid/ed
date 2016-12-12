@@ -1,7 +1,6 @@
 /* eslint react/no-find-dom-node: [0] */
 
 import React, {createElement as el} from 'react'
-import ReactDOM from 'react-dom'
 
 import Menu from 'rebass/dist/Menu'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
@@ -24,6 +23,7 @@ class DropdownGroup extends React.Component {
       openMenu: null
     }
     this.boundCloseMenu = this.closeMenu.bind(this)
+    this.nodeRefCallback = (node) => { this.node = node }
   }
   componentDidMount () {
     // Click away to dismiss
@@ -58,8 +58,8 @@ class DropdownGroup extends React.Component {
   }
   componentDidUpdate (_, prevState) {
     // Focus on open
-    if (!prevState.open && this.state.open) {
-      const el = ReactDOM.findDOMNode(this).querySelector('textarea')
+    if (!prevState.open && this.state.open && this.node) {
+      const el = this.node.querySelector('textarea')
       if (el) {
         el.focus()
       }
@@ -68,7 +68,8 @@ class DropdownGroup extends React.Component {
   render () {
     return el('div'
     , { className: 'DropdownGroup'
-    }
+      , ref: this.nodeRefCallback
+      }
     , this.renderButtons()
     , this.renderMenu()
     )
