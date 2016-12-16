@@ -24,7 +24,7 @@ const HTML_TYPES =
     'ol',
     'p',
     'text',
-    'ul'
+    'ul',
   ]
 
 function contains (array, string) {

@@ -16,7 +16,7 @@ class NavItemConfirm extends React.Component {
     , { children: (open ? confirm : label),
       onClick: (open ? onClick : this.boundOnConfirm),
       theme,
-      style
+      style,
     }
     )
   }
@@ -29,6 +29,6 @@ NavItemConfirm.propTypes =
   label: React.PropTypes.string.isRequired,
   theme: React.PropTypes.string,
   style: React.PropTypes.object,
-  onClick: React.PropTypes.func.isRequired
+  onClick: React.PropTypes.func.isRequired,
 }
 export default React.createFactory(NavItemConfirm)

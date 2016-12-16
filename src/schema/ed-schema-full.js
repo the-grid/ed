@@ -26,13 +26,13 @@ const EdSchema = new Schema(
     media,
     list_item,
     text,
-    hard_break
+    hard_break,
   },
     marks:
     { em,
       strong,
-      link
-    }
+      link,
+    },
   }
 )
 

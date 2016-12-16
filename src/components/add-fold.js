@@ -26,7 +26,7 @@ class AddFold extends React.Component {
     , { id: 'AddFold',
       style: buttonStyle,
       onClick: this.boundAddFold,
-      rounded: true
+      rounded: true,
     }
     , 'Make Full Post'
     )

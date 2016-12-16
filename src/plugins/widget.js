@@ -17,7 +17,7 @@ const WIDGET_TYPES =
     userhtml: WidgetIframe,
     placeholder: WidgetReact,
     cta: WidgetReact,
-    default: WidgetReact
+    default: WidgetReact,
   }
 
 // Functions to bind in class constructor
@@ -27,7 +27,7 @@ function initializeBlock (id, type) {
     { id,
       type,
       html: '',
-      metadata: {}
+      metadata: {},
     }
   this.ed._initializeContent([block])
   return this.ed.getBlock(id)
@@ -52,7 +52,7 @@ function onIframeMessage (message) {
       }
       this.scheduledHeightUpdates.push(
         { id: message.data.id,
-          height: message.data.payload
+          height: message.data.payload,
         }
       )
       this.triggerUpdate()
@@ -143,7 +143,7 @@ export default class PluginWidget {
         { top: el.offsetTop,
           left: el.offsetLeft,
           width: el.offsetWidth,
-          height: el.offsetHeight
+          height: el.offsetHeight,
         }
       const widget = this.widgets[id]
       let needsReInit = false
@@ -166,7 +166,7 @@ export default class PluginWidget {
       if (innerHeight !== widget.height) {
         toChangeHeight.push(
           { id: id,
-            height: innerHeight
+            height: innerHeight,
           }
         )
       }
@@ -234,7 +234,7 @@ export default class PluginWidget {
         initialRectangle: rectangle,
         initialFocus,
         widgetPath: this.widgetPath,
-        coverPrefs: this.coverPrefs
+        coverPrefs: this.coverPrefs,
       }
     )
 

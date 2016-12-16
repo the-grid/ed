@@ -44,7 +44,7 @@ class WidgetCta extends React.Component {
       const {showImport} = this.state
       this.setState(
         { showImport: !showImport,
-          importStatus: ''
+          importStatus: '',
         }
       )
     }
@@ -68,11 +68,11 @@ class WidgetCta extends React.Component {
     const {label, url, canFrame} = this.state
 
     return el('div'
-    , { className: 'WidgetCta'
+    , { className: 'WidgetCta',
     }
     , el('div'
       , { className: 'WidgetCta-metadata',
-        style: widgetLeftStyle
+        style: widgetLeftStyle,
       }
       , el(TextareaAutosize
         , { label: 'Label',
@@ -80,7 +80,7 @@ class WidgetCta extends React.Component {
           placeholder: 'Sign up now!',
           defaultValue: label,
           onChange: this.changeLabel,
-          style: {width: '100%'}
+          style: {width: '100%'},
         }
         )
       , el(TextareaAutosize
@@ -90,7 +90,7 @@ class WidgetCta extends React.Component {
           defaultValue: url,
           onChange: this.changeUrl,
           validator: isUrlOrBlank,
-          style: {width: '100%'}
+          style: {width: '100%'},
         }
         )
       , el(Checkbox
@@ -98,7 +98,7 @@ class WidgetCta extends React.Component {
           label: 'Link can open in frame',
           name: 'canFrame',
           checked: (canFrame === true),
-          onChange: this.changeModal
+          onChange: this.changeModal,
         }
         )
       , this.renderImport()
@@ -131,7 +131,7 @@ class WidgetCta extends React.Component {
       , { label: 'HTML',
         defaultValue: '',
         defaultFocus: true,
-        placeholder: '<iframe src=... or <a href=... embed code from another site'
+        placeholder: '<iframe src=... or <a href=... embed code from another site',
       }
       )
     , el(ButtonOutline
@@ -166,7 +166,7 @@ class WidgetCta extends React.Component {
 }
 WidgetCta.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
-  id: React.PropTypes.string.isRequired
+  id: React.PropTypes.string.isRequired,
 }
 WidgetCta.contextTypes =
   { store: React.PropTypes.object }

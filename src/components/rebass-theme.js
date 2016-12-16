@@ -10,13 +10,13 @@ export const widgetStyle =
     background: '#fff',
     border: '1px solid #ddd',
     borderRadius: 2,
-    position: 'relative'
+    position: 'relative',
   }
 
 export const widgetLeftStyle =
   { paddingLeft: '1rem',
     borderLeft: '1px solid #ddd',
-    background: '#fff'
+    background: '#fff',
   }
 
 const theme =
@@ -24,24 +24,24 @@ const theme =
     fontFamily: sans,
     colors: rebassDefaults.colors,
     Base:
-    { fontFamily: sans
+    { fontFamily: sans,
     },
     Button:
-    { fontFamily: sans
+    { fontFamily: sans,
     },
     ButtonOutline:
     { fontFamily: sans,
-      boxShadow: 'inset 0 0 0 1px #ddd'
+      boxShadow: 'inset 0 0 0 1px #ddd',
     },
     NavItem:
-    { fontFamily: sans
+    { fontFamily: sans,
     },
     Panel:
-    { fontFamily: sans
+    { fontFamily: sans,
     },
     Message:
-    { fontFamily: sans
-    }
+    { fontFamily: sans,
+    },
   }
 
 export default theme

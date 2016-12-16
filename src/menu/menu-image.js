@@ -29,7 +29,7 @@ const menuImage = new MenuItem(
   { label: 'Image',
     title: 'upload image(s) above this block',
     run,
-    render
+    render,
   }
 )
 

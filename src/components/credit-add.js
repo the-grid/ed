@@ -41,7 +41,7 @@ function makeLink (key, label, onClick, confirm = false) {
     confirm: (confirm ? 'Are you sure?' : null),
     theme: (confirm ? 'warning' : 'primary'),
     style: { display: 'block' },
-    onClick: makeClick(key, onClick)
+    onClick: makeClick(key, onClick),
   }
   )
 }

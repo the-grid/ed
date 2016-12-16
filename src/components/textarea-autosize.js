@@ -5,13 +5,13 @@ import {sans, colors} from './rebass-theme'
 
 const containerStyle =
   { fontFamily: sans,
-    fontSize: 12
+    fontSize: 12,
   }
 
 const labelStyle = {}
 
 const labelStyleError =
-  { color: colors.error
+  { color: colors.error,
   }
 
 const areaStyle =
@@ -27,7 +27,7 @@ const areaStyle =
     borderRadius: 0,
     outline: 'none',
     overflow: 'hidden',
-    marginBottom: '0.75rem'
+    marginBottom: '0.75rem',
   }
 
 
@@ -39,7 +39,7 @@ class TextareaAutosize extends React.Component {
     this.boundOnKeyDown = this.onKeyDown.bind(this)
     this.state =
     { value: props.defaultValue,
-      valid: true
+      valid: true,
     }
   }
   componentDidMount () {
@@ -71,10 +71,10 @@ class TextareaAutosize extends React.Component {
 
     return el('div'
     , { className: `TextareaAutosize ${this.props.className}`,
-      style: containerStyle
+      style: containerStyle,
     }
     , el('label'
-      , { style: (valid ? labelStyle : labelStyleError)
+      , { style: (valid ? labelStyle : labelStyleError),
       }
       , label
       , this.renderLink()
@@ -88,7 +88,7 @@ class TextareaAutosize extends React.Component {
           onChange: this.boundOnChange,
           rows: 1,
           onFocus: this.boundResize,
-          onKeyDown: this.boundOnKeyDown
+          onKeyDown: this.boundOnKeyDown,
         }
         )
       )
@@ -108,8 +108,8 @@ class TextareaAutosize extends React.Component {
       rel: 'noreferrer noopener',
       style:
       { marginLeft: '0.5rem',
-        textDecoration: 'none'
-      }
+        textDecoration: 'none',
+      },
     }
     , 'open'
     )
@@ -157,11 +157,11 @@ TextareaAutosize.propTypes =
   onChange: React.PropTypes.func,
   onKeyDown: React.PropTypes.func,
   multiline: React.PropTypes.bool,
-  validator: React.PropTypes.func
+  validator: React.PropTypes.func,
 }
 TextareaAutosize.defaultProps =
 { multiline: false,
   inputMode: '',
-  autoCapitalize: 'sentences'
+  autoCapitalize: 'sentences',
 }
 export default React.createFactory(TextareaAutosize)

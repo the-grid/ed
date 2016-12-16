@@ -17,7 +17,7 @@ function makeMenu (label, type, widgetType) {
     { label,
       title: `make new ${widgetType || type} block`,
       run,
-      icon
+      icon,
     }
   )
 }

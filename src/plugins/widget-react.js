@@ -21,7 +21,7 @@ export default class WidgetReact extends WidgetBase {
         onChange: this.onChange,
         imgfloConfig: this.ed.imgfloConfig,
         store: this.ed,
-        coverPrefs: this.coverPrefs
+        coverPrefs: this.coverPrefs,
       }
 
     this.mounted = ReactDOM.render(new Media(props), this.el)

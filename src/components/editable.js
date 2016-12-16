@@ -36,8 +36,8 @@ class Editable extends React.Component {
     return el('div'
     , { className: 'Editable',
       style:
-      { position: 'relative' /* So widgets can position selves */
-      }
+      { position: 'relative', /* So widgets can position selves */
+      },
     }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
     , el('div', {className: 'Editable-Plugins', ref: 'plugins'})
@@ -56,7 +56,7 @@ class Editable extends React.Component {
     const state = EditorState.create(
       { schema: EdSchemaFull,
         doc: GridToDoc(initialContent),
-        plugins: [ EdInputRules, EdCommands ]
+        plugins: [ EdInputRules, EdCommands ],
       }
     )
 
@@ -74,7 +74,7 @@ class Editable extends React.Component {
       { state,
         autoInput: true,
         spellcheck: true,
-        onAction: applyAction
+        onAction: applyAction,
       }
 
     let edPluginClasses =
@@ -82,7 +82,7 @@ class Editable extends React.Component {
         PluginShareUrl,
         PluginContentHints,
         PluginPlaceholder,
-        PluginFixedMenuHack
+        PluginFixedMenuHack,
       ]
 
     if (menuBar) {
@@ -100,7 +100,7 @@ class Editable extends React.Component {
         editableView: this,
         container: plugins,
         widgetPath,
-        coverPrefs
+        coverPrefs,
       }
 
     edPluginClasses.forEach(function (plugin) {
@@ -153,6 +153,6 @@ Editable.propTypes =
   onEditableInit: React.PropTypes.func,
   onCommandsChanged: React.PropTypes.func,
   widgetPath: React.PropTypes.string,
-  coverPrefs: React.PropTypes.object
+  coverPrefs: React.PropTypes.object,
 }
 export default React.createFactory(Editable)

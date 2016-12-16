@@ -78,7 +78,7 @@ function trimContent (content) {
       'price',
       'label',
       'url',
-      'height'
+      'height',
     ]
     )
     if (cleaned.cover) {
@@ -86,7 +86,7 @@ function trimContent (content) {
       , [ 'src',
         'width',
         'height',
-        'unsalvageable'
+        'unsalvageable',
       ]
       )
     }

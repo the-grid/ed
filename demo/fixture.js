@@ -24,16 +24,16 @@ let tweet = {
           [240, 243, 244],
           [17, 17, 20],
           [103, 117, 134],
-          [186, 188, 191]
-        ]
-      }
+          [186, 188, 191],
+        ],
+      },
     }],
     'related': [],
     'publisher': {
       'url': 'http://twitter.com',
       'name': 'Twitter',
       'favicon': 'https://abs.twimg.com/favicons/favicon.ico',
-      'domain': 'twitter.com'
+      'domain': 'twitter.com',
     },
     'keywords': ['jasonfried', 'thegridio', 'https', 'thegrid', 'dracula_x', 'conceptually', 'location', 'websites', 'sure', 'waynepelletier'],
     // 'description': 'https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.',
@@ -42,8 +42,8 @@ let tweet = {
     'app_links': [],
     '@context': 'http://schema.org',
     'isBasedOnUrl': 'https://twitter.com/jasonfried/status/522492212144525312',
-    'source': '926db660-ed6c-43f6-b838-56ac6a527034'
-  }
+    'source': '926db660-ed6c-43f6-b838-56ac6a527034',
+  },
 }
 
 let imageRaphael = {
@@ -67,33 +67,33 @@ let imageRaphael = {
             [
               229,
               212,
-              218
+              218,
             ],
             [
               185,
               162,
-              160
+              160,
             ],
             [
               81,
               70,
-              64
+              64,
             ],
             [
               139,
               118,
-              116
-            ]
-          ]
-        }
-      }
+              116,
+            ],
+          ],
+        },
+      },
     ],
     'related': [],
     'publisher': {
       'url': 'http://twitter.com',
       'name': 'Twitter',
       'favicon': 'https://abs.twimg.com/favicons/favicon.ico',
-      'domain': 'twitter.com'
+      'domain': 'twitter.com',
     },
     'keywords': [
       'raphael',
@@ -105,7 +105,7 @@ let imageRaphael = {
       'approx',
       'deepforgery',
       '360k',
-      'erbwqjyelg'
+      'erbwqjyelg',
     ],
     'description': 'StyleNet #NeuralArt, inspiration from @jeratt and style by Raphael.',
     'inLanguage': 'en',
@@ -116,12 +116,12 @@ let imageRaphael = {
     'datePublished': null,
     'starred': true,
     'caption': 'StyleNet #NeuralArt, inspiration from @jeratt and style by Raphael.',
-    'source': 'd6fddcde-0831-4058-83a8-110b03aab390'
+    'source': 'd6fddcde-0831-4058-83a8-110b03aab390',
   },
   'caption': 'StyleNet #NeuralArt, inspiration from @jeratt and style by Raphael.',
   'cover': {
-    'src': 'https://pbs.twimg.com/media/CODJ8KXWoAAVGTP.jpg:large'
-  }
+    'src': 'https://pbs.twimg.com/media/CODJ8KXWoAAVGTP.jpg:large',
+  },
 }
 
 let videoTurtle = {
@@ -137,15 +137,15 @@ let videoTurtle = {
       {
         'name': 'Jon Nordby',
         'url': 'http://www.youtube.com/channel/UCB9kP5NQGu0JLWa9UlkxklQ',
-        'avatar': {}
-      }
+        'avatar': {},
+      },
     ],
     'related': [],
     'publisher': {
       'url': 'http://www.youtube.com/',
       'name': 'YouTube',
       'favicon': 'https://s.ytimg.com/yts/img/favicon-vfldLzJxy.ico',
-      'domain': 'www.youtube.com'
+      'domain': 'www.youtube.com',
     },
     'keywords': [
       'duration',
@@ -157,7 +157,7 @@ let videoTurtle = {
       'ravensbourne',
       'mozfest',
       'milling',
-      'jens'
+      'jens',
     ],
     'description': getHappyLittlePhrase(),
     'inLanguage': 'English',
@@ -167,27 +167,27 @@ let videoTurtle = {
         'url': 'vnd.youtube://www.youtube.com/watch?v=IMShMTn8yEU&feature=applinks',
         'type': 'ios',
         'app_store_id': '544007664',
-        'app_name': 'YouTube'
+        'app_name': 'YouTube',
       },
       {
         'url': 'http://www.youtube.com/watch?v=IMShMTn8yEU&feature=applinks',
         'type': 'android',
         'app_name': 'YouTube',
-        'package': 'com.google.android.youtube'
+        'package': 'com.google.android.youtube',
       },
       {
         'url': 'http://www.youtube.com/watch?v=IMShMTn8yEU&feature=applinks',
-        'type': 'web'
-      }
+        'type': 'web',
+      },
     ],
     '@context': 'http://schema.org',
     'isBasedOnUrl': 'https://www.youtube.com/watch?v=IMShMTn8yEU',
     'title': getHappyLittlePhrase(),
     'starred': false,
-    'source': '77d2788d-d7c5-4fbe-9087-4328d9f12ddb'
+    'source': '77d2788d-d7c5-4fbe-9087-4328d9f12ddb',
   },
   'video': {
-    'src': 'https://cdn.embedly.com/widgets/media.html?src=http%3A%2F%2Fwww.youtube.com%2Fembed%2FIMShMTn8yEU%3Ffeature%3Doembed&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIMShMTn8yEU&image=http%3A%2F%2Fi.ytimg.com%2Fvi%2FIMShMTn8yEU%2Fhqdefault.jpg&key=b7d04c9b404c499eba89ee7072e1c4f7&type=text%2Fhtml&schema=youtube'
+    'src': 'https://cdn.embedly.com/widgets/media.html?src=http%3A%2F%2Fwww.youtube.com%2Fembed%2FIMShMTn8yEU%3Ffeature%3Doembed&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DIMShMTn8yEU&image=http%3A%2F%2Fi.ytimg.com%2Fvi%2FIMShMTn8yEU%2Fhqdefault.jpg&key=b7d04c9b404c499eba89ee7072e1c4f7&type=text%2Fhtml&schema=youtube',
   },
   'cover': {
     'orientation': 'landscape',
@@ -196,9 +196,9 @@ let videoTurtle = {
     'width': 480,
     'height': 360,
     'faces': [],
-    'colors': [[47, 47, 48], [213, 215, 206], [123, 119, 115], [149, 162, 164], [136, 144, 159]]
+    'colors': [[47, 47, 48], [213, 215, 206], [123, 119, 115], [149, 162, 164], [136, 144, 159]],
   },
-  'title': 'Mozfest 2014 - Turtle Power: Mirobot and Flowhub penplotting'
+  'title': 'Mozfest 2014 - Turtle Power: Mirobot and Flowhub penplotting',
 }
 
 let article = {
@@ -218,14 +218,14 @@ let article = {
         'url': 'http://www.wired.com/2015/01/orchestra-tiny-humming-robots-conduct-gestures/',
         'thumbnail_height': 750,
         'thumbnail_url': 'http://www.wired.com/wp-content/uploads/2015/01/IMG_5196.jpg',
-        'thumbnail_width': 1000
-      }
+        'thumbnail_width': 1000,
+      },
     ],
     'publisher': {
       'url': 'http://meemoo.org',
       'name': 'Meemoo',
       'favicon': 'http://meemoo.org/favicon.ico',
-      'domain': 'meemoo.org'
+      'domain': 'meemoo.org',
     },
     'keywords': [
       'mirobot',
@@ -237,7 +237,7 @@ let article = {
       'noflo',
       'art',
       'workshops',
-      'graph'
+      'graph',
     ],
     'description': getHappyLittlePhrase(5),
     'inLanguage': 'English',
@@ -248,7 +248,7 @@ let article = {
     'title': getHappyLittlePhrase(),
     'starred': false,
     'caption': "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot.",
-    'source': 'ad25432f-11f9-4326-8b0c-edbffa7afbdc'
+    'source': 'ad25432f-11f9-4326-8b0c-edbffa7afbdc',
   },
   'cover': {
     'orientation': 'landscape',
@@ -257,10 +257,10 @@ let article = {
     'width': 1206,
     'height': 511,
     'faces': [],
-    'colors': [[7, 8, 8], [177, 178, 177], [251, 4, 28], [14, 208, 125], [21, 106, 194]]
+    'colors': [[7, 8, 8], [177, 178, 177], [251, 4, 28], [14, 208, 125], [21, 106, 194]],
   },
   'title': 'Turtle power to the people',
-  'caption': "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot."
+  'caption': "14 Jan 2015 by Vilson Vieira After working for about three years with Forrest we finally meet him on a meet up of The Grid team. During the first days we were preparing a workshop for MozFest's #ArtOfWeb track. The idea was to present a quick introduction to Flowhub/ NoFlo and how to use it to draw with Mirobot.",
 }
 
 let imageCole = {
@@ -277,18 +277,18 @@ let imageCole = {
     '@type': 'Article',
     'publisher': {
       'domain': 'the-grid-user-content.s3-us-west-2.amazonaws.com',
-      'name': 'The Grid'
+      'name': 'The Grid',
     },
     'starred': true,
     'source': '51642a12-50cf-4072-855c-d7d8294ba125',
     author: [{
       name: 'Cole Rise',
-      url: 'https://cole.grid/'
+      url: 'https://cole.grid/',
     }],
     title: getHappyLittlePhrase(),
     coverPrefs: {
-      filter: false
-    }
+      filter: false,
+    },
   },
   'cover': {
     'orientation': 'landscape',
@@ -302,9 +302,9 @@ let imageCole = {
       'polygon': [[1219, 259], [1213, 254], [1190, 251], [1178, 264], [1151, 266], [1130, 275], [1113, 293], [1045, 293], [960, 282], [917, 282], [838, 292], [824, 302], [767, 311], [766, 322], [709, 318], [621, 341], [550, 384], [492, 410], [471, 424], [466, 434], [453, 434], [382, 469], [340, 469], [285, 446], [268, 449], [267, 456], [276, 457], [278, 480], [307, 484], [311, 571], [272, 576], [267, 607], [313, 604], [339, 621], [366, 624], [367, 658], [464, 641], [467, 635], [532, 619], [532, 606], [610, 598], [641, 591], [728, 587], [834, 571], [914, 569], [987, 578], [998, 585], [1025, 585], [1027, 591], [1050, 593], [1051, 599], [1083, 599], [1084, 611], [1119, 611], [1127, 624], [1144, 615], [1184, 615], [1192, 636], [1204, 630], [1206, 619], [1215, 614], [1215, 540], [1232, 534], [1232, 527], [1180, 527], [1180, 487], [1199, 469], [1190, 447], [1190, 406], [1197, 405], [1200, 367], [1216, 366], [1208, 341], [1208, 298], [1217, 295], [1223, 282]],
       'center': [743, 433],
       'radius': 522.01,
-      'bounding_rect': [[267, 251], [1233, 659]]
-    }
-  }
+      'bounding_rect': [[267, 251], [1233, 659]],
+    },
+  },
 }
 
 let code = {
@@ -314,12 +314,12 @@ let code = {
   'metadata': {
     'title': 'code code',
     'description': 'very sample code',
-    'programmingLanguage': 'text/coffeescript'
+    'programmingLanguage': 'text/coffeescript',
   },
   'src': null,
   'text': '# Assignment:\nnumber   = 42\nopposite = true\n\n# Conditions:\nnumber = -42 if opposite\n\n# Functions:\nsquare = (x) -> x * x\n\n# Arrays:\nlist = [1, 2, 3, 4, 5]\n\n# Objects:\nmath =\n  root:   Math.sqrt\n  square: square\n  cube:   (x) -> x * square x\n\n# Splats:\nrace = (winner, runners...) ->\n  print winner, runners\n\n# Existence:\nalert "I knew it!" if elvis?\n\n# Array comprehensions:\ncubes = (math.cube num for num in list)',
   'length': 32,
-  'measurementVersion': 5
+  'measurementVersion': 5,
 }
 
 let imageBeingD4 = {
@@ -342,17 +342,17 @@ let imageBeingD4 = {
     'title': getHappyLittlePhrase(),
     'author': [
       {
-        'name': 'Gordon'
-      }
+        'name': 'Gordon',
+      },
     ],
     'authors': [],
     'publisher': {
       'name': 'i.meemoo.me',
       'domain': 'i.meemoo.me',
       'url': null,
-      'favicon': null
+      'favicon': null,
     },
-    'user': '79922a3a-1dcb-4a43-9b62-e4f3af6ad4ca'
+    'user': '79922a3a-1dcb-4a43-9b62-e4f3af6ad4ca',
   },
   'title': 'being d4',
   'cover': {
@@ -361,13 +361,13 @@ let imageBeingD4 = {
       [144, 126, 104],
       [50, 39, 37],
       [225, 208, 192],
-      [108, 90, 68]
+      [108, 90, 68],
     ],
     'saliency': {
       'polygon': [[1350, 300], [600, 200], [100, 250], [200, 600], [1250, 700]],
       'center': [720, 480],
       'radius': 700,
-      'bounding_rect': [[100, 200], [1350, 700]]
+      'bounding_rect': [[100, 200], [1350, 700]],
     },
     'src': 'http://i.meemoo.me/v1/in/Adx3TWdBQ3O3uJvyH2DP_being-d4.jpg',
     'orientation': 'landscape',
@@ -382,7 +382,7 @@ let imageBeingD4 = {
         'width': 60.181420320681795,
         'height': 60.181420320681795,
         'neighbors': 11,
-        'confidence': 8.715965329999982
+        'confidence': 8.715965329999982,
       },
       {
         'x': 367.5215516831421,
@@ -390,7 +390,7 @@ let imageBeingD4 = {
         'width': 54.27794792754907,
         'height': 54.27794792754907,
         'neighbors': 14,
-        'confidence': 8.305308969999993
+        'confidence': 8.305308969999993,
       },
       {
         'x': 492.2391919725017,
@@ -398,7 +398,7 @@ let imageBeingD4 = {
         'width': 57.606293506030504,
         'height': 57.606293506030504,
         'neighbors': 12,
-        'confidence': 7.161568390000004
+        'confidence': 7.161568390000004,
       },
       {
         'x': 486.83705737694504,
@@ -406,7 +406,7 @@ let imageBeingD4 = {
         'width': 50.952088047919155,
         'height': 50.952088047919155,
         'neighbors': 12,
-        'confidence': 6.479253949999998
+        'confidence': 6.479253949999998,
       },
       {
         'x': 296.1169884519212,
@@ -414,7 +414,7 @@ let imageBeingD4 = {
         'width': 67.83546137450323,
         'height': 67.83546137450323,
         'neighbors': 13,
-        'confidence': 6.356675570000005
+        'confidence': 6.356675570000005,
       },
       {
         'x': 646.9246222261988,
@@ -422,7 +422,7 @@ let imageBeingD4 = {
         'width': 59.64585507428254,
         'height': 59.64585507428254,
         'neighbors': 5,
-        'confidence': 6.261280809999998
+        'confidence': 6.261280809999998,
       },
       {
         'x': 364.884811041297,
@@ -430,7 +430,7 @@ let imageBeingD4 = {
         'width': 66.86416232804767,
         'height': 66.86416232804767,
         'neighbors': 5,
-        'confidence': 5.530725450000008
+        'confidence': 5.530725450000008,
       },
       {
         'x': 1224.101870760976,
@@ -438,7 +438,7 @@ let imageBeingD4 = {
         'width': 74.9664382734353,
         'height': 74.9664382734353,
         'neighbors': 5,
-        'confidence': 5.0318680700000025
+        'confidence': 5.0318680700000025,
       },
       {
         'x': 958.9959594409227,
@@ -446,7 +446,7 @@ let imageBeingD4 = {
         'width': 59.64585507428254,
         'height': 59.64585507428254,
         'neighbors': 5,
-        'confidence': 4.866107930000008
+        'confidence': 4.866107930000008,
       },
       {
         'x': 173.1109328273247,
@@ -454,7 +454,7 @@ let imageBeingD4 = {
         'width': 58.86220762496542,
         'height': 58.86220762496542,
         'neighbors': 9,
-        'confidence': 4.741367449999998
+        'confidence': 4.741367449999998,
       },
       {
         'x': 462.6463818447289,
@@ -462,7 +462,7 @@ let imageBeingD4 = {
         'width': 61.23303015148604,
         'height': 61.23303015148604,
         'neighbors': 10,
-        'confidence': 3.994080369999999
+        'confidence': 3.994080369999999,
       },
       {
         'x': 992.4931228509183,
@@ -470,7 +470,7 @@ let imageBeingD4 = {
         'width': 65.59088857569006,
         'height': 65.59088857569006,
         'neighbors': 7,
-        'confidence': 3.941819850000007
+        'confidence': 3.941819850000007,
       },
       {
         'x': 594.709265637875,
@@ -478,7 +478,7 @@ let imageBeingD4 = {
         'width': 63.90080839651627,
         'height': 63.90080839651627,
         'neighbors': 5,
-        'confidence': 1.0505017100000016
+        'confidence': 1.0505017100000016,
       },
       {
         'x': 1049.8796264067955,
@@ -486,7 +486,7 @@ let imageBeingD4 = {
         'width': 60.997264465222855,
         'height': 60.997264465222855,
         'neighbors': 4,
-        'confidence': 0.9801972499999992
+        'confidence': 0.9801972499999992,
       },
       {
         'x': 1034.9838867187502,
@@ -494,7 +494,7 @@ let imageBeingD4 = {
         'width': 68.15576171875001,
         'height': 68.15576171875001,
         'neighbors': 1,
-        'confidence': 0.57032285
+        'confidence': 0.57032285,
       },
       {
         'x': 245.90400995259034,
@@ -502,7 +502,7 @@ let imageBeingD4 = {
         'width': 40.877432949014576,
         'height': 40.877432949014576,
         'neighbors': 2,
-        'confidence': -0.4849196699999989
+        'confidence': -0.4849196699999989,
       },
       {
         'x': 1049.9172332545004,
@@ -510,7 +510,7 @@ let imageBeingD4 = {
         'width': 61.197989614635624,
         'height': 61.197989614635624,
         'neighbors': 2,
-        'confidence': -1.4843781100000037
+        'confidence': -1.4843781100000037,
       },
       {
         'x': 1092.2399786737249,
@@ -518,7 +518,7 @@ let imageBeingD4 = {
         'width': 76.4162095711182,
         'height': 76.4162095711182,
         'neighbors': 1,
-        'confidence': -1.75232689
+        'confidence': -1.75232689,
       },
       {
         'x': 741.3058376715854,
@@ -526,7 +526,7 @@ let imageBeingD4 = {
         'width': 54.240217510521234,
         'height': 54.240217510521234,
         'neighbors': 1,
-        'confidence': -2.690027709999997
+        'confidence': -2.690027709999997,
       },
       {
         'x': 867.1901815303999,
@@ -534,10 +534,10 @@ let imageBeingD4 = {
         'width': 48.39919881847384,
         'height': 48.39919881847384,
         'neighbors': 1,
-        'confidence': -4.276220189999993
-      }
-    ]
-  }
+        'confidence': -4.276220189999993,
+      },
+    ],
+  },
 }
 
 let sharing = {
@@ -546,8 +546,8 @@ let sharing = {
   metadata: {
     starred: true,
     status: 'Sharing... https://thegrid.io/#8',
-    progress: 67
-  }
+    progress: 67,
+  },
 }
 
 let location = {
@@ -555,14 +555,14 @@ let location = {
     "geo": {
       "latitude": 68.55260186877743,
       "longitude": 22.666168212890625,
-      "zoom": 5
+      "zoom": 5,
     },
     "address": "Enontekiö, Lappi, Finland",
-    starred: true
+    starred: true,
   },
   "id": "uuid-loca-tion",
   "html": "",
-  "type": "location"
+  "type": "location",
 }
 
 let userhtml = {
@@ -572,9 +572,9 @@ let userhtml = {
   "metadata": {
     starred: true,
     "widget": "userhtml",
-    "isBasedOnUrl": "https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q"
+    "isBasedOnUrl": "https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q",
   },
-  "id": "uuid-user-html"
+  "id": "uuid-user-html",
 }
 
 let cta = {
@@ -583,9 +583,9 @@ let cta = {
   url: 'https://app.meemoo.org/',
   label: 'Try it now!',
   metadata: {
-    starred: true
+    starred: true,
   },
-  id: 'uuid-cta'
+  id: 'uuid-cta',
 }
 
 let post = {
@@ -594,98 +594,98 @@ let post = {
       'id': 'abc-00000000-p',
       'type': 'text',
       'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'type': 'text',
       'html': '<p>An unknown block type... important to keep place in doc flow:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       type: 'unsupported-boo',
       id: 'uuid-unsupported',
       metadata: {
         starred: true,
-        isBasedOnUrl: 'https://meemoo.org/'
-      }
+        isBasedOnUrl: 'https://meemoo.org/',
+      },
     },
     {
       'type': 'text',
       'html': '<p>An `hr` block divider:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'type': 'hr',
       'html': '<hr>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'type': 'text',
       'html': '<p>It\'s a link cta:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     cta,
     {
       'type': 'text',
       'html': '<p>Quote from tweet:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     tweet,
     {
       'type': 'text',
       'html': '<p>Look it\'s userhtml:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     userhtml,
     {
       'type': 'text',
       'html': '<p>Here\'s a location in Lapland:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     location,
     {
       'type': 'text',
       'html': '<p>Here\'s a normal image:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     imageCole,
     {
       'type': 'text',
       'html': '<p>Here\'s an article block with no cover (you can upload an image with ... menu):</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'id': '0000-article',
       'type': 'article',
       'html': '<article><h1>article title</h1></article>',
-      'metadata': {'starred': true, 'title': 'article title', 'description': ''}
+      'metadata': {'starred': true, 'title': 'article title', 'description': ''},
     },
     {
       'type': 'text',
       'html': '<p>Here\'s an article block with upload progress:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'id': '0000-article-progress',
       'type': 'article',
       'html': '<article><h1>up</h1></article>',
-      'metadata': {starred: true, title: 'up', description: '', progress: 66}
+      'metadata': {starred: true, title: 'up', description: '', progress: 66},
     },
     {
       'type': 'text',
       'html': '<p>Here\'s an article block with <b>failed</b> upload:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'id': '0000-article-failed',
       'type': 'article',
       'html': '<article><h1>boo</h1></article>',
-      'metadata': {starred: true, title: 'boo', description: '', progress: 33, failed: true}
+      'metadata': {starred: true, title: 'boo', description: '', progress: 33, failed: true},
     },
     {
       'type': 'text',
       'html': '<p>Here\'s an image block with <b>unsalvageable</b> cover:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'id': '0000-image-unsalvageable',
@@ -694,97 +694,97 @@ let post = {
       'metadata': {starred: true, caption: 'Sometimes images go away :-('},
       'cover':
       { unsalvageable: true
-        , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'
-      }
+        , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg',
+      },
     },
     {
       'type': 'text',
       'html': '<p>Placeholder with preview:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     {
       'id': '0000-placeholder-preview',
       'type': 'placeholder',
       'html': '',
       'metadata': {starred: true, status: 'Uploading...', progress: 85},
-      'cover': {src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'}
+      'cover': {src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg'},
     },
     {
       'type': 'text',
       'html': '<p>Placeholder for URL share with progress:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     sharing,
     {
       'type': 'text',
       'html': '<p>Placeholder failed:</p>',
-      'metadata': {'starred': true}
+      'metadata': {'starred': true},
     },
     { id: '0000-failed'
     , type: 'placeholder'
     , metadata:
     { starred: true
       , status: 'Hmmm...'
-      , failed: true
-    }
+      , failed: true,
+    },
     },
     {
       'id': 'abc-00000000-h1',
       'type': 'h1',
       'html': `<h1>${getHappyLittlePhrase()}</h1>`,
-      'metadata': {}
+      'metadata': {},
     },
     {
       'id': 'abc-00000000-blockquote',
       'type': 'blockquote',
       'html': `<blockquote>${getHappyLittlePhrase()}</blockquote>`,
-      'metadata': {}
+      'metadata': {},
     },
     code,
     {
       'id': 'abc-00000000-p2',
       'type': 'p',
-      'html': `<p>${getHappyLittlePhrase()}</p>`
+      'html': `<p>${getHappyLittlePhrase()}</p>`,
     },
     {
       'id': 'uuid-broken-00',
-      'type': undefined
+      'type': undefined,
     },
     imageRaphael,
     videoTurtle,
     {
       'id': 'abc-00000000-h2',
       'type': 'h2',
-      'html': `<h2>${getHappyLittlePhrase()}</h2>`
+      'html': `<h2>${getHappyLittlePhrase()}</h2>`,
     },
     article,
     {
       'id': 'abc-00000000-h3',
       'type': 'h3',
-      'html': `<h3>${getHappyLittlePhrase()}</h3>`
+      'html': `<h3>${getHappyLittlePhrase()}</h3>`,
     },
     imageBeingD4,
     {
       'id': 'abc-00000000-02',
       'type': 'text',
-      'html': `<p>${getHappyLittlePhrase(2)}</p>`
+      'html': `<p>${getHappyLittlePhrase(2)}</p>`,
     },
     {
       'id': 'abc-00000000-03',
       'type': 'quote',
-      'html': `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`
+      'html': `<blockquote><p>${getHappyLittlePhrase(3)}</p></blockquote>`,
     },
     {
       'id': 'abc-00000000-ol',
       'type': 'list',
-      'html': `<ol><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ol>`
+      'html': `<ol><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ol>`,
     },
     {
       'id': 'abc-00000000-ul',
       'type': 'list',
-      'html': `<ul><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ul>`
-    }
-  ]
+      'html': `<ul><li>${getHappyLittlePhrase()}</li><li>${getHappyLittlePhrase()}</li></ul>`,
+    },
+  ],
 }
 
 

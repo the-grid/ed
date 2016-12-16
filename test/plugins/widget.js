@@ -8,14 +8,14 @@ describe('PluginWidget', function () {
     [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
       { id: '0001',
         type: 'placeholder',
-        metadata: {starred: true}
+        metadata: {starred: true},
       },
      {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
       { id: '0000',
         type: 'placeholder',
-        metadata: {starred: true}
+        metadata: {starred: true},
       },
-     {type: 'text', html: '<p>Text</p>', metadata: {starred: true}}
+     {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
     ]
 
   beforeEach(function (done) {
@@ -31,7 +31,7 @@ describe('PluginWidget', function () {
           function (p) {
             plugin = p
             done()
-          }
+          },
     }
     )
     ed.updateProgress('0001', {status: 'Status'})
@@ -120,8 +120,8 @@ describe('PluginWidget', function () {
 
       ed.setContent([
         { id: '0000',
-          type: 'image'
-        }
+          type: 'image',
+        },
       ])
 
       // PM placeholder change is sync

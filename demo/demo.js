@@ -41,7 +41,7 @@ function setup (options) {
           ed = mounted
           console.log(ed)
           window.ed = ed
-        }
+        },
     }
 
   mountApp(container, props)
@@ -115,7 +115,7 @@ function filesUploadSim (index, files) {
         return (
         { id,
           type: 'image',
-          metadata: {title: names[index]}
+          metadata: {title: names[index]},
         }
         )
       })
@@ -146,9 +146,9 @@ function onShareUrlDemo (share) {
           type: 'article',
           metadata:
           { title: 'Shared article title',
-            description: `Simulated share from ${url}`
-          }
-        }
+            description: `Simulated share from ${url}`,
+          },
+        },
       ])
       window.setTimeout(function () {
         console.log('Share: mount block + cover')
@@ -157,14 +157,14 @@ function onShareUrlDemo (share) {
             type: 'article',
             metadata:
             { title: 'Shared article title + cover',
-              description: `Simulated share from ${url}`
+              description: `Simulated share from ${url}`,
             },
             cover:
             { src: 'http://meemoo.org/images/meemoo-illo-by-jyri-pieniniemi-400.png',
               width: 400,
-              height: 474
-            }
-          }
+              height: 474,
+            },
+          },
         ])
       }, 1000)
     }

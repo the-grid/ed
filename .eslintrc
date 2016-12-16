@@ -1,16 +1,17 @@
-{ "parser": "babel-eslint"
-, "ecmaFeatures": { "modules": true }
-, "env":
-  { "browser": true
-  , "node": true
-  , "es6": true
-  }
-, "rules":
-  { "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}]
-  , "no-console": 2
-  , "camelcase": 0
-  , "indent": 0
-  }
-, "plugins": ["react"]
-, "extends": ["standard", "plugin:react/recommended"]
+{
+  "parser": "babel-eslint",
+  "ecmaFeatures": { "modules": true },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}],
+    "comma-dangle": [2, "always-multiline"],
+    "no-console": 2,
+    "camelcase": 0
+  },
+  "plugins": ["react"],
+  "extends": ["standard", "plugin:react/recommended"]
 }

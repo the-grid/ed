@@ -24,8 +24,8 @@ describe('Image', function () {
       { imgfloConfig:
       { server: 'https://iflo.grid/',
         key: 'abc',
-        secret: '123'
-      }
+        secret: '123',
+      },
       }
 
     const url72 = 'https://iflo.grid/graph/abc/12ecaddb783ca3f911391be0a6f9d718/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=72'
@@ -34,7 +34,7 @@ describe('Image', function () {
 
     it('without dimensions gives expected output', function () {
       const props = {
-        src: 'http://a.com/b.jpg'
+        src: 'http://a.com/b.jpg',
       }
       const image = Image(props, context)
       expectImage(image, url360)
@@ -44,7 +44,7 @@ describe('Image', function () {
       const props =
         { src: 'http://a.com/b.jpg',
           width: 1000,
-          height: 500
+          height: 500,
         }
       const image = Image(props, context)
       expectImage(image, url720)
@@ -54,7 +54,7 @@ describe('Image', function () {
       const props =
         { src: 'http://a.com/b.jpg',
           width: 500,
-          height: 300
+          height: 300,
         }
       const image = Image(props, context)
       expectImage(image, url360)
@@ -64,7 +64,7 @@ describe('Image', function () {
       const props =
         { src: 'http://a.com/b.jpg',
           width: 72,
-          height: 72
+          height: 72,
         }
       const image = Image(props, context)
       expectImage(image, url72)
@@ -74,7 +74,7 @@ describe('Image', function () {
       const props =
         { src: 'http://a.com/b.jpg',
           width: 500,
-          height: 1000
+          height: 1000,
         }
       const image = Image(props, context)
       expectImage(image, url360)

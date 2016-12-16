@@ -8,7 +8,7 @@ describe('PluginPlaceholder', function () {
   const fixture =
     [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
      {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
-     {type: 'text', html: '<p></p>', metadata: {starred: true}}
+     {type: 'text', html: '<p></p>', metadata: {starred: true}},
     ]
 
   beforeEach(function (done) {
@@ -19,7 +19,7 @@ describe('PluginPlaceholder', function () {
       onChange: function () {},
       onShareUrl: function () {},
       onShareFile: function () {},
-      onRequestCoverUpload: function () {}
+      onRequestCoverUpload: function () {},
     }
     )
     ed._store.on('plugin.placeholder.initialized', done)

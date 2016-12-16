@@ -11,7 +11,7 @@ export default class CommandsInterface {
 
     // Schedule updates for available commands
     this.updater = pm.updateScheduler(
-      [ pm.on.selectionChange
+      [ pm.on.selectionChange,
       ]
       , this.update.bind(this)
     )

@@ -11,7 +11,7 @@ function randomFromArray (arr) {
 
 const config =
   { logger: null,
-    randomizer: null
+    randomizer: null,
   }
 
 function pmSelecter (pm) {
@@ -71,7 +71,7 @@ const subgremlins =
     pmTyper,
     pmFocuser,
     pmSplitter,
-    pmFormatter
+    pmFormatter,
   ]
 
 function pmGremlin () {

@@ -9,7 +9,7 @@ describe('PluginContentHints', function () {
     const fixture =
       [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
        {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
-       {type: 'text', html: '<p></p>', metadata: {starred: true}}
+       {type: 'text', html: '<p></p>', metadata: {starred: true}},
       ]
 
     beforeEach(function (done) {
@@ -20,7 +20,7 @@ describe('PluginContentHints', function () {
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
-        onRequestCoverUpload: function () {}
+        onRequestCoverUpload: function () {},
       }
       )
       ed._store.on('plugin.contenthints.initialized', done)
@@ -43,7 +43,7 @@ describe('PluginContentHints', function () {
     const fixture =
       [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
        {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
-       {type: 'text', html: '<p></p>', metadata: {starred: false}}
+       {type: 'text', html: '<p></p>', metadata: {starred: false}},
       ]
 
     beforeEach(function (done) {
@@ -54,7 +54,7 @@ describe('PluginContentHints', function () {
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
-        onRequestCoverUpload: function () {}
+        onRequestCoverUpload: function () {},
       }
       )
       ed._store.on('plugin.contenthints.initialized', done)
@@ -77,7 +77,7 @@ describe('PluginContentHints', function () {
     const fixture =
       [ {type: 'h1', html: '<h1></h1>', metadata: {starred: true}},
        {type: 'text', html: '<p>Text</p>', metadata: {starred: true}},
-       {type: 'placeholder', metadata: {starred: true}}
+       {type: 'placeholder', metadata: {starred: true}},
       ]
 
     beforeEach(function (done) {
@@ -88,7 +88,7 @@ describe('PluginContentHints', function () {
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
-        onRequestCoverUpload: function () {}
+        onRequestCoverUpload: function () {},
       }
       )
       ed._store.on('plugin.contenthints.initialized', done)

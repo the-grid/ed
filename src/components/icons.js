@@ -10,10 +10,10 @@ export function Play (props) {
   , { viewBox: '0 0 32 32',
     fill,
     width,
-    height
+    height,
   }
   , el('path'
-    , { d: 'M4 4 L28 16 L4 28 z'
+    , { d: 'M4 4 L28 16 L4 28 z',
     }
     )
   )
@@ -21,18 +21,18 @@ export function Play (props) {
 Play.defaultProps =
 { fill: 'currentColor',
   width: '0.9em',
-  height: '0.9em'
+  height: '0.9em',
 }
 Play.propTypes =
 { fill: React.PropTypes.string,
   width: React.PropTypes.oneOfType(
     [ React.PropTypes.string,
-      React.PropTypes.number
+      React.PropTypes.number,
     ]
     ),
   height: React.PropTypes.oneOfType(
     [ React.PropTypes.string,
-      React.PropTypes.number
+      React.PropTypes.number,
     ]
-    )
+    ),
 }

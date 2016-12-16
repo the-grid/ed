@@ -50,7 +50,7 @@ export default class App extends React.Component {
         onRequestCoverUpload,
         onDropFiles,
         onDropFileOnBlock,
-        onCommandsChanged
+        onCommandsChanged,
       }
     )
 
@@ -69,10 +69,10 @@ export default class App extends React.Component {
   getChildContext () {
     const {imgfloConfig} = this.props
     return (
-      { imgfloConfig: imgfloConfig,
-        rebass: rebassTheme,
-        store: this._store
-      }
+    { imgfloConfig: imgfloConfig,
+      rebass: rebassTheme,
+      store: this._store,
+    }
     )
   }
   render () {
@@ -95,8 +95,8 @@ export default class App extends React.Component {
     return el('div'
     , { className: 'Ed-Content',
       style:
-      { zIndex: 1
-      }
+      { zIndex: 1,
+      },
     }
     , el(Editable
       , { initialContent,
@@ -107,14 +107,14 @@ export default class App extends React.Component {
         onCommandsChanged,
         onDropFiles,
         widgetPath,
-        coverPrefs
+        coverPrefs,
       }
       )
     )
   }
   renderHints () {
     return el('div'
-    , { className: 'Ed-Hints'
+    , { className: 'Ed-Hints',
     }
     , el(AddCover, {})
     , el(AddFold, {})
@@ -167,24 +167,24 @@ export default class App extends React.Component {
 App.childContextTypes =
 { imgfloConfig: React.PropTypes.object,
   store: React.PropTypes.object,
-  rebass: React.PropTypes.object
+  rebass: React.PropTypes.object,
 }
 App.propTypes =
-  { initialContent: React.PropTypes.array.isRequired
-  , onChange: React.PropTypes.func.isRequired
-  , onShareFile: React.PropTypes.func.isRequired
-  , onShareUrl: React.PropTypes.func.isRequired
-  , onDropFiles: React.PropTypes.func
-  , onCommandsChanged: React.PropTypes.func
-  , onRequestCoverUpload: React.PropTypes.func.isRequired
-  , imgfloConfig: React.PropTypes.object
-  , widgetPath: React.PropTypes.string
-  , coverPrefs: React.PropTypes.object
-  , menuBar: React.PropTypes.bool
-  , onMount: React.PropTypes.func
-  , onDropFileOnBlock: React.PropTypes.func
-  }
+{ initialContent: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onShareFile: React.PropTypes.func.isRequired,
+  onShareUrl: React.PropTypes.func.isRequired,
+  onDropFiles: React.PropTypes.func,
+  onCommandsChanged: React.PropTypes.func,
+  onRequestCoverUpload: React.PropTypes.func.isRequired,
+  imgfloConfig: React.PropTypes.object,
+  widgetPath: React.PropTypes.string,
+  coverPrefs: React.PropTypes.object,
+  menuBar: React.PropTypes.bool,
+  onMount: React.PropTypes.func,
+  onDropFileOnBlock: React.PropTypes.func,
+}
 App.defaultProps =
 { widgetPath: './node_modules/',
-  menuBar: true
+  menuBar: true,
 }

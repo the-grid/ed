@@ -275,7 +275,7 @@ export default class EdStore {
         type,
         widget,
         initialHeight,
-        initialFocus
+        initialFocus,
       }
     )
     const pos = indexToPos(this.pm.doc, index)
@@ -322,7 +322,7 @@ export default class EdStore {
           type,
           widget,
           initialHeight,
-          initialFocus
+          initialFocus,
         }
       )
       const pos = indexToPos(this.pm.doc, index + i)
@@ -339,7 +339,7 @@ export default class EdStore {
       { id: uuid.v4(),
         type,
         html: '',
-        metadata: {}
+        metadata: {},
       }
     if (widgetType) {
       block.metadata.widget = widgetType
@@ -357,7 +357,7 @@ export default class EdStore {
       const block =
         { id,
           type: 'placeholder',
-          metadata: {starred}
+          metadata: {starred},
         }
       toInsert.push(block)
     }

@@ -15,7 +15,7 @@ const Components =
     article: AttributionEditor,
     interactive: AttributionEditor,
     quote: AttributionEditor,
-    unsupported: WidgetUnsupported
+    unsupported: WidgetUnsupported,
   }
 
 
@@ -40,10 +40,10 @@ class Media extends React.Component {
   }
   getChildContext () {
     return (
-      { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig),
-        store: (this.context.store || this.props.store),
-        rebass: rebassTheme
-      }
+    { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig),
+      store: (this.context.store || this.props.store),
+      rebass: rebassTheme,
+    }
     )
   }
   render () {
@@ -54,7 +54,7 @@ class Media extends React.Component {
     return el(Component
     , { initialBlock,
       id,
-      coverPrefs
+      coverPrefs,
     }
     )
   }
@@ -81,17 +81,17 @@ class Media extends React.Component {
 }
 Media.contextTypes =
 { imgfloConfig: React.PropTypes.object,
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 }
 Media.childContextTypes =
 { imgfloConfig: React.PropTypes.object,
   rebass: React.PropTypes.object,
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 }
 Media.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   store: React.PropTypes.object.isRequired,
   coverPrefs: React.PropTypes.object.isRequired,
-  imgfloConfig: React.PropTypes.object
+  imgfloConfig: React.PropTypes.object,
 }
 export default React.createFactory(Media)

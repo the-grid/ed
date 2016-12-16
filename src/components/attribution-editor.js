@@ -26,7 +26,7 @@ class AttributionEditor extends React.Component {
     super(props)
     this.state =
     { block: props.initialBlock,
-      showDropIndicator: false
+      showDropIndicator: false,
     }
 
     this.boundOnDragOver = this.onDragOver.bind(this)
@@ -60,7 +60,7 @@ class AttributionEditor extends React.Component {
         onDragOver: this.boundOnDragOver,
         onDragEnter: this.boundOnDragEnter,
         onDragLeave: this.boundOnDragLeave,
-        onDrop: this.boundOnDrop
+        onDrop: this.boundOnDrop,
       }
       , this.renderPlay()
       , this.renderCover()
@@ -70,8 +70,8 @@ class AttributionEditor extends React.Component {
       , el('div'
         , { className: 'AttributionEditor-metadata',
           style:
-          { position: 'relative'
-          }
+          { position: 'relative',
+          },
         }
         , renderFields(schema, metadata, this.boundOnChange, type, html)
         , el('div'
@@ -79,8 +79,8 @@ class AttributionEditor extends React.Component {
             style:
             { margin: '1em -1em 0',
               position: 'relative',
-              top: 1
-            }
+              top: 1,
+            },
           }
           , el(DropdownGroup, {menus})
         )
@@ -125,8 +125,8 @@ class AttributionEditor extends React.Component {
       style:
       { width: '100%',
         position: 'relative',
-        marginBottom: '1rem'
-      }
+        marginBottom: '1rem',
+      },
     }
     , el(Image, props)
     )
@@ -141,7 +141,7 @@ class AttributionEditor extends React.Component {
       , { onClick: this.boundOnUploadRequest,
         rounded: true,
         color: 'error',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       }
       , 'Upload New Image'
       )
@@ -166,7 +166,7 @@ class AttributionEditor extends React.Component {
       , { onClick: this.boundOnUploadRequest,
         rounded: true,
         color: 'error',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
       }
       , 'Upload Image'
       )
@@ -191,7 +191,7 @@ class AttributionEditor extends React.Component {
     return el(Progress
     , { value: progress / 100,
       style: {margin: '8px 0'},
-      color
+      color,
     }
     )
   }
@@ -205,8 +205,8 @@ class AttributionEditor extends React.Component {
     , { style:
     { textAlign: 'right',
       position: 'relative',
-      top: '-0.5rem'
-    }
+      top: '-0.5rem',
+    },
     }
     , el('a'
       , { href: block.metadata.isBasedOnUrl,
@@ -214,8 +214,8 @@ class AttributionEditor extends React.Component {
         rel: 'noreferrer noopener',
         style:
         { textDecoration: 'inherit',
-          textTransform: 'uppercase'
-        }
+          textTransform: 'uppercase',
+        },
       }
         , type + ' '
         , el(PlayIcon)
@@ -242,8 +242,8 @@ class AttributionEditor extends React.Component {
       color: '#0088EE',
       padding: '1rem',
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
-      border: '12px #0088EE solid'
-    }
+      border: '12px #0088EE solid',
+    },
     }
     , 'Drop to replace this image'
     )
@@ -302,7 +302,7 @@ class AttributionEditor extends React.Component {
     const {id} = this.props
     store.routeChange('MEDIA_BLOCK_DROP_FILE'
     , { id,
-      file: event.dataTransfer.files[0]
+      file: event.dataTransfer.files[0],
     }
     )
     this.setState({showDropIndicator: false})
@@ -353,12 +353,12 @@ AttributionEditor.contextTypes =
 AttributionEditor.childContextTypes =
 { imgfloConfig: React.PropTypes.object,
   rebass: React.PropTypes.object,
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 }
 AttributionEditor.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
-  coverPrefs: React.PropTypes.object.isRequired
+  coverPrefs: React.PropTypes.object.isRequired,
 }
 export default React.createFactory(AttributionEditor)
 
@@ -402,7 +402,7 @@ function renderTextField (key, label, value, onChange, placeholder) {
     defaultValue: value,
     key: key,
     onChange: makeChange(['metadata', key], onChange),
-    style: {width: '100%'}
+    style: {width: '100%'},
   }
   )
 }
@@ -443,7 +443,7 @@ function renderMenus (type, schema, metadata = {}, cover, onChange, onMoreClick,
     , { schema,
       metadata,
       label: '...',
-      onClick: onMoreClick
+      onClick: onMoreClick,
     }
     )
   )
@@ -460,7 +460,7 @@ function renderCreditEditor (onlyUrl, key, label, item, onChange, path) {
     avatar: item.avatar,
     path: path || [key],
     onChange,
-    onlyUrl
+    onlyUrl,
   }
   )
 }
@@ -481,7 +481,7 @@ function renderImageEditor (hasCover, allowCoverChange, allowCoverRemove, type, 
     onCoverRemove,
     type,
     name: 'Image',
-    label: 'Image'
+    label: 'Image',
   }
   )
 }

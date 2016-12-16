@@ -8,7 +8,7 @@ import BlockMeta from '../../src/schema/block-meta'
 describe('BlockMeta', function () {
   it('has expected types', function () {
     expect(BlockMeta).to.have.all.keys([
-      'image', 'video', 'quote', 'article', 'cta', 'default'
+      'image', 'video', 'quote', 'article', 'cta', 'default',
     ])
   })
 
@@ -17,11 +17,11 @@ describe('BlockMeta', function () {
       { type: 'image',
         metadata:
         { title: 'Title',
-          description: 'Description yö'
+          description: 'Description yö',
         },
         cover:
-        { src: 'http://....jpg'
-        }
+        { src: 'http://....jpg',
+        },
       }
 
     it('gives expected html out', function () {
@@ -40,11 +40,11 @@ describe('BlockMeta', function () {
       { type: 'article',
         metadata:
         { title: 'Title yö',
-          description: 'Description'
+          description: 'Description',
         },
         cover:
-        { src: 'http://....jpg'
-        }
+        { src: 'http://....jpg',
+        },
       }
 
     it('gives expected html out', function () {
@@ -66,7 +66,7 @@ describe('BlockMeta', function () {
     const cta =
       { type: 'cta',
         label: 'label yö',
-        url: 'http://fff'
+        url: 'http://fff',
       }
 
     it('gives expected html out', function () {
@@ -83,7 +83,7 @@ describe('BlockMeta', function () {
   describe('Type quote', function () {
     const quote =
       { type: 'quote',
-        metadata: { description: 'quö' }
+        metadata: { description: 'quö' },
       }
 
     it('gives expected html out', function () {

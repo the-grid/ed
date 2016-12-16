@@ -15,7 +15,7 @@ export default function ImageEditor (props, context) {
     , overlay
     , onChange
     , onUploadRequest
-    , onCoverRemove
+    , onCoverRemove,
     } = props
 
   let toggles = null
@@ -32,8 +32,8 @@ export default function ImageEditor (props, context) {
   , { style:
   { padding: '1rem',
     width: 288,
-    maxWidth: '100%'
-  }
+    maxWidth: '100%',
+  },
   }
   , toggles
   , (allowCoverChange ? renderUploadButton(onUploadRequest) : null)
@@ -51,7 +51,7 @@ function renderToggle (key, label, value, onChange, path, siteAllow) {
     style: (readOnly ? {opacity: 0.5} : {}),
     readOnly,
     disabled: readOnly,
-    onChange: makeChange(path, onChange, true)
+    onChange: makeChange(path, onChange, true),
   }
   )
 }
@@ -67,7 +67,7 @@ function renderUploadButton (onClick) {
   return el(ButtonOutline
   , { onClick,
     theme: 'warning',
-    style: { width: '100%' }
+    style: { width: '100%' },
   }
   , 'Upload New Image'
   )
@@ -81,8 +81,8 @@ function renderRemoveButton (onClick) {
     theme: 'warning',
     style:
     { width: '100%',
-      marginTop: '0.5rem'
-    }
+      marginTop: '0.5rem',
+    },
   }
   )
 }

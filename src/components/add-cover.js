@@ -5,7 +5,7 @@ export const buttonStyle =
   { textTransform: 'uppercase',
     borderRadius: 4,
     padding: '10px 16px',
-    margin: '0.25em 0.5em'
+    margin: '0.25em 0.5em',
   }
 
 class AddCover extends React.Component {
@@ -32,7 +32,7 @@ class AddCover extends React.Component {
     , { id: 'AddCover',
       style: buttonStyle,
       onClick: this.boundAddImage,
-      rounded: true
+      rounded: true,
     }
     , 'Add Image'
     )

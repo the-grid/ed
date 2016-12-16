@@ -10,7 +10,7 @@ export const media =
       type: {},
       widget: {},
       initialHeight: {default: 72},
-      initialFocus: {default: false}
+      initialFocus: {default: false},
     },
     parseDOM:
     [ { tag: 'div[grid-type]',
@@ -23,7 +23,7 @@ export const media =
           return {id, type, widget, initialHeight}
         }
         return false
-      }
+      },
     } ],
     toDOM (node) {
       const {id, type, widget, initialHeight, initialFocus} = node.attrs
@@ -34,8 +34,8 @@ export const media =
           'grid-widget': widget,
           'grid-initial-focus': initialFocus,
           'grid-initial-height': initialHeight,
-          'style': `height: ${initialHeight}px;`
-        }
+          'style': `height: ${initialHeight}px;`,
+        },
       ]
-    }
+    },
   }

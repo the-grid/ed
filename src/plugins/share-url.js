@@ -38,8 +38,8 @@ export default class ShareUrl {
         type: 'placeholder',
         metadata:
         { status: `Sharing... ${url}`,
-          percent: 0
-        }
+          percent: 0,
+        },
       }
     this.ed.routeChange('PLUGIN_URL', {index, id, block, url})
   }

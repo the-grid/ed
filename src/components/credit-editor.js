@@ -15,8 +15,8 @@ export default function CreditEditor (props, context) {
     style: {
       padding: '1rem',
       width: 360,
-      maxWidth: '100%'
-    }
+      maxWidth: '100%',
+    },
   }
   , renderAvatar(avatar, context.imgfloConfig)
   , (onlyUrl ? '' : renderLabel(label))
@@ -36,14 +36,14 @@ function renderAvatar (avatar, imgfloConfig) {
   if (imgfloConfig) {
     const params = {
       input: src,
-      width: 72
+      width: 72,
     }
     src = imgflo(imgfloConfig, 'passthrough', params)
   }
   return el(Avatar,
     { key: 'avatar',
       style: {float: 'right'},
-      src
+      src,
     }
   )
 }
@@ -55,7 +55,7 @@ function renderRemove (onChange, path) {
     theme: 'warning',
     title: 'delete attribution from block',
     label: 'Remove',
-    confirm: 'Remove: Are you sure?'
+    confirm: 'Remove: Are you sure?',
   }
   )
 }
@@ -69,9 +69,9 @@ function renderLabel (label) {
 
 function renderFields (name, url, avatar, onChange, path) {
   return (
-    [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true),
-      renderTextField('url', 'Link', url, onChange, path.concat(['url']), false, isUrlOrBlank, 'https...')
-    ]
+  [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true),
+    renderTextField('url', 'Link', url, onChange, path.concat(['url']), false, isUrlOrBlank, 'https...'),
+  ]
   )
 }
 
@@ -91,7 +91,7 @@ function renderTextField (key, label, value, onChange, path, defaultFocus, valid
     style: {width: '100%'},
     onChange: makeChange(onChange, path),
     validator,
-    placeholder
+    placeholder,
   }
   )
 }

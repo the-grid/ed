@@ -13,7 +13,7 @@ const blockMetaSchema =
     author: true,
     publisher: true,
     via: true,
-    makeHtml: makeImage
+    makeHtml: makeImage,
   },
     video:
     { title: true,
@@ -25,7 +25,7 @@ const blockMetaSchema =
       removeCover: false,
       author: true,
       publisher: true,
-      via: true
+      via: true,
     },
     article:
     { title: true,
@@ -38,7 +38,7 @@ const blockMetaSchema =
       author: true,
       publisher: true,
       via: true,
-      makeHtml: makeArticle
+      makeHtml: makeArticle,
     },
     quote:
     { title: false,
@@ -51,13 +51,13 @@ const blockMetaSchema =
       author: true,
       publisher: true,
       via: true,
-      makeHtml: makeQuote
+      makeHtml: makeQuote,
     },
     cta:
     { label: true,
       link: true,
       canFrame: true,
-      makeHtml: makeCTA
+      makeHtml: makeCTA,
     },
     default:
     { title: true,
@@ -69,8 +69,8 @@ const blockMetaSchema =
       removeCover: false,
       author: true,
       publisher: true,
-      via: true
-    }
+      via: true,
+    },
   }
 
 function makeImage (block) {

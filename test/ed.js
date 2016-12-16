@@ -35,7 +35,7 @@ describe('Ed', function () {
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: function () {},
-          onRequestCoverUpload: function () {}
+          onRequestCoverUpload: function () {},
         }
         )
       }
@@ -48,7 +48,7 @@ describe('Ed', function () {
           onChange: null,
           onShareUrl: function () {},
           onShareFile: function () {},
-          onRequestCoverUpload: function () {}
+          onRequestCoverUpload: function () {},
         }
         )
       }
@@ -61,7 +61,7 @@ describe('Ed', function () {
           onChange: function () {},
           onShareUrl: null,
           onShareFile: function () {},
-          onRequestCoverUpload: function () {}
+          onRequestCoverUpload: function () {},
         }
         )
       }
@@ -74,7 +74,7 @@ describe('Ed', function () {
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: null,
-          onRequestCoverUpload: function () {}
+          onRequestCoverUpload: function () {},
         }
         )
       }
@@ -87,7 +87,7 @@ describe('Ed', function () {
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: function () {},
-          onRequestCoverUpload: null
+          onRequestCoverUpload: null,
         }
         )
       }
@@ -100,7 +100,7 @@ describe('Ed', function () {
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-        onMount: function () { done() }
+        onMount: function () { done() },
       }
       )
     })
@@ -110,7 +110,7 @@ describe('Ed', function () {
     const fixture =
       [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
        {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}},
-       {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
+       {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}},
       ]
 
     beforeEach(function (done) {
@@ -121,7 +121,7 @@ describe('Ed', function () {
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
-        onRequestCoverUpload: function () {}
+        onRequestCoverUpload: function () {},
       }
       )
       done()
@@ -159,7 +159,7 @@ describe('Ed', function () {
          {id: '0000', type: 'placeholder', metadata: {starred: true}},
          {id: '0001', type: 'placeholder', metadata: {starred: true}},
          {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}},
-         {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
+         {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}},
         ]
       )
       const content = ed.pm.doc.content.content
@@ -183,7 +183,7 @@ describe('Ed', function () {
     it('does not overwrite current metadata with stale', function () {
       // Inject new image block
       ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}}
+        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}},
         ]
       )
       let content = ed.getContent()
@@ -192,7 +192,7 @@ describe('Ed', function () {
       expect(content[0].metadata.title).to.equal('the title')
       // Set stale data, like from API
       ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}}
+        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}},
         ]
       )
       content = ed.getContent()
@@ -225,7 +225,7 @@ describe('Ed', function () {
       ed._store._replaceBlock(1,
         { id: '0000',
           type: 'placeholder',
-          metadata: {starred: true}
+          metadata: {starred: true},
         }
       )
 
@@ -245,14 +245,14 @@ describe('Ed', function () {
       ed._store._replaceBlock(1,
         { id: '0000',
           type: 'placeholder',
-          metadata: {starred: true}
+          metadata: {starred: true},
         }
       )
       ed.setContent([
         {id: '0000',
           type: 'image',
-          metadata: {starred: true}
-        }
+          metadata: {starred: true},
+        },
       ])
 
       const content = ed.pm.doc.content.content
@@ -271,7 +271,7 @@ describe('Ed', function () {
       const ids = ed.insertPlaceholders(1, 2)
       ed.setContent(
         [ {id: ids[0], type: 'image', metadata: {starred: true}},
-         {id: ids[1], type: 'image', metadata: {starred: true}}
+         {id: ids[1], type: 'image', metadata: {starred: true}},
         ]
       )
 
@@ -315,10 +315,10 @@ describe('Ed', function () {
           [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
             { id: ids[0],
               type: 'placeholder',
-              metadata: {starred: true}
+              metadata: {starred: true},
             },
            { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
-           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -328,12 +328,12 @@ describe('Ed', function () {
         ed.setContent(
           [ { id: ids[0],
             type: 'image',
-            cover: {src: '...a.jpg'}
+            cover: {src: '...a.jpg'},
           },
           { id: ids[1],
             type: 'image',
-            cover: {src: '...b.jpg'}
-          }
+            cover: {src: '...b.jpg'},
+          },
           ]
         )
         const content = ed.getContent()
@@ -343,16 +343,16 @@ describe('Ed', function () {
               type: 'image',
               cover: {src: '...a.jpg'},
               metadata: {starred: true},
-              html: '<img src="...a.jpg">'
+              html: '<img src="...a.jpg">',
             },
             { id: ids[1],
               type: 'image',
               cover: {src: '...b.jpg'},
               metadata: {starred: true},
-              html: '<img src="...b.jpg">'
+              html: '<img src="...b.jpg">',
             },
            { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
-           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -364,7 +364,7 @@ describe('Ed', function () {
         const expected =
           [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
            { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
-           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -376,7 +376,7 @@ describe('Ed', function () {
         const expected =
           [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
            { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
-           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -386,8 +386,8 @@ describe('Ed', function () {
         ed.setContent(
           [ { id: ids[0],
             type: 'image',
-            cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'}
-          }
+            cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'},
+          },
           ]
         )
         const content = ed.getContent()
@@ -397,10 +397,10 @@ describe('Ed', function () {
               type: 'image',
               cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'},
               metadata: {starred: true},
-              html: '<img src="https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg">'
+              html: '<img src="https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg">',
             },
            { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
-           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -410,7 +410,7 @@ describe('Ed', function () {
   describe('The Fold', function () {
     const fixture =
       [ {id: '0000', type: 'image', metadata: {starred: true}},
-       {type: 'text', html: '<p>Text 1</p>'}
+       {type: 'text', html: '<p>Text 1</p>'},
       ]
 
     beforeEach(function (done) {
@@ -421,7 +421,7 @@ describe('Ed', function () {
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
-        onRequestCoverUpload: function () {}
+        onRequestCoverUpload: function () {},
       }
       )
       done()
@@ -438,10 +438,10 @@ describe('Ed', function () {
           [ { id: '0000',
             type: 'image',
             metadata: { starred: true },
-            html: '<img>'
+            html: '<img>',
           },
            { type: 'hr', html: '<hr>', metadata: { starred: false } },
-           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} }
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -457,7 +457,7 @@ describe('Ed', function () {
     let mount, ed
     const fixture =
       [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
-       {type: 'text', html: '<p><a href="moo">link</a></p>', metadata: {starred: true}}
+       {type: 'text', html: '<p><a href="moo">link</a></p>', metadata: {starred: true}},
       ]
 
     afterEach(function () {
@@ -481,7 +481,7 @@ describe('Ed', function () {
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-        onCommandsChanged
+        onCommandsChanged,
       }
       )
     })
@@ -503,7 +503,7 @@ describe('Ed', function () {
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-        onMount
+        onMount,
       }
       )
     })
@@ -529,7 +529,7 @@ describe('Ed', function () {
         onShareUrl: function () {},
         onRequestCoverUpload: function () {},
         onShareFile,
-        onMount
+        onMount,
       }
       )
     })

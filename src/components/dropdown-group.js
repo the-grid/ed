@@ -20,7 +20,7 @@ class DropdownGroup extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      openMenu: null
+      openMenu: null,
     }
     this.boundCloseMenu = this.closeMenu.bind(this)
     this.nodeRefCallback = (node) => { this.node = node }
@@ -67,9 +67,9 @@ class DropdownGroup extends React.Component {
   }
   render () {
     return el('div'
-    , { className: 'DropdownGroup'
-      , ref: this.nodeRefCallback
-      }
+    , { className: 'DropdownGroup',
+      ref: this.nodeRefCallback,
+    }
     , this.renderButtons()
     , this.renderMenu()
     )
@@ -91,10 +91,10 @@ class DropdownGroup extends React.Component {
           style:
           { borderWidth: 0,
             boxShadow: 'none',
-            outline: 'none'
+            outline: 'none',
           },
           rounded: false,
-          title: `Edit ${label}`
+          title: `Edit ${label}`,
         }
         , el('span'
           , { style:
@@ -104,8 +104,8 @@ class DropdownGroup extends React.Component {
             whiteSpace: 'pre',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            textTransform: 'uppercase'
-          }
+            textTransform: 'uppercase',
+          },
           }
           , (name || label)
           )
@@ -122,7 +122,7 @@ class DropdownGroup extends React.Component {
 
     return el('div'
     , { style:
-        { position: 'relative' }
+        { position: 'relative' },
     }
     , el(Menu
       , { theme,
@@ -131,8 +131,8 @@ class DropdownGroup extends React.Component {
           position: 'absolute',
           top: -1,
           right: -1,
-          zIndex: 100
-        }
+          zIndex: 100,
+        },
       }
       , menus[openMenu]
       )
@@ -160,7 +160,7 @@ class DropdownGroup extends React.Component {
 }
 DropdownGroup.propTypes =
 { menus: React.PropTypes.array.isRequired,
-  theme: React.PropTypes.string
+  theme: React.PropTypes.string,
 }
 DropdownGroup.defaultProps =
   { theme: 'secondary' }

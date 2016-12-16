@@ -12,7 +12,7 @@ describe('GridToDoc', function () {
        {type: 'h2', html: '<h2>heading 2</h2>'},
        {type: 'h3', html: '<h3>heading 3</h3>'},
        {id: 'quote-0000', type: 'quote', html: '<blockquote>bq</blockquote>'},
-       {id: 'video-0000', type: 'video'}
+       {id: 'video-0000', type: 'video'},
       ]
 
     const expected =
@@ -25,25 +25,25 @@ describe('GridToDoc', function () {
               'type': 'image',
               'widget': 'image',
               initialHeight: 72,
-              initialFocus: false
-            }
+              initialFocus: false,
+            },
           },
           { 'type': 'heading',
             'attrs': {'level': 1},
-            'content': [{'type': 'text', 'text': 'heading 1'}]
+            'content': [{'type': 'text', 'text': 'heading 1'}],
           },
           { 'type': 'paragraph',
-            'content': [{'type': 'text', 'text': 'paragraph 1'}]
+            'content': [{'type': 'text', 'text': 'paragraph 1'}],
           },
-          { 'type': 'horizontal_rule'
+          { 'type': 'horizontal_rule',
           },
           { 'type': 'heading',
             'attrs': {'level': 2},
-            'content': [{'type': 'text', 'text': 'heading 2'}]
+            'content': [{'type': 'text', 'text': 'heading 2'}],
           },
           { 'type': 'heading',
             'attrs': {'level': 3},
-            'content': [{'type': 'text', 'text': 'heading 3'}]
+            'content': [{'type': 'text', 'text': 'heading 3'}],
           },
           { 'type': 'media',
             'attrs':
@@ -51,8 +51,8 @@ describe('GridToDoc', function () {
               'type': 'quote',
               'widget': 'quote',
               initialHeight: 72,
-              initialFocus: false
-            }
+              initialFocus: false,
+            },
           },
          { 'type': 'paragraph' },
           { 'type': 'media',
@@ -61,11 +61,11 @@ describe('GridToDoc', function () {
               'type': 'video',
               'widget': 'video',
               initialHeight: 72,
-              initialFocus: false
-            }
+              initialFocus: false,
+            },
           },
-         { 'type': 'paragraph' }
-        ]
+         { 'type': 'paragraph' },
+        ],
       }
 
     it('correctly converts Grid content to Doc', function () {
@@ -76,7 +76,7 @@ describe('GridToDoc', function () {
   describe('with no starred blocks', function () {
     const fixture =
       [ {id: 'image-0000', type: 'image', metadata: {starred: false}},
-       {id: 'video-0000', type: 'video', metadata: {starred: false}}
+       {id: 'video-0000', type: 'video', metadata: {starred: false}},
       ]
 
     const expected =
@@ -91,8 +91,8 @@ describe('GridToDoc', function () {
               'type': 'image',
               'widget': 'image',
               initialHeight: 72,
-              initialFocus: false
-            }
+              initialFocus: false,
+            },
           },
           { 'type': 'paragraph' },
           { 'type': 'media',
@@ -101,11 +101,11 @@ describe('GridToDoc', function () {
               'type': 'video',
               'widget': 'video',
               initialHeight: 72,
-              initialFocus: false
-            }
+              initialFocus: false,
+            },
           },
-         { 'type': 'paragraph' }
-        ]
+         { 'type': 'paragraph' },
+        ],
       }
 
     it('spaces with empty paragraphs', function () {
