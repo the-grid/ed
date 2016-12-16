@@ -12,6 +12,7 @@ import {edBarMenu} from '../menu/ed-menu'
 import GridToDoc from '../convert/grid-to-doc'
 // import EdKeymap from '../inputrules/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
+import {MediaNodeView} from '../schema/media'
 import EdInputRules from '../inputrules/ed-input-rules'
 import EdCommands from '../commands/ed-commands'
 import {posToIndex} from '../util/pm'
@@ -75,6 +76,13 @@ class Editable extends React.Component {
         autoInput: true,
         spellcheck: true,
         onAction: applyAction,
+        handleClickOn: function (_view, _pos, node) { return node.type.name === 'media' },
+        nodeViews: {
+          media: (node, view, getPos) => {
+            console.log(MediaNodeView)
+            return new MediaNodeView(node, view, getPos, store)
+          },
+        },
       }
 
     let edPluginClasses =

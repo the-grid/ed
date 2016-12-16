@@ -5,3 +5,7 @@
   display: block;
   width: 100%;
 }
+
+.EdSchemaMedia--type {
+  text-align: right;
+}
