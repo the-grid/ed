@@ -1,5 +1,3 @@
-/* eslint quotes: [0], comma-style: [0] */
-
 import getHappyLittlePhrase from 'bob-ross-lipsum'
 
 let tweet = {
@@ -551,30 +549,30 @@ let sharing = {
 }
 
 let location = {
-  "metadata": {
-    "geo": {
-      "latitude": 68.55260186877743,
-      "longitude": 22.666168212890625,
-      "zoom": 5,
+  'metadata': {
+    'geo': {
+      'latitude': 68.55260186877743,
+      'longitude': 22.666168212890625,
+      'zoom': 5,
     },
-    "address": "Enontekiö, Lappi, Finland",
+    'address': 'Enontekiö, Lappi, Finland',
     starred: true,
   },
-  "id": "uuid-loca-tion",
-  "html": "",
-  "type": "location",
+  'id': 'uuid-loca-tion',
+  'html': '',
+  'type': 'location',
 }
 
 let userhtml = {
-  "type": "interactive",
-  "html": "<iframe src=\"https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q\"></iframe>",
-  "text": "<h1>Hello 😬</h1>\n<p>world 🌍</p>\n<img onload=\"console.warn('from inline')\" src=\"http://lorempixel.com/72/72/cats\">",
-  "metadata": {
+  'type': 'interactive',
+  'html': '<iframe src="https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q"></iframe>',
+  'text': "<h1>Hello 😬</h1>\n<p>world 🌍</p>\n<img onload=\"console.warn('from inline')\" src=\"http://lorempixel.com/72/72/cats\">",
+  'metadata': {
     starred: true,
-    "widget": "userhtml",
-    "isBasedOnUrl": "https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q",
+    'widget': 'userhtml',
+    'isBasedOnUrl': 'https://the-grid.github.io/ed-userhtml/?g=eJyzyTC080jNyclX-DB_xhobfSCXy6bArjy_KCcFKNTTa6NfABTJzE1XyM_LyU9MsVVKzs8rzs9J1StPLMrTUE8rys9VyMzLycxLVddUUiguSrZVyigpKbDS18_JL0rNLcisSM3RS87P1Tc3AqHkxJJiJTsAKJAp3Q',
   },
-  "id": "uuid-user-html",
+  'id': 'uuid-user-html',
 }
 
 let cta = {
@@ -693,8 +691,8 @@ let post = {
       'html': '',
       'metadata': {starred: true, caption: 'Sometimes images go away :-('},
       'cover':
-      { unsalvageable: true
-        , src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg',
+      { unsalvageable: true,
+        src: 'https://pbs.twimg.com/profile_images/674936695830282240/np255F6b_400x400.jpg',
       },
     },
     {
@@ -720,13 +718,13 @@ let post = {
       'html': '<p>Placeholder failed:</p>',
       'metadata': {'starred': true},
     },
-    { id: '0000-failed'
-    , type: 'placeholder'
-    , metadata:
-    { starred: true
-      , status: 'Hmmm...'
-      , failed: true,
-    },
+    { id: '0000-failed',
+      type: 'placeholder',
+      metadata:
+      { starred: true,
+        status: 'Hmmm...',
+        failed: true,
+      },
     },
     {
       'id': 'abc-00000000-h1',
