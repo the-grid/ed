@@ -9,8 +9,6 @@ export const media =
     { id: {},
       type: {},
       widget: {},
-      initialHeight: {default: 72},
-      initialFocus: {default: false},
     },
     parseDOM:
     [ { tag: 'div[grid-type]',
@@ -18,24 +16,24 @@ export const media =
         const id = dom.getAttribute('grid-id')
         const type = dom.getAttribute('grid-type')
         const widget = dom.getAttribute('grid-widget')
-        const initialHeight = dom.getAttribute('grid-initial-height')
         if (id && type && isMediaType(type)) {
-          return {id, type, widget, initialHeight}
+          return {id, type, widget}
         }
         return false
       },
     } ],
     toDOM (node) {
-      const {id, type, widget, initialHeight, initialFocus} = node.attrs
+      const {id, type, widget} = node.attrs
       return ['div',
         { 'class': 'EdSchemaMedia',
           'grid-id': id,
           'grid-type': type,
           'grid-widget': widget,
-          'grid-initial-focus': initialFocus,
-          'grid-initial-height': initialHeight,
-          'style': `height: ${initialHeight}px;`,
         },
+        [ 'div',
+          { 'class': 'type' },
+          type
+        ],
       ]
     },
   }
