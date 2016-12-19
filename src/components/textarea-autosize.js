@@ -35,6 +35,7 @@ class TextareaAutosize extends React.Component {
   constructor (props) {
     super(props)
     this.boundResize = this.resize.bind(this)
+    this.boundDebounceResize = this.debounceResize.bind(this)
     this.boundOnChange = this.onChange.bind(this)
     this.boundOnKeyDown = this.onKeyDown.bind(this)
     this.state =
@@ -43,13 +44,18 @@ class TextareaAutosize extends React.Component {
     }
   }
   componentDidMount () {
-    this.boundResize()
+    this.boundDebounceResize()
     if (this.props.defaultFocus === true) {
       this.refs.textarea.focus()
     }
   }
   componentDidUpdate () {
-    this.boundResize()
+    this.boundDebounceResize()
+  }
+  componentWillUnmount () {
+    if (this.debounce) {
+      clearTimeout(this.debounce)
+    }
   }
   componentWillReceiveProps (props) {
     const {defaultValue, validator} = props
@@ -118,6 +124,12 @@ class TextareaAutosize extends React.Component {
     const { textarea } = this.refs
     textarea.style.height = 'auto'
     textarea.style.height = textarea.scrollHeight + 'px'
+  }
+  debounceResize () {
+    if (this.debounce) {
+      clearTimeout(this.debounce)
+    }
+    this.debounce = setTimeout(this.boundResize, 100)
   }
   onKeyDown (event) {
     if (this.props.onKeyDown) {
