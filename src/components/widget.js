@@ -1,3 +1,5 @@
+require('./widget.css')
+
 import React, {createElement as el} from 'react'
 import _ from '../util/lodash'
 
@@ -5,21 +7,38 @@ import Placeholder from './placeholder'
 import AttributionEditor from './attribution-editor'
 import WidgetCta from './widget-cta'
 import WidgetUnsupported from './widget-unsupported'
+import WidgetIframe from './widget-iframe'
 import rebassTheme from './rebass-theme'
 
-const Components =
-  { placeholder: Placeholder,
-    cta: WidgetCta,
-    image: AttributionEditor,
-    video: AttributionEditor,
-    article: AttributionEditor,
-    interactive: AttributionEditor,
-    quote: AttributionEditor,
-    unsupported: WidgetUnsupported,
+const COMPONENTS = {
+  code: WidgetIframe,
+  location: WidgetIframe,
+  userhtml: WidgetIframe,
+  placeholder: Placeholder,
+  cta: WidgetCta,
+  image: AttributionEditor,
+  video: AttributionEditor,
+  article: AttributionEditor,
+  interactive: AttributionEditor,
+  quote: AttributionEditor,
+  unsupported: WidgetUnsupported,
+}
+
+function getWidget (item) {
+  let widget = item.type
+  if (item.metadata && item.metadata.widget) {
+    widget = item.metadata.widget
   }
+  return widget
+}
+
+function getComponent (item) {
+  let widget = getWidget(item)
+  return COMPONENTS[widget] || COMPONENTS.unsupported
+}
 
 
-class Media extends React.Component {
+class Widget extends React.Component {
   constructor (props) {
     super(props)
 
@@ -39,24 +58,24 @@ class Media extends React.Component {
     store.off('media.update', this.boundUpdateBlockAll)
   }
   getChildContext () {
-    return (
-    { imgfloConfig: (this.context.imgfloConfig || this.props.imgfloConfig),
-      store: (this.context.store || this.props.store),
+    return ({
+      imgfloConfig: this.props.imgfloConfig,
+      store: this.props.store,
+      widgetPath: this.props.widgetPath,
       rebass: rebassTheme,
-    }
-    )
+    })
   }
   render () {
     const {coverPrefs} = this.props
     const {initialBlock, id} = this.state
-    const {type} = initialBlock
-    let Component = Components[type] || Components.unsupported
-    return el(Component
-    , { initialBlock,
+    const widget = getWidget(initialBlock)
+    const Component = getComponent(initialBlock)
+    return el(Component, {
+      initialBlock,
       id,
       coverPrefs,
-    }
-    )
+      widget,
+    })
   }
   updateBlock (updateId) {
     const {id} = this.state
@@ -79,19 +98,17 @@ class Media extends React.Component {
     this.setState({initialBlock: block})
   }
 }
-Media.contextTypes =
-{ imgfloConfig: React.PropTypes.object,
-  store: React.PropTypes.object,
-}
-Media.childContextTypes =
-{ imgfloConfig: React.PropTypes.object,
+Widget.childContextTypes = {
+  imgfloConfig: React.PropTypes.object,
   rebass: React.PropTypes.object,
   store: React.PropTypes.object,
+  widgetPath: React.PropTypes.string,
 }
-Media.propTypes =
-{ initialBlock: React.PropTypes.object.isRequired,
+Widget.propTypes = {
+  initialBlock: React.PropTypes.object.isRequired,
   store: React.PropTypes.object.isRequired,
   coverPrefs: React.PropTypes.object.isRequired,
   imgfloConfig: React.PropTypes.object,
+  widgetPath: React.PropTypes.string.isRequired,
 }
-export default React.createFactory(Media)
+export default React.createFactory(Widget)

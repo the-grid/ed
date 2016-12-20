@@ -17,7 +17,6 @@ import EdInputRules from '../inputrules/ed-input-rules'
 import EdCommands from '../commands/ed-commands'
 import {posToIndex} from '../util/pm'
 
-import PluginWidget from '../plugins/widget.js'
 import PluginShareUrl from '../plugins/share-url'
 import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
@@ -52,7 +51,7 @@ class Editable extends React.Component {
       , onCommandsChanged
       , widgetPath
       , coverPrefs } = this.props
-    const {store} = this.context
+    const {store, imgfloConfig} = this.context
 
     const state = EditorState.create(
       { schema: EdSchemaFull,
@@ -63,7 +62,7 @@ class Editable extends React.Component {
 
     let view
 
-    function applyAction (action) {
+    const applyAction = (action) => {
       view.updateState(view.editor.state.applyAction(action))
       if (action.type === 'transform') {
         onChange('EDITABLE_CHANGE', this.pm)
@@ -79,15 +78,13 @@ class Editable extends React.Component {
         handleClickOn: function (_view, _pos, node) { return node.type.name === 'media' },
         nodeViews: {
           media: (node, view, getPos) => {
-            console.log(MediaNodeView)
-            return new MediaNodeView(node, view, getPos, store)
+            return new MediaNodeView(node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath)
           },
         },
       }
 
     let edPluginClasses =
-      [ PluginWidget,
-        PluginShareUrl,
+      [ PluginShareUrl,
         PluginContentHints,
         PluginPlaceholder,
         PluginFixedMenuHack,
@@ -150,7 +147,10 @@ class Editable extends React.Component {
     onDropFiles(index, event.dataTransfer.files)
   }
 }
-Editable.contextTypes = {store: React.PropTypes.object}
+Editable.contextTypes = {
+  store: React.PropTypes.object,
+  imgfloConfig: React.PropTypes.object,
+}
 Editable.propTypes =
 { initialContent: React.PropTypes.array.isRequired,
   menuBar: React.PropTypes.bool,

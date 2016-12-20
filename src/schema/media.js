@@ -3,41 +3,40 @@ require('./media.css')
 import ReactDOM from 'react-dom'
 
 import {isMediaType} from '../convert/types'
-import Media from '../components/media'
+import Widget from '../components/widget'
 
-
-function wrapDOM (dom) {
-  let dummy = document.createElement('div')
-  dummy.textContent = '\u200b'
-  dummy.style.height = 0
-  let wrap = document.createElement('div')
-  wrap.appendChild(dummy.cloneNode(true))
-  wrap.appendChild(dom)
-  wrap.appendChild(dummy)
-  return wrap
-}
 
 export class MediaNodeView {
-  constructor (node, view, getPos, ed) {
+  constructor (node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath) {
     this.node = node
     this.view = view
     this.getPos = getPos
-    this.ed = ed
+    this.ed = store
 
-    const {type, widget, id} = node.attrs
+    const {id} = node.attrs
 
     const props = {
       initialBlock: this.ed.getBlock(id),
       id,
-      // onChange: this.onChange,
-      // imgfloConfig: this.ed.imgfloConfig,
-      store: ed,
-      // coverPrefs: this.coverPrefs,
+      imgfloConfig,
+      store,
+      coverPrefs,
+      widgetPath,
     }
     this.dom = document.createElement('div')
+    this.dom.className = 'EdSchemaMedia'
     this.dom.contentEditable = false
-    this.mounted = ReactDOM.render(new Media(props), this.dom)
-    console.log(this, this.mounted)
+    this.mounted = ReactDOM.render(new Widget(props), this.dom)
+  }
+  stopEvent (event) {
+    if (event instanceof DragEvent) {
+      // PM handles dragging blocks
+      return false
+    }
+    return true
+  }
+  destroy () {
+    ReactDOM.unmountComponentAtNode(this.dom)
   }
 }
 
@@ -63,7 +62,6 @@ export const media =
     }],
     toDOM (node) {
       const {id, type, widget} = node.attrs
-
       return [
         'div',
         { 'class': 'EdSchemaMedia',
@@ -71,11 +69,6 @@ export const media =
           'grid-type': type,
           'grid-widget': widget,
         },
-        [
-          'div',
-          { 'class': 'EdSchemaMedia--type' },
-          type,
-        ],
       ]
     },
   }

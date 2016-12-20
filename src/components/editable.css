@@ -65,31 +65,22 @@
 
 .ProseMirror-content h1 {
   font-size: 250%;
-  line-height: 1.2 !important;
+  line-height: 1.2;
 }
 
 .ProseMirror-content h2 {
   font-size: 175%;
-  line-height: 1.3 !important;
+  line-height: 1.3;
 }
 
 .ProseMirror-content h3 {
   font-size: 125%;
-  line-height: 1.4 !important;
+  line-height: 1.4;
 }
 
-.ProseMirror-content h1 * {
-  line-height: 1.2 !important;
-}
-.ProseMirror-content h2 * {
-  line-height: 1.3 !important;
-}
-.ProseMirror-content h3 * {
-  line-height: 1.4 !important;
-}
-
-.ProseMirror-content p * {
-  font-size: 20px !important;
+.ProseMirror-content p {
+  font-size: 100%;
+  line-height: 1.5;
 }
 
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {

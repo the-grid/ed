@@ -39,16 +39,14 @@ class WidgetUnsupported extends React.Component {
     return el('span'
     , {}
     , ' ('
-    , el('a'
-      , { href: initialBlock.metadata.isBasedOnUrl,
-        target: '_blank',
-        rel: 'noreferrer noopener',
-        style:
-        { textDecoration: 'inherit',
-        },
-      }
-        , 'open link'
-      )
+    , el('a', {
+      href: initialBlock.metadata.isBasedOnUrl,
+      target: '_blank',
+      rel: 'noreferrer noopener',
+      // style: { textDecoration: 'inherit' },
+    }
+    , 'open link'
+    )
     , ')'
     )
   }}
