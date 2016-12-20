@@ -4,7 +4,7 @@ require('./editable.css')
 require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
-import {EditorState, Plugin} from 'prosemirror-state'
+import {EditorState, Plugin, PluginKey} from 'prosemirror-state'
 import {history as pluginHistory} from 'prosemirror-history'
 // import {dropCursor as pluginDropCursor} from 'prosemirror-dropcursor'
 
@@ -56,6 +56,10 @@ class Editable extends React.Component {
       edInputRules,
       edKeymap,
       edBaseKeymap,
+      new Plugin({
+        key: new PluginKey('store'),
+        props: {store},
+      })
     ]
 
     let edPluginClasses = [
@@ -90,6 +94,7 @@ class Editable extends React.Component {
       schema: EdSchema,
       doc: GridToDoc(initialContent),
       plugins: edPlugins,
+      ed: store,
     })
 
     let view

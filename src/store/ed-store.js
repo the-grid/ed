@@ -6,6 +6,7 @@ import {indexToPos, indexOfId} from '../util/pm'
 
 import DocToGrid from '../convert/doc-to-grid'
 import IframeInfo from '../plugins/iframe-info'
+import EdSchema from '../schema/ed-schema'
 
 function noop () {}
 
@@ -217,7 +218,7 @@ export default class EdStore {
     }
     const nodeToRemove = this.pm.doc.child(index)
     const pos = indexToPos(this.pm.doc, index)
-    this.pm.tr
+    this.pm.editor.state.tr
       .delete(pos, pos + nodeToRemove.nodeSize)
       .apply()
   }
@@ -270,7 +271,7 @@ export default class EdStore {
       initialHeight = info.initialHeight
     }
 
-    const node = this.pm.schema.nodes.media.create(
+    const node = EdSchema.nodes.media.create(
       { id,
         type,
         widget,
@@ -279,7 +280,7 @@ export default class EdStore {
       }
     )
     const pos = indexToPos(this.pm.doc, index)
-    this.pm.tr
+    this.pm.editor.state.tr
       // Delete the node to replace
       .delete(pos, pos + replaceNode.nodeSize)
       // Insert the block
@@ -291,11 +292,7 @@ export default class EdStore {
       this.pm.content.blur()
     }
   }
-  _insertBlocks (index, blocks, initialFocus = false) {
-    if (!this.pm) {
-      throw new Error('pm not ready')
-    }
-
+  _insertBlocks (index, blocks, state, onAction) {
     this._initializeContent(blocks)
 
     for (let i = 0, len = blocks.length; i < len; i++) {
@@ -311,30 +308,32 @@ export default class EdStore {
         throw new Error('_insertBlocks with non-media blocks not yet implemented.')
       }
 
-      let initialHeight = 72
-      const info = IframeInfo[type]
-      if (info) {
-        initialHeight = info.initialHeight
-      }
+      // let initialHeight = 72
+      // const info = IframeInfo[type]
+      // if (info) {
+      //   initialHeight = info.initialHeight
+      // }
 
-      const node = this.pm.schema.nodes.media.create(
+      const node = EdSchema.nodes.media.create(
         { id,
           type,
           widget,
-          initialHeight,
-          initialFocus,
         }
       )
-      const pos = indexToPos(this.pm.doc, index + i)
-      this.pm.tr.insert(pos, node).apply()
+      const pos = indexToPos(state.doc, index + i)
+      // this.pm.editor.state.tr.insert(pos, node).apply()
 
-      if (initialFocus) {
-        // Hide tooltip
-        this.pm.content.blur()
-      }
+      onAction(
+        state.tr.insert(pos, node).action()
+      )
+
+      // if (initialFocus) {
+      //   // Hide tooltip
+      //   this.pm.content.blur()
+      // }
     }
   }
-  _addMedia ({index, type, widgetType}) {
+  _addMedia ({index, type, widgetType, state, onAction}) {
     let block =
       { id: uuid.v4(),
         type,
@@ -344,7 +343,7 @@ export default class EdStore {
     if (widgetType) {
       block.metadata.widget = widgetType
     }
-    this._insertBlocks(index, [ block ], true)
+    this._insertBlocks(index, [ block ], state, onAction)
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -438,16 +437,16 @@ export default class EdStore {
       endPos += node.nodeSize
     }
     if (addTitle) {
-      const titleNode = this.pm.schema.nodes.heading.create({level: 1})
-      this.pm.tr
+      const titleNode = EdSchema.nodes.heading.create({level: 1})
+      this.pm.editor.state.tr
         .insert(0, titleNode)
         .apply()
       endPos += titleNode.nodeSize
     }
     if (addFold) {
-      const ruleNode = this.pm.schema.nodes.horizontal_rule.create()
-      const pNode = this.pm.schema.nodes.paragraph.create()
-      this.pm.tr
+      const ruleNode = EdSchema.nodes.horizontal_rule.create()
+      const pNode = EdSchema.nodes.paragraph.create()
+      this.pm.editor.state.tr
         .insert(endPos, ruleNode)
         .insert(endPos + ruleNode.nodeSize, pNode)
         .apply()

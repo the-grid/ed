@@ -1,11 +1,18 @@
 import {MenuItem, icons} from 'prosemirror-menu'
-import {focusedIndex} from '../util/pm'
+import {focusedIndex, indexToPos} from '../util/pm'
+
+import EdSchema from '../schema/ed-schema'
+
 
 function makeMenu (label, type, widgetType) {
-  function run (pm) {
-    const index = focusedIndex(pm)
+  function run (state, onAction) {
+    // debugger
+    const index = focusedIndex(state)
     if (index == null) return
-    pm.ed.routeChange('ADD_MEDIA', {index, type, widgetType})
+
+    // HACK
+    const ed = state.config.pluginsByKey['store$'].props.store
+    ed.routeChange('ADD_MEDIA', {index, type, widgetType, state, onAction})
   }
 
   let icon
