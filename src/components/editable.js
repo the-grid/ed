@@ -54,8 +54,8 @@ class Editable extends React.Component {
       pluginHistory(),
       // pluginDropCursor(),
       edInputRules,
-      edBaseKeymap,
       edKeymap,
+      edBaseKeymap,
     ]
 
     let edPluginClasses = [

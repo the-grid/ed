@@ -21,14 +21,14 @@ const EdSchema = new Schema({
   nodes: {
     doc: {content: '(block | topblock)+'},
     paragraph,
+    ordered_list: add(orderedList, {content: 'list_item+', group: 'block'}),
+    bullet_list: add(bulletList, {content: 'list_item+', group: 'block'}),
+    list_item: add(listItem, {content: 'paragraph block*'}),
     horizontal_rule: add(horizontal_rule, {group: 'topblock'}),
     heading: add(heading, {group: 'topblock'}),
     media: add(media, {group: 'topblock'}),
     text,
     hard_break,
-    ordered_list: add(orderedList, {content: 'list_item+', group: 'block'}),
-    bullet_list: add(bulletList, {content: 'list_item+', group: 'block'}),
-    list_item: add(listItem, {content: 'paragraph block*'}),
   },
   marks: {
     em,
