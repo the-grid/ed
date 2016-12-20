@@ -212,20 +212,26 @@ export default class EdStore {
       throw new Error('Can not find this block id')
     }
 
-    const index = indexOfId(this.pm.doc, id)
+    const index = indexOfId(this.pm.editor.state.doc, id)
     if (index === -1) {
       throw new Error('Can not find node with this id')
     }
-    const nodeToRemove = this.pm.doc.child(index)
-    const pos = indexToPos(this.pm.doc, index)
-    this.pm.editor.state.tr
-      .delete(pos, pos + nodeToRemove.nodeSize)
-      .apply()
+    const nodeToRemove = this.pm.editor.state.doc.child(index)
+    const pos = indexToPos(this.pm.editor.state.doc, index)
+
+    const state = this.pm.editor.props.state
+    const onAction = this.pm.editor.props.onAction
+
+    onAction(
+      state.tr
+        .delete(pos, pos + nodeToRemove.nodeSize)
+        .action()
+    )
   }
   _dedupeIds () {
     let ids = []
-    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
-      const node = this.pm.doc.child(i)
+    for (let i = 0, len = this.pm.editor.state.doc.childCount; i < len; i++) {
+      const node = this.pm.editor.state.doc.child(i)
       if (!node.attrs || !node.attrs.id) {
         continue
       }
@@ -243,7 +249,7 @@ export default class EdStore {
   getBlock (id) {
     return this._content[id]
   }
-  _replaceBlock (index, block, initialFocus = false) {
+  _replaceBlock (index, block) {
     if (!this.pm) {
       throw new Error('pm not ready')
     }
@@ -258,7 +264,7 @@ export default class EdStore {
     if (!isMediaType(type)) {
       throw new Error('_replaceBlock with non-media blocks not yet implemented.')
     }
-    const replaceNode = this.pm.doc.maybeChild(index)
+    const replaceNode = this.pm.editor.state.doc.maybeChild(index)
     if (!replaceNode) {
       throw new Error('Node to replace not found.')
     }
@@ -276,24 +282,32 @@ export default class EdStore {
         type,
         widget,
         initialHeight,
-        initialFocus,
+        // initialFocus,
       }
     )
-    const pos = indexToPos(this.pm.doc, index)
-    this.pm.editor.state.tr
-      // Delete the node to replace
-      .delete(pos, pos + replaceNode.nodeSize)
-      // Insert the block
-      .insert(pos, node)
-      .apply()
+    const pos = indexToPos(this.pm.editor.state.doc, index)
 
-    if (initialFocus) {
-      // Hide tooltip
-      this.pm.content.blur()
-    }
+    const state = this.pm.editor.props.state
+    const onAction = this.pm.editor.props.onAction
+
+    onAction(
+      state.tr
+        // Delete the node to replace
+        .delete(pos, pos + replaceNode.nodeSize)
+        // Insert the block
+        .insert(pos, node)
+        .action()
+    )
+
+    // if (initialFocus) {
+    //   // Hide tooltip
+    //   this.pm.content.blur()
+    // }
   }
   _insertBlocks (index, blocks, state, onAction) {
     this._initializeContent(blocks)
+
+    let nodes = []
 
     for (let i = 0, len = blocks.length; i < len; i++) {
       const block = blocks[i]
@@ -307,31 +321,30 @@ export default class EdStore {
       if (!isMediaType(type)) {
         throw new Error('_insertBlocks with non-media blocks not yet implemented.')
       }
-
-      // let initialHeight = 72
-      // const info = IframeInfo[type]
-      // if (info) {
-      //   initialHeight = info.initialHeight
-      // }
-
       const node = EdSchema.nodes.media.create(
         { id,
           type,
           widget,
         }
       )
-      const pos = indexToPos(state.doc, index + i)
-      // this.pm.editor.state.tr.insert(pos, node).apply()
-
-      onAction(
-        state.tr.insert(pos, node).action()
-      )
-
-      // if (initialFocus) {
-      //   // Hide tooltip
-      //   this.pm.content.blur()
-      // }
+      nodes.push(node)
     }
+
+    if (!state) {
+      state = this.pm.editor.props.state
+    }
+    if (!onAction) {
+      onAction = this.pm.editor.props.onAction
+    }
+    const pos = indexToPos(state.doc, index)
+    onAction(
+      state.tr.insert(pos, nodes).action()
+    )
+
+    // if (initialFocus) {
+    //   // Hide tooltip
+    //   this.pm.content.blur()
+    // }
   }
   _addMedia ({index, type, widgetType, state, onAction}) {
     let block =
@@ -343,7 +356,7 @@ export default class EdStore {
     if (widgetType) {
       block.metadata.widget = widgetType
     }
-    this._insertBlocks(index, [ block ], state, onAction)
+    this._insertBlocks(index, [block], state, onAction)
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -426,8 +439,8 @@ export default class EdStore {
     let addTitle = true
     let addFold = true
     let endPos = 0
-    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
-      const node = this.pm.doc.child(i)
+    for (let i = 0, len = this.pm.editor.state.doc.childCount; i < len; i++) {
+      const node = this.pm.editor.state.doc.child(i)
       if (node.type.name === 'heading' && node.attrs.level === 1) {
         addTitle = false
       }
@@ -477,11 +490,11 @@ export default class EdStore {
       }
       const currentBlock = this._content[id]
       if (!currentBlock) {
-        this._insertBlocks(i, [block])
+        this._insertBlocks(i, block)
         continue
       }
       if (this._applyTransformCheckBlock(currentBlock, block)) {
-        const index = indexOfId(this.pm.doc, id)
+        const index = indexOfId(this.pm.editor.state.doc, id)
         if (index === -1) {
           continue
         }

@@ -6,7 +6,9 @@ import {focusedIndex} from '../util/pm'
 function run (pm) {
   const index = focusedIndex(pm)
   if (index == null) return
-  pm.ed.trigger('command.menu.file', index)
+  // HACK
+  const ed = pm.state.config.pluginsByKey['store$'].props.store
+  ed.trigger('command.menu.file', index)
 }
 
 function render (pm) {
