@@ -105,7 +105,7 @@ class AttributionEditor extends React.Component {
     const {store} = this.context
     const preview = store.getCoverPreview(id)
     if (!cover && !preview) return
-    if (cover.unsalvageable) return
+    if (cover && cover.unsalvageable) return
     let src, width, height, title
     if (cover) {
       src = cover.src
