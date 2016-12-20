@@ -35,10 +35,11 @@ class WidgetIframe extends React.Component {
     }
   }
   render () {
-    const {widget} = this.props
+    const {id, widget} = this.props
     const {widgetPath} = this.context
     const {height} = this.state
     return el('iframe', {
+      key: id,
       className: 'WidgetIframe',
       src: widgetPath + IframeInfo[widget].src,
       style: {
