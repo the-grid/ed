@@ -29,6 +29,10 @@ class WidgetIframe extends React.Component {
   }
   componentWillUnmount () {
     window.removeEventListener('message', this.getFromIframe)
+    if (this.iframe && this.iframe.contentWindow) {
+      this.iframe.contentWindow.removeEventListener('dragover', preventDefault)
+      this.iframe.contentWindow.removeEventListener('drop', preventDefault)
+    }
   }
   render () {
     const {widget} = this.props
@@ -61,7 +65,7 @@ class WidgetIframe extends React.Component {
     this.iframe.contentWindow.postMessage({topic, payload}, '*')
   }
   getFromIframe (message) {
-    // Basic message safety
+    // Gets hit with all iframe widget messages, so filter early
     if (!message || !message.source || !message.source.frameElement) return
     if (!this.iframe || this.iframe !== message.source.frameElement) return
     const messageId = message.data.id
@@ -69,7 +73,6 @@ class WidgetIframe extends React.Component {
     const {id} = this.props
     if (id !== messageId) throw new Error('Iframe message id does not match frame id')
 
-    console.log(message)
     const {topic, payload} = message.data
     switch (topic) {
       case 'changed':
