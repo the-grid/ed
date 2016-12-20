@@ -1,9 +1,8 @@
 import {DOMParser} from 'prosemirror-model'
 
-import EdSchema from '../schema/ed-schema-full'
+import EdSchema from '../schema/ed-schema'
 
 import {isMediaType, isHTMLType} from './types'
-// import EdSchemaFull from '../schema/ed-schema-full'
 import determineFold from './determine-fold'
 import spaceContent from './space-content'
 import IframeInfo from '../plugins/iframe-info'

@@ -1,5 +1,5 @@
 import {DOMSerializer} from 'prosemirror-model'
-import EdSchema from '../schema/ed-schema-full'
+import EdSchema from '../schema/ed-schema'
 
 import {isMediaType} from './types'
 import BlockMetaSchema from '../schema/block-meta'

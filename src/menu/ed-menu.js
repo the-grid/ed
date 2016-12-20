@@ -5,7 +5,7 @@ import { Dropdown
   , liftItem,
   } from 'prosemirror-menu'
 import { buildMenuItems } from 'prosemirror-example-setup'
-import EdSchema from '../schema/ed-schema-full'
+import EdSchema from '../schema/ed-schema'
 import menuImage from './menu-image'
 import { menuCode
   , menuLocation

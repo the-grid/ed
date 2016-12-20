@@ -3,7 +3,7 @@ import {expect} from 'chai'
 import {Node} from 'prosemirror-model'
 
 import DocToGrid from '../../src/convert/doc-to-grid'
-import EdSchemaFull from '../../src/schema/ed-schema-full'
+import EdSchema from '../../src/schema/ed-schema'
 
 
 describe('DocToGrid', function () {
@@ -64,7 +64,7 @@ describe('DocToGrid', function () {
       }
 
     it('correctly converts full Doc to Grid content', function () {
-      const node = Node.fromJSON(EdSchemaFull, doc)
+      const node = Node.fromJSON(EdSchema, doc)
       const contentOut = DocToGrid(node, map)
       expect(contentOut).to.deep.equal(content)
     })
@@ -109,7 +109,7 @@ describe('DocToGrid', function () {
         },
         ]
 
-      const node = Node.fromJSON(EdSchemaFull, doc)
+      const node = Node.fromJSON(EdSchema, doc)
       const contentOut = DocToGrid(node, map)
       expect(contentOut).to.deep.equal(expected)
     })

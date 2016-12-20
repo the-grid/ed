@@ -13,7 +13,7 @@ import {edMenuPlugin} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import EdKeymap from '../inputrules/ed-keymap'
-import EdSchemaFull from '../schema/ed-schema-full'
+import EdSchema from '../schema/ed-schema'
 import {MediaNodeView} from '../schema/media'
 import {edInputRules, edBaseKeymap, edKeymap} from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
@@ -87,7 +87,7 @@ class Editable extends React.Component {
     })
 
     const state = EditorState.create({
-      schema: EdSchemaFull,
+      schema: EdSchema,
       doc: GridToDoc(initialContent),
       plugins: edPlugins,
     })
