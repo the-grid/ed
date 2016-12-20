@@ -5,16 +5,17 @@ require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
 import {EditorState, Plugin} from 'prosemirror-state'
+import {history as pluginHistory} from 'prosemirror-history'
+// import {dropCursor as pluginDropCursor} from 'prosemirror-dropcursor'
 
 import {MenuBarEditorView} from 'prosemirror-menu'
-import {edBarMenu} from '../menu/ed-menu'
+import {edMenuPlugin} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 // import EdKeymap from '../inputrules/ed-keymap'
 import EdSchemaFull from '../schema/ed-schema-full'
 import {MediaNodeView} from '../schema/media'
-import EdInputRules from '../inputrules/ed-input-rules'
-import EdCommands from '../commands/ed-commands'
+import {edInputRules, edBaseKeymap, edKeymap} from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
 
 import PluginShareUrl from '../plugins/share-url'
@@ -34,11 +35,7 @@ class Editable extends React.Component {
   }
   render () {
     return el('div'
-    , { className: 'Editable',
-      style:
-      { position: 'relative', /* So widgets can position selves */
-      },
-    }
+    , { className: 'Editable' }
     , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
     , el('div', {className: 'Editable-Plugins', ref: 'plugins'})
     )
@@ -53,12 +50,47 @@ class Editable extends React.Component {
       , coverPrefs } = this.props
     const {store, imgfloConfig} = this.context
 
-    const state = EditorState.create(
-      { schema: EdSchemaFull,
-        doc: GridToDoc(initialContent),
-        plugins: [ EdInputRules, EdCommands ],
-      }
-    )
+    let edPlugins = [
+      pluginHistory(),
+      // pluginDropCursor(),
+      edInputRules,
+      edBaseKeymap,
+      edKeymap,
+    ]
+
+    let edPluginClasses = [
+      // PluginShareUrl,
+      // PluginContentHints,
+      // PluginPlaceholder,
+    ]
+
+    if (menuBar) {
+      edPlugins.push(edMenuPlugin)
+      // edPluginClasses.push(PluginFixedMenuHack)
+    }
+
+    if (onCommandsChanged) {
+      edPluginClasses.push(PluginCommandsInterface)
+    }
+
+    const pluginOptions = {
+      ed: store,
+      editableView: this,
+      container: plugins,
+      widgetPath,
+      coverPrefs,
+    }
+
+    edPluginClasses.forEach(function (plugin) {
+      const p = new Plugin(plugin, pluginOptions)
+      edPlugins.push(p)
+    })
+
+    const state = EditorState.create({
+      schema: EdSchemaFull,
+      doc: GridToDoc(initialContent),
+      plugins: edPlugins,
+    })
 
     let view
 
@@ -82,36 +114,6 @@ class Editable extends React.Component {
           },
         },
       }
-
-    let edPluginClasses =
-      [ PluginShareUrl,
-        PluginContentHints,
-        PluginPlaceholder,
-        PluginFixedMenuHack,
-      ]
-
-    if (menuBar) {
-      pmOptions.menuContent = edBarMenu
-      pmOptions.floatingMenu = false
-      edPluginClasses.push(PluginFixedMenuHack)
-    }
-
-    if (onCommandsChanged) {
-      edPluginClasses.push(PluginCommandsInterface)
-    }
-
-    const pluginOptions =
-      { ed: store,
-        editableView: this,
-        container: plugins,
-        widgetPath,
-        coverPrefs,
-      }
-
-    edPluginClasses.forEach(function (plugin) {
-      const p = new Plugin(plugin, pluginOptions)
-      pmOptions.state.plugins.push(p)
-    })
 
     view = this.pm = new MenuBarEditorView(mirror, pmOptions)
     this.pm.ed = store

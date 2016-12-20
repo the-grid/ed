@@ -1,3 +1,4 @@
+import {Plugin} from 'prosemirror-state'
 import { Dropdown
   , undoItem
   , redoItem
@@ -86,20 +87,29 @@ const addDropdown = new Dropdown(
   , {label: 'Add'}
 )
 
-export const edBlockMenu =
-  [ [ toggleStrong,
+export const edBlockMenu = [
+  [ toggleStrong,
     toggleEm,
     toggleLink,
   ],
-   [ typeDropdown ],
+  [ typeDropdown ],
   [ wrapBulletList,
     wrapOrderedList,
     menuQuote,
     liftItem,
   ],
-   [ menuImage ],
-   [ addDropdown ],
-  ]
+  [ menuImage ],
+  [ addDropdown ],
+]
 
 export const edBarMenu = edBlockMenu
   .concat([[undoItem, redoItem]])
+
+
+export const edMenuPlugin = new Plugin({
+  props: {
+    attributes: {class: 'ProseMirror-example-setup-style'},
+    menuContent: edBarMenu,
+    floatingMenu: false,
+  },
+})

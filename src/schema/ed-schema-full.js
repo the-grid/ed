@@ -4,36 +4,37 @@
 import {Schema} from 'prosemirror-model'
 
 import {nodes, marks} from 'prosemirror-schema-basic'
-import {orderedList as ordered_list, bulletList as bullet_list, listItem as list_item} from 'prosemirror-schema-list'
+import {orderedList, bulletList, listItem} from 'prosemirror-schema-list'
 import {media} from './media'
 
-let { paragraph, heading, horizontal_rule, text, hard_break } = nodes
+let {paragraph, heading, horizontal_rule, text, hard_break} = nodes
 let {em, strong, link} = marks
 
-heading.group = 'topblock'
-horizontal_rule.group = 'topblock'
-media.group = 'topblock'
+function add(obj, props) {
+  let copy = {}
+  for (let prop in obj) copy[prop] = obj[prop]
+  for (let prop in props) copy[prop] = props[prop]
+  return copy
+}
 
-
-const EdSchema = new Schema(
-  { nodes:
-  { doc: {content: '(block | topblock)+'},
+const EdSchema = new Schema({
+  nodes: {
+    doc: {content: '(block | topblock)+'},
     paragraph,
-    ordered_list,
-    bullet_list,
-    horizontal_rule,
-    heading,
-    media,
-    list_item,
+    ordered_list: add(orderedList, {content: 'list_item+', group: 'block'}),
+    bullet_list: add(bulletList, {content: 'list_item+', group: 'block'}),
+    horizontal_rule: add(horizontal_rule, {group: 'topblock'}),
+    heading: add(heading, {group: 'topblock'}),
+    media: add(media, {group: 'topblock'}),
+    list_item: add(listItem, {content: 'paragraph block*'}),
     text,
     hard_break,
   },
-    marks:
-    { em,
-      strong,
-      link,
-    },
-  }
-)
+  marks: {
+    em,
+    strong,
+    link,
+  },
+})
 
 export default EdSchema
