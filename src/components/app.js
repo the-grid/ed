@@ -79,7 +79,7 @@ export default class App extends React.Component {
     return el('div'
     , {className: 'Ed'}
     , this.renderContent()
-    , this.renderHints()
+    // , this.renderHints()
     )
   }
   renderContent () {
