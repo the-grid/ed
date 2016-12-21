@@ -1,7 +1,5 @@
 import {MenuItem, icons} from 'prosemirror-menu'
-import {focusedIndex, indexToPos} from '../util/pm'
-
-import EdSchema from '../schema/ed-schema'
+import {focusedIndex} from '../util/pm'
 
 
 function makeMenu (label, type, widgetType) {

@@ -8,7 +8,6 @@ import _ from '../util/lodash'
 // The plugin
 
 function onDOMChanged () {
-  console.log(this.contentEl)
   if (!this.contentEl) return
 
   // Should use debounced version
@@ -22,7 +21,6 @@ function onDOMChanged () {
       } else {
         el.classList.remove('empty')
       }
-      console.log(el)
     }
   }
 

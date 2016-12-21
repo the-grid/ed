@@ -36,7 +36,7 @@ export default {
       setTimeout(() => {
         this.menuEl = this.props.elMirror.querySelector('.ProseMirror-menubar')
         if (!this.menuEl) {
-          throw new Error("Trying to init FixedMenuHack without menu")
+          throw new Error('Trying to init FixedMenuHack without menu')
         }
         this.contentEl = this.props.elMirror.querySelector('.ProseMirror-content')
 

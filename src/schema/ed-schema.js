@@ -10,7 +10,7 @@ import {media} from './media'
 let {paragraph, heading, horizontal_rule, text, hard_break} = nodes
 let {em, strong, link} = marks
 
-function add(obj, props) {
+function add (obj, props) {
   let copy = {}
   for (let prop in obj) copy[prop] = obj[prop]
   for (let prop in props) copy[prop] = props[prop]

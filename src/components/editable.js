@@ -12,14 +12,13 @@ import {MenuBarEditorView} from 'prosemirror-menu'
 import {edMenuPlugin} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
-// import EdKeymap from '../inputrules/ed-keymap'
 import EdSchema from '../schema/ed-schema'
 import {MediaNodeView} from '../schema/media'
 import {edInputRules, edBaseKeymap, edKeymap} from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
 
 import PluginShareUrl from '../plugins/share-url'
-import PluginContentHints from '../plugins/content-hints'
+// import PluginContentHints from '../plugins/content-hints'
 import PluginPlaceholder from '../plugins/placeholder'
 import PluginFixedMenuHack from '../plugins/fixed-menu-hack'
 import PluginCommandsInterface from '../plugins/commands-interface'
@@ -59,7 +58,7 @@ class Editable extends React.Component {
       new Plugin({
         key: new PluginKey('store'),
         props: {store},
-      })
+      }),
     ]
 
     let edPluginClasses = [
