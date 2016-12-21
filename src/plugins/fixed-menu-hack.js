@@ -46,18 +46,13 @@ export default {
       }, 0)
     },
     applyAction: function (action) {
-      console.log(action)
       if (action.type === 'selection') {
         this.spaceContent()
       }
     },
+    destroy: function () {
+      window.removeEventListener('scroll', this.onScroll)
+      window.removeEventListener('resize', this.spaceContent)
+    },
   },
-  // detach () {
-  //   if (!this.menuEl) {
-  //     return
-  //   }
-  //   window.removeEventListener('scroll', this.onScroll)
-  //   window.removeEventListener('resize', this.spaceContent)
-  //   this.updater.detach()
-  // }
 }

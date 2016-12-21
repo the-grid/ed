@@ -142,7 +142,13 @@ class Editable extends React.Component {
     // this.pm.off('ed.plugin.url')
     // this.pm.off('ed.menu.file')
     // this.pm.off('drop', this.boundOnDrop)
-    // this.plugins.forEach((plugin) => plugin.teardown())
+
+    this.pm.editor.state.plugins.forEach((plugin) => {
+      if (plugin.options && plugin.options.state && plugin.options.state.destroy) {
+        plugin.options.state.destroy()
+      }
+    })
+    this.pm.editor.destroy()
   }
   onDrop (event) {
     if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return
