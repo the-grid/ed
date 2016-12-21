@@ -65,7 +65,7 @@ class Editable extends React.Component {
     let edPluginClasses = [
       // PluginShareUrl,
       // PluginContentHints,
-      // PluginPlaceholder,
+      PluginPlaceholder,
     ]
 
     if (menuBar) {
