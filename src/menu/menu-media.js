@@ -12,7 +12,7 @@ function makeMenu (label, type, widgetType) {
 
     // HACK
     const ed = state.config.pluginsByKey['store$'].props.store
-    ed.routeChange('ADD_MEDIA', {index, type, widgetType, state, onAction})
+    ed.routeChange('ADD_MEDIA', {index, type, widgetType})
   }
 
   let icon

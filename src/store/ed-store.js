@@ -219,7 +219,7 @@ export default class EdStore {
     const nodeToRemove = this.pm.editor.state.doc.child(index)
     const pos = indexToPos(this.pm.editor.state.doc, index)
 
-    const state = this.pm.editor.props.state
+    const state = this.pm.editor.state
     const onAction = this.pm.editor.props.onAction
 
     onAction(
@@ -287,7 +287,7 @@ export default class EdStore {
     )
     const pos = indexToPos(this.pm.editor.state.doc, index)
 
-    const state = this.pm.editor.props.state
+    const state = this.pm.editor.state
     const onAction = this.pm.editor.props.onAction
 
     onAction(
@@ -304,7 +304,7 @@ export default class EdStore {
     //   this.pm.content.blur()
     // }
   }
-  _insertBlocks (index, blocks, state, onAction) {
+  _insertBlocks (index, blocks) {
     this._initializeContent(blocks)
 
     let nodes = []
@@ -330,13 +330,10 @@ export default class EdStore {
       nodes.push(node)
     }
 
-    if (!state) {
-      state = this.pm.editor.props.state
-    }
-    if (!onAction) {
-      onAction = this.pm.editor.props.onAction
-    }
+    const state = this.pm.editor.state
+    const onAction = this.pm.editor.props.onAction
     const pos = indexToPos(state.doc, index)
+    console.log(index, pos)
     onAction(
       state.tr.insert(pos, nodes).action()
     )
@@ -346,7 +343,7 @@ export default class EdStore {
     //   this.pm.content.blur()
     // }
   }
-  _addMedia ({index, type, widgetType, state, onAction}) {
+  _addMedia ({index, type, widgetType}) {
     let block =
       { id: uuid.v4(),
         type,
@@ -356,7 +353,7 @@ export default class EdStore {
     if (widgetType) {
       block.metadata.widget = widgetType
     }
-    this._insertBlocks(index, [block], state, onAction)
+    this._insertBlocks(index, [block])
   }
   insertPlaceholders (index, count) {
     let toInsert = []

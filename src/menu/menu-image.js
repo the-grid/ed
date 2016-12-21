@@ -4,7 +4,7 @@ import {focusedIndex} from '../util/pm'
 
 
 function run (pm) {
-  const index = focusedIndex(pm)
+  const index = focusedIndex(pm.state)
   if (index == null) return
   // HACK
   const ed = pm.state.config.pluginsByKey['store$'].props.store
