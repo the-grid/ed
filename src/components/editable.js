@@ -63,7 +63,7 @@ class Editable extends React.Component {
     ]
 
     let edPluginClasses = [
-      // PluginShareUrl,
+      PluginShareUrl,
       // PluginContentHints,
       PluginPlaceholder,
     ]

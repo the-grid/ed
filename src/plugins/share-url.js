@@ -2,45 +2,51 @@ import uuid from 'uuid'
 import {isUrl} from '../util/url'
 
 
-export default class ShareUrl {
-  constructor (pm, options) {
-    this.boundTestPrevUrl = this.testPrevUrl.bind(this)
-    const {ed} = options
-    this.ed = ed
-    this.pm = pm
-    this.pm.on.change.add(this.boundTestPrevUrl)
-  }
-  detach () {
-    this.pm.on.change.remove(this.boundTestPrevUrl)
-  }
-  testPrevUrl () {
-    // Entered into a new block, collapsed selection
-    const selection = this.ed.pm.selection
-    if (!selection.empty) return
+function testPrevUrl (state) {
+  const {selection, doc} = state
 
-    // Current position (under potential url line)
-    const currentNode = this.ed.pm.doc.childBefore(selection.anchor)
-    if (!currentNode || currentNode.index < 1) return
+  // Entered into a new block, collapsed selection
+  if (!selection.empty) return
 
-    // Potential url line
-    const index = currentNode.index - 1
-    const prevNode = this.ed.pm.doc.maybeChild(index)
-    if (!prevNode || prevNode.type.name !== 'paragraph') return
+  // Current position (under potential url line)
+  const currentNode = doc.childBefore(selection.anchor)
+  if (!currentNode || currentNode.index < 1) return
 
-    // Test if url
-    const url = prevNode.textContent.trim()
-    if (!url || !isUrl(url)) return
+  // Potential url line
+  const index = currentNode.index - 1
+  const prevNode = doc.maybeChild(index)
+  if (!prevNode || prevNode.type.name !== 'paragraph') return
 
-    // Make share
-    const id = uuid.v4()
-    const block =
-      { id,
-        type: 'placeholder',
-        metadata:
-        { status: `Sharing... ${url}`,
-          percent: 0,
-        },
+  // Test if url
+  const url = prevNode.textContent.trim()
+  if (!url || !isUrl(url)) return
+
+  // Make share
+  const id = uuid.v4()
+  const block =
+    { id,
+      type: 'placeholder',
+      metadata:
+      { status: `Sharing... ${url}`,
+        percent: 0,
+      },
+    }
+  setTimeout(() => {
+    // HACK needed for store to do transform
+    // Transform _should_ be in plugin applyAction
+    this.props.ed.routeChange('PLUGIN_URL', {index, id, block, url})
+  }, 0)
+}
+
+export default {
+  state: {
+    init: function () {
+      this.testPrevUrl = testPrevUrl.bind(this)
+    },
+    applyAction: function (action, value, oldState, newState) {
+      if (action.type === 'transform') {
+        this.testPrevUrl(newState)
       }
-    this.ed.routeChange('PLUGIN_URL', {index, id, block, url})
-  }
+    },
+  },
 }
