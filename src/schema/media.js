@@ -8,6 +8,7 @@ import Widget from '../components/widget'
 
 export class MediaNodeView {
   constructor (node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath) {
+    // console.log('MediaNodeView constructor')
     this.node = node
     this.view = view
     this.getPos = getPos
@@ -27,6 +28,13 @@ export class MediaNodeView {
     this.dom.className = 'EdSchemaMedia'
     this.dom.contentEditable = false
     this.mounted = ReactDOM.render(new Widget(props), this.dom)
+  }
+  update(node, decorations) {
+    // console.log('MediaNodeView update')
+    if (node.type !== this.node.type) {
+      return false
+    }
+    return true
   }
   stopEvent (event) {
     if (event instanceof DragEvent) {
