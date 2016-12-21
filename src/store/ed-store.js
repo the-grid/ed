@@ -333,7 +333,6 @@ export default class EdStore {
     const state = this.pm.editor.state
     const onAction = this.pm.editor.props.onAction
     const pos = indexToPos(state.doc, index)
-    console.log(index, pos)
     onAction(
       state.tr.insert(pos, nodes).action()
     )
@@ -487,7 +486,7 @@ export default class EdStore {
       }
       const currentBlock = this._content[id]
       if (!currentBlock) {
-        this._insertBlocks(i, block)
+        this._insertBlocks(i, [block])
         continue
       }
       if (this._applyTransformCheckBlock(currentBlock, block)) {
