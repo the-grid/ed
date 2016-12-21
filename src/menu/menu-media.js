@@ -6,7 +6,6 @@ import EdSchema from '../schema/ed-schema'
 
 function makeMenu (label, type, widgetType) {
   function run (state, onAction) {
-    // debugger
     const index = focusedIndex(state)
     if (index == null) return
 

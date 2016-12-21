@@ -70,23 +70,26 @@ class Editable extends React.Component {
 
     if (menuBar) {
       edPlugins.push(edMenuPlugin)
-      // edPluginClasses.push(PluginFixedMenuHack)
+      edPluginClasses.push(PluginFixedMenuHack)
     }
 
     if (onCommandsChanged) {
       edPluginClasses.push(PluginCommandsInterface)
     }
 
-    const pluginOptions = {
+    const pluginProps = {
       ed: store,
       editableView: this,
-      container: plugins,
+      elMirror: mirror,
+      elPlugins: plugins,
       widgetPath,
       coverPrefs,
     }
 
     edPluginClasses.forEach(function (plugin) {
-      const p = new Plugin(plugin, pluginOptions)
+      // FIXME least knowledge per plugin
+      plugin.props = pluginProps
+      const p = new Plugin(plugin)
       edPlugins.push(p)
     })
 

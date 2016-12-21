@@ -1,7 +1,8 @@
 import _ from '../util/lodash'
 
 function onScroll (event) {
-  const contentTop = this.pm.wrapper.getBoundingClientRect().top
+  if (!this.menuEl) return
+  const contentTop = this.contentEl.getBoundingClientRect().top
   if (contentTop > 0) {
     this.menuEl.style.top = '0px'
     return
@@ -10,6 +11,7 @@ function onScroll (event) {
 }
 
 function spaceContent () {
+  if (!this.menuEl) return
   this.menuEl.style.minHeight = 'inherit'
   const menuHeight = this.menuEl.offsetHeight
   if (this.menuHeight !== menuHeight) {
@@ -19,36 +21,43 @@ function spaceContent () {
 }
 
 
-export default class FixedMenuBarHack {
-  constructor (pm, options) {
-    this.pm = pm
+export default {
+  state: {
+    init: function (config, instance) {
+      // Padding for all
+      this.spaceContent = _.debounce(spaceContent, 100).bind(this)
 
-    this.menuEl = pm.wrapper.querySelector('.ProseMirror-menubar')
-    if (!this.menuEl) {
-      return
-    }
-    this.contentEl = pm.content
+      // Fake fixed
+      this.onScroll = onScroll.bind(this)
+      window.addEventListener('scroll', this.onScroll)
+      window.addEventListener('resize', this.spaceContent)
 
-    // Padding for all
-    this.spaceContent = _.debounce(spaceContent, 250).bind(this)
-    const {selectionChange} = pm.on
-    this.updater = pm.updateScheduler([selectionChange], this.spaceContent)
-    this.updater.force()
+      // init after editor mounted
+      setTimeout(() => {
+        this.menuEl = this.props.elMirror.querySelector('.ProseMirror-menubar')
+        if (!this.menuEl) {
+          throw new Error("Trying to init FixedMenuHack without menu")
+        }
+        this.contentEl = this.props.elMirror.querySelector('.ProseMirror-content')
 
-    // Fake fixed
-    this.menuEl.style.position = 'absolute'
-    this.onScroll = onScroll.bind(this)
-    window.addEventListener('scroll', this.onScroll)
-    window.addEventListener('resize', this.spaceContent)
-    this.onScroll()
-    this.spaceContent()
-  }
-  detach () {
-    if (!this.menuEl) {
-      return
-    }
-    window.removeEventListener('scroll', this.onScroll)
-    window.removeEventListener('resize', this.spaceContent)
-    this.updater.detach()
-  }
+        this.menuEl.style.position = 'absolute'
+        this.spaceContent()
+        this.onScroll()
+      }, 0)
+    },
+    applyAction: function (action) {
+      console.log(action)
+      if (action.type === 'selection') {
+        this.spaceContent()
+      }
+    },
+  },
+  // detach () {
+  //   if (!this.menuEl) {
+  //     return
+  //   }
+  //   window.removeEventListener('scroll', this.onScroll)
+  //   window.removeEventListener('resize', this.spaceContent)
+  //   this.updater.detach()
+  // }
 }
