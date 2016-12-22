@@ -125,14 +125,7 @@ class Editable extends React.Component {
     view = this.pm = new MenuBarEditorView(mirror, pmOptions)
     this.pm.ed = store
 
-    // this.pm.on.change.add(() => {
-    //   onChange('EDITABLE_CHANGE', this.pm)
-    // })
-
     // this.pm.on.domDrop.add(this.boundOnDrop)
-
-    // this.pm.addKeymap(EdKeymap)
-
 
     onChange('EDITABLE_INITIALIZE', this)
   }
