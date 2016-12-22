@@ -132,7 +132,7 @@ describe('Ed', function () {
     })
 
     it('on mount it has expected editable html structure', function () {
-      const children = ed.pm.content.children
+      const children = ed.pm.editor.content.children
       expect(children.length).to.equal(3)
       expect(children[0].textContent).to.equal('Title')
       expect(children[0].nodeName).to.equal('H1')
@@ -143,7 +143,7 @@ describe('Ed', function () {
     })
 
     it('it has expected pm document', function () {
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -162,7 +162,7 @@ describe('Ed', function () {
          {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}},
         ]
       )
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -182,19 +182,17 @@ describe('Ed', function () {
 
     it('does not overwrite current metadata with stale', function () {
       // Inject new image block
-      ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}},
-        ]
-      )
+      ed.setContent([
+        {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}},
+      ])
       let content = ed.getContent()
       expect(content.length).to.equal(4)
       expect(content[0].type).to.equal('image')
       expect(content[0].metadata.title).to.equal('the title')
       // Set stale data, like from API
-      ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}},
-        ]
-      )
+      ed.setContent([
+        {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}},
+      ])
       content = ed.getContent()
       expect(content[0].metadata.title).to.equal('the title')
     })
@@ -203,7 +201,7 @@ describe('Ed', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -229,7 +227,7 @@ describe('Ed', function () {
         }
       )
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -255,7 +253,7 @@ describe('Ed', function () {
         },
       ])
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -275,7 +273,7 @@ describe('Ed', function () {
         ]
       )
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -297,7 +295,7 @@ describe('Ed', function () {
       const ids = ed.insertPlaceholders(1, 1)
       ed._store._placeholderCancel(ids[0])
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -408,22 +406,21 @@ describe('Ed', function () {
   })
 
   describe('The Fold', function () {
-    const fixture =
-      [ {id: '0000', type: 'image', metadata: {starred: true}},
-       {type: 'text', html: '<p>Text 1</p>'},
-      ]
+    const fixture = [
+      {id: '0000', type: 'image', metadata: {starred: true}},
+      {type: 'text', html: '<p>Text 1</p>'},
+    ]
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = mountApp(mount
-      , { initialContent: fixture,
+      ed = mountApp(mount, {
+        initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-      }
-      )
+      })
       done()
     })
     afterEach(function () {
