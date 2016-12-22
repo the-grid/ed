@@ -43,11 +43,10 @@ export default {
     init: function () {
       this.testPrevUrl = testPrevUrl.bind(this)
     },
-    applyAction: function (action, value, oldState, newState) {
+    applyAction: function (action, value, prevState, state) {
       if (action.type === 'transform') {
-        this.testPrevUrl(newState)
+        this.testPrevUrl(state)
       }
-      // XXX
     },
   },
 }
