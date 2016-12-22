@@ -34,11 +34,11 @@ export default {
 
       // init after editor mounted
       setTimeout(() => {
-        this.menuEl = this.props.elMirror.querySelector('.ProseMirror-menubar')
+        this.menuEl = this.options.edStuff.elMirror.querySelector('.ProseMirror-menubar')
         if (!this.menuEl) {
           throw new Error('Trying to init FixedMenuHack without menu')
         }
-        this.contentEl = this.props.elMirror.querySelector('.ProseMirror-content')
+        this.contentEl = this.options.edStuff.elMirror.querySelector('.ProseMirror-content')
 
         this.menuEl.style.position = 'absolute'
         this.spaceContent()

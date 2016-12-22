@@ -87,7 +87,7 @@ class Editable extends React.Component {
 
     edPluginClasses.forEach(function (plugin) {
       // FIXME least knowledge per plugin
-      plugin.props = pluginProps
+      plugin.edStuff = pluginProps
       const p = new Plugin(plugin)
       edPlugins.push(p)
     })

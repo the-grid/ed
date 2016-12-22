@@ -32,9 +32,9 @@ function testPrevUrl (state) {
       },
     }
   setTimeout(() => {
-    // HACK needed for store to do transform
+    // HACK timeout needed for store to do transform
     // Transform _should_ be in plugin applyAction
-    this.props.ed.routeChange('PLUGIN_URL', {index, id, block, url})
+    this.options.edStuff.routeChange('PLUGIN_URL', {index, id, block, url})
   }, 0)
 }
 
@@ -47,6 +47,7 @@ export default {
       if (action.type === 'transform') {
         this.testPrevUrl(newState)
       }
+      // XXX
     },
   },
 }
