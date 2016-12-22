@@ -59,12 +59,12 @@ class Editable extends React.Component {
         key: new PluginKey('store'),
         props: {store},
       }),
+      new Plugin(PluginPlaceholder),
     ]
 
     let edPluginClasses = [
       PluginShareUrl,
       // PluginContentHints,
-      PluginPlaceholder,
     ]
 
     if (menuBar) {

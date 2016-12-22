@@ -2,54 +2,39 @@
 * Plugin to manage `empty` class for placeholder text
 */
 
-import _ from '../util/lodash'
+import {PluginKey} from 'prosemirror-state'
+import {Decoration, DecorationSet} from 'prosemirror-view'
 
 
-// The plugin
-
-function onDOMChanged () {
-  if (!this.contentEl) return
-
-  // Should use debounced version
-  const els = this.contentEl.children
-  for (let i = 0, len = els.length; i < len; i++) {
-    const el = els[i]
-    const tag = el.tagName
-    if (tag === 'H1' || tag === 'P') {
-      // if (el.textContent === '') {
-      //   el.classList.add('empty')
-      // } else {
-      //   el.classList.remove('empty')
-      // }
+function docToEmptyBlockDecorationSet (doc) {
+  let decorations = []
+  let pos = 0
+  for (let i = 0, len = doc.content.content.length; i < len; i++) {
+    const node = doc.content.content[i]
+    if (node.type.name === 'paragraph' && node.textContent === '') {
+      decorations.push(Decoration.node(pos, pos + 2, {class: 'empty'}))
     }
+    pos += node.nodeSize
   }
-
-  // Signal widgets initialized if first
-  // if (!this.initialized) {
-  //   this.initialized = true
-  //   this.ed.trigger('plugin.placeholder.initialized')
-  // }
+  return DecorationSet.create(doc, decorations)
 }
 
 export default {
   state: {
-    init: function () {
-      this.boundOnDOMChanged = onDOMChanged.bind(this)
-      this.debouncedDOMChanged = _.debounce(this.boundOnDOMChanged, 50)
-
-      // init after editor mounted
-      setTimeout(() => {
-        this.contentEl = this.props.elMirror.querySelector('.ProseMirror-content')
-        this.contentEl.addEventListener('compositionstart', this.debouncedDOMChanged)
-        this.boundOnDOMChanged()
-      }, 0)
+    key: new PluginKey('placeholder'),
+    init: function (config, state) {
+      return docToEmptyBlockDecorationSet(state.doc)
     },
-    applyAction: function (action) {
-      this.debouncedDOMChanged()
+    applyAction: function (action, prevDecorations, prev, state) {
+      if (action.type === 'transform') {
+        return docToEmptyBlockDecorationSet(state.doc)
+      }
+      return prevDecorations
     },
-    destroy: function () {
-      if (!this.contentEl) return
-      this.contentEl.removeEventListener('compositionstart', this.debouncedDOMChanged)
+  },
+  props: {
+    decorations (state) {
+      return this.getState(state)
     },
   },
 }
