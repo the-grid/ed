@@ -16,11 +16,11 @@ function onDOMChanged () {
     const el = els[i]
     const tag = el.tagName
     if (tag === 'H1' || tag === 'P') {
-      if (el.textContent === '') {
-        el.classList.add('empty')
-      } else {
-        el.classList.remove('empty')
-      }
+      // if (el.textContent === '') {
+      //   el.classList.add('empty')
+      // } else {
+      //   el.classList.remove('empty')
+      // }
     }
   }
 
