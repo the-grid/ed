@@ -36,9 +36,6 @@ export default class EdStore {
 
     this.onShareFile = options.onShareFile || noop
     this.on('command.menu.file', this.onShareFile)
-
-    // Listen for first render
-    this.on('plugin.widget.initialized', options.onMount || noop)
   }
   teardown () {
   }
