@@ -1,4 +1,5 @@
 export function focusedIndex (state) {
+  if (!state) return 0
   const {doc, selection} = state
   if (!selection) return 0
   if (selection.anchor != null) {
