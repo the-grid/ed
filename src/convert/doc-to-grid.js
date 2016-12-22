@@ -95,7 +95,9 @@ function trimContent (content) {
 }
 
 function isHR (el) {
-  return (el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR')
+  return (el.tagName === 'HR' ||
+    el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR'
+  )
 }
 
 // Ugh.
