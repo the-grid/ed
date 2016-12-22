@@ -31,7 +31,7 @@ export class MediaNodeView {
   }
   update(node, decorations) {
     // console.log('MediaNodeView update')
-    if (node.type !== this.node.type) {
+    if (node.type !== this.node.type || node.attrs.id !== this.node.attrs.id) {
       return false
     }
     return true
