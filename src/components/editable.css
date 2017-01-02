@@ -138,6 +138,18 @@
   position: absolute;
   top: 0;
 }
+.ProseMirror-content > h2.empty::after {
+  content: 'Section';
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+}
+.ProseMirror-content > h3.empty::after {
+  content: 'Subsection';
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+}
 .ProseMirror-content > p.empty::after {
   content: '¶';
   opacity: 0.2;

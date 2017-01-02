@@ -11,7 +11,7 @@ function docToEmptyBlockDecorationSet (doc) {
   let pos = 0
   for (let i = 0, len = doc.content.content.length; i < len; i++) {
     const node = doc.content.content[i]
-    if (node.type.name === 'paragraph' && node.textContent === '') {
+    if ((node.type.name === 'paragraph' || node.type.name === 'heading') && node.textContent === '') {
       decorations.push(Decoration.node(pos, pos + 2, {class: 'empty'}))
     }
     pos += node.nodeSize
