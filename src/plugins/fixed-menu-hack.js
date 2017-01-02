@@ -1,58 +1,58 @@
 import _ from '../util/lodash'
 
-function onScroll (event) {
-  if (!this.menuEl) return
-  const contentTop = this.contentEl.getBoundingClientRect().top
+let lastMenuHeight = 0
+
+let spaceContent = function (menuEl, contentEl) {
+  menuEl.style.minHeight = 'inherit'
+  const menuHeight = menuEl.offsetHeight
+  if (lastMenuHeight !== menuHeight) {
+    lastMenuHeight = menuHeight
+    contentEl.style.paddingTop = (menuHeight + 36) + 'px'
+  }
+}
+
+let onScroll = function (menuEl, contentEl) {
+  const contentTop = contentEl.getBoundingClientRect().top
   if (contentTop > 0) {
-    this.menuEl.style.top = '0px'
+    menuEl.style.top = '0px'
     return
   }
-  this.menuEl.style.top = (0 - contentTop) + 'px'
+  menuEl.style.top = (0 - contentTop) + 'px'
 }
-
-function spaceContent () {
-  if (!this.menuEl) return
-  this.menuEl.style.minHeight = 'inherit'
-  const menuHeight = this.menuEl.offsetHeight
-  if (this.menuHeight !== menuHeight) {
-    this.menuHeight = menuHeight
-    this.contentEl.style.paddingTop = (menuHeight + 36) + 'px'
-  }
-}
-
 
 export default {
-  state: {
-    init: function (config, instance) {
-      // Padding for all
-      this.spaceContent = _.debounce(spaceContent, 100).bind(this)
+  view: function (editorView) {
+    // init after editor mounted
+    setTimeout(() => {
+      const menuEl = editorView.content.parentNode.querySelector('.ProseMirror-menubar')
+      if (!menuEl) {
+        throw new Error('Trying to init FixedMenuHack without menu')
+      }
+      const contentEl = editorView.content
 
       // Fake fixed
-      this.onScroll = onScroll.bind(this)
-      window.addEventListener('scroll', this.onScroll)
-      window.addEventListener('resize', this.spaceContent)
+      menuEl.style.position = 'absolute'
+      onScroll = onScroll.bind(this, menuEl, contentEl)
+      window.addEventListener('scroll', onScroll)
 
-      // init after editor mounted
-      setTimeout(() => {
-        this.menuEl = this.options.edStuff.elMirror.querySelector('.ProseMirror-menubar')
-        if (!this.menuEl) {
-          throw new Error('Trying to init FixedMenuHack without menu')
-        }
-        this.contentEl = this.options.edStuff.elMirror.querySelector('.ProseMirror-content')
+      // Padding for content
+      spaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
+      window.addEventListener('resize', spaceContent)
 
-        this.menuEl.style.position = 'absolute'
-        this.spaceContent()
-        this.onScroll()
-      }, 0)
-    },
-    applyAction: function (action) {
-      if (action.type === 'selection') {
-        this.spaceContent()
-      }
-    },
-    destroy: function () {
-      window.removeEventListener('scroll', this.onScroll)
-      window.removeEventListener('resize', this.spaceContent)
-    },
+      // init
+      spaceContent()
+      onScroll()
+    }, 0)
+
+    return {
+      update: function (editorView) {
+        spaceContent()
+      },
+      destroy: function () {
+        // menuEl.style.position = 'inherit'
+        window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('resize', spaceContent)
+      },
+    }
   },
 }

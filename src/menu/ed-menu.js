@@ -108,7 +108,6 @@ export const edBarMenu = edBlockMenu
 
 export const edMenuPlugin = new Plugin({
   props: {
-    attributes: {class: 'ProseMirror-example-setup-style'},
     menuContent: edBarMenu,
     floatingMenu: false,
   },

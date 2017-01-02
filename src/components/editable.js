@@ -120,6 +120,8 @@ class Editable extends React.Component {
             return new MediaNodeView(node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath)
           },
         },
+        editable: function (state) { return true },
+        attributes: { class: 'ProseMirror-content' },
       }
 
     view = this.pm = new MenuBarEditorView(mirror, pmOptions)
