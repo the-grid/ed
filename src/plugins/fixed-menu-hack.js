@@ -50,7 +50,7 @@ export default {
 
     return {
       update: function (editorView) {
-        spaceContent()
+        boundSpaceContent()
       },
       destroy: function () {
         // menuEl.style.position = 'inherit'
