@@ -23,6 +23,10 @@ export default {
   state: {
     key: new PluginKey('placeholder'),
     init: function (config, state) {
+      const {ed} = this.options.edStuff
+      setTimeout(function () {
+        ed.trigger('plugin.placeholder.initialized')
+      }, 0)
       return docToEmptyBlockDecorationSet(state.doc)
     },
     applyAction: function (action, prevDecorations, prev, state) {
