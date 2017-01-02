@@ -151,8 +151,8 @@ Editable.contextTypes = {
   store: React.PropTypes.object,
   imgfloConfig: React.PropTypes.object,
 }
-Editable.propTypes =
-{ initialContent: React.PropTypes.array.isRequired,
+Editable.propTypes = {
+  initialContent: React.PropTypes.array.isRequired,
   menuBar: React.PropTypes.bool,
   onChange: React.PropTypes.func.isRequired,
   onShareFile: React.PropTypes.func,
@@ -162,5 +162,8 @@ Editable.propTypes =
   onCommandsChanged: React.PropTypes.func,
   widgetPath: React.PropTypes.string,
   coverPrefs: React.PropTypes.object,
+}
+Editable.defaultProps = {
+  coverPrefs: {}
 }
 export default React.createFactory(Editable)
