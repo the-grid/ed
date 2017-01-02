@@ -132,16 +132,6 @@ class Editable extends React.Component {
     onChange('EDITABLE_INITIALIZE', this)
   }
   componentWillUnmount () {
-    // this.pm.off('change')
-    // this.pm.off('ed.plugin.url')
-    // this.pm.off('ed.menu.file')
-    // this.pm.off('drop', this.boundOnDrop)
-
-    this.pm.editor.state.plugins.forEach((plugin) => {
-      if (plugin.options && plugin.options.state && plugin.options.state.destroy) {
-        plugin.options.state.destroy()
-      }
-    })
     this.pm.editor.destroy()
   }
   onDrop (event) {

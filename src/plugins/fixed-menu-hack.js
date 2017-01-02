@@ -1,8 +1,10 @@
 import _ from '../util/lodash'
 
 let lastMenuHeight = 0
+let boundSpaceContent = function () {}
+let boundOnScroll = function () {}
 
-let spaceContent = function (menuEl, contentEl) {
+const spaceContent = function (menuEl, contentEl) {
   menuEl.style.minHeight = 'inherit'
   const menuHeight = menuEl.offsetHeight
   if (lastMenuHeight !== menuHeight) {
@@ -11,7 +13,7 @@ let spaceContent = function (menuEl, contentEl) {
   }
 }
 
-let onScroll = function (menuEl, contentEl) {
+const onScroll = function (menuEl, contentEl) {
   const contentTop = contentEl.getBoundingClientRect().top
   if (contentTop > 0) {
     menuEl.style.top = '0px'
@@ -30,18 +32,20 @@ export default {
       }
       const contentEl = editorView.content
 
+      console.log('view', menuEl)
+
       // Fake fixed
       menuEl.style.position = 'absolute'
-      onScroll = onScroll.bind(this, menuEl, contentEl)
-      window.addEventListener('scroll', onScroll)
+      boundOnScroll = onScroll.bind(this, menuEl, contentEl)
+      window.addEventListener('scroll', boundOnScroll)
 
       // Padding for content
-      spaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
+      boundSpaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
       window.addEventListener('resize', spaceContent)
 
       // init
-      spaceContent()
-      onScroll()
+      boundSpaceContent()
+      boundOnScroll()
     }, 0)
 
     return {
@@ -50,8 +54,8 @@ export default {
       },
       destroy: function () {
         // menuEl.style.position = 'inherit'
-        window.removeEventListener('scroll', onScroll)
-        window.removeEventListener('resize', spaceContent)
+        window.removeEventListener('scroll', boundOnScroll)
+        window.removeEventListener('resize', boundSpaceContent)
       },
     }
   },
