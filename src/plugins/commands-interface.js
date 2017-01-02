@@ -1,46 +1,46 @@
 import {edCommands} from '../menu/ed-menu'
 
-export default class CommandsInterface {
-  constructor (pm, options) {
-    const {ed} = options
-    if (!ed.onCommandsChanged) {
-      throw new Error('Should not init this plugin without Ed onCommandsChanged option.')
-    }
-    this.pm = pm
-    this.ed = ed
 
-    // Schedule updates for available commands
-    this.updater = pm.updateScheduler(
-      [ pm.on.selectionChange,
-      ]
-      , this.update.bind(this)
-    )
-    this.updater.force()
-  }
-  teardown () {
-    this.updater.detach()
-  }
-  update () {
-    let commands = {}
+function makeCommands (state) {
+  let commands = {}
 
-    let keys = Object.keys(edCommands)
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i]
-      const item = edCommands[key]
-      commands[key] = this.makeCommand(item)
-    }
+  let keys = Object.keys(edCommands)
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const item = edCommands[key]
+    commands[key] = makeCommand(item, state)
+  }
 
-    this.ed.onCommandsChanged(commands)
+  return commands
+}
+
+function makeCommand (item, state) {
+  let commandState = 'inactive'
+  let command = item.spec
+  if (command.active && command.active(state)) {
+    commandState = 'active'
   }
-  makeCommand (item) {
-    let state = 'inactive'
-    let command = item.spec
-    if (command.active && command.active(this.pm)) {
-      state = 'active'
-    }
-    if (command.select && command.select(this.pm) === false) {
-      state = 'disabled'
-    }
-    return state
+  if (command.select && command.select(state) === false) {
+    commandState = 'disabled'
   }
+  return commandState
+}
+
+export default {
+  state: {
+    init: function (config, state) {
+      const {ed} = this.options.edStuff
+      if (!ed.onCommandsChanged) {
+        throw new Error('Should not init this plugin without Ed onCommandsChanged option.')
+      }
+
+      const commands = makeCommands(state)
+      ed.onCommandsChanged(commands)
+    },
+    applyAction: function (action, prevDecorations, prev, state) {
+      const {ed} = this.options.edStuff
+      const commands = makeCommands(state)
+      ed.onCommandsChanged(commands)
+    },
+  },
 }
