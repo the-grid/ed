@@ -41,7 +41,7 @@ export default {
 
       // Padding for content
       boundSpaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
-      window.addEventListener('resize', spaceContent)
+      window.addEventListener('resize', boundSpaceContent)
 
       // init
       boundSpaceContent()
