@@ -25,7 +25,7 @@ const onScroll = function (menuEl, contentEl) {
 export default {
   view: function (editorView) {
     // init after editor mounted
-    setTimeout(() => {
+    setTimeout(function () {
       const menuEl = editorView.content.parentNode.querySelector('.ProseMirror-menubar')
       if (!menuEl) {
         throw new Error('Trying to init FixedMenuHack without menu')
