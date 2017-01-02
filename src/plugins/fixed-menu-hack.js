@@ -32,8 +32,6 @@ export default {
       }
       const contentEl = editorView.content
 
-      console.log('view', menuEl)
-
       // Fake fixed
       menuEl.style.position = 'absolute'
       boundOnScroll = onScroll.bind(this, menuEl, contentEl)
@@ -44,6 +42,7 @@ export default {
       window.addEventListener('resize', boundSpaceContent)
 
       // init
+      lastMenuHeight = 0
       boundSpaceContent()
       boundOnScroll()
     }, 0)
