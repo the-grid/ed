@@ -29,7 +29,7 @@ export class MediaNodeView {
     this.dom.contentEditable = false
     this.mounted = ReactDOM.render(new Widget(props), this.dom)
   }
-  update(node, decorations) {
+  update (node, decorations) {
     // console.log('MediaNodeView update')
     if (node.type !== this.node.type || node.attrs.id !== this.node.attrs.id) {
       return false

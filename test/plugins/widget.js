@@ -3,7 +3,7 @@ import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginWidget', function () {
-  let mount, ed, plugin
+  let mount, ed
   const fixture = [
     {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
     { id: '0001',
@@ -42,7 +42,6 @@ describe('PluginWidget', function () {
 
   describe('Content mounting and merging', function () {
     it('has expected pm document', function () {
-      console.log(ed.pm)
       const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')

@@ -162,6 +162,6 @@ Editable.propTypes = {
   coverPrefs: React.PropTypes.object,
 }
 Editable.defaultProps = {
-  coverPrefs: {}
+  coverPrefs: {},
 }
 export default React.createFactory(Editable)
