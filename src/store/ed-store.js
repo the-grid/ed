@@ -116,7 +116,7 @@ export default class EdStore {
     if (!this.pm) {
       throw new Error('ProseMirror not set up yet')
     }
-    this.pm.execCommand(commandName)
+    this.pm.editor.execCommand(commandName)
   }
   on (eventName, func) {
     let events = this._events[eventName]

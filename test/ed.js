@@ -472,8 +472,8 @@ describe('Ed', function () {
         done()
       }
 
-      ed = mountApp(mount
-      , { initialContent: fixture,
+      ed = mountApp(mount, {
+        initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
@@ -488,18 +488,21 @@ describe('Ed', function () {
       document.body.appendChild(mount)
 
       function onMount () {
-        ed.execCommand('paragraph:make')
-        const content = ed.getContent()
-        expect(content[0].type).to.equal('text')
-        done()
+        setTimeout(function () {
+          ed.execCommand('paragraph:make')
+          const content = ed.getContent()
+          expect(content[0].type).to.equal('text')
+          done()
+        }, 10)
       }
 
-      ed = mountApp(mount
-      , { initialContent: fixture,
+      ed = mountApp(mount, {
+        initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
+        onCommandsChanged: function () {},
         onMount,
       }
       )
