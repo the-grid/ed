@@ -1,5 +1,14 @@
 ### dev
 
+# 2.0.0-0 prerelease - 2017-01-02
+
+No client changes needed, but should test everything.
+
+* ProseMirror 0.16.0 -- big refactor to get up to date
+  * Redo all plugins & everything we have built on PM
+* Widgets are inline: major simplification
+* h1-h3 empty block placeholders
+
 ### 1.3.3 - 2016-12-11
 
 * ed-location 2.0.1 fixes bug that lost coordinates in middle of ocean
