@@ -1,13 +1,13 @@
 import crel from 'crel'
 import {MenuItem} from 'prosemirror-menu'
 import {focusedIndex} from '../util/pm'
+import {key} from '../plugins/store-ref'
 
 
-function run (pm) {
-  const index = focusedIndex(pm.state)
+function run (state, onAction) {
+  const index = focusedIndex(state)
   if (index == null) return
-  // HACK
-  const ed = pm.ed || pm.state.config.pluginsByKey['store$'].props.store
+  const {ed} = key.get(state).options.edStuff
   ed.trigger('command.menu.file', index)
 }
 
@@ -22,7 +22,7 @@ function render (pm) {
     event.stopImmediatePropagation()
   })
   el.addEventListener('click', function (event) {
-    run(pm)
+    run(pm.state)
   })
   return el
 }
