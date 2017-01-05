@@ -1,5 +1,7 @@
 ### dev
 
+#### 2.0.0-3 prerelease - 2017-01-05
+
 * bump imgflo-url to ignore `blob:` URLs
 
 #### 2.0.0-2 prerelease - 2017-01-05
