@@ -34,11 +34,11 @@ makeHead3.spec.label = 'h3 - Subsection heading'
 makeParagraph.spec.label = 'p - Body text'
 
 // Disable these menus on media block selection
-function enableIsText (pm) {
-  if (pm.selection && pm.selection.node && !pm.selection.node.isTextblock) {
+function enableIsText (state) {
+  if (state.selection && state.selection.node && !state.selection.node.isTextblock) {
     return false
   }
-  return this.run(pm, false)
+  return this.run(state, false)
 }
 makeParagraph.spec.select = enableIsText
 makeHead1.spec.select = enableIsText
