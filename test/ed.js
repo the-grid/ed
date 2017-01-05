@@ -30,79 +30,91 @@ describe('Ed', function () {
     })
     it('throws without props.initialContent', function () {
       function no_initialContent () {
-        ed = mountApp(mount
-        , { initialContent: null,
+        mountApp(mount, {
+          initialContent: null,
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: function () {},
           onRequestCoverUpload: function () {},
-        }
-        )
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_initialContent).to.throw('Missing props.initialContent')
     })
     it('throws without props.onChange', function () {
       function no_onChange () {
-        ed = mountApp(mount
-        , { initialContent: [],
+        mountApp(mount, {
+          initialContent: [],
           onChange: null,
           onShareUrl: function () {},
           onShareFile: function () {},
           onRequestCoverUpload: function () {},
-        }
-        )
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onChange).to.throw('Missing props.onChange')
     })
     it('throws without props.onShareUrl', function () {
       function no_onShareUrl () {
-        ed = mountApp(mount
-        , { initialContent: [],
+        mountApp(mount, {
+          initialContent: [],
           onChange: function () {},
           onShareUrl: null,
           onShareFile: function () {},
           onRequestCoverUpload: function () {},
-        }
-        )
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onShareUrl).to.throw('Missing props.onShareUrl')
     })
     it('throws without props.onShareFile', function () {
       function no_onShareFile () {
-        ed = mountApp(mount
-        , { initialContent: [],
+        mountApp(mount, {
+          initialContent: [],
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: null,
           onRequestCoverUpload: function () {},
-        }
-        )
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onShareFile).to.throw('Missing props.onShareFile')
     })
     it('throws without props.onRequestCoverUpload', function () {
       function no_onRequestCoverUpload () {
-        ed = mountApp(mount
-        , { initialContent: [],
+        mountApp(mount, {
+          initialContent: [],
           onChange: function () {},
           onShareUrl: function () {},
           onShareFile: function () {},
           onRequestCoverUpload: null,
-        }
-        )
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onRequestCoverUpload).to.throw('Missing props.onRequestCoverUpload')
     })
     it('calls props.onMount', function (done) {
-      ed = mountApp(mount
-      , { initialContent: [],
+      mountApp(mount, {
+        initialContent: [],
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-        onMount: function () { done() },
-      }
-      )
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
     })
   })
 
@@ -116,15 +128,17 @@ describe('Ed', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = mountApp(mount
-      , { initialContent: fixture,
+      mountApp(mount, {
+        initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
-      }
-      )
-      done()
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
     })
     afterEach(function () {
       unmountApp(mount)
@@ -414,14 +428,17 @@ describe('Ed', function () {
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = mountApp(mount, {
+      mountApp(mount, {
         initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
       })
-      done()
     })
     afterEach(function () {
       unmountApp(mount)
@@ -472,22 +489,25 @@ describe('Ed', function () {
         done()
       }
 
-      ed = mountApp(mount, {
+      mountApp(mount, {
         initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
         onShareFile: function () {},
         onRequestCoverUpload: function () {},
         onCommandsChanged,
-      }
-      )
+        onMount: function (mounted) {
+          ed = mounted
+        },
+      })
     })
 
     it('correctly executes command', function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
 
-      function onMount () {
+      function onMount (mounted) {
+        ed = mounted
         setTimeout(function () {
           ed.execCommand('paragraph:make')
           const content = ed.getContent()
@@ -496,7 +516,7 @@ describe('Ed', function () {
         }, 10)
       }
 
-      ed = mountApp(mount, {
+      mountApp(mount, {
         initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},
@@ -512,7 +532,8 @@ describe('Ed', function () {
       mount = document.createElement('div')
       document.body.appendChild(mount)
 
-      function onMount () {
+      function onMount (mounted) {
+        ed = mounted
         setTimeout(function () {
           ed.execCommand('ed_upload_image')
         }, 100)
@@ -523,7 +544,7 @@ describe('Ed', function () {
         done()
       }
 
-      ed = mountApp(mount
+      mountApp(mount
       , { initialContent: fixture,
         onChange: function () {},
         onShareUrl: function () {},

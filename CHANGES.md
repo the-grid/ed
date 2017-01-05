@@ -1,8 +1,11 @@
 ### dev
 
-# 2.0.0-0 prerelease - 2017-01-02
+#### 2.0.0-1
 
-No client changes needed, but should test everything.
+* BREAKING -- `mountApp` is async because of a React change, and does not return `ed`
+  * `props.onMount` callback is called with `ed` instance
+
+#### 2.0.0-0 prerelease - 2017-01-02
 
 * ProseMirror 0.16.0 -- big refactor to get up to date
   * Redo all plugins & everything we have built on PM

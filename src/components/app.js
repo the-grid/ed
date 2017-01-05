@@ -55,13 +55,13 @@ export default class App extends React.Component {
     this.routeChange = this._store.routeChange.bind(this._store)
   }
   componentDidMount () {
-    if (this.props.onMount) {
-      this.props.onMount()
-    }
     this.boundOnDragOver = this.onDragOver.bind(this)
     window.addEventListener('dragover', this.boundOnDragOver)
     this.boundOnDrop = this.onDrop.bind(this)
     window.addEventListener('drop', this.boundOnDrop)
+    if (this.props.onMount) {
+      this.props.onMount(this)
+    }
   }
   componentWillUnmount () {
     window.removeEventListener('dragover', this.boundOnDragOver)

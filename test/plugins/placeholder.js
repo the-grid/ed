@@ -14,14 +14,17 @@ describe('PluginPlaceholder', function () {
   beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    ed = mountApp(mount, {
+    mountApp(mount, {
       initialContent: fixture,
       onChange: function () {},
       onShareUrl: function () {},
       onShareFile: function () {},
       onRequestCoverUpload: function () {},
+      onMount: function (mounted) {
+        ed = mounted
+        ed._store.on('plugin.placeholder.initialized', done)
+      },
     })
-    ed._store.on('plugin.placeholder.initialized', done)
   })
   afterEach(function () {
     unmountApp(mount)

@@ -23,8 +23,12 @@ function setup (options) {
   }
   const props =
     { initialContent: (options.initialContent || []),
-      onChange: () => { console.log('change') },
-      onMount: () => { console.log('mount') },
+      onChange: () => { console.log('onChange') },
+      onMount: function (mounted) {
+        ed = mounted
+        console.log(ed)
+        window.ed = ed
+      },
       onShareFile: onShareFileDemo,
       onShareUrl: onShareUrlDemo,
       onRequestCoverUpload: onRequestCoverUploadDemo,
@@ -36,14 +40,7 @@ function setup (options) {
       widgetPath: './node_modules/',
       coverPrefs: { filter: false },
       menuBar: true,
-      ref:
-        function (mounted) {
-          ed = mounted
-          console.log(ed)
-          window.ed = ed
-        },
     }
-
   mountApp(container, props)
 
   // Only for fixture demo

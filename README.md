@@ -48,7 +48,7 @@ available to use like this:
 
 ``` js
   var container = document.querySelector('#ed')
-  var ed = window.TheGridEd.mountApp(container, {
+  window.TheGridEd.mountApp(container, {
     // REQUIRED -- Content array from post
     initialContent: [],
     // OPTIONAL (default true) enable or disable the default menu
@@ -94,8 +94,9 @@ available to use like this:
       /* Once upload is complete, app hits ed.setCoverSrc */
     },
     // OPTIONAL
-    onMount: function () {
+    onMount: function (mounted) {
       /* Called once PM and widgets are mounted */
+      window.ed = mounted
     },
     // OPTIONAL
     onCommandsChanged: function (commands) {

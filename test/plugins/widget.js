@@ -21,13 +21,14 @@ describe('PluginWidget', function () {
   beforeEach(function (done) {
     mount = document.createElement('div')
     document.body.appendChild(mount)
-    ed = mountApp(mount, {
+    mountApp(mount, {
       initialContent: fixture,
       onChange: function () {},
       onShareUrl: function () {},
       onShareFile: function () {},
       onRequestCoverUpload: function () {},
-      onMount: function (p) {
+      onMount: function (mounted) {
+        ed = mounted
         done()
       },
     }
