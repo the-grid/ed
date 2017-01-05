@@ -1,6 +1,10 @@
 ### dev
 
-#### 2.0.0-1
+#### 2.0.0-2 prerelease - 2017-01-05
+
+* fix `menuBar: false`
+
+#### 2.0.0-1 prerelease - 2017-01-05
 
 * BREAKING -- `mountApp` is async because of a React change, and does not return `ed`
   * `props.onMount` callback is called with `ed` instance

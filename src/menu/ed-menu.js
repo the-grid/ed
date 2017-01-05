@@ -112,3 +112,10 @@ export const edMenuPlugin = new Plugin({
     floatingMenu: false,
   },
 })
+
+export const edMenuEmptyPlugin = new Plugin({
+  props: {
+    menuContent: [],
+    floatingMenu: false,
+  },
+})

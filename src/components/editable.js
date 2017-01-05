@@ -9,7 +9,7 @@ import {history as pluginHistory} from 'prosemirror-history'
 // import {dropCursor as pluginDropCursor} from 'prosemirror-dropcursor'
 
 import {MenuBarEditorView} from 'prosemirror-menu'
-import {edMenuPlugin} from '../menu/ed-menu'
+import {edMenuPlugin, edMenuEmptyPlugin} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 import EdSchema from '../schema/ed-schema'
@@ -68,6 +68,8 @@ class Editable extends React.Component {
     if (menuBar) {
       edPlugins.push(edMenuPlugin)
       edPluginClasses.push(PluginFixedMenuHack)
+    } else {
+      edPlugins.push(edMenuEmptyPlugin)
     }
 
     if (onCommandsChanged) {
