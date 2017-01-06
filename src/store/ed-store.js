@@ -217,12 +217,11 @@ export default class EdStore {
     const pos = indexToPos(this.pm.editor.state.doc, index)
 
     const state = this.pm.editor.state
-    const onAction = this.pm.editor.props.onAction
+    const dispatch = this.pm.editor.dispatch
 
-    onAction(
+    dispatch(
       state.tr
         .delete(pos, pos + nodeToRemove.nodeSize)
-        .action()
     )
   }
   _dedupeIds () {
