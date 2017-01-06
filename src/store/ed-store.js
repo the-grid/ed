@@ -429,42 +429,7 @@ export default class EdStore {
     this.trigger('media.update.id', id)
   }
   _convertToFullPost () {
-    let addTitle = true
-    let addFold = true
-    let endPos = 0
-    for (let i = 0, len = this.pm.editor.state.doc.childCount; i < len; i++) {
-      const node = this.pm.editor.state.doc.child(i)
-      if (node.type.name === 'heading' && node.attrs.level === 1) {
-        addTitle = false
-      }
-      if (node.type.name === 'horizontal_rule') {
-        addFold = false
-      }
-      endPos += node.nodeSize
-    }
-    if (addTitle) {
-      const titleNode = EdSchema.nodes.heading.create({level: 1})
-      this.pm.editor.state.tr
-        .insert(0, titleNode)
-        .apply()
-      endPos += titleNode.nodeSize
-    }
-    if (addFold) {
-      const ruleNode = EdSchema.nodes.horizontal_rule.create()
-      const pNode = EdSchema.nodes.paragraph.create()
-      this.pm.editor.state.tr
-        .insert(endPos, ruleNode)
-        .insert(endPos + ruleNode.nodeSize, pNode)
-        .apply()
-    }
-
-    // Focus first textblock
-    try {
-      this.pm.checkPos(1, true)
-      this.pm.setTextSelection(1)
-    } catch (error) {}
-    this.pm.focus()
-    this.pm.scrollIntoView()
+    throw new Error('_convertToFullPost not updated to PM 0.17.x')
   }
   getContent () {
     return DocToGrid(this.pm.editor.state.doc, this._content)
