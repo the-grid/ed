@@ -52,7 +52,6 @@ class Editable extends React.Component {
 
     let edPlugins = [
       pluginHistory(),
-      // pluginDropCursor(),
       edInputRules,
       edKeymap,
       edBaseKeymap,
@@ -62,7 +61,6 @@ class Editable extends React.Component {
       PluginStoreRef,
       PluginShareUrl,
       PluginPlaceholder,
-      // PluginContentHints,
     ]
 
     if (menuBar) {
