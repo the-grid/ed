@@ -37,10 +37,11 @@ export default {
       const commands = makeCommands(state)
       ed.onCommandsChanged(commands)
     },
-    applyAction: function (action, prevDecorations, prev, state) {
+    apply: function (transaction, value, prev, state) {
       const {ed} = this.options.edStuff
       const commands = makeCommands(state)
       ed.onCommandsChanged(commands)
+      return transaction
     },
   },
 }

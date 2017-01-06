@@ -33,7 +33,9 @@ function setup (options) {
       onShareUrl: onShareUrlDemo,
       onRequestCoverUpload: onRequestCoverUploadDemo,
       onPlaceholderCancel: onPlaceholderCancelDemo,
-      onCommandsChanged: (commands) => {},
+      onCommandsChanged: function (commands) {
+        // console.log(commands)
+      },
       onDropFiles: onDropFilesDemo,
       onDropFileOnBlock: onDropFileOnBlockDemo,
       imgfloConfig: null,
