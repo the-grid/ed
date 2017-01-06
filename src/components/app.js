@@ -141,8 +141,8 @@ export default class App extends React.Component {
     if (!item) {
       throw new Error('commandName not found')
     }
-    const {state, props} = this._store.pm.editor
-    item.spec.run(state, props.onAction)
+    const {state, dispatch} = this._store.pm.editor
+    item.spec.run(state, dispatch)
   }
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)
