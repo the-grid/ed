@@ -285,15 +285,14 @@ export default class EdStore {
     const pos = indexToPos(this.pm.editor.state.doc, index)
 
     const state = this.pm.editor.state
-    const onAction = this.pm.editor.props.onAction
+    const dispatch = this.pm.editor.dispatch
 
-    onAction(
+    dispatch(
       state.tr
         // Delete the node to replace
         .delete(pos, pos + replaceNode.nodeSize)
         // Insert the block
         .insert(pos, node)
-        .action()
     )
 
     // if (initialFocus) {
@@ -328,10 +327,10 @@ export default class EdStore {
     }
 
     const state = this.pm.editor.state
-    const onAction = this.pm.editor.props.onAction
+    const dispatch = this.pm.editor.dispatch
     const pos = indexToPos(state.doc, index)
-    onAction(
-      state.tr.insert(pos, nodes).action()
+    dispatch(
+      state.tr.insert(pos, nodes)
     )
 
     // if (initialFocus) {
