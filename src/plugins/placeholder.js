@@ -2,7 +2,6 @@
 * Plugin to manage `empty` class for placeholder text
 */
 
-import {PluginKey} from 'prosemirror-state'
 import {Decoration, DecorationSet} from 'prosemirror-view'
 
 
@@ -21,7 +20,6 @@ function docToEmptyBlockDecorationSet (doc) {
 
 export default {
   state: {
-    key: new PluginKey('placeholder'),
     init: function (config, state) {
       const {ed} = this.options.edStuff
       setTimeout(function () {
@@ -29,11 +27,11 @@ export default {
       }, 0)
       return docToEmptyBlockDecorationSet(state.doc)
     },
-    applyAction: function (action, prevDecorations, prev, state) {
-      if (action.type === 'transform') {
+    apply: function (transaction, prevDeco, prev, state) {
+      if (transaction.steps.length) {
         return docToEmptyBlockDecorationSet(state.doc)
       }
-      return prevDecorations
+      return prevDeco
     },
   },
   props: {
