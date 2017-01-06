@@ -101,9 +101,9 @@ class Editable extends React.Component {
 
     let view
 
-    const applyAction = (action) => {
-      view.updateState(view.editor.state.applyAction(action))
-      if (action.type === 'transform') {
+    const applyTransaction = (transaction) => {
+      view.updateState(view.editor.state.apply(transaction))
+      if (transaction.steps.length) {
         onChange('EDITABLE_CHANGE', this.pm)
       }
     }
@@ -113,7 +113,7 @@ class Editable extends React.Component {
       { state,
         autoInput: true,
         spellcheck: true,
-        onAction: applyAction,
+        dispatchTransaction: applyTransaction,
         handleClickOn: function (_view, _pos, node) { return node.type.name === 'media' },
         nodeViews: {
           media: (node, view, getPos) => {
