@@ -1,5 +1,13 @@
 ### dev
 
+todo: update menu on widget focus
+
+#### 2.0.0-4 prerelease - 2017-01-10
+
+* ProseMirror 0.17.0
+* URL modal attached to menu
+* URL pre-filled if selected text is link-like (#288)
+
 #### 2.0.0-3 prerelease - 2017-01-05
 
 * bump imgflo-url to ignore `blob:` URLs
