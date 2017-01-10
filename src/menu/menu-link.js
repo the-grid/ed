@@ -3,6 +3,7 @@ import xtend from 'xtend'
 import {toggleMark} from 'prosemirror-commands'
 import EdSchema from '../schema/ed-schema'
 import {TextField, openMenuPrompt} from './menu-prompt'
+import {isUrlLike} from '../util/url'
 
 const markType = EdSchema.marks.link
 
@@ -26,6 +27,9 @@ function makeToggleLink (toggleLink) {
         return true
       }
 
+      const {from, to} = state.selection
+      const selectedText = state.doc.textBetween(from, to)
+
       openMenuPrompt({
         title: 'Create a link',
         fields: {
@@ -39,6 +43,7 @@ function makeToggleLink (toggleLink) {
               }
               return val
             },
+            value: (isUrlLike(selectedText) ? selectedText : '')
           }),
           title: new TextField({
             label: 'Hover Title',
