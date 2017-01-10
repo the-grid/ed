@@ -7,6 +7,7 @@ import { Dropdown
 import { buildMenuItems } from 'prosemirror-example-setup'
 import EdSchema from '../schema/ed-schema'
 import menuImage from './menu-image'
+import makeToggleLink from './menu-link'
 import { menuCode
   , menuLocation
   , menuUserhtml
@@ -26,6 +27,9 @@ const { makeParagraph
   , toggleLink
   , toggleStrong,
   } = menuItems
+
+// Customise link
+const edToggleLink = makeToggleLink(toggleLink)
 
 // Customise labels
 makeHead1.spec.label = 'h1 - Main title'
@@ -49,7 +53,7 @@ makeHead3.spec.select = enableIsText
 export const edCommands =
   { 'strong:toggle': toggleStrong,
     'em:toggle': toggleEm,
-    'link:toggle': toggleLink,
+    'link:toggle': edToggleLink,
     'paragraph:make': makeParagraph,
     'heading:make1': makeHead1,
     'heading:make2': makeHead2,
@@ -90,7 +94,7 @@ const addDropdown = new Dropdown(
 export const edBlockMenu = [
   [ toggleStrong,
     toggleEm,
-    toggleLink,
+    edToggleLink,
   ],
   [ typeDropdown ],
   [ wrapBulletList,

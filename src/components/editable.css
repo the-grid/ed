@@ -110,13 +110,20 @@
 }
 
 .ProseMirror-prompt {
-  /* fixme */
+  background-color: white;
+  border: 1px silver solid;
+
   position: absolute;
   padding: 1em;
 }
 
 .ProseMirror-prompt input[type='text']{
   padding: .5em 1em;
+  display: block;
+}
+
+.ProseMirror-prompt h5 {
+  margin: 0 0 1em 0;
 }
 
 .ProseMirror-prompt .ProseMirror-prompt-close {
