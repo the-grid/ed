@@ -43,7 +43,7 @@ function makeToggleLink (toggleLink) {
               }
               return val
             },
-            value: (isUrlLike(selectedText) ? selectedText : '')
+            value: (isUrlLike(selectedText) ? selectedText : ''),
           }),
           title: new TextField({
             label: 'Hover Title',
@@ -62,5 +62,4 @@ function makeToggleLink (toggleLink) {
 }
 
 export default makeToggleLink
-
 
