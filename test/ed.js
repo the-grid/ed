@@ -419,6 +419,44 @@ describe('Ed', function () {
     })
   })
 
+  describe('Mounting with empty content', function () {
+    const fixture = []
+
+    beforeEach(function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
+    })
+    afterEach(function () {
+      unmountApp(mount)
+      mount.parentNode.removeChild(mount)
+    })
+
+    it('on mount it has expected editable html structure: 1 empty p', function () {
+      const children = ed.pm.editor.content.children
+      expect(children.length).to.equal(1)
+      expect(children[0].textContent).to.equal('')
+      expect(children[0].nodeName).to.equal('P')
+    })
+
+    it('it has expected pm document', function () {
+      const content = ed.pm.editor.state.doc.content.content
+      expect(content.length).to.equal(1)
+      expect(content[0].textContent).to.equal('')
+      expect(content[0].type.name).to.equal('paragraph')
+    })
+  })
+
   describe('The Fold', function () {
     const fixture = [
       {id: '0000', type: 'image', metadata: {starred: true}},
