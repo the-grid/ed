@@ -27,13 +27,9 @@ class DropdownGroup extends React.Component {
   }
   componentDidMount () {
     // Click away to dismiss
-    const el = document.querySelector('.ProseMirror-content')
-    el.addEventListener('focus', this.boundCloseMenu)
     document.body.addEventListener('click', this.boundCloseMenu)
   }
   componentWillUnmount () {
-    const el = document.querySelector('.ProseMirror-content')
-    el.removeEventListener('focus', this.boundCloseMenu)
     document.body.removeEventListener('click', this.boundCloseMenu)
   }
   componentWillReceiveProps (nextProps) {
