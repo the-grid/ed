@@ -62,12 +62,13 @@ class DropdownGroup extends React.Component {
     }
   }
   render () {
-    return el('div'
-    , { className: 'DropdownGroup',
-      ref: this.nodeRefCallback,
-    }
-    , this.renderButtons()
-    , this.renderMenu()
+    return el('div',
+      {
+        className: 'DropdownGroup',
+        ref: this.nodeRefCallback,
+      },
+      this.renderButtons(),
+      this.renderMenu()
     )
   }
   renderButtons () {
@@ -79,32 +80,31 @@ class DropdownGroup extends React.Component {
       // HACK
       const {name, label} = menus[i].props
       buttons.push(
-        el(ButtonOutline
-        , { key: `button${i}`,
+        el(ButtonOutline, {
+          key: `button${i}`,
           onClick: this.makeOpenMenu(i),
           theme: (openMenu === i ? 'primary' : theme),
           inverted: false,
-          style:
-          { borderWidth: 0,
+          style: {
+            borderWidth: 0,
             boxShadow: 'none',
             outline: 'none',
           },
           rounded: false,
           title: `Edit ${label}`,
-        }
-        , el('span'
-          , { style:
-          { maxWidth: '15rem',
+        },
+        el('span', {
+          style: {
+            maxWidth: '15rem',
             verticalAlign: 'middle',
             display: 'inline-block',
             whiteSpace: 'pre',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             textTransform: 'uppercase',
-          },
-          }
-          , (name || label)
-          )
+          }},
+          (name || label)
+        )
         )
       )
     }
@@ -116,21 +116,17 @@ class DropdownGroup extends React.Component {
 
     if (openMenu == null) return
 
-    return el('div'
-    , { style:
-        { position: 'relative' },
-    }
-    , el(Menu
-      , { theme,
-        style:
-        { textAlign: 'left',
+    return el('div', {style: { position: 'relative' }},
+      el(Menu, {
+        theme,
+        style: {
+          textAlign: 'left',
           position: 'absolute',
           top: -1,
           right: -1,
           zIndex: 100,
         },
-      }
-      , menus[openMenu]
+      }, menus[openMenu]
       )
     )
   }
