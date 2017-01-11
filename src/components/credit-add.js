@@ -33,17 +33,20 @@ function makeLinks (schema, metadata = {}, onClick) {
 }
 
 function makeLink (key, label, onClick, confirm = false) {
-  const Component = (confirm ? NavItemConfirm : NavItem)
-  return el(Component
-  , { key,
+  let Component = NavItem
+  let props = {
+    key,
     children: label,
     label,
-    confirm: (confirm ? 'Are you sure?' : null),
-    theme: (confirm ? 'warning' : 'primary'),
     style: { display: 'block' },
     onClick: makeClick(key, onClick),
   }
-  )
+  if (confirm) {
+    Component = NavItemConfirm
+    props.confirm = 'Are you sure?'
+    props.theme = 'warning'
+  }
+  return el(Component, props)
 }
 
 function makeClick (key, onClick) {
