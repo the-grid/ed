@@ -120,25 +120,27 @@ class Editable extends React.Component {
         },
         editable: function (state) { return true },
         attributes: { class: 'ProseMirror-content' },
+        handleDOMEvents: {
+          drop: this.boundOnDrop,
+        },
       }
 
     view = this.pm = new MenuBarEditorView(mirror, pmOptions)
     this.pm.ed = store
-
-    // this.pm.on.domDrop.add(this.boundOnDrop)
 
     onChange('EDITABLE_INITIALIZE', this)
   }
   componentWillUnmount () {
     this.pm.editor.destroy()
   }
-  onDrop (event) {
+  onDrop (editor, event) {
+    console.log(arguments)
     if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return
     const {onDropFiles} = this.props
     if (!onDropFiles) return
-    const pos = this.pm.posAtCoords({left: event.clientX, top: event.clientY})
+    const {pos} = this.pm.editor.posAtCoords({left: event.clientX, top: event.clientY})
     if (pos == null) return
-    const index = posToIndex(this.pm.doc, pos)
+    const index = posToIndex(editor.state.doc, pos)
     if (index == null) return
     event.preventDefault()
     event.stopPropagation()

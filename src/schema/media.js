@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 
 import {isMediaType} from '../convert/types'
 import Widget from '../components/widget'
+import {isDragFileEvent, isDropFileEvent} from '../util/drop'
 
 
 export class MediaNodeView {
@@ -37,7 +38,11 @@ export class MediaNodeView {
     return true
   }
   stopEvent (event) {
-    if (event instanceof DragEvent) {
+    if (DragEvent && 
+      (event instanceof DragEvent) && 
+      !isDragFileEvent(event) &&
+      !isDropFileEvent(event)
+    ) {
       // PM handles dragging blocks
       return false
     }
