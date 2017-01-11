@@ -17,6 +17,9 @@ mkdir dist/webpack
 mv dist/demo.js dist/webpack/demo.js
 mv dist/demo.map dist/webpack/demo.map
 
+# no need for jekyll in this demo (jekyll 3.3+ blocks node_modules)
+touch dist/.nojekyll
+
 # go to the build directory and create a *new* Git repo
 cd dist
 git init

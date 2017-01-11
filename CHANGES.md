@@ -2,6 +2,10 @@
 
 todo: update menu on widget focus
 
+#### 2.0.0-5 prerelease - 2017-01-10
+
+* Fix gh-pages widget serving (.nojekyll)
+
 #### 2.0.0-4 prerelease - 2017-01-10
 
 * ProseMirror 0.17.0
