@@ -114,16 +114,17 @@
   border: 1px silver solid;
 
   position: absolute;
-  padding: 1em;
+  padding: 0.5em;
 }
 
 .ProseMirror-prompt input[type='text']{
   padding: .5em 1em;
   display: block;
+  margin-bottom: 0.5em;
 }
 
 .ProseMirror-prompt h5 {
-  margin: 0 0 1em 0;
+  margin: 0 0 0.5em 0;
 }
 
 .ProseMirror-prompt .ProseMirror-prompt-close {

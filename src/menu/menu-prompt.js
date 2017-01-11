@@ -41,9 +41,10 @@ export function openMenuPrompt (options) {
   buttons.appendChild(document.createTextNode(' '))
   buttons.appendChild(cancelButton)
 
-  let box = buttonEl.getBoundingClientRect()
-  wrapper.style.top = (box.top + box.height) + 'px'
-  wrapper.style.left = (box.left) + 'px'
+  let menuBox = menuEl.getBoundingClientRect()
+  let buttonBox = buttonEl.getBoundingClientRect()
+  wrapper.style.top = (buttonBox.top + buttonBox.height) + 'px'
+  wrapper.style.left = (buttonBox.left - menuBox.left) + 'px'
 
   let submit = () => {
     let params = getValues(options.fields, domFields)
