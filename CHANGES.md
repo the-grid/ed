@@ -2,6 +2,10 @@
 
 todo: update menu on widget focus
 
+#### 2.0.0-6 prerelease - 2017-01-11
+
+* Fixed menu hack _only_ on iOS
+
 #### 2.0.0-5 prerelease - 2017-01-10
 
 * Fix gh-pages widget serving (.nojekyll)

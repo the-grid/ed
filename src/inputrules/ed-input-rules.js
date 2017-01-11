@@ -13,11 +13,6 @@ const edRules = buildInputRules(EdSchema)
 
 // edRules.push(inputCode)
 
-// const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
-// if (isIOS) {
-//   edRules.push(iosDoubleSpace)
-// }
-
 const rules = allInputRules.concat(edRules)
 
 export const edInputRules = inputRules({rules})

@@ -1,5 +1,7 @@
 import _ from '../util/lodash'
 
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+
 let lastMenuHeight = 0
 let boundSpaceContent = function () {}
 let boundOnScroll = function () {}
@@ -33,11 +35,6 @@ export default {
       }
       const contentEl = editorView.content
 
-      // Fake fixed
-      menuEl.style.position = 'absolute'
-      boundOnScroll = onScroll.bind(this, menuEl, contentEl)
-      window.addEventListener('scroll', boundOnScroll)
-
       // Padding for content
       boundSpaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
       window.addEventListener('resize', boundSpaceContent)
@@ -45,7 +42,17 @@ export default {
       // init
       lastMenuHeight = 0
       boundSpaceContent()
-      boundOnScroll()
+
+      if (isIOS) {
+        // Fake fixed
+        menuEl.style.position = 'absolute'
+        boundOnScroll = onScroll.bind(this, menuEl, contentEl)
+        window.addEventListener('scroll', boundOnScroll)
+        boundOnScroll()
+      } else {
+        menuEl.style.position = 'fixed'
+        menuEl.style.top = '0px'
+      }
     }, 0)
 
     return {
@@ -54,7 +61,9 @@ export default {
       },
       destroy: function () {
         // menuEl.style.position = 'inherit'
-        window.removeEventListener('scroll', boundOnScroll)
+        if (isIOS) {
+          window.removeEventListener('scroll', boundOnScroll)
+        }
         window.removeEventListener('resize', boundSpaceContent)
       },
     }
