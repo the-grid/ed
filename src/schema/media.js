@@ -38,8 +38,8 @@ export class MediaNodeView {
     return true
   }
   stopEvent (event) {
-    if (DragEvent && 
-      (event instanceof DragEvent) && 
+    if (DragEvent &&
+      (event instanceof DragEvent) &&
       !isDragFileEvent(event) &&
       !isDropFileEvent(event)
     ) {

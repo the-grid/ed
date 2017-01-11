@@ -34,10 +34,11 @@ class Editable extends React.Component {
     throw new Error('Can not setState of Editable')
   }
   render () {
-    return el('div'
-    , { className: 'Editable' }
-    , el('div', {className: 'Editable-Mirror', ref: 'mirror'})
-    , el('div', {className: 'Editable-Plugins', ref: 'plugins'})
+    return el('div', {
+      className: 'Editable',
+    },
+    el('div', {className: 'Editable-Mirror', ref: 'mirror'}),
+    el('div', {className: 'Editable-Plugins', ref: 'plugins'})
     )
   }
   componentDidMount () {
@@ -134,7 +135,6 @@ class Editable extends React.Component {
     this.pm.editor.destroy()
   }
   onDrop (editor, event) {
-    console.log(arguments)
     if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return
     const {onDropFiles} = this.props
     if (!onDropFiles) return
