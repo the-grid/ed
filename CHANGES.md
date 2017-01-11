@@ -6,6 +6,7 @@ todo: update menu on widget focus
 
 * Fix gh-pages widget serving (.nojekyll)
 * Fix link menu form position
+* Fix file drops: on both media blocks & text
 
 #### 2.0.0-4 prerelease - 2017-01-10
 
