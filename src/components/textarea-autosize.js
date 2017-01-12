@@ -93,7 +93,6 @@ class TextareaAutosize extends React.Component {
           autoCapitalize,
           onChange: this.boundOnChange,
           rows: 1,
-          onFocus: this.boundResize,
           onKeyDown: this.boundOnKeyDown,
         }
         )
