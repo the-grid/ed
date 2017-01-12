@@ -16,6 +16,7 @@ import EdSchema from '../schema/ed-schema'
 import {MediaNodeView} from '../schema/media'
 import {edInputRules, edBaseKeymap, edKeymap} from '../inputrules/ed-input-rules'
 import {posToIndex} from '../util/pm'
+import {isDropFileEvent} from '../util/drop'
 
 import PluginShareUrl from '../plugins/share-url'
 // import PluginContentHints from '../plugins/content-hints'
@@ -135,7 +136,7 @@ class Editable extends React.Component {
     this.pm.editor.destroy()
   }
   onDrop (editor, event) {
-    if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return
+    if (!isDropFileEvent(event)) return
     const {onDropFiles} = this.props
     if (!onDropFiles) return
     const {pos} = this.pm.editor.posAtCoords({left: event.clientX, top: event.clientY})
