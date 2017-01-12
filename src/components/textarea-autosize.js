@@ -75,17 +75,17 @@ class TextareaAutosize extends React.Component {
       autoCapitalize = 'none'
     }
 
-    return el('div'
-    , { className: `TextareaAutosize ${this.props.className}`,
-      style: containerStyle,
-    }
-    , el('label'
-      , { style: (valid ? labelStyle : labelStyleError),
-      }
-      , label
-      , this.renderLink()
-      , el('textarea'
-        , { ref: 'textarea',
+    return el('div',
+      {
+        className: `TextareaAutosize ${this.props.className}`,
+        style: containerStyle,
+      },
+      el('label',
+        {style: (valid ? labelStyle : labelStyleError)},
+        label,
+        this.renderLink(),
+        el('textarea', {
+          ref: 'textarea',
           style: areaStyle,
           value: value || '',
           placeholder,
@@ -94,8 +94,7 @@ class TextareaAutosize extends React.Component {
           onChange: this.boundOnChange,
           rows: 1,
           onKeyDown: this.boundOnKeyDown,
-        }
-        )
+        })
       )
     )
   }
@@ -157,8 +156,8 @@ class TextareaAutosize extends React.Component {
     this.boundResize()
   }
 }
-TextareaAutosize.propTypes =
-{ className: React.PropTypes.string,
+TextareaAutosize.propTypes = {
+  className: React.PropTypes.string,
   defaultValue: React.PropTypes.string,
   defaultFocus: React.PropTypes.bool,
   label: React.PropTypes.string,
@@ -170,8 +169,8 @@ TextareaAutosize.propTypes =
   multiline: React.PropTypes.bool,
   validator: React.PropTypes.func,
 }
-TextareaAutosize.defaultProps =
-{ multiline: false,
+TextareaAutosize.defaultProps = {
+  multiline: false,
   inputMode: '',
   autoCapitalize: 'sentences',
 }
