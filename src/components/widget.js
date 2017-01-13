@@ -4,8 +4,8 @@ import React, {createElement as el} from 'react'
 import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
-import AttributionEditor from './attribution-editor'
-import WidgetCta from './widget-cta'
+import WidgetView from './widget-view'
+import WidgetCtaView from './widget-cta-view'
 import WidgetUnsupported from './widget-unsupported'
 import WidgetIframe from './widget-iframe'
 import rebassTheme from './rebass-theme'
@@ -15,12 +15,12 @@ const COMPONENTS = {
   location: WidgetIframe,
   userhtml: WidgetIframe,
   placeholder: Placeholder,
-  cta: WidgetCta,
-  image: AttributionEditor,
-  video: AttributionEditor,
-  article: AttributionEditor,
-  interactive: AttributionEditor,
-  quote: AttributionEditor,
+  cta: WidgetCtaView,
+  image: WidgetView,
+  video: WidgetView,
+  article: WidgetView,
+  interactive: WidgetView,
+  quote: WidgetView,
   unsupported: WidgetUnsupported,
 }
 
