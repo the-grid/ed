@@ -50,11 +50,7 @@ class WidgetView extends React.Component {
 
     return el('div',
       {
-        style: {
-          textAlign: 'right',
-          position: 'relative',
-          top: '-0.5rem',
-        },
+        style: descriptionStyle,
       },
       el('a', {
         href: block.metadata.isBasedOnUrl,

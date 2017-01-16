@@ -2,7 +2,6 @@
 // don't add it here.
 
 import React, {createElement as el} from 'react'
-import Text from 'rebass/dist/Text'
 import {widgetLeftStyle, colors} from './rebass-theme'
 
 
@@ -19,9 +18,12 @@ class WidgetUnsupported extends React.Component {
       , { className: 'WidgetUnsupported-metadata',
         style: widgetLeftStyle,
       }
-      , el(Text
-        , { color: colors.midgray,
-          small: true,
+      , el('div',
+        {
+          style: {
+            fontSize: '80%',
+            color: 'silver',
+          },
         }
         , type.toUpperCase() + ' not available in this editor'
         , this.renderOpen()
