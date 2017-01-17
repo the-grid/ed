@@ -37,8 +37,10 @@ class WidgetView extends React.Component {
       },
       this.renderPlay(),
       this.renderUnsalvageable(),
-      this.renderCover(),
-      this.renderFields(),
+      el('div', {style: {display: 'flex'}},
+        this.renderCover(),
+        this.renderFields(),
+      ),
       this.renderEdit(),
     )
   }
@@ -122,11 +124,8 @@ class WidgetView extends React.Component {
     return el('div',
       {
         style: {
-          float: 'left',
-          // width: '216px',
-          maxWidth: '216px',
-          position: 'relative',
-          margin: '0 1rem 1rem 0',
+          flex: '1',
+          padding: '0 1rem 1rem 0',
         },
       },
       el(Image, props)
@@ -139,7 +138,7 @@ class WidgetView extends React.Component {
     if (!metadata) return
     const {title, description, caption} = metadata
     return el('div',
-      {},
+      {style: {flex: '2'}},
       (title && el('h1', {style: titleStyle}, title)),
       (description && el('p', {style: descriptionStyle}, description)),
       (caption && (description !== caption) && el('p', {style: descriptionStyle}, caption))
