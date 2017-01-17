@@ -16,9 +16,14 @@ export class MediaNodeView {
     this.ed = store
 
     const {id} = node.attrs
+    const initialBlock = this.ed.getBlock(id)
+
+    if (!initialBlock) {
+      throw new Error('Block not found in content: ' + id)
+    }
 
     const props = {
-      initialBlock: this.ed.getBlock(id),
+      initialBlock,
       id,
       imgfloConfig,
       store,
@@ -26,8 +31,9 @@ export class MediaNodeView {
       widgetPath,
     }
     this.dom = document.createElement('div')
-    this.dom.className = 'EdSchemaMedia'
+    this.dom.className = 'EdSchemaMedia' + (initialBlock.type ? ' EdSchemaMedia-' + initialBlock.type : '')
     this.dom.contentEditable = false
+    this.dom.spellcheck = false
     this.mounted = ReactDOM.render(new Widget(props), this.dom)
   }
   update (node, decorations) {

@@ -1,10 +1,11 @@
-.ProseMirror-content > .EdSchemaMedia {
-  font-family: sans-serif;
-  margin: 1rem 0;
+.EdSchemaMedia {
   display: block;
+  margin: 1rem 0;
   width: 100%;
+  border: 1px solid silver;
+  border-radius: 2px;
 }
 
-.EdSchemaMedia--type {
-  text-align: right;
+.EdSchemaMedia-placeholder {
+  border: none;
 }

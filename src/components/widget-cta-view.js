@@ -15,7 +15,10 @@ class WidgetCtaView extends React.Component {
     return el('div',
       {
         className: 'WidgetCtaView',
-        style: widgetLeftStyle,
+        style: {
+          padding: '1rem',
+          backgroundColor: 'white',
+        },
       },
       el(Button,
         {

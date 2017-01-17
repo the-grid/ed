@@ -7,7 +7,6 @@ import Space from 'rebass/dist/Space'
 
 import {Play as PlayIcon} from './icons'
 import Image from './image'
-import {widgetLeftStyle} from './rebass-theme'
 
 import blockMetaSchema from '../schema/block-meta'
 
@@ -33,7 +32,10 @@ class WidgetView extends React.Component {
     return el('div',
       {
         className: 'WidgetView',
-        style: widgetLeftStyle,
+        style: {
+          padding: '1rem',
+          backgroundColor: 'white',
+        },
       },
       this.renderPlay(),
       this.renderUnsalvageable(),

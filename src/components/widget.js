@@ -1,5 +1,3 @@
-require('./widget.css')
-
 import React, {createElement as el} from 'react'
 import _ from '../util/lodash'
 

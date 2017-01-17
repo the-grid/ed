@@ -5,19 +5,6 @@ export const sans = '-apple-system, ".SFNSText-Regular", "San Francisco", "Robot
 
 export const colors = rebassDefaults.colors
 
-export const widgetStyle =
-  { padding: '1rem 1rem 0',
-    background: '#fff',
-    border: '1px solid #ddd',
-    borderRadius: 2,
-    position: 'relative',
-  }
-
-export const widgetLeftStyle =
-  { paddingLeft: '1rem',
-    borderLeft: '1px solid #ddd',
-    background: '#fff',
-  }
 
 const theme =
   { name: 'Ed Theme',
