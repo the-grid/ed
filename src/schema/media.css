@@ -4,8 +4,13 @@
   width: 100%;
   border: 1px solid silver;
   border-radius: 2px;
+  cursor: default;
 }
 
 .EdSchemaMedia-placeholder {
   border: none;
+}
+
+.EdSchemaMedia.ProseMirror-selectednode {
+  cursor: ns-resize;
 }
