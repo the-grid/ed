@@ -1,0 +1,55 @@
+import React, {createElement as el} from 'react'
+// import ButtonOutline from 'rebass/dist/ButtonOutline'
+
+import AttributionEditor from './attribution-editor'
+import WidgetUnsupported from './widget-unsupported'
+import WidgetCta from './widget-cta'
+
+const COMPONENTS = {
+  cta: WidgetCta,
+  image: AttributionEditor,
+  video: AttributionEditor,
+  article: AttributionEditor,
+  interactive: AttributionEditor,
+  quote: AttributionEditor,
+  unsupported: WidgetUnsupported,
+}
+
+
+class WidgetEdit extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    const {store} = context
+    this.triggerClose = () => {
+      store.trigger('media.block.edit.close')
+    }
+  }
+  render () {
+    const {type} = this.props.initialBlock
+
+    return el('div',
+      {
+        style: {
+          padding: '1rem',
+          backgroundColor: 'white',
+        },
+      },
+      this.renderEditor(),
+    )
+  }
+  renderEditor () {
+    const {initialBlock, coverPrefs} = this.props
+    const {id, type} = initialBlock
+    const Component = COMPONENTS[type] || COMPONENTS.unsupported
+    return el(Component, {initialBlock, coverPrefs, id})
+  }
+}
+WidgetEdit.propTypes = {
+  initialBlock: React.PropTypes.object.isRequired,
+  coverPrefs: React.PropTypes.object.isRequired,
+}
+WidgetEdit.contextTypes = {
+  store: React.PropTypes.object,
+}
+
+export default React.createFactory(WidgetEdit)

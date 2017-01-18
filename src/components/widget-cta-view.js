@@ -12,7 +12,7 @@ class WidgetCtaView extends React.Component {
 
     return el('div',
       {
-        className: 'WidgetCtaView',
+        className: 'WidgetView WidgetView-cta',
         style: {
           padding: '1rem',
           backgroundColor: 'white',
@@ -20,14 +20,12 @@ class WidgetCtaView extends React.Component {
       },
       el(Button,
         {
-          className: 'WidgetCtaView-preview',
           title: url,
         },
         label || 'label',
       ),
       el(ButtonOutline,
         {
-          className: 'WidgetCtaView-edit',
           style: {float: 'right'},
         },
         'Edit'

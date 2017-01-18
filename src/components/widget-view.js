@@ -16,11 +16,11 @@ const descriptionStyle = {fontSize: '80%', margin: '0 0 1rem 0'}
 
 class WidgetView extends React.Component {
   constructor (props, context) {
-    super(props)
+    super(props, context)
     const {id} = props
     const {store} = context
     this.triggerEdit = () => {
-      alert(id)
+      store.trigger('media.block.edit.open', id)
     }
     this.onUploadRequest = () => {
       store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
