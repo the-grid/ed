@@ -39,8 +39,6 @@ export default class EdStore {
     // Listen for first render
     this.on('plugin.widget.initialized', options.onMount || noop)
   }
-  teardown () {
-  }
   routeChange (type, payload) {
     switch (type) {
       case 'EDITABLE_INITIALIZE':

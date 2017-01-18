@@ -17,7 +17,7 @@ export default class CommandsInterface {
     )
     this.updater.force()
   }
-  teardown () {
+  detach () {
     this.updater.detach()
   }
   update () {

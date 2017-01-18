@@ -21,7 +21,7 @@ export default class WidgetBase {
     this.move(options.initialRectangle)
     options.widgetContainer.appendChild(this.el)
   }
-  teardown () {
+  detach () {
     this.el.parentNode.removeChild(this.el)
   }
   move (rectangle) {

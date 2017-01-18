@@ -48,11 +48,11 @@ export default class WidgetIframe extends WidgetBase {
 
     this.height = widget.initialHeight
   }
-  teardown () {
+  detach () {
     if (this.initialBlock) {
       this.frame.removeEventListener('load', this.postInitialBlock)
     }
-    super.teardown()
+    super.detach()
   }
   getHeight () {
     // Don't measure from outside: iframes report own height
