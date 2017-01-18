@@ -107,8 +107,6 @@ class Editable extends React.Component {
     this.pm.addKeymap(EdKeymap)
 
 
-    // this.plugins = pluginsToInit.map((Plugin) => new Plugin(pluginOptions))
-
     onChange('EDITABLE_INITIALIZE', this)
   }
   componentWillUnmount () {
@@ -116,7 +114,8 @@ class Editable extends React.Component {
     // this.pm.off('ed.plugin.url')
     // this.pm.off('ed.menu.file')
     // this.pm.off('drop', this.boundOnDrop)
-    // this.plugins.forEach((plugin) => plugin.teardown())
+    const pluginKeys = Object.keys(this.pm.plugin)
+    pluginKeys.forEach((key) => this.pm.plugin[key].detach())
   }
   onDrop (event) {
     if (!event.dataTransfer || !event.dataTransfer.files || !event.dataTransfer.files.length) return

@@ -104,6 +104,8 @@ export default class PluginWidget {
     window.removeEventListener('message', this.onIframeMessage)
 
     this.el.parentNode.removeChild(this.el)
+
+    this.ed.trigger('plugin.widget.one.detach')
   }
   triggerUpdate () {
     const update = () => this.updater.force()
@@ -149,7 +151,7 @@ export default class PluginWidget {
       let needsReInit = false
       if (widget && widget.type !== type) {
         // Need to re-initialize new widget type
-        widget.teardown()
+        widget.detach()
         needsReInit = true
       }
       // Queue init
