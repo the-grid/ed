@@ -27,11 +27,11 @@ class WidgetView extends React.Component {
     }
   }
   render () {
-    // const {type, metadata} = this.props.initialBlock
+    const {type} = this.props.initialBlock
 
     return el('div',
       {
-        className: 'WidgetView',
+        className: `WidgetView WidgetView-${type}`,
         style: {
           padding: '1rem',
           backgroundColor: 'white',

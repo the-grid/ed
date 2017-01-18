@@ -114,7 +114,7 @@ describe('PluginWidget', function () {
       expect(content[3].attrs.type).to.equal('image')
 
       // React widget
-      const el = ed.pm.editor.content.querySelector('.AttributionEditor-image')
+      const el = ed.pm.editor.content.querySelector('.WidgetView-image')
       expect(el).to.exist
     })
   })
