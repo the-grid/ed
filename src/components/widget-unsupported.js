@@ -6,7 +6,7 @@ import React, {createElement as el} from 'react'
 
 class WidgetUnsupported extends React.Component {
   render () {
-    const {initialBlock} = this.props 
+    const {initialBlock} = this.props
     let {type} = initialBlock
     type = type || 'unsupported'
 

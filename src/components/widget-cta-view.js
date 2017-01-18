@@ -5,8 +5,6 @@ import React, {createElement as el} from 'react'
 import Button from 'rebass/dist/Button'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 
-import {widgetLeftStyle} from './rebass-theme'
-
 
 class WidgetCtaView extends React.Component {
   render () {
