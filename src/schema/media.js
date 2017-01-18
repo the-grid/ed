@@ -1,10 +1,10 @@
 require('./media.css')
 
 import ReactDOM from 'react-dom'
+import {NodeSelection} from 'prosemirror-state'
 
 import {isMediaType} from '../convert/types'
 import Widget from '../components/widget'
-import {isDragFileEvent, isDropFileEvent} from '../util/drop'
 
 
 export class MediaNodeView {
@@ -34,22 +34,20 @@ export class MediaNodeView {
     this.dom.className = 'EdSchemaMedia' + (initialBlock.type ? ' EdSchemaMedia-' + initialBlock.type : '')
     this.dom.contentEditable = false
     this.dom.spellcheck = false
+    this.dom.onclick = function () {
+      view.dispatch(
+        view.state.tr.setSelection(
+          NodeSelection.create(
+            view.state.doc, getPos()
+          )
+        )
+      )
+    }
     this.mounted = ReactDOM.render(new Widget(props), this.dom)
   }
   update (node, decorations) {
     // console.log('MediaNodeView update')
     if (node.type !== this.node.type || node.attrs.id !== this.node.attrs.id) {
-      return false
-    }
-    return true
-  }
-  stopEvent (event) {
-    if (DragEvent &&
-      (event instanceof DragEvent) &&
-      !isDragFileEvent(event) &&
-      !isDropFileEvent(event)
-    ) {
-      // PM handles dragging blocks
       return false
     }
     return true
