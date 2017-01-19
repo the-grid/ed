@@ -15,6 +15,8 @@ const COMPONENTS = {
   unsupported: WidgetUnsupported,
 }
 
+function stopPropagation (event) { event.stopPropagation() }
+
 
 class WidgetEdit extends React.Component {
   render () {
@@ -28,6 +30,7 @@ class WidgetEdit extends React.Component {
           border: '1px solid silver',
           borderRadius: 2,
         },
+        onClick: stopPropagation,
       },
       el('div',
         {

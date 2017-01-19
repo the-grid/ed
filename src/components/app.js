@@ -155,6 +155,7 @@ export default class App extends React.Component {
           overflowY: 'auto',
           backgroundColor: 'rgba(255,255,255,0.75)',
         },
+        onClick: this.closeMediaBlockModal,
       },
       el(WidgetEdit, {
         initialBlock,
