@@ -4,6 +4,7 @@ import Button from 'rebass/dist/Button'
 import ButtonOutline from 'rebass/dist/ButtonOutline'
 import Message from 'rebass/dist/Message'
 import Space from 'rebass/dist/Space'
+import Progress from 'rebass/dist/Progress'
 
 import {Play as PlayIcon} from './icons'
 import Image from './image'
@@ -36,6 +37,8 @@ class WidgetView extends React.Component {
       },
       this.renderPlay(),
       this.renderUnsalvageable(),
+      this.renderFailed(),
+      this.renderProgress(),
       el('div', {style: {display: 'flex'}},
         this.renderCover(),
         this.renderFields(),
@@ -96,6 +99,49 @@ class WidgetView extends React.Component {
       'We were unable to measure this image.',
       el(Space, {auto: true}),
       upload
+    )
+  }
+  renderFailed () {
+    const {id} = this.props
+    const {store} = this.context
+    const meta = store.getProgressInfo(id)
+    if (!meta || !meta.failed) return
+
+    let upload
+    if (this.canChangeCover()) {
+      upload = el(Button,
+        {
+          onClick: this.onUploadRequest,
+          rounded: true,
+          color: 'error',
+          backgroundColor: 'white',
+        },
+        'Upload New Image'
+      )
+    }
+
+    return el(Message,
+      {theme: 'error'},
+      'Upload failed, please try again.',
+      el(Space, {auto: true}),
+      upload
+    )
+  }
+  renderProgress () {
+    const {id} = this.props
+    const {store} = this.context
+    const meta = store.getProgressInfo(id)
+    if (!meta) return
+    const {progress, failed} = meta
+    if (progress == null) return
+
+    const color = (failed === true ? 'error' : 'info')
+    return el(Progress,
+      {
+        value: progress / 100,
+        style: {margin: '8px 0'},
+        color,
+      }
     )
   }
   renderCover () {
