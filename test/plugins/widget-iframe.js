@@ -3,7 +3,7 @@ import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginWidgetIframe', function () {
-  let mount, ed, plugin
+  let mount, ed
   const fixture = [
     {
       id: '0000',
