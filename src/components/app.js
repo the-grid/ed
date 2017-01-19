@@ -10,6 +10,7 @@ import WidgetEdit from './widget-edit'
 
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
+import {pseudoFixedStyle} from '../util/browser'
 
 
 export default class App extends React.Component {
@@ -142,19 +143,15 @@ export default class App extends React.Component {
     if (!initialBlock) return
     const {coverPrefs} = this.props
 
+    let position = pseudoFixedStyle()
+    position.backgroundColor = 'rgba(255,255,255,0.75)'
+    position.zIndex = 4
+    position.overflowY = 'auto'
+
     return el('div',
       {
         className: 'Ed-Modal',
-        style: {
-          position: 'fixed',
-          zIndex: 4,
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0,
-          overflowY: 'auto',
-          backgroundColor: 'rgba(255,255,255,0.75)',
-        },
+        style: position,
         onClick: this.closeMediaBlockModal,
       },
       el(WidgetEdit, {

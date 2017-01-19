@@ -1,6 +1,5 @@
 import _ from '../util/lodash'
-
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+import {isIOS} from '../util/browser'
 
 let lastMenuHeight = 0
 let boundSpaceContent = function () {}
