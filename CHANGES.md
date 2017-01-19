@@ -1,5 +1,10 @@
 ### dev
 
+#### 2.0.0-7 prerelease - 2017-01-19
+
+* Blur editable on modal open. 
+* Don't allow typing over node selection. Fixes bug that media view can be typed over and deleted after clicking "edit."
+
 #### 2.0.0-6 prerelease - 2017-01-19
 
 * Modal media block meta editing! :tada:

@@ -4,7 +4,7 @@ require('./editable.css')
 require('./editable-menu.css')
 
 import React, {createElement as el} from 'react'
-import {EditorState, Plugin} from 'prosemirror-state'
+import {EditorState, Plugin, NodeSelection} from 'prosemirror-state'
 import {history as pluginHistory} from 'prosemirror-history'
 // import {dropCursor as pluginDropCursor} from 'prosemirror-dropcursor'
 
@@ -124,6 +124,12 @@ class Editable extends React.Component {
         attributes: { class: 'ProseMirror-content' },
         handleDOMEvents: {
           drop: this.boundOnDrop,
+        },
+        // Don't type over node selection
+        handleTextInput: function (view, from, to, text) {
+          if (view.state.selection instanceof NodeSelection) {
+            return true
+          }
         },
       }
 

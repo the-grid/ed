@@ -59,6 +59,7 @@ export default class App extends React.Component {
     this._store.on('media.block.edit.open', (blockID) => {
       // TODO expose prop for native editors?
       this.setState({blockToEdit: blockID})
+      this.blur()
     })
     this.closeMediaBlockModal = () => {
       this.setState({blockToEdit: null})
@@ -201,6 +202,9 @@ export default class App extends React.Component {
   }
   indexOfFold () {
     return this._store.indexOfFold()
+  }
+  blur () {
+    this.pm.editor.content.blur()
   }
   get pm () {
     return this._store.pm
