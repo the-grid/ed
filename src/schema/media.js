@@ -34,7 +34,7 @@ export class MediaNodeView {
     this.dom.className = 'EdSchemaMedia' + (initialBlock.type ? ' EdSchemaMedia-' + initialBlock.type : '')
     this.dom.contentEditable = false
     this.dom.spellcheck = false
-    this.dom.onclick = function () {
+    this.dom.onmousedown = function (event) {
       view.dispatch(
         view.state.tr.setSelection(
           NodeSelection.create(
