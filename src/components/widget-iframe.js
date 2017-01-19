@@ -33,6 +33,8 @@ class WidgetIframe extends React.Component {
       this.iframe.contentWindow.removeEventListener('dragover', preventDefault)
       this.iframe.contentWindow.removeEventListener('drop', preventDefault)
     }
+    // Only used in tests
+    this.context.store.trigger('plugin.widget.iframe.unmount')
   }
   render () {
     const {id, widget} = this.props
