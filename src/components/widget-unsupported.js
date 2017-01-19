@@ -2,8 +2,6 @@
 // don't add it here.
 
 import React, {createElement as el} from 'react'
-import Text from 'rebass/dist/Text'
-import {widgetLeftStyle, colors} from './rebass-theme'
 
 
 class WidgetUnsupported extends React.Component {
@@ -12,23 +10,29 @@ class WidgetUnsupported extends React.Component {
     let {type} = initialBlock
     type = type || 'unsupported'
 
-    return el('div'
-    , { className: 'WidgetUnsupported',
-    }
-    , el('div'
-      , { className: 'WidgetUnsupported-metadata',
-        style: widgetLeftStyle,
-      }
-      , el(Text
-        , { color: colors.midgray,
-          small: true,
-        }
-        , type.toUpperCase() + ' not available in this editor'
-        , this.renderOpen()
+    return el('div',
+      {
+        className: 'WidgetUnsupported',
+        style: {
+          padding: '0.5rem 1rem',
+          backgroundColor: 'white',
+        },
+      },
+      el('div',
+        {className: 'WidgetUnsupported-metadata'},
+        el('div',
+          {
+            style: {
+              fontSize: '80%',
+              color: 'silver',
+            },
+          },
+          type.toUpperCase() + ' not available in this editor',
+          this.renderOpen()
         )
-      )
-    , el('div'
-      , { style: {clear: 'both'} }
+      ),
+      el('div',
+        { style: {clear: 'both'} }
       )
     )
   }

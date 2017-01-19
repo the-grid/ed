@@ -1,11 +1,9 @@
-require('./widget.css')
-
 import React, {createElement as el} from 'react'
 import _ from '../util/lodash'
 
 import Placeholder from './placeholder'
-import AttributionEditor from './attribution-editor'
-import WidgetCta from './widget-cta'
+import WidgetView from './widget-view'
+import WidgetCtaView from './widget-cta-view'
 import WidgetUnsupported from './widget-unsupported'
 import WidgetIframe from './widget-iframe'
 import rebassTheme from './rebass-theme'
@@ -15,12 +13,12 @@ const COMPONENTS = {
   location: WidgetIframe,
   userhtml: WidgetIframe,
   placeholder: Placeholder,
-  cta: WidgetCta,
-  image: AttributionEditor,
-  video: AttributionEditor,
-  article: AttributionEditor,
-  interactive: AttributionEditor,
-  quote: AttributionEditor,
+  cta: WidgetCtaView,
+  image: WidgetView,
+  video: WidgetView,
+  article: WidgetView,
+  interactive: WidgetView,
+  quote: WidgetView,
   unsupported: WidgetUnsupported,
 }
 
@@ -51,6 +49,10 @@ class Widget extends React.Component {
     this.boundUpdateBlockAll = this.updateBlockAll.bind(this)
     store.on('media.update.id', this.boundUpdateBlock)
     store.on('media.update', this.boundUpdateBlockAll)
+
+    this.triggerEdit = () => {
+      store.trigger('media.block.edit.open', id)
+    }
   }
   componentWillUnmount () {
     const {store} = this.props
@@ -75,6 +77,7 @@ class Widget extends React.Component {
       id,
       coverPrefs,
       widget,
+      triggerEdit: this.triggerEdit,
     })
   }
   updateBlock (updateId) {

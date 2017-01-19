@@ -50,6 +50,7 @@ export default class EdStore {
         break
       case 'MEDIA_BLOCK_UPDATE_FIELD':
         const mutatedBlock = this._updateFieldByPath(payload)
+        this.trigger('media.update.id', payload.id)
         this.trigger('change')
         return mutatedBlock
       case 'MEDIA_BLOCK_REMOVE':

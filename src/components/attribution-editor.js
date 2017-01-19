@@ -174,7 +174,7 @@ class AttributionEditor extends React.Component {
 
     return el(Message
     , {theme: 'error'}
-    , 'Upload failed, please try again'
+    , 'Upload failed, please try again.'
     , el(Space, {auto: true})
     , upload
     )

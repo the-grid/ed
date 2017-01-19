@@ -6,6 +6,7 @@ import AddCover from './add-cover'
 import AddFold from './add-fold'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
+import WidgetEdit from './widget-edit'
 
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
@@ -53,6 +54,18 @@ export default class App extends React.Component {
     )
 
     this.routeChange = this._store.routeChange.bind(this._store)
+
+    this._store.on('media.block.edit.open', (blockID) => {
+      // TODO expose prop for native editors?
+      this.setState({blockToEdit: blockID})
+    })
+    this.closeMediaBlockModal = () => {
+      this.setState({blockToEdit: null})
+    }
+
+    this.state = {
+      blockToEdit: null,
+    }
   }
   componentDidMount () {
     this.boundOnDragOver = this.onDragOver.bind(this)
@@ -77,10 +90,11 @@ export default class App extends React.Component {
     )
   }
   render () {
-    return el('div'
-    , {className: 'Ed'}
-    , this.renderContent()
-    // , this.renderHints()
+    return el('div',
+      {className: 'Ed'},
+      this.renderContent(),
+      // this.renderHints(),
+      this.renderModal()
     )
   }
   renderContent () {
@@ -119,6 +133,35 @@ export default class App extends React.Component {
     }
     , el(AddCover, {})
     , el(AddFold, {})
+    )
+  }
+  renderModal () {
+    const {blockToEdit} = this.state
+    if (!blockToEdit) return
+    const initialBlock = this._store.getBlock(blockToEdit)
+    if (!initialBlock) return
+    const {coverPrefs} = this.props
+
+    return el('div',
+      {
+        className: 'Ed-Modal',
+        style: {
+          position: 'fixed',
+          zIndex: 4,
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0,
+          overflowY: 'auto',
+          backgroundColor: 'rgba(255,255,255,0.75)',
+        },
+        onClick: this.closeMediaBlockModal,
+      },
+      el(WidgetEdit, {
+        initialBlock,
+        coverPrefs,
+        onClose: this.closeMediaBlockModal,
+      })
     )
   }
   onDragOver (event) {

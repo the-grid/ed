@@ -45,6 +45,7 @@ class WidgetIframe extends React.Component {
       style: {
         width: '100%',
         height: height + 'px',
+        border: 'none',
       },
       onLoad: this.iframeLoaded,
       ref: this.setIframeRef,

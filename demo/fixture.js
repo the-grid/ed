@@ -34,7 +34,7 @@ let tweet = {
       'domain': 'twitter.com',
     },
     'keywords': ['jasonfried', 'thegridio', 'https', 'thegrid', 'dracula_x', 'conceptually', 'location', 'websites', 'sure', 'waynepelletier'],
-    // 'description': 'https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.',
+    'description': 'https://thegrid.io - "AI" website design. Conceptually feels very next level, an obvious, natural progression just waiting to happen.',
     'inLanguage': 'English',
     '@type': 'Comment',
     'app_links': [],
