@@ -59,10 +59,9 @@ export default class App extends React.Component {
       // TODO expose prop for native editors?
       this.setState({blockToEdit: blockID})
     })
-
-    this._store.on('media.block.edit.close', (blockID) => {
+    this.closeMediaBlockModal = () => {
       this.setState({blockToEdit: null})
-    })
+    }
 
     this.state = {
       blockToEdit: null,
@@ -154,9 +153,14 @@ export default class App extends React.Component {
           left: 0,
           bottom: 0,
           overflowY: 'auto',
+          backgroundColor: 'rgba(255,255,255,0.75)',
         },
       },
-      el(WidgetEdit, {initialBlock, coverPrefs})
+      el(WidgetEdit, {
+        initialBlock,
+        coverPrefs,
+        onClose: this.closeMediaBlockModal,
+      })
     )
   }
   onDragOver (event) {

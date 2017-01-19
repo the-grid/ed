@@ -19,9 +19,6 @@ class WidgetView extends React.Component {
     super(props, context)
     const {id} = props
     const {store} = context
-    this.triggerEdit = () => {
-      store.trigger('media.block.edit.open', id)
-    }
     this.onUploadRequest = () => {
       store.routeChange('MEDIA_BLOCK_REQUEST_COVER_UPLOAD', id)
     }
@@ -153,9 +150,7 @@ class WidgetView extends React.Component {
       },
       el(ButtonOutline,
         {
-          className: 'WidgetView-edit',
-          // style: {float: 'right'},
-          onClick: this.triggerEdit,
+          onClick: this.props.triggerEdit,
         },
         'Edit'
       )
@@ -165,6 +160,7 @@ class WidgetView extends React.Component {
 WidgetView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
+  triggerEdit: React.PropTypes.func,
 }
 WidgetView.contextTypes =
   { store: React.PropTypes.object }

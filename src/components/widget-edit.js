@@ -1,5 +1,5 @@
 import React, {createElement as el} from 'react'
-// import ButtonOutline from 'rebass/dist/ButtonOutline'
+import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 import AttributionEditor from './attribution-editor'
 import WidgetUnsupported from './widget-unsupported'
@@ -17,13 +17,6 @@ const COMPONENTS = {
 
 
 class WidgetEdit extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    const {store} = context
-    this.triggerClose = () => {
-      store.trigger('media.block.edit.close')
-    }
-  }
   render () {
     const {type} = this.props.initialBlock
 
@@ -32,8 +25,26 @@ class WidgetEdit extends React.Component {
         style: {
           padding: '1rem',
           backgroundColor: 'white',
+          maxWidth: 720,
+          margin: 'auto',
+          border: '1px solid silver',
+          borderRadius: 2,
         },
       },
+      el('div',
+        {
+          style: {
+            textAlign: 'right',
+            marginBottom: '1rem',
+          },
+        },
+        el(ButtonOutline,
+          {
+            onClick: this.props.onClose,
+          },
+          'Close'
+        ),
+      ),
       this.renderEditor(),
     )
   }
@@ -47,6 +58,7 @@ class WidgetEdit extends React.Component {
 WidgetEdit.propTypes = {
   initialBlock: React.PropTypes.object.isRequired,
   coverPrefs: React.PropTypes.object.isRequired,
+  onClose: React.PropTypes.func.isRequired,
 }
 WidgetEdit.contextTypes = {
   store: React.PropTypes.object,

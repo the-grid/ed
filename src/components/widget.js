@@ -49,6 +49,10 @@ class Widget extends React.Component {
     this.boundUpdateBlockAll = this.updateBlockAll.bind(this)
     store.on('media.update.id', this.boundUpdateBlock)
     store.on('media.update', this.boundUpdateBlockAll)
+
+    this.triggerEdit = () => {
+      store.trigger('media.block.edit.open', id)
+    }
   }
   componentWillUnmount () {
     const {store} = this.props
@@ -73,6 +77,7 @@ class Widget extends React.Component {
       id,
       coverPrefs,
       widget,
+      triggerEdit: this.triggerEdit,
     })
   }
   updateBlock (updateId) {

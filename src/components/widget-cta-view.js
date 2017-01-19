@@ -27,6 +27,7 @@ class WidgetCtaView extends React.Component {
       el(ButtonOutline,
         {
           style: {float: 'right'},
+          onClick: this.props.triggerEdit,
         },
         'Edit'
       )
@@ -36,6 +37,7 @@ class WidgetCtaView extends React.Component {
 WidgetCtaView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
+  triggerEdit: React.PropTypes.func,
 }
 WidgetCtaView.contextTypes =
   { store: React.PropTypes.object }
