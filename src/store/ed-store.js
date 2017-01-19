@@ -37,8 +37,6 @@ export default class EdStore {
     this.onShareFile = options.onShareFile || noop
     this.on('command.menu.file', this.onShareFile)
   }
-  teardown () {
-  }
   routeChange (type, payload) {
     switch (type) {
       case 'EDITABLE_INITIALIZE':

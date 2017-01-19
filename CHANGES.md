@@ -42,6 +42,10 @@
 * Widgets are inline: major simplification
 * h1-h3 empty block placeholders
 
+### 1.3.4 - 2017-01-18
+
+* Fix plugin `detach` to cleanup listener leaks :non-potable_water:
+
 ### 1.3.3 - 2016-12-11
 
 * ed-location 2.0.1 fixes bug that lost coordinates in middle of ocean
