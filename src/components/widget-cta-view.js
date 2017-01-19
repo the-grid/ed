@@ -20,13 +20,20 @@ class WidgetCtaView extends React.Component {
       },
       el(Button,
         {
+          style: {
+            fontSize: '200%',
+            padding: '1.5rem',
+            marginBottom: '1rem',
+            display: 'block',
+          },
           title: url,
+          big: true,
+          onClick: this.props.triggerEdit,
         },
         label || 'label',
       ),
       el(ButtonOutline,
         {
-          style: {float: 'right'},
           onClick: this.props.triggerEdit,
         },
         'Edit'

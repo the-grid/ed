@@ -26,7 +26,7 @@ class WidgetEdit extends React.Component {
           padding: '1rem',
           backgroundColor: 'white',
           maxWidth: 720,
-          margin: 'auto',
+          margin: '1rem auto',
           border: '1px solid silver',
           borderRadius: 2,
         },
