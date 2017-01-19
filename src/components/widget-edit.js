@@ -18,8 +18,6 @@ const COMPONENTS = {
 
 class WidgetEdit extends React.Component {
   render () {
-    const {type} = this.props.initialBlock
-
     return el('div',
       {
         style: {
