@@ -145,7 +145,7 @@ export default class App extends React.Component {
     const {coverPrefs} = this.props
 
     let position = pseudoFixedStyle()
-    position.backgroundColor = 'rgba(255,255,255,0.75)'
+    position.backgroundColor = 'rgba(255,255,255,0.85)'
     position.zIndex = 4
     position.overflowY = 'auto'
 
