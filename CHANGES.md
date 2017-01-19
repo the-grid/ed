@@ -1,5 +1,10 @@
 ### dev
 
+#### 2.0.0-8 prerelease - 2017-01-19
+
+* Merge v1 patch
+* Fix bug that sometimes focused top of doc on clicking block "edit"
+
 #### 2.0.0-7 prerelease - 2017-01-19
 
 * Blur editable on modal open. 
