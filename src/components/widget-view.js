@@ -34,6 +34,8 @@ class WidgetView extends React.Component {
       {
         className: `WidgetView WidgetView-${type}`,
         style: {
+          border: '1px solid silver',
+          borderRadius: 2,
           padding: '1rem',
           backgroundColor: 'white',
         },

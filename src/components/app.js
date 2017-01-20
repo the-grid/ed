@@ -144,15 +144,15 @@ export default class App extends React.Component {
     if (!initialBlock) return
     const {coverPrefs} = this.props
 
-    let position = pseudoFixedStyle()
-    position.backgroundColor = 'rgba(255,255,255,0.85)'
-    position.zIndex = 4
-    position.overflowY = 'auto'
+    let style = pseudoFixedStyle()
+    style.backgroundColor = 'rgba(128,128,128,0.8)'
+    style.zIndex = 4
+    style.overflowY = 'auto'
 
     return el('div',
       {
         className: 'Ed-Modal',
-        style: position,
+        style,
         onClick: this.closeMediaBlockModal,
       },
       el(WidgetEdit, {
