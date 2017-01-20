@@ -36,7 +36,6 @@ export class MediaNodeView {
     this.dom.contentEditable = false
     this.dom.spellcheck = false
     this.select = function (event) {
-      console.log(event)
       view.dispatch(
         view.state.tr.setSelection(
           NodeSelection.create(

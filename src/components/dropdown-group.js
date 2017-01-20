@@ -125,6 +125,7 @@ class DropdownGroup extends React.Component {
           top: -1,
           right: -1,
           zIndex: 100,
+          marginBottom: '5rem',
         },
       }, menus[openMenu]
       )
