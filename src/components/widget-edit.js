@@ -20,13 +20,18 @@ class WidgetEdit extends React.Component {
     const {initialBlock, coverPrefs} = this.props
     const {id, type} = initialBlock
     const Component = COMPONENTS[type] || COMPONENTS.unsupported
-    return el(Component, {initialBlock, coverPrefs, id})
+    return el(Component,
+      {
+        initialBlock,
+        coverPrefs,
+        id,
+      }
+    )
   }
 }
 WidgetEdit.propTypes = {
   initialBlock: React.PropTypes.object.isRequired,
   coverPrefs: React.PropTypes.object.isRequired,
-  // onClose: React.PropTypes.func.isRequired,
 }
 WidgetEdit.contextTypes = {
   store: React.PropTypes.object,

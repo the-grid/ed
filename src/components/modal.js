@@ -6,6 +6,17 @@ function stopPropagation (event) { event.stopPropagation() }
 
 
 class Modal extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.onKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        event.stopPropagation()
+        props.onClose()
+      }
+    }
+  }
   render () {
     const {onClose, child} = this.props
 
@@ -19,6 +30,7 @@ class Modal extends React.Component {
         className: 'Modal-bg',
         style: bgStyle,
         onClick: onClose,
+        onKeyDown: this.onKeyDown,
       },
       el('div',
         {

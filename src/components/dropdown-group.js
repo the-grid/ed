@@ -24,6 +24,13 @@ class DropdownGroup extends React.Component {
     }
     this.boundCloseMenu = this.closeMenu.bind(this)
     this.nodeRefCallback = (node) => { this.node = node }
+    this.onKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        event.stopPropagation()
+        this.setState({openMenu: null})
+      }
+    }
   }
   componentDidMount () {
     // Click away to dismiss
@@ -66,6 +73,7 @@ class DropdownGroup extends React.Component {
       {
         className: 'DropdownGroup',
         ref: this.nodeRefCallback,
+        onKeyDown: this.onKeyDown,
       },
       this.renderButtons(),
       this.renderMenu()
