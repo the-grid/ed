@@ -64,6 +64,9 @@ export default class App extends React.Component {
     this.closeMediaBlockModal = () => {
       this.setState({blockToEdit: null})
     }
+    this._store.on('media.block.edit.close', () => {
+      this.closeMediaBlockModal()
+    })
 
     this.state = {
       blockToEdit: null,

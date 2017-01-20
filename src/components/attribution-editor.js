@@ -317,6 +317,7 @@ class AttributionEditor extends React.Component {
     switch (key) {
       case 'delete':
         store.routeChange('MEDIA_BLOCK_REMOVE', id)
+        store.trigger('media.block.edit.close')
         return
       case 'isBasedOnUrl':
         path = ['metadata', 'isBasedOnUrl']

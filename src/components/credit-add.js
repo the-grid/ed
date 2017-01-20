@@ -43,7 +43,7 @@ function makeLink (key, label, onClick, confirm = false) {
   }
   if (confirm) {
     Component = NavItemConfirm
-    props.confirm = 'Are you sure?'
+    props.confirm = 'Delete forever now.'
     props.theme = 'warning'
   }
   return el(Component, props)
