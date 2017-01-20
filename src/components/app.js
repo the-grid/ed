@@ -234,4 +234,5 @@ App.propTypes =
 App.defaultProps =
 { widgetPath: './node_modules/',
   menuBar: true,
+  coverPrefs: {},
 }
