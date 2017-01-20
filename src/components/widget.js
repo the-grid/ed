@@ -69,7 +69,6 @@ class Widget extends React.Component {
   }
   render () {
     const {coverPrefs, nodeView} = this.props
-    console.log(nodeView)
     const {initialBlock, id} = this.state
     const widget = getWidget(initialBlock)
     const Component = getComponent(initialBlock)

@@ -7,10 +7,10 @@ import AddFold from './add-fold'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
 import WidgetEdit from './widget-edit'
+import Modal from './modal'
 
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
-import {pseudoFixedStyle} from '../util/browser'
 
 
 export default class App extends React.Component {
@@ -144,22 +144,14 @@ export default class App extends React.Component {
     if (!initialBlock) return
     const {coverPrefs} = this.props
 
-    let style = pseudoFixedStyle()
-    style.backgroundColor = 'rgba(128,128,128,0.8)'
-    style.zIndex = 4
-    style.overflowY = 'auto'
-
-    return el('div',
+    return el(Modal,
       {
-        className: 'Ed-Modal',
-        style,
-        onClick: this.closeMediaBlockModal,
-      },
-      el(WidgetEdit, {
-        initialBlock,
-        coverPrefs,
         onClose: this.closeMediaBlockModal,
-      })
+        child: el(WidgetEdit, {
+          initialBlock,
+          coverPrefs,
+        }),
+      }
     )
   }
   onDragOver (event) {
