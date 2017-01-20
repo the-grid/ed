@@ -14,6 +14,8 @@ import blockMetaSchema from '../schema/block-meta'
 const titleStyle = {fontSize: '100%', margin: '0 0 1rem 0'}
 const descriptionStyle = {fontSize: '80%', margin: '0 0 1rem 0'}
 
+function stopPropagation (event) { event.stopPropagation() }
+
 
 class WidgetView extends React.Component {
   constructor (props, context) {
@@ -25,7 +27,8 @@ class WidgetView extends React.Component {
     }
   }
   render () {
-    const {type} = this.props.initialBlock
+    const {initialBlock, onMouseDown} = this.props
+    const {type} = initialBlock
 
     return el('div',
       {
@@ -34,6 +37,7 @@ class WidgetView extends React.Component {
           padding: '1rem',
           backgroundColor: 'white',
         },
+        onMouseDown,
       },
       this.renderPlay(),
       this.renderUnsalvageable(),
@@ -196,6 +200,7 @@ class WidgetView extends React.Component {
       },
       el(ButtonOutline,
         {
+          onMouseDown: stopPropagation,
           onClick: this.props.triggerEdit,
         },
         'Edit'
@@ -207,6 +212,7 @@ WidgetView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
   triggerEdit: React.PropTypes.func,
+  onMouseDown: React.PropTypes.func,
 }
 WidgetView.contextTypes =
   { store: React.PropTypes.object }

@@ -29,12 +29,14 @@ export class MediaNodeView {
       store,
       coverPrefs,
       widgetPath,
+      nodeView: this,
     }
     this.dom = document.createElement('div')
-    this.dom.className = 'EdSchemaMedia' + (initialBlock.type ? ' EdSchemaMedia-' + initialBlock.type : '')
+    this.dom.className = 'EdSchemaMedia'
     this.dom.contentEditable = false
     this.dom.spellcheck = false
-    this.dom.onmousedown = function (event) {
+    this.select = function (event) {
+      console.log(event)
       view.dispatch(
         view.state.tr.setSelection(
           NodeSelection.create(

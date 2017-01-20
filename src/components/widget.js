@@ -68,7 +68,8 @@ class Widget extends React.Component {
     })
   }
   render () {
-    const {coverPrefs} = this.props
+    const {coverPrefs, nodeView} = this.props
+    console.log(nodeView)
     const {initialBlock, id} = this.state
     const widget = getWidget(initialBlock)
     const Component = getComponent(initialBlock)
@@ -78,6 +79,7 @@ class Widget extends React.Component {
       coverPrefs,
       widget,
       triggerEdit: this.triggerEdit,
+      onMouseDown: nodeView.select,
     })
   }
   updateBlock (updateId) {
@@ -113,5 +115,6 @@ Widget.propTypes = {
   coverPrefs: React.PropTypes.object.isRequired,
   imgfloConfig: React.PropTypes.object,
   widgetPath: React.PropTypes.string.isRequired,
+  nodeView: React.PropTypes.object.isRequired,
 }
 export default React.createFactory(Widget)
