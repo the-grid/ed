@@ -58,7 +58,7 @@ class WidgetIframe extends React.Component {
           {
             title: 'drag to reorder',
             style: {
-              float: 'right'
+              float: 'right',
             },
           },
           ':::'

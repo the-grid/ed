@@ -34,8 +34,8 @@ function makeToggleLink (toggleLink) {
         title: 'Create a link',
         fields: {
           href: new TextField({
-            label: 'Link target',
-            placeholder: 'https://...',
+            label: 'Link address',
+            placeholder: 'Starts with http',
             required: true,
             clean: (val) => {
               if (!/^https?:\/\//i.test(val)) {

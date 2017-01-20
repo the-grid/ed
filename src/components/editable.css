@@ -118,7 +118,7 @@
 }
 
 .ProseMirror-prompt input[type='text']{
-  padding: .5em 1em;
+  padding: .5em;
   display: block;
   margin-bottom: 0.5em;
 }
