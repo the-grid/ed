@@ -43,13 +43,26 @@ class WidgetIframe extends React.Component {
     return el('div', {},
       el('div',
         {
-          title: 'drag to reorder',
           style: {
-            textAlign: 'right',
+            fontSize: '80%',
+            textTransform: 'uppercase',
+            borderRadius: '2px 2px 0 0',
+            border: '1px solid silver',
+            borderBottom: 'none',
+            padding: '0.5rem 1rem',
             color: 'silver',
           },
         },
-        ':::'
+        widget,
+        el('span',
+          {
+            title: 'drag to reorder',
+            style: {
+              float: 'right'
+            },
+          },
+          ':::'
+        ),
       ),
       el('iframe', {
         key: id,
@@ -59,7 +72,6 @@ class WidgetIframe extends React.Component {
           width: '100%',
           height: height + 'px',
           border: '1px solid silver',
-          borderRadius: 2,
         },
         onLoad: this.iframeLoaded,
         ref: this.setIframeRef,
