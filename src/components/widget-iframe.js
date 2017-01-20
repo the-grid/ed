@@ -40,18 +40,31 @@ class WidgetIframe extends React.Component {
     const {id, widget} = this.props
     const {widgetPath} = this.context
     const {height} = this.state
-    return el('iframe', {
-      key: id,
-      className: 'WidgetIframe',
-      src: widgetPath + IframeInfo[widget].src,
-      style: {
-        width: '100%',
-        height: height + 'px',
-        border: 'none',
-      },
-      onLoad: this.iframeLoaded,
-      ref: this.setIframeRef,
-    })
+    return el('div', {},
+      el('div',
+        {
+          title: 'drag to reorder',
+          style: {
+            textAlign: 'right',
+            color: 'silver',
+          },
+        },
+        ':::'
+      ),
+      el('iframe', {
+        key: id,
+        className: 'WidgetIframe',
+        src: widgetPath + IframeInfo[widget].src,
+        style: {
+          width: '100%',
+          height: height + 'px',
+          border: '1px solid silver',
+          borderRadius: 2,
+        },
+        onLoad: this.iframeLoaded,
+        ref: this.setIframeRef,
+      })
+    )
   }
   iframeLoaded (event) {
     if (this.loaded) return

@@ -14,6 +14,8 @@ class WidgetUnsupported extends React.Component {
       {
         className: 'WidgetUnsupported',
         style: {
+          border: '1px solid silver',
+          borderRadius: 2,
           padding: '0.5rem 1rem',
           backgroundColor: 'white',
         },
