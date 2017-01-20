@@ -27,7 +27,7 @@ class WidgetView extends React.Component {
     }
   }
   render () {
-    const {initialBlock, onMouseDown} = this.props
+    const {initialBlock} = this.props
     const {type} = initialBlock
 
     return el('div',
@@ -39,7 +39,6 @@ class WidgetView extends React.Component {
           padding: '1rem',
           backgroundColor: 'white',
         },
-        onMouseDown,
       },
       this.renderPlay(),
       this.renderUnsalvageable(),
@@ -214,7 +213,6 @@ WidgetView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
   triggerEdit: React.PropTypes.func,
-  onMouseDown: React.PropTypes.func,
 }
 WidgetView.contextTypes =
   { store: React.PropTypes.object }

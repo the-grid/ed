@@ -72,14 +72,16 @@ class Widget extends React.Component {
     const {initialBlock, id} = this.state
     const widget = getWidget(initialBlock)
     const Component = getComponent(initialBlock)
-    return el(Component, {
-      initialBlock,
-      id,
-      coverPrefs,
-      widget,
-      triggerEdit: this.triggerEdit,
-      onMouseDown: nodeView.select,
-    })
+    return el('div',
+      {onMouseDown: nodeView.select},
+      el(Component, {
+        initialBlock,
+        id,
+        coverPrefs,
+        widget,
+        triggerEdit: this.triggerEdit,
+      })
+    )
   }
   updateBlock (updateId) {
     const {id} = this.state

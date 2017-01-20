@@ -6,7 +6,7 @@ import React, {createElement as el} from 'react'
 
 class WidgetUnsupported extends React.Component {
   render () {
-    const {initialBlock, onMouseDown} = this.props
+    const {initialBlock} = this.props
     let {type} = initialBlock
     type = type || 'unsupported'
 
@@ -19,7 +19,6 @@ class WidgetUnsupported extends React.Component {
           padding: '0.5rem 1rem',
           backgroundColor: 'white',
         },
-        onMouseDown,
       },
       el('div',
         {className: 'WidgetUnsupported-metadata'},
@@ -60,7 +59,6 @@ class WidgetUnsupported extends React.Component {
 WidgetUnsupported.propTypes = {
   initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
-  onMouseDown: React.PropTypes.func,
 }
 
 export default React.createFactory(WidgetUnsupported)

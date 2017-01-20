@@ -8,7 +8,7 @@ import ButtonOutline from 'rebass/dist/ButtonOutline'
 
 class WidgetCtaView extends React.Component {
   render () {
-    const {initialBlock, onMouseDown} = this.props
+    const {initialBlock} = this.props
     const {label, url} = initialBlock
 
     return el('div',
@@ -20,7 +20,6 @@ class WidgetCtaView extends React.Component {
           padding: '1rem',
           backgroundColor: 'white',
         },
-        onMouseDown,
       },
       el(Button,
         {
@@ -49,7 +48,6 @@ WidgetCtaView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
   triggerEdit: React.PropTypes.func,
-  onMouseDown: React.PropTypes.func,
 }
 WidgetCtaView.contextTypes =
   { store: React.PropTypes.object }
