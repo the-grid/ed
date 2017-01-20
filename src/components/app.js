@@ -205,6 +205,7 @@ export default class App extends React.Component {
   }
   blur () {
     this.pm.editor.content.blur()
+    window.getSelection().removeAllRanges()
   }
   get pm () {
     return this._store.pm
