@@ -1,5 +1,18 @@
 ### dev
 
+#### 2.0.0-9 prerelease - 2017-01-21
+
+* Clarify link placeholder
+* iframe widget name + drag handle
+* Click to select simplification
+* Delete block wording & close modal
+* No text select draggable widgets
+* Enter in text area to close modal and menu
+* Modal style
+* Fix bug where clicking "Edit" would select node and jump away from pointer
+* Default `coverPrefs`
+* Fix blur:  prevents delete by backspace from "under" modal
+
 #### 2.0.0-8 prerelease - 2017-01-19
 
 * Merge v1 patch
