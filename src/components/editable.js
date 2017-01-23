@@ -133,7 +133,7 @@ class Editable extends React.Component {
     onDropFiles(index, event.dataTransfer.files)
   }
 }
-Editable.contextTypes = 
+Editable.contextTypes =
   { store: React.PropTypes.object
   , featureFlags: React.PropTypes.object
   }
