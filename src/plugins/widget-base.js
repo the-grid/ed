@@ -1,10 +1,16 @@
 function isFlagged (block, featureFlags) {
-  if (block.type === 'cta' && featureFlags.cta === false) {
+  if (
+    block.type === 'cta' &&
+    featureFlags.edCta === false
+  ) {
     return true
   }
-  if (block.type === 'interactive' &&
-    block.metadata && block.metadata.widget === 'userhtml' &&
-    featureFlags.edEmbed === false) {
+  if (
+    block.type === 'interactive' &&
+    block.metadata &&
+    block.metadata.widget === 'userhtml' &&
+    featureFlags.edEmbed === false
+  ) {
     return true
   }
   return false

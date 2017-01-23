@@ -1,5 +1,9 @@
 ### dev
 
+### 1.4.2 - 2017-01-23
+
+* `featureFlags: {edCta, edEmbed}` to match API
+
 ### 1.4.1 - 2017-01-23
 
 * `onCommandsChanged` will now return `"flagged"` for commands diabled by `featureFlags`

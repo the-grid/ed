@@ -58,7 +58,7 @@ describe('PluginWidget + featureFlags', function () {
         , onShareUrl: function () {}
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
-        , featureFlags: { cta: false }
+        , featureFlags: { edCta: false }
         , onCommandsChanged: function (c) { commands = c }
         , onMount:
             function (p) {

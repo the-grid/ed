@@ -37,7 +37,7 @@ function setup (options) {
     , coverPrefs: { filter: false }
     , menuBar: true
     , featureFlags:
-      { cta: false
+      { edCta: false
       , edEmbed: false
       }
     , ref:

@@ -108,7 +108,7 @@ export const edBarMenu = edBlockMenu
 export function patchMenuWithFeatureFlags (featureFlags) {
   function returnFalse () { return false }
 
-  if (featureFlags.cta === false) {
+  if (featureFlags.edCta === false) {
     menuCta.spec.class = 'flaggedFeature'
     menuCta.spec.run = returnFalse
   }

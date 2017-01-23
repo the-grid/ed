@@ -117,7 +117,7 @@ available to use like this:
     },
     // OPTIONAL -- site or user flags to reduce functionality
     featureFlags: {
-      cta: false,
+      edCta: false,
       edEmbed: false
     }
   })
