@@ -67,9 +67,10 @@ export default class App extends React.Component {
     window.removeEventListener('drop', this.boundOnDrop)
   }
   getChildContext () {
-    const {imgfloConfig} = this.props
+    const {imgfloConfig, featureFlags} = this.props
     return (
-      { imgfloConfig: imgfloConfig
+      { imgfloConfig
+      , featureFlags
       , rebass: rebassTheme
       , store: this._store
       }
@@ -168,6 +169,7 @@ App.childContextTypes =
   { imgfloConfig: React.PropTypes.object
   , store: React.PropTypes.object
   , rebass: React.PropTypes.object
+  , featureFlags: React.PropTypes.object
   }
 App.propTypes =
   { initialContent: React.PropTypes.array.isRequired
@@ -183,8 +185,10 @@ App.propTypes =
   , menuBar: React.PropTypes.bool
   , onMount: React.PropTypes.func
   , onDropFileOnBlock: React.PropTypes.func
+  , featureFlags: React.PropTypes.object
   }
 App.defaultProps =
   { widgetPath: './node_modules/'
   , menuBar: true
+  , featureFlags: {}
   }

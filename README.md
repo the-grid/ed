@@ -114,6 +114,11 @@ available to use like this:
       filter: false,
       crop: true,
       overlay: true
+    },
+    // OPTIONAL -- site or user flags to reduce functionality
+    featureFlags: {
+      cta: false,
+      edEmbed: false
     }
   })
   

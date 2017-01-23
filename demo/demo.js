@@ -36,6 +36,10 @@ function setup (options) {
     , widgetPath: './node_modules/'
     , coverPrefs: { filter: false }
     , menuBar: true
+    , featureFlags:
+      { cta: false
+      , edEmbed: false
+      }
     , ref:
         function (mounted) {
           ed = mounted

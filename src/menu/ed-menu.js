@@ -103,3 +103,18 @@ export const edBlockMenu =
 
 export const edBarMenu = edBlockMenu
   .concat([[undoItem, redoItem]])
+
+// Monkeypatch menu with feature flags
+export function patchMenuWithFeatureFlags (featureFlags) {
+  function returnFalse () { return false }
+
+  if (featureFlags.cta === false) {
+    menuCta.spec.class = 'flaggedFeature'
+    menuCta.spec.run = returnFalse
+  }
+  if (featureFlags.edEmbed === false) {
+    menuUserhtml.spec.class = 'flaggedFeature'
+    menuUserhtml.spec.run = returnFalse
+  }
+  return edBarMenu
+}

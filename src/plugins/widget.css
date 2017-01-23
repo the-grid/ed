@@ -6,7 +6,11 @@
 .EdPlugins-Widgets > div {
   background-color: white;
 }
-.EdPlugins-Widgets iframe {
+
+.EdPlugins-Widgets .iframe-container {
+  height: 100%;
+}
+.EdPlugins-Widgets .iframe-container > iframe {
   border: 1px solid #ddd;
   border-radius: 2px;
   width: 100%;
