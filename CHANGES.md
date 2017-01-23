@@ -1,5 +1,9 @@
 ### dev
 
+### 1.4.1 - 2017-01-23
+
+* `onCommandsChanged` will now return `"flagged"` for commands diabled by `featureFlags`
+
 ## 1.4.0 - 2017-01-23
 
 * `featureFlags` prop to reduce functionality for freeloaderz

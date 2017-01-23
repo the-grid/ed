@@ -41,6 +41,9 @@ export default class CommandsInterface {
     if (command.select && command.select(this.pm) === false) {
       state = 'disabled'
     }
+    if (command.class === 'flaggedFeature') {
+      state = 'flagged'
+    }
     return state
   }
 }

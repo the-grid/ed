@@ -3,7 +3,7 @@ import {mountApp, unmountApp} from '../../src/ed'
 
 
 describe('PluginWidget + featureFlags', function () {
-  let mount
+  let mount, commands
   const fixture =
     [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
     , { id: '0000'
@@ -23,6 +23,7 @@ describe('PluginWidget + featureFlags', function () {
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
         , featureFlags: {}
+        , onCommandsChanged: function (c) { commands = c }
         , onMount:
             function (p) {
               done()
@@ -41,6 +42,10 @@ describe('PluginWidget + featureFlags', function () {
       const el = document.body.querySelector('.FlaggedWidget')
       expect(el).to.not.exist
     })
+
+    it('has command enabled', function () {
+      expect(commands.ed_add_cta).to.equal('inactive')
+    })
   })
 
   describe('with feature flags', function () {
@@ -54,6 +59,7 @@ describe('PluginWidget + featureFlags', function () {
         , onShareFile: function () {}
         , onRequestCoverUpload: function () {}
         , featureFlags: { cta: false }
+        , onCommandsChanged: function (c) { commands = c }
         , onMount:
             function (p) {
               done()
@@ -71,6 +77,10 @@ describe('PluginWidget + featureFlags', function () {
       expect(els.length).to.equal(2)
       const el = document.body.querySelector('.FlaggedWidget')
       expect(el).to.exist
+    })
+
+    it('has command flagged', function () {
+      expect(commands.ed_add_cta).to.equal('flagged')
     })
   })
 })
