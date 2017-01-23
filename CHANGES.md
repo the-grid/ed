@@ -1,6 +1,6 @@
 ### dev
 
-### 1.4.0 - 2017-01-23
+## 1.4.0 - 2017-01-23
 
 * `featureFlags` prop to reduce functionality for freeloaderz
 
