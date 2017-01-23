@@ -1,3 +1,15 @@
+function isFlagged (block, featureFlags) {
+  if (block.type === 'cta' && featureFlags.cta === false) {
+    return true
+  }
+  if (block.type === 'interactive' &&
+    block.metadata && block.metadata.widget === 'userhtml' &&
+    featureFlags.edEmbed === false) {
+    return true
+  }
+  return false
+}
+
 export default class WidgetBase {
   static type () { return 'base -- extend me' }
   constructor (options) {
@@ -17,6 +29,10 @@ export default class WidgetBase {
     this.id = options.id
     this.initialBlock = options.initialBlock
     this.coverPrefs = options.coverPrefs
+    this.featureFlags = options.featureFlags
+    if (isFlagged(this.initialBlock, this.featureFlags)) {
+      this.el.className = 'FlaggedWidget'
+    }
     this.el.style.position = 'absolute'
     this.move(options.initialRectangle)
     options.widgetContainer.appendChild(this.el)

@@ -36,6 +36,8 @@ export default class WidgetIframe extends WidgetBase {
 
     this.initialFocus = options.initialFocus
 
+    const container = document.createElement('div')
+    container.className = 'iframe-container'
     this.frame = document.createElement('iframe')
     this.frame.setAttribute('grid-id', options.id)
     if (options.initialBlock) {
@@ -44,7 +46,8 @@ export default class WidgetIframe extends WidgetBase {
       this.frame.addEventListener('load', this.postInitialBlock)
     }
     this.frame.src = options.widgetPath + widget.src
-    this.el.appendChild(this.frame)
+    container.appendChild(this.frame)
+    this.el.appendChild(container)
 
     this.height = widget.initialHeight
   }

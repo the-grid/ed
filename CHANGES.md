@@ -1,5 +1,9 @@
 ### dev
 
+### 1.4.0 - 2017-01-23
+
+* `featureFlags` prop to reduce functionality for freeloaderz
+
 ### 1.3.4 - 2017-01-18
 
 * Fix plugin `detach` to cleanup listener leaks :non-potable_water:

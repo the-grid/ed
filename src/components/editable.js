@@ -1,12 +1,13 @@
 require('./editable.css')
 require('./editable-menu.css')
+require('./editable-feature-flags.css')
 
 import React, {createElement as el} from 'react'
 import {ProseMirror} from 'prosemirror/dist/edit/main'
 import {Plugin} from 'prosemirror/dist/edit/plugin'
 
 import {menuBar as pluginMenuBar} from 'prosemirror/dist/menu'
-import {edBarMenu} from '../menu/ed-menu'
+import {patchMenuWithFeatureFlags} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 import EdKeymap from '../inputrules/ed-keymap'
@@ -49,7 +50,7 @@ class Editable extends React.Component {
       , onCommandsChanged
       , widgetPath
       , coverPrefs } = this.props
-    const {store} = this.context
+    const {store, featureFlags} = this.context
 
     // PM setup
     let pmOptions =
@@ -69,9 +70,10 @@ class Editable extends React.Component {
       ]
 
     if (menuBar) {
+      const menuContent = patchMenuWithFeatureFlags(featureFlags)
       let menu = pluginMenuBar.config(
         { float: false
-        , content: edBarMenu
+        , content: menuContent
         }
       )
       pmOptions.plugins.push(menu)
@@ -87,6 +89,7 @@ class Editable extends React.Component {
       , editableView: this
       , container: plugins
       , widgetPath
+      , featureFlags
       , coverPrefs
       }
 
@@ -130,7 +133,10 @@ class Editable extends React.Component {
     onDropFiles(index, event.dataTransfer.files)
   }
 }
-Editable.contextTypes = {store: React.PropTypes.object}
+Editable.contextTypes = 
+  { store: React.PropTypes.object
+  , featureFlags: React.PropTypes.object
+  }
 Editable.propTypes =
   { initialContent: React.PropTypes.array.isRequired
   , menuBar: React.PropTypes.bool

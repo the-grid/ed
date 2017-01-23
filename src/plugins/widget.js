@@ -81,6 +81,7 @@ export default class PluginWidget {
     this.pm = pm
     this.widgetPath = options.widgetPath
     this.coverPrefs = options.coverPrefs || {}
+    this.featureFlags = options.featureFlags || {}
 
     this.widgets = {}
     this.el = document.createElement('div')
@@ -237,6 +238,7 @@ export default class PluginWidget {
       , initialFocus
       , widgetPath: this.widgetPath
       , coverPrefs: this.coverPrefs
+      , featureFlags: this.featureFlags
       }
     )
 
