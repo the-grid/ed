@@ -8,6 +8,7 @@ import Progress from 'rebass/dist/Progress'
 
 import Icon from './icons'
 import Image from './image'
+import AttributionView from './attribution-view'
 
 import blockMetaSchema from '../schema/block-meta'
 
@@ -38,6 +39,7 @@ class WidgetView extends React.Component {
           borderRadius: 2,
           padding: '1rem',
           backgroundColor: 'white',
+          whiteSpace: 'normal',
         },
       },
       this.renderType(),
@@ -46,7 +48,7 @@ class WidgetView extends React.Component {
       this.renderProgress(),
       el('div', {style: {display: 'flex'}},
         this.renderCover(),
-        this.renderFields(),
+        this.renderFields()
       ),
       this.renderEdit(),
     )
@@ -221,7 +223,17 @@ class WidgetView extends React.Component {
       {style: {flex: '2'}},
       (title && el('h1', {style: titleStyle}, title)),
       (description && el('p', {style: descriptionStyle}, description)),
-      (caption && (description !== caption) && el('p', {style: descriptionStyle}, caption))
+      (caption && (description !== caption) && el('p', {style: descriptionStyle}, caption)),
+      el('div',
+        {
+          style: {
+            fontSize: '80%',
+            margin: '0 0 1rem 0',
+            opacity: 0.5,
+          },
+        },
+        el(AttributionView, {metadata})
+      )
     )
   }
   renderEdit () {

@@ -16,7 +16,7 @@ export default function Icon (props) {
     fill,
     width,
     height,
-    style: {verticalAlign: 'middle'}
+    style: {verticalAlign: 'middle'},
   }
   , el('path'
     , { d: PATHS[icon],
