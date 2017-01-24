@@ -6,7 +6,7 @@ import Message from 'rebass/dist/Message'
 import Space from 'rebass/dist/Space'
 import Progress from 'rebass/dist/Progress'
 
-import {Play as PlayIcon} from './icons'
+import Icon from './icons'
 import Image from './image'
 
 import blockMetaSchema from '../schema/block-meta'
@@ -40,7 +40,7 @@ class WidgetView extends React.Component {
           backgroundColor: 'white',
         },
       },
-      this.renderPlay(),
+      this.renderType(),
       this.renderUnsalvageable(),
       this.renderFailed(),
       this.renderProgress(),
@@ -51,28 +51,58 @@ class WidgetView extends React.Component {
       this.renderEdit(),
     )
   }
-  renderPlay () {
+  renderType () {
     const block = this.props.initialBlock
-    if (!block || !block.type || !block.metadata || !block.metadata.isBasedOnUrl) return
+    if (!block || !block.type) return
     const {type} = block
-    if (['interactive', 'video', 'audio'].indexOf(type) < 0) return
+
+    let typeEl = el('span', {style: {
+      color: 'silver',
+      textTransform: 'uppercase',
+      marginRight: '0.5rem',
+      verticalAlign: 'middle',
+    }}, type)
+    let iconEl
+    switch (type) {
+      case 'interactive':
+      case 'video':
+      case 'audio':
+        iconEl = el(Icon, {icon: 'play'})
+        break
+      // case 'quote':
+      //   iconEl = el('span', {style: {
+      //     fontSize: '2rem',
+      //     verticalAlign: 'top',
+      //     display: 'inline-block',
+      //     height: '0.5em',
+      //   }}, '“')
+      //   break
+      default:
+        iconEl = el(Icon, {icon: 'link'})
+        break
+    }
+
+    if (block.metadata && block.metadata.isBasedOnUrl) {
+      typeEl = el('a',
+        {
+          href: block.metadata.isBasedOnUrl,
+          target: '_blank',
+          rel: 'noreferrer noopener',
+          style: {
+            textDecoration: 'inherit',
+            textTransform: 'uppercase',
+          },
+        },
+        typeEl,
+        iconEl,
+      )
+    }
 
     return el('div',
       {
         style: descriptionStyle,
       },
-      el('a', {
-        href: block.metadata.isBasedOnUrl,
-        target: '_blank',
-        rel: 'noreferrer noopener',
-        style: {
-          textDecoration: 'inherit',
-          textTransform: 'uppercase',
-        },
-      },
-      type + ' ',
-      el(PlayIcon)
-      )
+      typeEl
     )
   }
   canChangeCover () {

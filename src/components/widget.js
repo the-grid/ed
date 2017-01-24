@@ -73,7 +73,10 @@ class Widget extends React.Component {
     const widget = getWidget(initialBlock)
     const Component = getComponent(initialBlock)
     return el('div',
-      {onMouseDown: nodeView.select},
+      {
+        onMouseDown: nodeView.select,
+        onTouchStart: nodeView.select,
+      },
       el(Component, {
         initialBlock,
         id,
