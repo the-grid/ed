@@ -2,6 +2,7 @@ require('prosemirror-menu/style/menu.css')
 require('prosemirror-view/style/prosemirror.css')
 require('./editable.css')
 require('./editable-menu.css')
+require('./editable-feature-flags.css')
 
 import React, {createElement as el} from 'react'
 import {EditorState, Plugin, NodeSelection} from 'prosemirror-state'
@@ -9,7 +10,7 @@ import {history as pluginHistory} from 'prosemirror-history'
 // import {dropCursor as pluginDropCursor} from 'prosemirror-dropcursor'
 
 import {MenuBarEditorView} from 'prosemirror-menu'
-import {edMenuPlugin, edMenuEmptyPlugin} from '../menu/ed-menu'
+import {edMenuPlugin, edMenuEmptyPlugin, patchMenuWithFeatureFlags} from '../menu/ed-menu'
 
 import GridToDoc from '../convert/grid-to-doc'
 import EdSchema from '../schema/ed-schema'
@@ -50,7 +51,7 @@ class Editable extends React.Component {
       , onCommandsChanged
       , widgetPath
       , coverPrefs } = this.props
-    const {store, imgfloConfig} = this.context
+    const {store, imgfloConfig, featureFlags} = this.context
 
     let edPlugins = [
       pluginHistory(),
@@ -65,6 +66,7 @@ class Editable extends React.Component {
       PluginPlaceholder,
     ]
 
+    patchMenuWithFeatureFlags(featureFlags)
     if (menuBar) {
       edPlugins.push(edMenuPlugin)
       edPluginClasses.push(PluginFixedMenuHack)
@@ -117,7 +119,7 @@ class Editable extends React.Component {
         handleClickOn: function (_view, _pos, node) { return node.type.name === 'media' },
         nodeViews: {
           media: (node, view, getPos) => {
-            return new MediaNodeView(node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath)
+            return new MediaNodeView(node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath, featureFlags)
           },
         },
         editable: function (state) { return true },
@@ -157,6 +159,7 @@ class Editable extends React.Component {
 Editable.contextTypes = {
   store: React.PropTypes.object,
   imgfloConfig: React.PropTypes.object,
+  featureFlags: React.PropTypes.object,
 }
 Editable.propTypes = {
   initialContent: React.PropTypes.array.isRequired,

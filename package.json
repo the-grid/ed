@@ -50,7 +50,6 @@
     "prosemirror-view": "0.17.2",
     "react": "15.4.2",
     "react-dom": "15.4.2",
-    "react-tap-event-plugin": "2.0.1",
     "rebass": "0.3.3",
     "uuid": "3.0.1"
   },

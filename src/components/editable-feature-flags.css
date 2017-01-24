@@ -1,0 +1,26 @@
+.FlaggedWidget > div {
+  position: relative;
+}
+.FlaggedWidget > div::after {
+  content: 'Paid feature: will not show on site until upgrade.';
+  font-size: 80%;
+  color: red;
+  background: white;
+  top: 0;
+  right: 0;
+  position: absolute;
+  border: 2px solid red;
+  padding: 2px 4px;
+  border-radius: 0 2px 0 0;
+}
+
+.ProseMirror-menu-dropdown-item .flaggedFeature {
+  color: red;
+}
+.ProseMirror-menu-dropdown-item .flaggedFeature::after {
+  font-size: 80%;
+  content: 'paid feature';
+  color: red;
+  display: block;
+  padding-left: 1rem;
+}

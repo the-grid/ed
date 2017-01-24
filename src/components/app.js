@@ -86,13 +86,13 @@ export default class App extends React.Component {
     window.removeEventListener('drop', this.boundOnDrop)
   }
   getChildContext () {
-    const {imgfloConfig} = this.props
-    return (
-    { imgfloConfig: imgfloConfig,
+    const {imgfloConfig, featureFlags} = this.props
+    return ({
+      imgfloConfig,
+      featureFlags,
       rebass: rebassTheme,
       store: this._store,
-    }
-    )
+    })
   }
   render () {
     return el('div',
@@ -206,13 +206,14 @@ export default class App extends React.Component {
     return this._store.pm
   }
 }
-App.childContextTypes =
-{ imgfloConfig: React.PropTypes.object,
+App.childContextTypes = {
+  imgfloConfig: React.PropTypes.object,
   store: React.PropTypes.object,
   rebass: React.PropTypes.object,
+  featureFlags: React.PropTypes.object,
 }
-App.propTypes =
-{ initialContent: React.PropTypes.array.isRequired,
+App.propTypes = {
+  initialContent: React.PropTypes.array.isRequired,
   onChange: React.PropTypes.func.isRequired,
   onShareFile: React.PropTypes.func.isRequired,
   onShareUrl: React.PropTypes.func.isRequired,
@@ -225,9 +226,11 @@ App.propTypes =
   menuBar: React.PropTypes.bool,
   onMount: React.PropTypes.func,
   onDropFileOnBlock: React.PropTypes.func,
+  featureFlags: React.PropTypes.object,
 }
-App.defaultProps =
-{ widgetPath: './node_modules/',
+App.defaultProps = {
+  widgetPath: './node_modules/',
   menuBar: true,
   coverPrefs: {},
+  featureFlags: {},
 }

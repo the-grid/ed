@@ -42,6 +42,10 @@ function setup (options) {
       widgetPath: './node_modules/',
       coverPrefs: { filter: false },
       menuBar: true,
+      featureFlags: {
+        edCta: false,
+        edEmbed: false,
+      },
     }
   mountApp(container, props)
 

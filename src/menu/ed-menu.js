@@ -123,3 +123,17 @@ export const edMenuEmptyPlugin = new Plugin({
     floatingMenu: false,
   },
 })
+
+// Monkeypatch menu with feature flags
+export function patchMenuWithFeatureFlags (featureFlags) {
+  function returnFalse () { return false }
+
+  if (featureFlags.edCta === false) {
+    menuCta.spec.class = 'flaggedFeature'
+    menuCta.spec.run = returnFalse
+  }
+  if (featureFlags.edEmbed === false) {
+    menuUserhtml.spec.class = 'flaggedFeature'
+    menuUserhtml.spec.run = returnFalse
+  }
+}

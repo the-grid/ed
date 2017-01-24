@@ -23,6 +23,9 @@ function makeCommand (item, state) {
   if (command.select && command.select(state) === false) {
     commandState = 'disabled'
   }
+  if (command.class === 'flaggedFeature') {
+    commandState = 'flagged'
+  }
   return commandState
 }
 

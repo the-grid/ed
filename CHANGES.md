@@ -1,5 +1,7 @@
 ### dev
 
+* Merge `featureFlags` prop from 1.4.x
+
 #### 2.0.0-10 prerelease - 2017-01-21
 
 * Node v7.4.0
@@ -15,7 +17,7 @@
 * Modal style
 * Fix bug where clicking "Edit" would select node and jump away from pointer
 * Default `coverPrefs`
-* Fix blur:  prevents delete by backspace from "under" modal
+* Fix blur: prevents delete by backspace from "under" modal
 
 #### 2.0.0-8 prerelease - 2017-01-19
 
@@ -63,6 +65,18 @@
   * Redo all plugins & everything we have built on PM
 * Widgets are inline: major simplification
 * h1-h3 empty block placeholders
+
+### 1.4.2 - 2017-01-23
+
+* `featureFlags: {edCta, edEmbed}` to match API
+
+### 1.4.1 - 2017-01-23
+
+* `onCommandsChanged` will now return `"flagged"` for commands diabled by `featureFlags`
+
+## 1.4.0 - 2017-01-23
+
+* `featureFlags` prop to reduce functionality for freeloaderz
 
 ### 1.3.4 - 2017-01-18
 

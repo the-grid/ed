@@ -7,8 +7,20 @@ import {isMediaType} from '../convert/types'
 import Widget from '../components/widget'
 
 
+function isFlagged (block, featureFlags) {
+  if (block.type === 'cta' && featureFlags.edCta === false) {
+    return true
+  }
+  if (block.type === 'interactive' &&
+    block.metadata && block.metadata.widget === 'userhtml' &&
+    featureFlags.edEmbed === false) {
+    return true
+  }
+  return false
+}
+
 export class MediaNodeView {
-  constructor (node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath) {
+  constructor (node, view, getPos, store, imgfloConfig, coverPrefs, widgetPath, featureFlags) {
     // console.log('MediaNodeView constructor')
     this.node = node
     this.view = view
@@ -33,6 +45,9 @@ export class MediaNodeView {
     }
     this.dom = document.createElement('div')
     this.dom.className = 'EdSchemaMedia'
+    if (isFlagged(initialBlock, featureFlags)) {
+      this.dom.className += ' FlaggedWidget'
+    }
     this.dom.contentEditable = false
     this.dom.spellcheck = false
     this.select = function (event) {

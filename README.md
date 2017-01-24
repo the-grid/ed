@@ -115,6 +115,11 @@ available to use like this:
       filter: false,
       crop: true,
       overlay: true
+    },
+    // OPTIONAL -- site or user flags to reduce functionality
+    featureFlags: {
+      edCta: false,
+      edEmbed: false
     }
   })
   
@@ -151,7 +156,7 @@ Demo: [./demo/demo.js](./demo/demo.js)
 ## commands
 
 With `onCommandsChanged` prop, app will get an object containing these commandName keys.
-Values will be one of these strings: `inactive`, `active`, `disabled`.
+Values will be one of these strings: `inactive`, `active`, `disabled`, `flagged`.
 
 Apps can apply formatting / editing commands with `ed.execCommand(commandName)`
 
