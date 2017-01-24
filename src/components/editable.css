@@ -134,6 +134,9 @@
 
 .ProseMirror-content hr {
   border-width: 2px 0 0 0;
+  /* Make it easier to tap */
+  padding-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Placeholder text hacks */
