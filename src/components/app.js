@@ -12,6 +12,8 @@ import Modal from './modal'
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
 
+import {version as PACKAGE_VERSION} from '../../package.json'
+
 
 export default class App extends React.Component {
   constructor (props) {
@@ -204,6 +206,9 @@ export default class App extends React.Component {
   }
   get pm () {
     return this._store.pm
+  }
+  get version () {
+    return PACKAGE_VERSION
   }
 }
 App.childContextTypes = {

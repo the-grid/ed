@@ -1,6 +1,7 @@
 ### dev
 
 * Merge `featureFlags` prop from 1.4.x
+* ed.version (#306)
 
 #### 2.0.0-10 prerelease - 2017-01-21
 
