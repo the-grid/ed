@@ -36,6 +36,7 @@ function makeToggleLink (toggleLink) {
           href: new TextField({
             label: 'Link address',
             placeholder: 'Starts with http',
+            type: 'url',
             required: true,
             clean: (val) => {
               if (!/^https?:\/\//i.test(val)) {

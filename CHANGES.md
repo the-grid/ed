@@ -2,6 +2,7 @@
 
 * Merge `featureFlags` prop from 1.4.x
 * ed.version (#306)
+* Link input `type="url"` for mobile input keyboard
 
 #### 2.0.0-10 prerelease - 2017-01-21
 

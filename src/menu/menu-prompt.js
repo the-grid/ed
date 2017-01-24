@@ -73,6 +73,8 @@ export function openMenuPrompt (options) {
     }
   })
 
+  form.noValidate = true
+
   let input = form.elements[0]
   if (input) input.focus()
 }
@@ -157,10 +159,11 @@ export class TextField extends Field {
     labellabel.innerText = this.options.label
     label.appendChild(labellabel)
     label.appendChild(input)
-    input.type = 'text'
+    input.type = this.options.type || 'text'
     input.placeholder = this.options.placeholder || ''
     input.value = this.options.value || ''
     input.autocomplete = 'off'
+    input.pattern = ''
     return label
   }
 }
