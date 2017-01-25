@@ -11,13 +11,13 @@ import ButtonConfirm from './button-confirm'
 export default function CreditEditor (props, context) {
   const {name, label, url, avatar, onChange, onlyUrl, path} = props
 
-  return el('div'
-  , { style:
-      { padding: '1rem'
-      , width: 360
-      , maxWidth: '100%'
-      }
-    }
+  return el('div', {
+    style: {
+      padding: '1rem',
+      width: 360,
+      maxWidth: '100%',
+    },
+  }
   , renderAvatar(avatar, context.imgfloConfig)
   , (onlyUrl ? '' : renderLabel(label))
   , (onlyUrl
@@ -34,29 +34,29 @@ function renderAvatar (avatar, imgfloConfig) {
   if (!avatar || !avatar.src) return
   let {src} = avatar
   if (imgfloConfig) {
-    const params =
-      { input: src
-      , width: 72
-      }
+    const params = {
+      input: src,
+      width: 72,
+    }
     src = imgflo(imgfloConfig, 'passthrough', params)
   }
   return el(Avatar,
-    { key: 'avatar'
-    , style: {float: 'right'}
-    , src
+    { key: 'avatar',
+      style: {float: 'right'},
+      src,
     }
   )
 }
 
 function renderRemove (onChange, path) {
   return el(ButtonConfirm
-  , { onClick: makeRemove(onChange, path)
-    , style: {float: 'right'}
-    , theme: 'warning'
-    , title: 'delete attribution from block'
-    , label: 'Remove'
-    , confirm: 'Remove: Are you sure?'
-    }
+  , { onClick: makeRemove(onChange, path),
+    style: {float: 'right'},
+    theme: 'warning',
+    title: 'delete attribution from block',
+    label: 'Remove',
+    confirm: 'Remove: Are you sure?',
+  }
   )
 }
 
@@ -69,9 +69,9 @@ function renderLabel (label) {
 
 function renderFields (name, url, avatar, onChange, path) {
   return (
-    [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true)
-    , renderTextField('url', 'Link', url, onChange, path.concat(['url']), false, isUrlOrBlank, 'https...')
-    ]
+  [ renderTextField('name', 'Name', name, onChange, path.concat(['name']), true),
+    renderTextField('url', 'Link', url, onChange, path.concat(['url']), false, isUrlOrBlank, 'https...'),
+  ]
   )
 }
 
@@ -81,18 +81,18 @@ function renderBasedOnUrl (value, onChange, path) {
 
 function renderTextField (key, label, value, onChange, path, defaultFocus, validator, placeholder) {
   return el(TextareaAutosize
-  , { className: `AttributionEditor-${key}`
-    , label
-    , defaultValue: value
-    , defaultFocus
-    , key: key
-    , name: key
-    , multiLine: true
-    , style: {width: '100%'}
-    , onChange: makeChange(onChange, path)
-    , validator
-    , placeholder
-    }
+  , { className: `AttributionEditor-${key}`,
+    label,
+    defaultValue: value,
+    defaultFocus,
+    key: key,
+    name: key,
+    multiLine: true,
+    style: {width: '100%'},
+    onChange: makeChange(onChange, path),
+    validator,
+    placeholder,
+  }
   )
 }
 

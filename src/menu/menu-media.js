@@ -1,11 +1,14 @@
-import {MenuItem, icons} from 'prosemirror/dist/menu/menu'
+import {MenuItem, icons} from 'prosemirror-menu'
 import {focusedIndex} from '../util/pm'
+import {key} from '../plugins/store-ref'
+
 
 function makeMenu (label, type, widgetType) {
-  function run (pm) {
-    const index = focusedIndex(pm)
+  function run (state, onAction) {
+    const index = focusedIndex(state)
     if (index == null) return
-    pm.ed.routeChange('ADD_MEDIA', {index, type, widgetType})
+    const {ed} = key.get(state).options.edStuff
+    ed.routeChange('ADD_MEDIA', {index, type, widgetType})
   }
 
   let icon
@@ -14,10 +17,10 @@ function makeMenu (label, type, widgetType) {
   }
 
   return new MenuItem(
-    { label
-    , title: `make new ${widgetType || type} block`
-    , run
-    , icon
+    { label,
+      title: `make new ${widgetType || type} block`,
+      run,
+      icon,
     }
   )
 }

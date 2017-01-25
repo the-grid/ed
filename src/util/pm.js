@@ -1,11 +1,12 @@
-export function focusedIndex (pm) {
-  const selection = pm.selection
-  if (!selection) return
+export function focusedIndex (state) {
+  if (!state) return 0
+  const {doc, selection} = state
+  if (!selection) return 0
   if (selection.anchor != null) {
-    return pm.doc.childBefore(selection.anchor).index
+    return doc.childBefore(selection.anchor).index
   }
   if (selection.to != null) {
-    return pm.doc.childBefore(selection.to).index
+    return doc.childBefore(selection.to).index
   }
 }
 

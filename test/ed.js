@@ -30,101 +30,115 @@ describe('Ed', function () {
     })
     it('throws without props.initialContent', function () {
       function no_initialContent () {
-        ed = mountApp(mount
-        , { initialContent: null
-          , onChange: function () {}
-          , onShareUrl: function () {}
-          , onShareFile: function () {}
-          , onRequestCoverUpload: function () {}
-          }
-        )
+        mountApp(mount, {
+          initialContent: null,
+          onChange: function () {},
+          onShareUrl: function () {},
+          onShareFile: function () {},
+          onRequestCoverUpload: function () {},
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_initialContent).to.throw('Missing props.initialContent')
     })
     it('throws without props.onChange', function () {
       function no_onChange () {
-        ed = mountApp(mount
-        , { initialContent: []
-          , onChange: null
-          , onShareUrl: function () {}
-          , onShareFile: function () {}
-          , onRequestCoverUpload: function () {}
-          }
-        )
+        mountApp(mount, {
+          initialContent: [],
+          onChange: null,
+          onShareUrl: function () {},
+          onShareFile: function () {},
+          onRequestCoverUpload: function () {},
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onChange).to.throw('Missing props.onChange')
     })
     it('throws without props.onShareUrl', function () {
       function no_onShareUrl () {
-        ed = mountApp(mount
-        , { initialContent: []
-          , onChange: function () {}
-          , onShareUrl: null
-          , onShareFile: function () {}
-          , onRequestCoverUpload: function () {}
-          }
-        )
+        mountApp(mount, {
+          initialContent: [],
+          onChange: function () {},
+          onShareUrl: null,
+          onShareFile: function () {},
+          onRequestCoverUpload: function () {},
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onShareUrl).to.throw('Missing props.onShareUrl')
     })
     it('throws without props.onShareFile', function () {
       function no_onShareFile () {
-        ed = mountApp(mount
-        , { initialContent: []
-          , onChange: function () {}
-          , onShareUrl: function () {}
-          , onShareFile: null
-          , onRequestCoverUpload: function () {}
-          }
-        )
+        mountApp(mount, {
+          initialContent: [],
+          onChange: function () {},
+          onShareUrl: function () {},
+          onShareFile: null,
+          onRequestCoverUpload: function () {},
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onShareFile).to.throw('Missing props.onShareFile')
     })
     it('throws without props.onRequestCoverUpload', function () {
       function no_onRequestCoverUpload () {
-        ed = mountApp(mount
-        , { initialContent: []
-          , onChange: function () {}
-          , onShareUrl: function () {}
-          , onShareFile: function () {}
-          , onRequestCoverUpload: null
-          }
-        )
+        mountApp(mount, {
+          initialContent: [],
+          onChange: function () {},
+          onShareUrl: function () {},
+          onShareFile: function () {},
+          onRequestCoverUpload: null,
+          onMount: function (mounted) {
+            ed = mounted
+          },
+        })
       }
       expect(no_onRequestCoverUpload).to.throw('Missing props.onRequestCoverUpload')
     })
     it('calls props.onMount', function (done) {
-      ed = mountApp(mount
-      , { initialContent: []
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        , onMount: function () { done() }
-        }
-      )
+      mountApp(mount, {
+        initialContent: [],
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
     })
   })
 
   describe('Content mounting and merging', function () {
     const fixture =
-      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
+      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
+       {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}},
+       {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}},
       ]
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        }
-      )
-      done()
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
     })
     afterEach(function () {
       unmountApp(mount)
@@ -132,7 +146,7 @@ describe('Ed', function () {
     })
 
     it('on mount it has expected editable html structure', function () {
-      const children = ed.pm.content.children
+      const children = ed.pm.editor.content.children
       expect(children.length).to.equal(3)
       expect(children[0].textContent).to.equal('Title')
       expect(children[0].nodeName).to.equal('H1')
@@ -143,7 +157,7 @@ describe('Ed', function () {
     })
 
     it('it has expected pm document', function () {
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -155,14 +169,14 @@ describe('Ed', function () {
 
     it('inject placeholder blocks via setContent', function () {
       ed.setContent(
-        [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
-        , {id: '0000', type: 'placeholder', metadata: {starred: true}}
-        , {id: '0001', type: 'placeholder', metadata: {starred: true}}
-        , {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}}
-        , {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}}
+        [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
+         {id: '0000', type: 'placeholder', metadata: {starred: true}},
+         {id: '0001', type: 'placeholder', metadata: {starred: true}},
+         {type: 'text', html: '<p>Text 1</p>', metadata: {starred: true}},
+         {type: 'text', html: '<p>Text 2</p>', metadata: {starred: true}},
         ]
       )
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -182,19 +196,17 @@ describe('Ed', function () {
 
     it('does not overwrite current metadata with stale', function () {
       // Inject new image block
-      ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}}
-        ]
-      )
+      ed.setContent([
+        {id: '0000', type: 'image', metadata: {starred: true, title: 'the title'}},
+      ])
       let content = ed.getContent()
       expect(content.length).to.equal(4)
       expect(content[0].type).to.equal('image')
       expect(content[0].metadata.title).to.equal('the title')
       // Set stale data, like from API
-      ed.setContent(
-        [ {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}}
-        ]
-      )
+      ed.setContent([
+        {id: '0000', type: 'image', metadata: {starred: true, title: 'stale'}},
+      ])
       content = ed.getContent()
       expect(content[0].metadata.title).to.equal('the title')
     })
@@ -203,7 +215,7 @@ describe('Ed', function () {
       const ids = ed.insertPlaceholders(1, 2)
       expect(ids.length).to.equal(2)
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -223,13 +235,13 @@ describe('Ed', function () {
 
     it('replace text with placeholder block', function () {
       ed._store._replaceBlock(1,
-        { id: '0000'
-        , type: 'placeholder'
-        , metadata: {starred: true}
+        { id: '0000',
+          type: 'placeholder',
+          metadata: {starred: true},
         }
       )
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -243,19 +255,19 @@ describe('Ed', function () {
 
     it('replace placeholder with image block, should correctly merge', function () {
       ed._store._replaceBlock(1,
-        { id: '0000'
-        , type: 'placeholder'
-        , metadata: {starred: true}
+        { id: '0000',
+          type: 'placeholder',
+          metadata: {starred: true},
         }
       )
       ed.setContent([
-        {id: '0000'
-        , type: 'image'
-        , metadata: {starred: true}
-        }
+        {id: '0000',
+          type: 'image',
+          metadata: {starred: true},
+        },
       ])
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -270,12 +282,12 @@ describe('Ed', function () {
     it('replace multiple placeholders, should correctly merge', function () {
       const ids = ed.insertPlaceholders(1, 2)
       ed.setContent(
-        [ {id: ids[0], type: 'image', metadata: {starred: true}}
-        , {id: ids[1], type: 'image', metadata: {starred: true}}
+        [ {id: ids[0], type: 'image', metadata: {starred: true}},
+         {id: ids[1], type: 'image', metadata: {starred: true}},
         ]
       )
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(5)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -297,7 +309,7 @@ describe('Ed', function () {
       const ids = ed.insertPlaceholders(1, 1)
       ed._store._placeholderCancel(ids[0])
 
-      const content = ed.pm.doc.content.content
+      const content = ed.pm.editor.state.doc.content.content
       expect(content.length).to.equal(3)
       expect(content[0].textContent).to.equal('Title')
       expect(content[0].type.name).to.equal('heading')
@@ -312,13 +324,13 @@ describe('Ed', function () {
         const ids = ed.insertPlaceholders(1, 1)
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
-          , { id: ids[0]
-            , type: 'placeholder'
-            , metadata: {starred: true}
-            }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
+            { id: ids[0],
+              type: 'placeholder',
+              metadata: {starred: true},
+            },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -326,33 +338,33 @@ describe('Ed', function () {
       it('outputs content with replaced placeholders', function () {
         const ids = ed.insertPlaceholders(1, 2)
         ed.setContent(
-          [ { id: ids[0]
-            , type: 'image'
-            , cover: {src: '...a.jpg'}
-            }
-          , { id: ids[1]
-            , type: 'image'
-            , cover: {src: '...b.jpg'}
-            }
+          [ { id: ids[0],
+            type: 'image',
+            cover: {src: '...a.jpg'},
+          },
+          { id: ids[1],
+            type: 'image',
+            cover: {src: '...b.jpg'},
+          },
           ]
         )
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
-          , { id: ids[0]
-            , type: 'image'
-            , cover: {src: '...a.jpg'}
-            , metadata: {starred: true}
-            , html: '<img src="...a.jpg">'
-            }
-          , { id: ids[1]
-            , type: 'image'
-            , cover: {src: '...b.jpg'}
-            , metadata: {starred: true}
-            , html: '<img src="...b.jpg">'
-            }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
+            { id: ids[0],
+              type: 'image',
+              cover: {src: '...a.jpg'},
+              metadata: {starred: true},
+              html: '<img src="...a.jpg">',
+            },
+            { id: ids[1],
+              type: 'image',
+              cover: {src: '...b.jpg'},
+              metadata: {starred: true},
+              html: '<img src="...b.jpg">',
+            },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -362,9 +374,9 @@ describe('Ed', function () {
         ed._store._placeholderCancel(ids[0])
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -374,9 +386,9 @@ describe('Ed', function () {
         ed._store._removeMediaBlock(ids[0])
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -384,47 +396,87 @@ describe('Ed', function () {
       it('does not change cover src with encoded url query params', function () {
         const ids = ed.insertPlaceholders(1, 1)
         ed.setContent(
-          [ { id: ids[0]
-            , type: 'image'
-            , cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'}
-            }
+          [ { id: ids[0],
+            type: 'image',
+            cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'},
+          },
           ]
         )
         const content = ed.getContent()
         const expected =
-          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} }
-          , { id: ids[0]
-            , type: 'image'
-            , cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'}
-            , metadata: {starred: true}
-            , html: '<img src="https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg">'
-            }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} }
-          , { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} }
+          [ { type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true} },
+            { id: ids[0],
+              type: 'image',
+              cover: {src: 'https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg'},
+              metadata: {starred: true},
+              html: '<img src="https://.../noop.jpeg?input=https%3A%2F%2F...%2Fa.jpeg">',
+            },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: true} },
+           { type: 'text', html: '<p>Text 2</p>', metadata: {starred: true} },
           ]
         expect(content).to.deep.equal(expected)
       })
     })
   })
 
-  describe('The Fold', function () {
-    const fixture =
-      [ {id: '0000', type: 'image', metadata: {starred: true}}
-      , {type: 'text', html: '<p>Text 1</p>'}
-      ]
+  describe('Mounting with empty content', function () {
+    const fixture = []
 
     beforeEach(function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
-      ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        }
-      )
-      done()
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
+    })
+    afterEach(function () {
+      unmountApp(mount)
+      mount.parentNode.removeChild(mount)
+    })
+
+    it('on mount it has expected editable html structure: 1 empty p', function () {
+      const children = ed.pm.editor.content.children
+      expect(children.length).to.equal(1)
+      expect(children[0].textContent).to.equal('')
+      expect(children[0].nodeName).to.equal('P')
+    })
+
+    it('it has expected pm document', function () {
+      const content = ed.pm.editor.state.doc.content.content
+      expect(content.length).to.equal(1)
+      expect(content[0].textContent).to.equal('')
+      expect(content[0].type.name).to.equal('paragraph')
+    })
+  })
+
+  describe('The Fold', function () {
+    const fixture = [
+      {id: '0000', type: 'image', metadata: {starred: true}},
+      {type: 'text', html: '<p>Text 1</p>'},
+    ]
+
+    beforeEach(function (done) {
+      mount = document.createElement('div')
+      document.body.appendChild(mount)
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onMount: function (mounted) {
+          ed = mounted
+          done()
+        },
+      })
     })
     afterEach(function () {
       unmountApp(mount)
@@ -435,13 +487,13 @@ describe('Ed', function () {
       it('splits content correctly', function () {
         const content = ed.getContent()
         const expected =
-          [ { id: '0000'
-            , type: 'image'
-            , metadata: { starred: true }
-            , html: '<img>'
-            }
-          , { type: 'hr', html: '<hr>', metadata: { starred: false } }
-          , { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} }
+          [ { id: '0000',
+            type: 'image',
+            metadata: { starred: true },
+            html: '<img>',
+          },
+           { type: 'hr', html: '<hr>', metadata: { starred: false } },
+           { type: 'text', html: '<p>Text 1</p>', metadata: {starred: false} },
           ]
         expect(content).to.deep.equal(expected)
       })
@@ -456,8 +508,8 @@ describe('Ed', function () {
   describe('Command interface', function () {
     let mount, ed
     const fixture =
-      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}}
-      , {type: 'text', html: '<p><a href="moo">link</a></p>', metadata: {starred: true}}
+      [ {type: 'h1', html: '<h1>Title</h1>', metadata: {starred: true}},
+       {type: 'text', html: '<p><a href="moo">link</a></p>', metadata: {starred: true}},
       ]
 
     afterEach(function () {
@@ -475,36 +527,42 @@ describe('Ed', function () {
         done()
       }
 
-      ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        , onCommandsChanged
-        }
-      )
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onCommandsChanged,
+        onMount: function (mounted) {
+          ed = mounted
+        },
+      })
     })
 
     it('correctly executes command', function (done) {
       mount = document.createElement('div')
       document.body.appendChild(mount)
 
-      function onMount () {
-        ed.execCommand('paragraph:make')
-        const content = ed.getContent()
-        expect(content[0].type).to.equal('text')
-        done()
+      function onMount (mounted) {
+        ed = mounted
+        setTimeout(function () {
+          ed.execCommand('paragraph:make')
+          const content = ed.getContent()
+          expect(content[0].type).to.equal('text')
+          done()
+        }, 10)
       }
 
-      ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onShareFile: function () {}
-        , onRequestCoverUpload: function () {}
-        , onMount
-        }
+      mountApp(mount, {
+        initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onShareFile: function () {},
+        onRequestCoverUpload: function () {},
+        onCommandsChanged: function () {},
+        onMount,
+      }
       )
     })
 
@@ -512,7 +570,8 @@ describe('Ed', function () {
       mount = document.createElement('div')
       document.body.appendChild(mount)
 
-      function onMount () {
+      function onMount (mounted) {
+        ed = mounted
         setTimeout(function () {
           ed.execCommand('ed_upload_image')
         }, 100)
@@ -523,14 +582,14 @@ describe('Ed', function () {
         done()
       }
 
-      ed = mountApp(mount
-      , { initialContent: fixture
-        , onChange: function () {}
-        , onShareUrl: function () {}
-        , onRequestCoverUpload: function () {}
-        , onShareFile
-        , onMount
-        }
+      mountApp(mount
+      , { initialContent: fixture,
+        onChange: function () {},
+        onShareUrl: function () {},
+        onRequestCoverUpload: function () {},
+        onShareFile,
+        onMount,
+      }
       )
     })
   })

@@ -1,22 +1,21 @@
 // Added as plugin
 
-import inputRules from 'prosemirror/dist/inputrules'
-import {buildInputRules} from 'prosemirror/dist/example-setup'
-import EdSchema from '../schema/ed-schema-full'
-import inputCode from './input-code'
-import iosDoubleSpace from './ios-double-space'
+import {inputRules, allInputRules} from 'prosemirror-inputrules'
+import {buildInputRules, buildKeymap} from 'prosemirror-example-setup'
+import {keymap} from 'prosemirror-keymap'
+import {baseKeymap} from 'prosemirror-commands'
+import EdSchema from '../schema/ed-schema'
+// import inputCode from './input-code'
+// import iosDoubleSpace from './ios-double-space'
 
 
 const edRules = buildInputRules(EdSchema)
-edRules.push(inputCode)
 
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
-if (isIOS) {
-  edRules.push(iosDoubleSpace)
-}
+// edRules.push(inputCode)
 
-const rules = inputRules.allInputRules.concat(edRules)
+const rules = allInputRules.concat(edRules)
 
-const EdInputRules = inputRules.inputRules.config({rules})
+export const edInputRules = inputRules({rules})
 
-export default EdInputRules
+export const edBaseKeymap = keymap(baseKeymap)
+export const edKeymap = keymap(buildKeymap(EdSchema))

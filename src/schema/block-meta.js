@@ -3,74 +3,74 @@ import encode from '../util/encode'
 
 const blockMetaSchema =
   { image:
-    { title: true
-    , description: true
-    , caption: false
-    , isBasedOnUrl: true
-    , cover: true
-    , changeCover: true
-    , removeCover: false
-    , author: true
-    , publisher: true
-    , via: true
-    , makeHtml: makeImage
-    }
-  , video:
-    { title: true
-    , description: true
-    , caption: false
-    , isBasedOnUrl: true
-    , cover: true
-    , changeCover: false
-    , removeCover: false
-    , author: true
-    , publisher: true
-    , via: true
-    }
-  , article:
-    { title: true
-    , description: true
-    , caption: false
-    , isBasedOnUrl: true
-    , cover: true
-    , changeCover: true
-    , removeCover: true
-    , author: true
-    , publisher: true
-    , via: true
-    , makeHtml: makeArticle
-    }
-  , quote:
-    { title: false
-    , description: true
-    , caption: false
-    , isBasedOnUrl: true
-    , cover: false
-    , changeCover: false
-    , removeCover: false
-    , author: true
-    , publisher: true
-    , via: true
-    , makeHtml: makeQuote
-    }
-  , cta:
-    { label: true
-    , link: true
-    , canFrame: true
-    , makeHtml: makeCTA
-    }
-  , default:
-    { title: true
-    , description: true
-    , caption: false
-    , isBasedOnUrl: true
-    , cover: true
-    , changeCover: false
-    , removeCover: false
-    , author: true
-    , publisher: true
-    , via: true
-    }
+  { title: true,
+    description: true,
+    caption: false,
+    isBasedOnUrl: true,
+    cover: true,
+    changeCover: true,
+    removeCover: false,
+    author: true,
+    publisher: true,
+    via: true,
+    makeHtml: makeImage,
+  },
+    video:
+    { title: true,
+      description: true,
+      caption: false,
+      isBasedOnUrl: true,
+      cover: true,
+      changeCover: false,
+      removeCover: false,
+      author: true,
+      publisher: true,
+      via: true,
+    },
+    article:
+    { title: true,
+      description: true,
+      caption: false,
+      isBasedOnUrl: true,
+      cover: true,
+      changeCover: true,
+      removeCover: true,
+      author: true,
+      publisher: true,
+      via: true,
+      makeHtml: makeArticle,
+    },
+    quote:
+    { title: false,
+      description: true,
+      caption: false,
+      isBasedOnUrl: true,
+      cover: false,
+      changeCover: false,
+      removeCover: false,
+      author: true,
+      publisher: true,
+      via: true,
+      makeHtml: makeQuote,
+    },
+    cta:
+    { label: true,
+      link: true,
+      canFrame: true,
+      makeHtml: makeCTA,
+    },
+    default:
+    { title: true,
+      description: true,
+      caption: false,
+      isBasedOnUrl: true,
+      cover: true,
+      changeCover: false,
+      removeCover: false,
+      author: true,
+      publisher: true,
+      via: true,
+    },
   }
 
 function makeImage (block) {

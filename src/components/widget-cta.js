@@ -43,8 +43,8 @@ class WidgetCta extends React.Component {
     this.toggleImport = () => {
       const {showImport} = this.state
       this.setState(
-        { showImport: !showImport
-        , importStatus: ''
+        { showImport: !showImport,
+          importStatus: '',
         }
       )
     }
@@ -68,38 +68,38 @@ class WidgetCta extends React.Component {
     const {label, url, canFrame} = this.state
 
     return el('div'
-    , { className: 'WidgetCta'
-      }
+    , { className: 'WidgetCta',
+    }
     , el('div'
-      , { className: 'WidgetCta-metadata'
-        , style: widgetLeftStyle
-        }
+      , { className: 'WidgetCta-metadata',
+        style: widgetLeftStyle,
+      }
       , el(TextareaAutosize
-        , { label: 'Label'
-          , key: 'label'
-          , placeholder: 'Sign up now!'
-          , defaultValue: label
-          , onChange: this.changeLabel
-          , style: {width: '100%'}
-          }
+        , { label: 'Label',
+          key: 'label',
+          placeholder: 'Sign up now!',
+          defaultValue: label,
+          onChange: this.changeLabel,
+          style: {width: '100%'},
+        }
         )
       , el(TextareaAutosize
-        , { label: 'Link'
-          , key: 'url'
-          , placeholder: 'https://...'
-          , defaultValue: url
-          , onChange: this.changeUrl
-          , validator: isUrlOrBlank
-          , style: {width: '100%'}
-          }
+        , { label: 'Link',
+          key: 'url',
+          placeholder: 'https://...',
+          defaultValue: url,
+          onChange: this.changeUrl,
+          validator: isUrlOrBlank,
+          style: {width: '100%'},
+        }
         )
       , el(Checkbox
-        , { key: 'canFrame'
-          , label: 'Link can open in frame'
-          , name: 'canFrame'
-          , checked: (canFrame === true)
-          , onChange: this.changeModal
-          }
+        , { key: 'canFrame',
+          label: 'Link can open in frame',
+          name: 'canFrame',
+          checked: (canFrame === true),
+          onChange: this.changeModal,
+        }
         )
       , this.renderImport()
       )
@@ -128,11 +128,11 @@ class WidgetCta extends React.Component {
     return el('form'
     , { onSubmit: this.boundImportHTML }
     , el(TextareaAutosize
-      , { label: 'HTML'
-        , defaultValue: ''
-        , defaultFocus: true
-        , placeholder: '<iframe src=... or <a href=... embed code from another site'
-        }
+      , { label: 'HTML',
+        defaultValue: '',
+        defaultFocus: true,
+        placeholder: '<iframe src=... or <a href=... embed code from another site',
+      }
       )
     , el(ButtonOutline
       , { onClick: this.toggleImport }
@@ -165,9 +165,9 @@ class WidgetCta extends React.Component {
   }
 }
 WidgetCta.propTypes =
-  { initialBlock: React.PropTypes.object.isRequired
-  , id: React.PropTypes.string.isRequired
-  }
+{ initialBlock: React.PropTypes.object.isRequired,
+  id: React.PropTypes.string.isRequired,
+}
 WidgetCta.contextTypes =
   { store: React.PropTypes.object }
 

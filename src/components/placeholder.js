@@ -17,12 +17,12 @@ export default function Placeholder (props, context) {
   const theme = (failed === true ? 'error' : 'info')
 
   return el('div'
-  , { className: `Placeholder Placeholder-${theme}`
-    }
+  , { className: `Placeholder Placeholder-${theme}`,
+  }
   , el(Message
-    , { theme
-      , style: {marginBottom: 0}
-      }
+    , { theme,
+      style: {marginBottom: 0},
+    }
     , el('span', {className: 'Placeholder-status'}, status)
     , makePreview(id, store)
     , el(Space
@@ -43,13 +43,13 @@ function makePreview (id, store) {
   if (!preview) return
   return el('div'
   , { style:
-      { width: 96
-      , height: 72
-      , display: 'inline-block'
-      , margin: '0px 16px'
-      , overflow: 'hidden'
-      }
-    }
+  { width: 96,
+    height: 72,
+    display: 'inline-block',
+    margin: '0px 16px',
+    overflow: 'hidden',
+  },
+  }
   , el(Image, {src: preview})
   )
 }
@@ -57,10 +57,10 @@ function makePreview (id, store) {
 function makeProgress (progress, color) {
   if (progress == null) return
   return el(Progress
-  , { value: progress / 100
-    , style: {marginTop: 16}
-    , color
-    }
+  , { value: progress / 100,
+    style: {marginTop: 16},
+    color,
+  }
   )
 }
 

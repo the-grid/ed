@@ -1,16 +1,18 @@
-import {elt} from 'prosemirror/dist/util/dom'
-import {MenuItem} from 'prosemirror/dist/menu/menu'
+import crel from 'crel'
+import {MenuItem} from 'prosemirror-menu'
 import {focusedIndex} from '../util/pm'
+import {key} from '../plugins/store-ref'
 
 
-function run (pm) {
-  const index = focusedIndex(pm)
+function run (state, onAction) {
+  const index = focusedIndex(state)
   if (index == null) return
-  pm.ed.trigger('command.menu.file', index)
+  const {ed} = key.get(state).options.edStuff
+  ed.trigger('command.menu.file', index)
 }
 
 function render (pm) {
-  const el = elt('div'
+  const el = crel('div'
   , { class: 'EdMenuText' }
   , 'Image'
   )
@@ -20,16 +22,16 @@ function render (pm) {
     event.stopImmediatePropagation()
   })
   el.addEventListener('click', function (event) {
-    run(pm)
+    run(pm.state)
   })
   return el
 }
 
 const menuImage = new MenuItem(
-  { label: 'Image'
-  , title: 'upload image(s) above this block'
-  , run
-  , render
+  { label: 'Image',
+    title: 'upload image(s) above this block',
+    run,
+    render,
   }
 )
 

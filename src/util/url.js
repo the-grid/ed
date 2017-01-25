@@ -1,5 +1,6 @@
 const isUrlRegex = /^https?:\/\/[^\s]+\.[^\s]+$/
 const findUrlRegex = /https?:\/\/[^\s]+\.[^\s]+/
+const isUrlLikeRegex = /^\S+\.\S+$/
 
 export function isUrl (text) {
   if (!text) return false
@@ -20,4 +21,8 @@ export function extractUrl (text) {
   const url = urlCheck[0]
   const rest = text.replace(url, '').trim()
   return {url, rest}
+}
+
+export function isUrlLike (text) {
+  return (text.search(isUrlLikeRegex) !== -1)
 }

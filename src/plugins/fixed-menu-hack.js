@@ -1,53 +1,70 @@
 import _ from '../util/lodash'
+import {isIOS} from '../util/browser'
 
-function onScroll (event) {
-  const contentTop = this.pm.wrapper.getBoundingClientRect().top
+let lastMenuHeight = 0
+let boundSpaceContent = function () {}
+let boundOnScroll = function () {}
+
+const spaceContent = function (menuEl, contentEl) {
+  menuEl.style.minHeight = 'inherit'
+  const menuHeight = menuEl.offsetHeight
+  if (lastMenuHeight !== menuHeight) {
+    lastMenuHeight = menuHeight
+    contentEl.style.paddingTop = (menuHeight + 36) + 'px'
+  }
+}
+
+const onScroll = function (menuEl, contentEl) {
+  const contentTop = contentEl.getBoundingClientRect().top
   if (contentTop > 0) {
-    this.menuEl.style.top = '0px'
+    menuEl.style.top = '0px'
     return
   }
-  this.menuEl.style.position = 'absolute'
-  this.menuEl.style.top = (0 - contentTop) + 'px'
+  menuEl.style.top = (0 - contentTop) + 'px'
 }
 
-function spaceContent () {
-  this.menuEl.style.minHeight = 'inherit'
-  const menuHeight = this.menuEl.offsetHeight
-  if (this.menuHeight !== menuHeight) {
-    this.menuHeight = menuHeight
-    this.contentEl.style.paddingTop = (menuHeight + 36) + 'px'
-  }
-}
+export default {
+  view: function (editorView) {
+    // init after editor mounted
+    setTimeout(function () {
+      if (!editorView.content || !editorView.content.parentNode) return
+      const menuEl = editorView.content.parentNode.querySelector('.ProseMirror-menubar')
+      if (!menuEl) {
+        throw new Error('Trying to init FixedMenuHack without menu')
+      }
+      const contentEl = editorView.content
 
+      // Padding for content
+      boundSpaceContent = _.debounce(spaceContent, 100).bind(this, menuEl, contentEl)
+      window.addEventListener('resize', boundSpaceContent)
 
-export default class FixedMenuBarHack {
-  constructor (pm, options) {
-    this.pm = pm
+      // init
+      lastMenuHeight = 0
+      boundSpaceContent()
 
-    this.menuEl = pm.wrapper.querySelector('.ProseMirror-menubar')
-    if (!this.menuEl) {
-      return
+      if (isIOS) {
+        // Fake fixed
+        menuEl.style.position = 'absolute'
+        boundOnScroll = onScroll.bind(this, menuEl, contentEl)
+        window.addEventListener('scroll', boundOnScroll)
+        boundOnScroll()
+      } else {
+        menuEl.style.position = 'fixed'
+        menuEl.style.top = '0px'
+      }
+    }, 0)
+
+    return {
+      update: function (editorView) {
+        boundSpaceContent()
+      },
+      destroy: function () {
+        // menuEl.style.position = 'inherit'
+        if (isIOS) {
+          window.removeEventListener('scroll', boundOnScroll)
+        }
+        window.removeEventListener('resize', boundSpaceContent)
+      },
     }
-    this.contentEl = pm.content
-
-    // Padding for all
-    this.spaceContent = _.debounce(spaceContent, 250).bind(this)
-    const {selectionChange} = pm.on
-    this.updater = pm.updateScheduler([selectionChange], this.spaceContent)
-    this.updater.force()
-
-    // Fake fixed
-    this.menuEl.style.position = 'absolute'
-    this.onScroll = onScroll.bind(this)
-    window.addEventListener('scroll', this.onScroll)
-    window.addEventListener('resize', this.spaceContent)
-  }
-  detach () {
-    if (!this.menuEl) {
-      return
-    }
-    window.removeEventListener('scroll', this.onScroll)
-    window.removeEventListener('resize', this.spaceContent)
-    this.updater.detach()
-  }
+  },
 }

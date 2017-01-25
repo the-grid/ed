@@ -13,15 +13,15 @@ var plugins = []
 var devtool = 'source-map'
 var loaders = [
   {
-    test: /\.js$/, 
-    loader: 'babel-loader', 
+    test: /\.js$/,
+    loader: 'babel-loader',
     include: [
       path.resolve(__dirname, 'demo'),
-      path.resolve(__dirname, 'src')
-    ]
+      path.resolve(__dirname, 'src'),
+    ],
   },
   { test: /\.css$/, loader: 'style?singleton!raw' },
-  { test: /\.json$/, loader: 'json-loader' }
+  { test: /\.json$/, loader: 'json-loader' },
 ]
 
 if (__DEV || __DEMO) {
@@ -40,11 +40,11 @@ if (__DEV && !__KARMA) {
   devtool = 'cheap-module-eval-source-map'
   entry.test = './test/index.js'
   loaders.push({
-    test: /\.js$/, 
+    test: /\.js$/,
     loader: 'mocha-loader!babel-loader',
     include: [
-      path.resolve(__dirname, 'test')
-    ]
+      path.resolve(__dirname, 'test'),
+    ],
   })
 }
 
@@ -54,8 +54,8 @@ if (!__DEV && !__KARMA) {
   plugins.push(
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': '"production"'
-      }
+        'NODE_ENV': '"production"',
+      },
     })
   )
   plugins.push(new webpack.optimize.UglifyJsPlugin())
@@ -64,12 +64,12 @@ if (!__DEV && !__KARMA) {
   if (__DEMO) {
     copyPatterns.push({
       from: 'index.html',
-      to: 'index.html'
+      to: 'index.html',
     })
   } else {
     copyPatterns.push({
       from: 'targets/web.html',
-      to: 'index.html'
+      to: 'index.html',
     })
   }
   // Copy iframe widgets to dist, whitelisted files and directories only
@@ -78,7 +78,7 @@ if (!__DEV && !__KARMA) {
     widget.include.forEach(function (include) {
       copyPatterns.push({
         from: 'node_modules/' + key + include,
-        to: 'node_modules/' + key + include
+        to: 'node_modules/' + key + include,
       })
     })
   })
@@ -94,14 +94,14 @@ module.exports = {
     publicPath: '/webpack/',
     filename: '[name].js',
     sourceMapFilename: '[name].map',
-    library: 'TheGridEd'
+    library: 'TheGridEd',
   },
   debug: __DEV,
   devtool: devtool,
   module: {
-    loaders: loaders
+    loaders: loaders,
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css']
-  }
+    extensions: ['', '.js', '.json', '.css'],
+  },
 }

@@ -22,62 +22,62 @@ describe('Image', function () {
   describe('with imageflo', function () {
     const context =
       { imgfloConfig:
-        { server: 'https://iflo.grid/'
-        , key: 'abc'
-        , secret: '123'
-        }
+      { server: 'https://iflo.grid/',
+        key: 'abc',
+        secret: '123',
+      },
       }
 
-    const url72 = 'https://iflo.grid/graph/abc/12ecaddb783ca3f911391be0a6f9d718/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=72'
-    const url360 = 'https://iflo.grid/graph/abc/6c68237fa1da785b80706af7f52dfb8b/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=360'
-    const url720 = 'https://iflo.grid/graph/abc/cc04e4bf16f02fbd1ec883fe6112b1c0/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=720'
+    const urlAvatar = 'https://iflo.grid/graph/abc/12ecaddb783ca3f911391be0a6f9d718/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=72'
+    const urlLandscape = 'https://iflo.grid/graph/abc/ef734866cd7274c6d2eecd9999df378e/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=216'
+    const urlPortrait = 'https://iflo.grid/graph/abc/ed6bf64e851143e44f6bafedab7cf7b1/passthrough.jpg?input=http%3A%2F%2Fa.com%2Fb.jpg&width=144'
 
     it('without dimensions gives expected output', function () {
       const props = {
-        src: 'http://a.com/b.jpg'
+        src: 'http://a.com/b.jpg',
       }
       const image = Image(props, context)
-      expectImage(image, url360)
+      expectImage(image, urlLandscape)
     })
 
     it('with landscape dimensions gives expected output', function () {
       const props =
-        { src: 'http://a.com/b.jpg'
-        , width: 1000
-        , height: 500
+        { src: 'http://a.com/b.jpg',
+          width: 1000,
+          height: 500,
         }
       const image = Image(props, context)
-      expectImage(image, url720)
+      expectImage(image, urlLandscape)
     })
 
     it('with small landscape dimensions gives expected output', function () {
       const props =
-        { src: 'http://a.com/b.jpg'
-        , width: 500
-        , height: 300
+        { src: 'http://a.com/b.jpg',
+          width: 500,
+          height: 300,
         }
       const image = Image(props, context)
-      expectImage(image, url360)
+      expectImage(image, urlLandscape)
     })
 
     it('with tiny dimensions gives expected output', function () {
       const props =
-        { src: 'http://a.com/b.jpg'
-        , width: 72
-        , height: 72
+        { src: 'http://a.com/b.jpg',
+          width: 72,
+          height: 72,
         }
       const image = Image(props, context)
-      expectImage(image, url72)
+      expectImage(image, urlAvatar)
     })
 
     it('with portrait dimensions gives expected output', function () {
       const props =
-        { src: 'http://a.com/b.jpg'
-        , width: 500
-        , height: 1000
+        { src: 'http://a.com/b.jpg',
+          width: 500,
+          height: 1000,
         }
       const image = Image(props, context)
-      expectImage(image, url360)
+      expectImage(image, urlPortrait)
     })
   })
 })

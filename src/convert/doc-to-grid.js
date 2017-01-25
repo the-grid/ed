@@ -1,9 +1,15 @@
+import {DOMSerializer} from 'prosemirror-model'
+import EdSchema from '../schema/ed-schema'
+
 import {isMediaType} from './types'
 import BlockMetaSchema from '../schema/block-meta'
 import _ from '../util/lodash'
 
+const serializer = DOMSerializer.fromSchema(EdSchema)
+
+
 export default function (doc, apiContentMap) {
-  const fragment = doc.content.toDOM()
+  const fragment = serializer.serializeFragment(doc.content)
   const dom = document.createElement('div')
   dom.appendChild(fragment)
 
@@ -61,27 +67,27 @@ export default function (doc, apiContentMap) {
 function trimContent (content) {
   return _.map(content, function (item) {
     let cleaned = _.pick(item
-    , [ 'id'
-      , 'type'
-      , 'item'
-      , 'html'
-      , 'text'
-      , 'metadata'
-      , 'cover'
-      , 'cta'
-      , 'price'
-      , 'label'
-      , 'url'
-      , 'height'
-      ]
+    , [ 'id',
+      'type',
+      'item',
+      'html',
+      'text',
+      'metadata',
+      'cover',
+      'cta',
+      'price',
+      'label',
+      'url',
+      'height',
+    ]
     )
     if (cleaned.cover) {
       cleaned.cover = _.pick(cleaned.cover
-      , [ 'src'
-        , 'width'
-        , 'height'
-        , 'unsalvageable'
-        ]
+      , [ 'src',
+        'width',
+        'height',
+        'unsalvageable',
+      ]
       )
     }
     return cleaned
@@ -89,7 +95,9 @@ function trimContent (content) {
 }
 
 function isHR (el) {
-  return (el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR')
+  return (el.tagName === 'HR' ||
+    el.tagName === 'DIV' && el.firstChild && el.firstChild.tagName === 'HR'
+  )
 }
 
 // Ugh.

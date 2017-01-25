@@ -1,3 +1,5 @@
+/* eslint react/no-find-dom-node: [0] */
+
 import React, {createElement as el} from 'react'
 
 import Menu from 'rebass/dist/Menu'
@@ -18,20 +20,23 @@ class DropdownGroup extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      openMenu: null
+      openMenu: null,
     }
     this.boundCloseMenu = this.closeMenu.bind(this)
     this.nodeRefCallback = (node) => { this.node = node }
+    this.onKeyDown = (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault()
+        event.stopPropagation()
+        this.setState({openMenu: null})
+      }
+    }
   }
   componentDidMount () {
     // Click away to dismiss
-    const el = document.querySelector('.ProseMirror-content')
-    el.addEventListener('focus', this.boundCloseMenu)
     document.body.addEventListener('click', this.boundCloseMenu)
   }
   componentWillUnmount () {
-    const el = document.querySelector('.ProseMirror-content')
-    el.removeEventListener('focus', this.boundCloseMenu)
     document.body.removeEventListener('click', this.boundCloseMenu)
   }
   componentWillReceiveProps (nextProps) {
@@ -64,12 +69,14 @@ class DropdownGroup extends React.Component {
     }
   }
   render () {
-    return el('div'
-    , { className: 'DropdownGroup'
-      , ref: this.nodeRefCallback
-      }
-    , this.renderButtons()
-    , this.renderMenu()
+    return el('div',
+      {
+        className: 'DropdownGroup',
+        ref: this.nodeRefCallback,
+        onKeyDown: this.onKeyDown,
+      },
+      this.renderButtons(),
+      this.renderMenu()
     )
   }
   renderButtons () {
@@ -81,32 +88,31 @@ class DropdownGroup extends React.Component {
       // HACK
       const {name, label} = menus[i].props
       buttons.push(
-        el(ButtonOutline
-        , { key: `button${i}`
-          , onClick: this.makeOpenMenu(i)
-          , theme: (openMenu === i ? 'primary' : theme)
-          , inverted: false
-          , style:
-            { borderWidth: 0
-            , boxShadow: 'none'
-            , outline: 'none'
-            }
-          , rounded: false
-          , title: `Edit ${label}`
-          }
-        , el('span'
-          , { style:
-              { maxWidth: '15rem'
-              , verticalAlign: 'middle'
-              , display: 'inline-block'
-              , whiteSpace: 'pre'
-              , overflow: 'hidden'
-              , textOverflow: 'ellipsis'
-              , textTransform: 'uppercase'
-              }
-            }
-          , (name || label)
-          )
+        el(ButtonOutline, {
+          key: `button${i}`,
+          onClick: this.makeOpenMenu(i),
+          theme: (openMenu === i ? 'primary' : theme),
+          inverted: false,
+          style: {
+            borderWidth: 0,
+            boxShadow: 'none',
+            outline: 'none',
+          },
+          rounded: false,
+          title: `Edit ${label}`,
+        },
+        el('span', {
+          style: {
+            maxWidth: '15rem',
+            verticalAlign: 'middle',
+            display: 'inline-block',
+            whiteSpace: 'pre',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            textTransform: 'uppercase',
+          }},
+          (name || label)
+        )
         )
       )
     }
@@ -118,21 +124,18 @@ class DropdownGroup extends React.Component {
 
     if (openMenu == null) return
 
-    return el('div'
-    , { style:
-        { position: 'relative' }
-      }
-    , el(Menu
-      , { theme
-        , style:
-          { textAlign: 'left'
-          , position: 'absolute'
-          , top: -1
-          , right: -1
-          , zIndex: 100
-          }
-        }
-      , menus[openMenu]
+    return el('div', {style: { position: 'relative' }},
+      el(Menu, {
+        theme,
+        style: {
+          textAlign: 'left',
+          position: 'absolute',
+          top: -1,
+          right: -1,
+          zIndex: 100,
+          marginBottom: '5rem',
+        },
+      }, menus[openMenu]
       )
     )
   }
@@ -157,9 +160,9 @@ class DropdownGroup extends React.Component {
   }
 }
 DropdownGroup.propTypes =
-  { menus: React.PropTypes.array.isRequired
-  , theme: React.PropTypes.string
-  }
+{ menus: React.PropTypes.array.isRequired,
+  theme: React.PropTypes.string,
+}
 DropdownGroup.defaultProps =
   { theme: 'secondary' }
 export default React.createFactory(DropdownGroup)

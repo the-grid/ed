@@ -1,5 +1,24 @@
-.ProseMirror-content > .EdSchemaMedia {
-  margin: 1rem 0;
+.EdSchemaMedia {
   display: block;
+  margin: 1rem 0;
   width: 100%;
+  overflow-x: auto;
+  cursor: default;
+
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari*/
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+
+}
+
+.EdSchemaMedia-placeholder {
+  border: none;
+}
+
+.EdSchemaMedia.ProseMirror-selectednode {
+  cursor: ns-resize;
 }

@@ -6,6 +6,7 @@ import {indexToPos, indexOfId} from '../util/pm'
 
 import DocToGrid from '../convert/doc-to-grid'
 import IframeInfo from '../plugins/iframe-info'
+import EdSchema from '../schema/ed-schema'
 
 function noop () {}
 
@@ -35,9 +36,6 @@ export default class EdStore {
 
     this.onShareFile = options.onShareFile || noop
     this.on('command.menu.file', this.onShareFile)
-
-    // Listen for first render
-    this.on('plugin.widget.initialized', options.onMount || noop)
   }
   routeChange (type, payload) {
     switch (type) {
@@ -50,6 +48,7 @@ export default class EdStore {
         break
       case 'MEDIA_BLOCK_UPDATE_FIELD':
         const mutatedBlock = this._updateFieldByPath(payload)
+        this.trigger('media.update.id', payload.id)
         this.trigger('change')
         return mutatedBlock
       case 'MEDIA_BLOCK_REMOVE':
@@ -101,7 +100,7 @@ export default class EdStore {
     this.editableView = editableView
     this.pm = editableView.pm
 
-    this.pm.focus()
+    this.pm.editor.focus()
   }
   _initializeContent (content) {
     for (let i = 0, len = content.length; i < len; i++) {
@@ -116,7 +115,7 @@ export default class EdStore {
     if (!this.pm) {
       throw new Error('ProseMirror not set up yet')
     }
-    this.pm.execCommand(commandName)
+    this.pm.editor.execCommand(commandName)
   }
   on (eventName, func) {
     let events = this._events[eventName]
@@ -209,20 +208,25 @@ export default class EdStore {
       throw new Error('Can not find this block id')
     }
 
-    const index = indexOfId(this.pm.doc, id)
+    const index = indexOfId(this.pm.editor.state.doc, id)
     if (index === -1) {
       throw new Error('Can not find node with this id')
     }
-    const nodeToRemove = this.pm.doc.child(index)
-    const pos = indexToPos(this.pm.doc, index)
-    this.pm.tr
-      .delete(pos, pos + nodeToRemove.nodeSize)
-      .apply()
+    const nodeToRemove = this.pm.editor.state.doc.child(index)
+    const pos = indexToPos(this.pm.editor.state.doc, index)
+
+    const state = this.pm.editor.state
+    const dispatch = this.pm.editor.dispatch
+
+    dispatch(
+      state.tr
+        .delete(pos, pos + nodeToRemove.nodeSize)
+    )
   }
   _dedupeIds () {
     let ids = []
-    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
-      const node = this.pm.doc.child(i)
+    for (let i = 0, len = this.pm.editor.state.doc.childCount; i < len; i++) {
+      const node = this.pm.editor.state.doc.child(i)
       if (!node.attrs || !node.attrs.id) {
         continue
       }
@@ -240,7 +244,7 @@ export default class EdStore {
   getBlock (id) {
     return this._content[id]
   }
-  _replaceBlock (index, block, initialFocus = false) {
+  _replaceBlock (index, block) {
     if (!this.pm) {
       throw new Error('pm not ready')
     }
@@ -255,7 +259,7 @@ export default class EdStore {
     if (!isMediaType(type)) {
       throw new Error('_replaceBlock with non-media blocks not yet implemented.')
     }
-    const replaceNode = this.pm.doc.maybeChild(index)
+    const replaceNode = this.pm.editor.state.doc.maybeChild(index)
     if (!replaceNode) {
       throw new Error('Node to replace not found.')
     }
@@ -268,33 +272,36 @@ export default class EdStore {
       initialHeight = info.initialHeight
     }
 
-    const node = this.pm.schema.nodes.media.create(
-      { id
-      , type
-      , widget
-      , initialHeight
-      , initialFocus
+    const node = EdSchema.nodes.media.create(
+      { id,
+        type,
+        widget,
+        initialHeight,
+        // initialFocus,
       }
     )
-    const pos = indexToPos(this.pm.doc, index)
-    this.pm.tr
-      // Delete the node to replace
-      .delete(pos, pos + replaceNode.nodeSize)
-      // Insert the block
-      .insert(pos, node)
-      .apply()
+    const pos = indexToPos(this.pm.editor.state.doc, index)
 
-    if (initialFocus) {
-      // Hide tooltip
-      this.pm.content.blur()
-    }
+    const state = this.pm.editor.state
+    const dispatch = this.pm.editor.dispatch
+
+    dispatch(
+      state.tr
+        // Delete the node to replace
+        .delete(pos, pos + replaceNode.nodeSize)
+        // Insert the block
+        .insert(pos, node)
+    )
+
+    // if (initialFocus) {
+    //   // Hide tooltip
+    //   this.pm.content.blur()
+    // }
   }
-  _insertBlocks (index, blocks, initialFocus = false) {
-    if (!this.pm) {
-      throw new Error('pm not ready')
-    }
-
+  _insertBlocks (index, blocks) {
     this._initializeContent(blocks)
+
+    let nodes = []
 
     for (let i = 0, len = blocks.length; i < len; i++) {
       const block = blocks[i]
@@ -308,41 +315,38 @@ export default class EdStore {
       if (!isMediaType(type)) {
         throw new Error('_insertBlocks with non-media blocks not yet implemented.')
       }
-
-      let initialHeight = 72
-      const info = IframeInfo[type]
-      if (info) {
-        initialHeight = info.initialHeight
-      }
-
-      const node = this.pm.schema.nodes.media.create(
-        { id
-        , type
-        , widget
-        , initialHeight
-        , initialFocus
+      const node = EdSchema.nodes.media.create(
+        { id,
+          type,
+          widget,
         }
       )
-      const pos = indexToPos(this.pm.doc, index + i)
-      this.pm.tr.insert(pos, node).apply()
-
-      if (initialFocus) {
-        // Hide tooltip
-        this.pm.content.blur()
-      }
+      nodes.push(node)
     }
+
+    const state = this.pm.editor.state
+    const dispatch = this.pm.editor.dispatch
+    const pos = indexToPos(state.doc, index)
+    dispatch(
+      state.tr.insert(pos, nodes)
+    )
+
+    // if (initialFocus) {
+    //   // Hide tooltip
+    //   this.pm.content.blur()
+    // }
   }
   _addMedia ({index, type, widgetType}) {
     let block =
-      { id: uuid.v4()
-      , type
-      , html: ''
-      , metadata: {}
+      { id: uuid.v4(),
+        type,
+        html: '',
+        metadata: {},
       }
     if (widgetType) {
       block.metadata.widget = widgetType
     }
-    this._insertBlocks(index, [ block ], true)
+    this._insertBlocks(index, [block])
   }
   insertPlaceholders (index, count) {
     let toInsert = []
@@ -353,9 +357,9 @@ export default class EdStore {
       const id = uuid.v4()
       ids.push(id)
       const block =
-        { id
-        , type: 'placeholder'
-        , metadata: {starred}
+        { id,
+          type: 'placeholder',
+          metadata: {starred},
         }
       toInsert.push(block)
     }
@@ -422,45 +426,10 @@ export default class EdStore {
     this.trigger('media.update.id', id)
   }
   _convertToFullPost () {
-    let addTitle = true
-    let addFold = true
-    let endPos = 0
-    for (let i = 0, len = this.pm.doc.childCount; i < len; i++) {
-      const node = this.pm.doc.child(i)
-      if (node.type.name === 'heading' && node.attrs.level === 1) {
-        addTitle = false
-      }
-      if (node.type.name === 'horizontal_rule') {
-        addFold = false
-      }
-      endPos += node.nodeSize
-    }
-    if (addTitle) {
-      const titleNode = this.pm.schema.nodes.heading.create({level: 1})
-      this.pm.tr
-        .insert(0, titleNode)
-        .apply()
-      endPos += titleNode.nodeSize
-    }
-    if (addFold) {
-      const ruleNode = this.pm.schema.nodes.horizontal_rule.create()
-      const pNode = this.pm.schema.nodes.paragraph.create()
-      this.pm.tr
-        .insert(endPos, ruleNode)
-        .insert(endPos + ruleNode.nodeSize, pNode)
-        .apply()
-    }
-
-    // Focus first textblock
-    try {
-      this.pm.checkPos(1, true)
-      this.pm.setTextSelection(1)
-    } catch (error) {}
-    this.pm.focus()
-    this.pm.scrollIntoView()
+    throw new Error('_convertToFullPost not updated to PM 0.17.x')
   }
   getContent () {
-    return DocToGrid(this.pm.doc, this._content)
+    return DocToGrid(this.pm.editor.state.doc, this._content)
   }
   setContent (content) {
     this._applyTransform(content)
@@ -480,7 +449,7 @@ export default class EdStore {
         continue
       }
       if (this._applyTransformCheckBlock(currentBlock, block)) {
-        const index = indexOfId(this.pm.doc, id)
+        const index = indexOfId(this.pm.editor.state.doc, id)
         if (index === -1) {
           continue
         }

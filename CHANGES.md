@@ -1,5 +1,83 @@
 ### dev
 
+# 2.0.0 - 2017-01-25
+
+* Some style tweaks
+* All of these:
+
+#### 2.0.0-11 prerelease - 2017-01-24
+
+* Merge `featureFlags` prop from 1.4.x
+* ed.version (#306)
+* Link input `type="url"` for mobile input keyboard
+* Show attributions in inline view
+* Show block type & link in inline view
+* `hr` padding for easier selection
+
+#### 2.0.0-10 prerelease - 2017-01-21
+
+* Node v7.4.0
+
+#### 2.0.0-9 prerelease - 2017-01-21
+
+* Clarify link placeholder
+* iframe widget name + drag handle
+* Click to select simplification
+* Delete block wording & close modal
+* No text select draggable widgets
+* Enter in text area to close modal and menu
+* Modal style
+* Fix bug where clicking "Edit" would select node and jump away from pointer
+* Default `coverPrefs`
+* Fix blur: prevents delete by backspace from "under" modal
+
+#### 2.0.0-8 prerelease - 2017-01-19
+
+* Merge v1 patch
+* Fix bug that sometimes focused top of doc on clicking block "edit"
+
+#### 2.0.0-7 prerelease - 2017-01-19
+
+* Blur editable on modal open. 
+* Don't allow typing over node selection. Fixes bug that media view can be typed over and deleted after clicking "edit."
+
+#### 2.0.0-6 prerelease - 2017-01-19
+
+* Modal media block meta editing! :tada:
+* Fixed menu hack _only_ on iOS
+
+#### 2.0.0-5 prerelease - 2017-01-10
+
+* Fix gh-pages widget serving (.nojekyll)
+* Fix link menu form position
+* Fix file drops: on both media blocks & text
+
+#### 2.0.0-4 prerelease - 2017-01-10
+
+* ProseMirror 0.17.0
+* URL modal attached to menu
+* URL pre-filled if selected text is link-like (#288)
+
+#### 2.0.0-3 prerelease - 2017-01-05
+
+* bump imgflo-url to ignore `blob:` URLs
+
+#### 2.0.0-2 prerelease - 2017-01-05
+
+* fix `menuBar: false`
+
+#### 2.0.0-1 prerelease - 2017-01-05
+
+* BREAKING -- `mountApp` is async because of a React change, and does not return `ed`
+  * `props.onMount` callback is called with `ed` instance
+
+#### 2.0.0-0 prerelease - 2017-01-02
+
+* ProseMirror 0.16.0 -- big refactor to get up to date
+  * Redo all plugins & everything we have built on PM
+* Widgets are inline: major simplification
+* h1-h3 empty block placeholders
+
 ### 1.4.2 - 2017-01-23
 
 * `featureFlags: {edCta, edEmbed}` to match API

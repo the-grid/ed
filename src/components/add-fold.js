@@ -23,11 +23,11 @@ class AddFold extends React.Component {
     if (hasFold) return null
 
     return el(ButtonOutline
-    , { id: 'AddFold'
-      , style: buttonStyle
-      , onClick: this.boundAddFold
-      , rounded: true
-      }
+    , { id: 'AddFold',
+      style: buttonStyle,
+      onClick: this.boundAddFold,
+      rounded: true,
+    }
     , 'Make Full Post'
     )
   }

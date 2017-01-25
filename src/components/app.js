@@ -6,9 +6,13 @@ import AddCover from './add-cover'
 import AddFold from './add-fold'
 import Editable from './editable'
 import rebassTheme from './rebass-theme'
+import WidgetEdit from './widget-edit'
+import Modal from './modal'
 
 import EdStore from '../store/ed-store'
 import {edCommands} from '../menu/ed-menu'
+
+import {version as PACKAGE_VERSION} from '../../package.json'
 
 
 export default class App extends React.Component {
@@ -32,7 +36,6 @@ export default class App extends React.Component {
     }
 
     const { initialContent
-      , onMount
       , onChange
       , onShareFile
       , onShareUrl
@@ -42,25 +45,43 @@ export default class App extends React.Component {
       , onCommandsChanged } = props
 
     this._store = new EdStore(
-      { initialContent
-      , onMount
-      , onChange
-      , onShareFile
-      , onShareUrl
-      , onRequestCoverUpload
-      , onDropFiles
-      , onDropFileOnBlock
-      , onCommandsChanged
+      { initialContent,
+        onChange,
+        onShareFile,
+        onShareUrl,
+        onRequestCoverUpload,
+        onDropFiles,
+        onDropFileOnBlock,
+        onCommandsChanged,
       }
     )
 
     this.routeChange = this._store.routeChange.bind(this._store)
+
+    this._store.on('media.block.edit.open', (blockID) => {
+      // TODO expose prop for native editors?
+      this.setState({blockToEdit: blockID})
+      this.blur()
+    })
+    this.closeMediaBlockModal = () => {
+      this.setState({blockToEdit: null})
+    }
+    this._store.on('media.block.edit.close', () => {
+      this.closeMediaBlockModal()
+    })
+
+    this.state = {
+      blockToEdit: null,
+    }
   }
   componentDidMount () {
     this.boundOnDragOver = this.onDragOver.bind(this)
     window.addEventListener('dragover', this.boundOnDragOver)
     this.boundOnDrop = this.onDrop.bind(this)
     window.addEventListener('drop', this.boundOnDrop)
+    if (this.props.onMount) {
+      this.props.onMount(this)
+    }
   }
   componentWillUnmount () {
     window.removeEventListener('dragover', this.boundOnDragOver)
@@ -68,19 +89,19 @@ export default class App extends React.Component {
   }
   getChildContext () {
     const {imgfloConfig, featureFlags} = this.props
-    return (
-      { imgfloConfig
-      , featureFlags
-      , rebass: rebassTheme
-      , store: this._store
-      }
-    )
+    return ({
+      imgfloConfig,
+      featureFlags,
+      rebass: rebassTheme,
+      store: this._store,
+    })
   }
   render () {
-    return el('div'
-    , {className: 'Ed'}
-    , this.renderContent()
-    , this.renderHints()
+    return el('div',
+      {className: 'Ed'},
+      this.renderContent(),
+      // this.renderHints(),
+      this.renderModal()
     )
   }
   renderContent () {
@@ -94,31 +115,48 @@ export default class App extends React.Component {
       , coverPrefs } = this.props
 
     return el('div'
-    , { className: 'Ed-Content'
-      , style:
-        { zIndex: 1
-        }
-      }
+    , { className: 'Ed-Content',
+      style:
+      { zIndex: 1,
+      },
+    }
     , el(Editable
-      , { initialContent
-        , menuBar
-        , onChange: this.routeChange
-        , onShareFile
-        , onShareUrl
-        , onCommandsChanged
-        , onDropFiles
-        , widgetPath
-        , coverPrefs
-        }
+      , { initialContent,
+        menuBar,
+        onChange: this.routeChange,
+        onShareFile,
+        onShareUrl,
+        onCommandsChanged,
+        onDropFiles,
+        widgetPath,
+        coverPrefs,
+      }
       )
     )
   }
   renderHints () {
     return el('div'
-    , { className: 'Ed-Hints'
-      }
+    , { className: 'Ed-Hints',
+    }
     , el(AddCover, {})
     , el(AddFold, {})
+    )
+  }
+  renderModal () {
+    const {blockToEdit} = this.state
+    if (!blockToEdit) return
+    const initialBlock = this._store.getBlock(blockToEdit)
+    if (!initialBlock) return
+    const {coverPrefs} = this.props
+
+    return el(Modal,
+      {
+        onClose: this.closeMediaBlockModal,
+        child: el(WidgetEdit, {
+          initialBlock,
+          coverPrefs,
+        }),
+      }
     )
   }
   onDragOver (event) {
@@ -141,7 +179,8 @@ export default class App extends React.Component {
     if (!item) {
       throw new Error('commandName not found')
     }
-    item.spec.run(this._store.pm)
+    const {state, dispatch} = this._store.pm.editor
+    item.spec.run(state, dispatch)
   }
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)
@@ -161,34 +200,42 @@ export default class App extends React.Component {
   indexOfFold () {
     return this._store.indexOfFold()
   }
+  blur () {
+    this.pm.editor.content.blur()
+    window.getSelection().removeAllRanges()
+  }
   get pm () {
     return this._store.pm
   }
+  get version () {
+    return PACKAGE_VERSION
+  }
 }
-App.childContextTypes =
-  { imgfloConfig: React.PropTypes.object
-  , store: React.PropTypes.object
-  , rebass: React.PropTypes.object
-  , featureFlags: React.PropTypes.object
-  }
-App.propTypes =
-  { initialContent: React.PropTypes.array.isRequired
-  , onChange: React.PropTypes.func.isRequired
-  , onShareFile: React.PropTypes.func.isRequired
-  , onShareUrl: React.PropTypes.func.isRequired
-  , onDropFiles: React.PropTypes.func
-  , onCommandsChanged: React.PropTypes.func
-  , onRequestCoverUpload: React.PropTypes.func.isRequired
-  , imgfloConfig: React.PropTypes.object
-  , widgetPath: React.PropTypes.string
-  , coverPrefs: React.PropTypes.object
-  , menuBar: React.PropTypes.bool
-  , onMount: React.PropTypes.func
-  , onDropFileOnBlock: React.PropTypes.func
-  , featureFlags: React.PropTypes.object
-  }
-App.defaultProps =
-  { widgetPath: './node_modules/'
-  , menuBar: true
-  , featureFlags: {}
-  }
+App.childContextTypes = {
+  imgfloConfig: React.PropTypes.object,
+  store: React.PropTypes.object,
+  rebass: React.PropTypes.object,
+  featureFlags: React.PropTypes.object,
+}
+App.propTypes = {
+  initialContent: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  onShareFile: React.PropTypes.func.isRequired,
+  onShareUrl: React.PropTypes.func.isRequired,
+  onDropFiles: React.PropTypes.func,
+  onCommandsChanged: React.PropTypes.func,
+  onRequestCoverUpload: React.PropTypes.func.isRequired,
+  imgfloConfig: React.PropTypes.object,
+  widgetPath: React.PropTypes.string,
+  coverPrefs: React.PropTypes.object,
+  menuBar: React.PropTypes.bool,
+  onMount: React.PropTypes.func,
+  onDropFileOnBlock: React.PropTypes.func,
+  featureFlags: React.PropTypes.object,
+}
+App.defaultProps = {
+  widgetPath: './node_modules/',
+  menuBar: true,
+  coverPrefs: {},
+  featureFlags: {},
+}

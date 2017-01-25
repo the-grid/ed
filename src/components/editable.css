@@ -65,31 +65,22 @@
 
 .ProseMirror-content h1 {
   font-size: 250%;
-  line-height: 1.2 !important;
+  line-height: 1.2;
 }
 
 .ProseMirror-content h2 {
   font-size: 175%;
-  line-height: 1.3 !important;
+  line-height: 1.3;
 }
 
 .ProseMirror-content h3 {
   font-size: 125%;
-  line-height: 1.4 !important;
+  line-height: 1.4;
 }
 
-.ProseMirror-content h1 * {
-  line-height: 1.2 !important;
-}
-.ProseMirror-content h2 * {
-  line-height: 1.3 !important;
-}
-.ProseMirror-content h3 * {
-  line-height: 1.4 !important;
-}
-
-.ProseMirror-content p * {
-  font-size: 20px !important;
+.ProseMirror-content p {
+  font-size: 100%;
+  line-height: 1.5;
 }
 
 .ProseMirror-content p:first-child, .ProseMirror-content h1:first-child, .ProseMirror-content h2:first-child, .ProseMirror-content h3:first-child, .ProseMirror-content h4:first-child, .ProseMirror-content h5:first-child, .ProseMirror-content h6:first-child {
@@ -119,11 +110,21 @@
 }
 
 .ProseMirror-prompt {
-  padding: 1em;
+  background-color: white;
+  border: 1px silver solid;
+
+  position: absolute;
+  padding: 0.5em;
 }
 
-.ProseMirror-prompt input[type='text']{
-  padding: .5em 1em;
+.ProseMirror-prompt input {
+  padding: .5em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.ProseMirror-prompt h5 {
+  margin: 0 0 0.5em 0;
 }
 
 .ProseMirror-prompt .ProseMirror-prompt-close {
@@ -133,6 +134,9 @@
 
 .ProseMirror-content hr {
   border-width: 2px 0 0 0;
+  /* Make it easier to tap */
+  padding-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Placeholder text hacks */
@@ -143,13 +147,25 @@
   content: 'Title';
   opacity: 0.2;
   position: absolute;
-  bottom: 0;
+  top: 0;
+}
+.ProseMirror-content > h2.empty::after {
+  content: 'Section';
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+}
+.ProseMirror-content > h3.empty::after {
+  content: 'Subsection';
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
 }
 .ProseMirror-content > p.empty::after {
   content: '¶';
   opacity: 0.2;
   position: absolute;
-  bottom: 0;
+  top: 0;
 }
 
 

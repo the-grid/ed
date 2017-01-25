@@ -14,8 +14,8 @@ export default function Image (props, context) {
   const {width, height} = props
   if (context && context.imgfloConfig) {
     const params =
-      { input: src
-      , width: getSize(width, height)
+      { input: src,
+        width: getSize(width, height),
       }
     src = imgflo(context.imgfloConfig, 'passthrough', params)
   }
@@ -24,21 +24,18 @@ export default function Image (props, context) {
   )
 }
 Image.contextTypes = {
-  imgfloConfig: React.PropTypes.object
+  imgfloConfig: React.PropTypes.object,
 }
 
 
-// Proxy via imgflo with width multiple of 360
+// Proxy via imgflo with width multiple of 72
 function getSize (width, height) {
-  let size = width || 360
-  if (width && (width >= 360)) {
-    size = 360
+  let size = width || 216
+  if (width && (width >= 216)) {
+    size = 216
   }
-  if (width && (width >= 720)) {
-    size = 720
-  }
-  if (height && height > width && (width >= 360)) {
-    size = 360
+  if (height && height > width && (width >= 144)) {
+    size = 144
   }
   return size
 }

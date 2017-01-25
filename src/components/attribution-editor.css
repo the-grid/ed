@@ -1,3 +1,7 @@
+.AttributionEditor {
+  margin-bottom: -1rem;
+}
+
 .AttributionEditor-title textarea {
   font-size: 24px !important;
   margin-top: 0 !important;
