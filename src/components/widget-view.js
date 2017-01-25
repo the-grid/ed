@@ -85,13 +85,15 @@ class WidgetView extends React.Component {
     }
 
     if (block.metadata && block.metadata.isBasedOnUrl) {
+      // Wrap in link
       typeEl = el('a',
         {
           href: block.metadata.isBasedOnUrl,
           target: '_blank',
           rel: 'noreferrer noopener',
           style: {
-            textDecoration: 'inherit',
+            color: 'gray',
+            textDecoration: 'none',
             textTransform: 'uppercase',
           },
         },

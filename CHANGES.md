@@ -1,5 +1,10 @@
 ### dev
 
+# 2.0.0 - 2017-01-25
+
+* Some style tweaks
+* All of these:
+
 #### 2.0.0-11 prerelease - 2017-01-24
 
 * Merge `featureFlags` prop from 1.4.x
@@ -7,6 +12,7 @@
 * Link input `type="url"` for mobile input keyboard
 * Show attributions in inline view
 * Show block type & link in inline view
+* `hr` padding for easier selection
 
 #### 2.0.0-10 prerelease - 2017-01-21
 
