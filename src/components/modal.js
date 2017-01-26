@@ -1,3 +1,5 @@
+require('./modal.css')
+
 import React, {createElement as el} from 'react'
 
 import ButtonOutline from 'rebass/dist/ButtonOutline'
@@ -39,7 +41,7 @@ class Modal extends React.Component {
             padding: '1rem',
             backgroundColor: 'white',
             maxWidth: 720,
-            margin: '1rem auto 4rem',
+            margin: '0 auto',
             border: '1px solid silver',
             borderRadius: 2,
           },

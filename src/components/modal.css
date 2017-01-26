@@ -1,0 +1,9 @@
+.Modal-bg {
+  padding: 0;
+}
+
+@media screen and (min-width: 432px) {
+  .Modal-bg {
+    padding: 1rem;
+  }
+}

@@ -5,6 +5,7 @@
 * React fix: array child wants key
 * Meta modal autoFocus (also blurs PM editable, so you don't type under the meta modal)
 * Click to select node (not onMouseDown / onTouchStart)
+* Responsive modal padding
 
 # 2.0.0 - 2017-01-25
 
