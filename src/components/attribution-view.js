@@ -26,7 +26,7 @@ class AttributionView extends React.Component {
       author.map(this.renderAuthor),
     )
   }
-  renderAuthor (author) {
+  renderAuthor (author, i) {
     const {name, avatar} = author
     const {imgfloConfig} = this.context
     let avatarEl
@@ -47,7 +47,7 @@ class AttributionView extends React.Component {
         }
       )
     }
-    return el('span', {},
+    return el('span', {key: `author${i}`},
       avatarEl,
       ' ',
       (name || 'Credit')
