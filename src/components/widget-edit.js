@@ -1,5 +1,4 @@
 import React, {createElement as el} from 'react'
-import {findDOMNode} from 'react-dom'
 
 import AttributionEditor from './attribution-editor'
 import WidgetUnsupported from './widget-unsupported'
@@ -17,9 +16,15 @@ const COMPONENTS = {
 
 
 class WidgetEdit extends React.Component {
+  constructor (props) {
+    super(props)
+    this.refCallback = (node) => {
+      this.node = node
+    }
+  }
   componentDidMount () {
     // autoFocus first textarea
-    const textarea = findDOMNode(this).querySelector('textarea')
+    const textarea = this.node.querySelector('textarea')
     if (textarea) {
       textarea.focus()
     }
@@ -28,12 +33,15 @@ class WidgetEdit extends React.Component {
     const {initialBlock, coverPrefs} = this.props
     const {id, type} = initialBlock
     const Component = COMPONENTS[type] || COMPONENTS.unsupported
-    return el(Component,
-      {
-        initialBlock,
-        coverPrefs,
-        id,
-      }
+    return el('div',
+      {ref: this.refCallback},
+      el(Component,
+        {
+          initialBlock,
+          coverPrefs,
+          id,
+        }
+      )
     )
   }
 }
