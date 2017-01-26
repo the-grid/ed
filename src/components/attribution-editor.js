@@ -2,6 +2,7 @@
 require('./attribution-editor.css')
 
 import React, {createElement as el} from 'react'
+import {findDOMNode} from 'react-dom'
 
 import Progress from 'rebass/dist/Progress'
 import Message from 'rebass/dist/Message'
@@ -39,6 +40,13 @@ class AttributionEditor extends React.Component {
     this.boundOnCoverRemove = this.onCoverRemove.bind(this)
     this.boundHideDropIndicator = this.hideDropIndicator.bind(this)
     this.hideDropIndicatorTimeout = null
+  }
+  componentDidMount () {
+    // autoFocus first textarea
+    const textarea = findDOMNode(this).querySelector('textarea')
+    if (textarea) {
+      textarea.focus()
+    }
   }
   componentWillReceiveProps (props) {
     this.setState({block: props.initialBlock})
