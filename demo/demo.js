@@ -232,7 +232,7 @@ let simulateUpdates = function () {
   timeout = setTimeout(simulateUpdates, 1000)
 
   let content = ed.getContent()
-  // content[4].metadata.caption = Date.now() + ''
+  // console.log(content[6].url)
   ed.setContent(content)
 }
 let toggleUpdates = function () {
