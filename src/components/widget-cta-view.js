@@ -31,13 +31,13 @@ class WidgetCtaView extends React.Component {
           },
           title: url,
           big: true,
-          onClick: this.props.triggerEdit,
+          onClick: this.props.onClickEdit,
         },
         label || 'label',
       ),
       el(ButtonOutline,
         {
-          onClick: this.props.triggerEdit,
+          onClick: this.props.onClickEdit,
         },
         'Edit'
       )
@@ -47,7 +47,7 @@ class WidgetCtaView extends React.Component {
 WidgetCtaView.propTypes =
 { initialBlock: React.PropTypes.object.isRequired,
   id: React.PropTypes.string.isRequired,
-  triggerEdit: React.PropTypes.func,
+  onClickEdit: React.PropTypes.func,
 }
 WidgetCtaView.contextTypes =
   { store: React.PropTypes.object }

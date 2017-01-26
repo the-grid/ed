@@ -50,7 +50,7 @@ class Widget extends React.Component {
     store.on('media.update.id', this.boundUpdateBlock)
     store.on('media.update', this.boundUpdateBlockAll)
 
-    this.triggerEdit = () => {
+    this.onClickEdit = () => {
       store.trigger('media.block.edit.open', id)
     }
   }
@@ -74,15 +74,14 @@ class Widget extends React.Component {
     const Component = getComponent(initialBlock)
     return el('div',
       {
-        onMouseDown: nodeView.select,
-        onTouchStart: nodeView.select,
+        onClick: nodeView.select,
       },
       el(Component, {
         initialBlock,
         id,
         coverPrefs,
         widget,
-        triggerEdit: this.triggerEdit,
+        onClickEdit: this.onClickEdit,
       })
     )
   }
