@@ -150,9 +150,7 @@ class TextareaAutosize extends React.Component {
       valid = validator(value)
     }
     this.setState({value, valid})
-    if (valid && onChange) {
-      onChange(event)
-    }
+    onChange(event)
     this.boundResize()
   }
 }
@@ -164,7 +162,7 @@ TextareaAutosize.propTypes = {
   placeholder: React.PropTypes.string,
   inputMode: React.PropTypes.string,
   autoCapitalize: React.PropTypes.string,
-  onChange: React.PropTypes.func,
+  onChange: React.PropTypes.func.isRequired,
   onKeyDown: React.PropTypes.func,
   multiline: React.PropTypes.bool,
   validator: React.PropTypes.func,

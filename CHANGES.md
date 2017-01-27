@@ -1,6 +1,10 @@
 ### dev
 
-# 2.0.1 - 2017-01-26
+## 2.1.0 - 2017-01-27
+
+* Save-as-you-type, even non-valid URLs, to avoid inconsistent state bug
+
+### 2.0.1 - 2017-01-26
 
 * React fix: array child wants key
 * Meta modal autoFocus (also blurs PM editable, so you don't type under the meta modal)
