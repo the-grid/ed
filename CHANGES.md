@@ -3,6 +3,8 @@
 ## 2.1.0 - 2017-01-27
 
 * Save-as-you-type, even non-valid URLs, to avoid inconsistent state bug
+* New callback prop for native menus: `onRequestLink` #314
+  * Extending `ed.execCommand('link:toggle', {href, title})` (title optional) to make `<a>` with current selection
 
 ### 2.0.1 - 2017-01-26
 

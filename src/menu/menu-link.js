@@ -4,6 +4,7 @@ import {toggleMark} from 'prosemirror-commands'
 import EdSchema from '../schema/ed-schema'
 import {TextField, openMenuPrompt} from './menu-prompt'
 import {isUrlLike} from '../util/url'
+import {key} from '../plugins/store-ref'
 
 const markType = EdSchema.marks.link
 
@@ -29,6 +30,20 @@ function makeToggleLink (toggleLink) {
 
       const {from, to} = state.selection
       const selectedText = state.doc.textBetween(from, to)
+      const urlLike = isUrlLike(selectedText)
+      const value = (urlLike ? selectedText : '')
+      const callback = function (attrs) {
+        toggleMark(markType, attrs)(view.state, view.dispatch)
+        view.focus()
+      }
+
+      const {ed} = key.get(state).options.edStuff
+      if (ed.onRequestLink) {
+        // HACK consider onRequestLink with callback instead
+        ed._applyLink = callback
+        ed.onRequestLink(value)
+        return true
+      }
 
       openMenuPrompt({
         title: 'Create a link',
@@ -38,22 +53,19 @@ function makeToggleLink (toggleLink) {
             placeholder: 'Starts with http',
             type: 'url',
             required: true,
+            value,
             clean: (val) => {
               if (!/^https?:\/\//i.test(val)) {
                 val = 'http://' + val
               }
               return val
             },
-            value: (isUrlLike(selectedText) ? selectedText : ''),
           }),
           title: new TextField({
             label: 'Hover Title',
           }),
         },
-        callback (attrs) {
-          toggleMark(markType, attrs)(view.state, view.dispatch)
-          view.focus()
-        },
+        callback,
         menuEl,
         buttonEl,
       })

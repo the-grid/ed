@@ -31,6 +31,7 @@ export default class EdStore {
     this.onPlaceholderCancel = options.onPlaceholderCancel || noop
     this.onCommandsChanged = options.onCommandsChanged
     this.onRequestCoverUpload = options.onRequestCoverUpload
+    this.onRequestLink = options.onRequestLink
     options.onDropFiles = options.onDropFiles || noop
     this.onDropFileOnBlock = options.onDropFileOnBlock || noop
 

@@ -591,7 +591,7 @@ let post = {
     {
       'id': 'abc-00000000-p',
       'type': 'text',
-      'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> Plain.</p>`,
+      'html': `<p>${getHappyLittlePhrase()}<br><strong>Strong.</strong> <em>Em.</em> <strong><em>Both.</em></strong> <a href="http://meemoo.org" title="Web-based media hacking for kids and other artists">Link</a>. Plain.</p>`,
       'metadata': {'starred': true},
     },
     {

@@ -35,14 +35,17 @@ export default class App extends React.Component {
       throw new Error('Missing props.onRequestCoverUpload')
     }
 
-    const { initialContent
-      , onChange
-      , onShareFile
-      , onShareUrl
-      , onRequestCoverUpload
-      , onDropFiles
-      , onDropFileOnBlock
-      , onCommandsChanged } = props
+    const {
+      initialContent,
+      onChange,
+      onShareFile,
+      onShareUrl,
+      onRequestCoverUpload,
+      onRequestLink,
+      onDropFiles,
+      onDropFileOnBlock,
+      onCommandsChanged,
+    } = props
 
     this._store = new EdStore(
       { initialContent,
@@ -50,6 +53,7 @@ export default class App extends React.Component {
         onShareFile,
         onShareUrl,
         onRequestCoverUpload,
+        onRequestLink,
         onDropFiles,
         onDropFileOnBlock,
         onCommandsChanged,
@@ -174,13 +178,22 @@ export default class App extends React.Component {
   setContent (content) {
     this._store.setContent(content)
   }
-  execCommand (commandName) {
+  execCommand (commandName, attrs) {
     const item = edCommands[commandName]
     if (!item) {
       throw new Error('commandName not found')
     }
-    const {state, dispatch} = this._store.pm.editor
-    item.spec.run(state, dispatch)
+    // HACK consider onRequestLink with callback instead
+    if (commandName === 'link:toggle' && attrs) {
+      if (this._store._applyLink) {
+        this._store._applyLink(attrs)
+        return
+      } else {
+        throw new Error('Must trigger link:toggle once before triggering it with attrs.')
+      }
+    }
+    const view = this._store.pm.editor
+    item.spec.run(view.state, view.dispatch, view)
   }
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)
@@ -225,6 +238,7 @@ App.propTypes = {
   onDropFiles: React.PropTypes.func,
   onCommandsChanged: React.PropTypes.func,
   onRequestCoverUpload: React.PropTypes.func.isRequired,
+  onRequestLink: React.PropTypes.func,
   imgfloConfig: React.PropTypes.object,
   widgetPath: React.PropTypes.string,
   coverPrefs: React.PropTypes.object,

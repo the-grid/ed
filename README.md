@@ -83,6 +83,15 @@ available to use like this:
       /* App should cancel the share or upload */
     },
     // OPTIONAL
+    onRequestLink: function (value) {
+      /*
+        If defined, Ed will _not_ show prompt for link
+        If selection is url-like, value will be the selected string
+        App can then call `ed.execCommand('link:toggle', {href, title})`
+          Note: If that is called while command 'link:toggle' is 'active', it will remove the link, not replace it
+      */
+    },
+    // OPTIONAL
     onDropFiles: function (index, files) {
       /* App calls ed.insertPlaceholders(index, files.length) and gets array of ids back */
       /* App uploads files and sets status on placeholder blocks with ed.updateProgress */

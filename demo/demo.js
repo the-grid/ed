@@ -38,6 +38,9 @@ function setup (options) {
       },
       onDropFiles: onDropFilesDemo,
       onDropFileOnBlock: onDropFileOnBlockDemo,
+      // onRequestLink: function (value) {
+      //   console.log('onRequestLink', value)
+      // },
       imgfloConfig: null,
       widgetPath: './node_modules/',
       coverPrefs: { filter: false },
