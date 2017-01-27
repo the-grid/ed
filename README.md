@@ -137,6 +137,7 @@ available to use like this:
   
   // Update placeholder metadata
   // {status (string), progress (number 0-100), failed (boolean)}
+  // metadata argument with {progress: null} will remove the progress bar
   ed.updateProgress(id, metadata)
   
   // Once block cover upload completes
