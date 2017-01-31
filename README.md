@@ -170,6 +170,8 @@ Values will be one of these strings: `inactive`, `active`, `disabled`, `flagged`
 
 Apps can apply formatting / editing commands with `ed.execCommand(commandName)`
 
+Special case: `ed.execCommand('link:toggle', {href, title})` (title optional) to set link of current selection.
+
 Supported `commandName` keys:
 
 ```

@@ -16,31 +16,33 @@ function markActive (state, type) {
 
 function makeToggleLink (toggleLink) {
   const spec = xtend(toggleLink.spec, {
-    run: function (state, dispatch, view) {
+    run: function (state, dispatch, view, attrs) {
       // HAHAHACK
       const menuEl = view.content.parentNode.querySelector('.ProseMirror-menubar')
       if (!menuEl) return false
       const buttonEl = menuEl.querySelector('[title="Add or remove link"]')
       if (!buttonEl) return false
 
+      // Toggle link off
       if (markActive(state, markType)) {
         toggleMark(markType)(state, dispatch)
         return true
       }
 
+      // Toggle link on
+      if (attrs) {
+        toggleMark(markType, attrs)(state, dispatch)
+        return true
+      }
+
+      // Prompt for link
       const {from, to} = state.selection
       const selectedText = state.doc.textBetween(from, to)
       const urlLike = isUrlLike(selectedText)
       const value = (urlLike ? selectedText : '')
-      const callback = function (attrs) {
-        toggleMark(markType, attrs)(view.state, view.dispatch)
-        view.focus()
-      }
 
       const {ed} = key.get(state).options.edStuff
       if (ed.onRequestLink) {
-        // HACK consider onRequestLink with callback instead
-        ed._applyLink = callback
         ed.onRequestLink(value)
         return true
       }
@@ -65,7 +67,10 @@ function makeToggleLink (toggleLink) {
             label: 'Hover Title',
           }),
         },
-        callback,
+        callback: function (attrs) {
+          toggleMark(markType, attrs)(state, dispatch)
+          view.focus()
+        },
         menuEl,
         buttonEl,
       })

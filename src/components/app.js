@@ -183,17 +183,8 @@ export default class App extends React.Component {
     if (!item) {
       throw new Error('commandName not found')
     }
-    // HACK consider onRequestLink with callback instead
-    if (commandName === 'link:toggle' && attrs) {
-      if (this._store._applyLink) {
-        this._store._applyLink(attrs)
-        return
-      } else {
-        throw new Error('Must trigger link:toggle once before triggering it with attrs.')
-      }
-    }
-    const view = this._store.pm.editor
-    item.spec.run(view.state, view.dispatch, view)
+    const view = this.pm.editor
+    item.spec.run(view.state, view.dispatch, view, attrs)
   }
   insertPlaceholders (index, count) {
     return this._store.insertPlaceholders(index, count)

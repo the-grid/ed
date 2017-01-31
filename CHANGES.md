@@ -1,5 +1,9 @@
 ### dev
 
+### 2.1.1 - 2017-01-31
+
+* Clean up link dance internals (#314)
+
 ## 2.1.0 - 2017-01-27
 
 * Save-as-you-type, even non-valid URLs, to avoid inconsistent state bug
