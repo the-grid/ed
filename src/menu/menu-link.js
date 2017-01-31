@@ -17,12 +17,6 @@ function markActive (state, type) {
 function makeToggleLink (toggleLink) {
   const spec = xtend(toggleLink.spec, {
     run: function (state, dispatch, view, attrs) {
-      // HAHAHACK
-      const menuEl = view.content.parentNode.querySelector('.ProseMirror-menubar')
-      if (!menuEl) return false
-      const buttonEl = menuEl.querySelector('[title="Add or remove link"]')
-      if (!buttonEl) return false
-
       // Toggle link off
       if (markActive(state, markType)) {
         toggleMark(markType)(state, dispatch)
@@ -46,6 +40,12 @@ function makeToggleLink (toggleLink) {
         ed.onRequestLink(value)
         return true
       }
+
+      // HAHAHACK
+      const menuEl = view.content.parentNode.querySelector('.ProseMirror-menubar')
+      if (!menuEl) return false
+      const buttonEl = menuEl.querySelector('[title="Add or remove link"]')
+      if (!buttonEl) return false
 
       openMenuPrompt({
         title: 'Create a link',

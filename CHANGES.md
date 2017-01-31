@@ -1,5 +1,9 @@
 ### dev
 
+### 2.1.2 - 2017-01-31
+
+* Fix `ed.execCommand('link:toggle')` ⇢ `onRequestLink` callback.
+
 ### 2.1.1 - 2017-01-31
 
 * Clean up link dance internals (#314)
