@@ -15,7 +15,7 @@ import CreditEditor from './credit-editor'
 import ImageEditor from './image-editor'
 import CreditAdd from './credit-add'
 import TextareaAutosize from './textarea-autosize'
-import {Play as PlayIcon} from './icons'
+import Icon from './icons'
 
 import blockMetaSchema from '../schema/block-meta'
 import {isDragFileEvent, isDropFileEvent} from '../util/drop'
@@ -201,24 +201,31 @@ class AttributionEditor extends React.Component {
     const {type} = block
     if (['interactive', 'video', 'audio'].indexOf(type) < 0) return
 
-    return el('div'
-    , { style:
-    { textAlign: 'right',
-      position: 'relative',
-      top: '-0.5rem',
-    },
-    }
-    , el('a'
-      , { href: block.metadata.isBasedOnUrl,
-        target: '_blank',
-        rel: 'noreferrer noopener',
-        style:
-        { textDecoration: 'inherit',
-          textTransform: 'uppercase',
+    return el('div',
+      {
+        style: {
+          margin: '-1rem 0 1rem 0',
         },
-      }
-        , type + ' '
-        , el(PlayIcon)
+      },
+      el('a',
+        {
+          href: block.metadata.isBasedOnUrl,
+          target: '_blank',
+          rel: 'noreferrer noopener',
+          style:
+            {
+              textDecoration: 'inherit',
+              textTransform: 'uppercase',
+            },
+        },
+        el('span', {
+          style: {
+            textTransform: 'uppercase',
+            marginRight: '0.5rem',
+            verticalAlign: 'middle',
+          },
+        }, type),
+        el(Icon, {icon: 'play'})
       )
     )
   }
