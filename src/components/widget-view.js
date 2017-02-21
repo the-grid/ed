@@ -57,14 +57,17 @@ class WidgetView extends React.Component {
     const {type} = block
 
     let typeEl = el('span',
-      { style: {
-        color: 'silver',
-        textTransform: 'uppercase',
-        marginRight: '0.5rem',
-        verticalAlign: 'middle',
+      {
+        style: {
+          color: 'silver',
+          textTransform: 'uppercase',
+          marginRight: '0.5rem',
+          verticalAlign: 'middle',
+        },
+        spellcheck: 'no',
       },
-      spellcheck: 'no',
-      }, type)
+      type
+    )
     let iconEl
     switch (type) {
       case 'interactive':

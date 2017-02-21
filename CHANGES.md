@@ -1,5 +1,9 @@
 ### dev
 
+### 2.1.3 - 2017-02-21
+
+* Fix bug that prevented video block meta editor from opening #318
+
 ### 2.1.2 - 2017-01-31
 
 * Fix `ed.execCommand('link:toggle')` ⇢ `onRequestLink` callback.

@@ -212,11 +212,10 @@ class AttributionEditor extends React.Component {
           href: block.metadata.isBasedOnUrl,
           target: '_blank',
           rel: 'noreferrer noopener',
-          style:
-            {
-              textDecoration: 'inherit',
-              textTransform: 'uppercase',
-            },
+          style: {
+            textDecoration: 'inherit',
+            textTransform: 'uppercase',
+          },
         },
         el('span', {
           style: {
