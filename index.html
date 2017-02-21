@@ -1,0 +1,73 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8"/>
+  <title>the-grid/ed demo page</title>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />-->
+  <style>
+    body {
+      margin: 0;
+      height: 100%;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<div id="debug">
+  <div id="debug-buttons">
+    <button id="sim" class="w100 mb1">Simulate changes from API ▶</button>
+    <button id="dehydrate" class="w100 mb1">← Editor to Grid API</button>
+    <button id="hydrate" class="w100 mb1">→ Grid API to Editor</button>
+    <button id="upload" class="w100 mb1">Trigger file picker</button>
+    <button id="fixture" class="w100 mb1">Load fixture</button>
+    <button id="fuzz" class="w100 mb1">🙈🙉🙊 fuzz test</button>
+    <p><a href="https://github.com/the-grid/ed">source</a></p>
+  </div>
+  <textarea id="debug-api" spellcheck="false"></textarea>
+</div>
+<button id="debug-toggle">debug</button>
+<style>
+  #debug {
+    display: none;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    max-height: 50vh;
+    background: rgba(255, 255, 255, 0.8);
+    border-top: 1px gray solid;
+  }
+  #debug-buttons {
+    margin-left: calc(75% + 10px);
+  }
+  #debug-api {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 75%;
+    font-size: 0.6em;
+    border: 1px solid silver;
+    padding: 0;
+  }
+  #debug-toggle {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  .w100 {
+    width: 100%;
+  }
+  .mb1 {
+    margin-bottom: 0.5em;
+  }
+</style>
+
+<!-- Ususally loaded from memory (npm start), but (npm run builddemo) copies for gh-pages -->
+<script src="./webpack/demo.js"></script>
+</body>
+</html>

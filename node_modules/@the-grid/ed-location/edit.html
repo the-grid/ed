@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>ed-location</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
+  <style>
+    body { margin:0; padding:0; }
+    #map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+    .leaflet-control-mapbox-geocoder {
+      display: none;
+    }
+    .leaflet-control-mapbox-geocoder,
+    .ed-address-control {
+      position: absolute;
+      top: 0;
+      left: 40px;
+    }
+    .ed-address-control {
+      border: 1px solid #999;
+      background-color: white;
+      min-width: 10rem;
+      max-width: 80rem;
+      min-height: 1.5rem;
+      padding: 0 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div id='map'></div>
+  <script src='./ed-location.js'></script>
+</body>
+</html>
